@@ -1,0 +1,63 @@
+outputDir      /your/favourite/directory
+createSubdir 0
+#newParameterFile parameters-1.txt
+newParameterReadInterval 72002
+stopTime 7201
+measurementInterval 1200
+#random_seed 32839020
+geometry grid 100 100 20 this needs three numbers; sometimes only two are used (x,y)
+forbiddenZones 1
+vPlus   0.08
+vMin    -0.16
+vTM     0.01
+kCat    0.008  
+kRes    0.007
+kSev    0.0
+kCross	0.0
+treadmilling    1
+severing 0
+crossSevering 0
+kNuc    0.001   value per um^2
+zippering    1
+ind_cat 1
+catastropheMultiplier 1
+interactionType zipFirst
+bundleType simple
+induced_cat_fraction        0.5
+Gscaling  					1
+proportionalCatastrophes        0       
+magic_angle  40
+cat_start_angle         40
+c0Value 0.75
+z0Value 1
+discreteAngleNumber 8 
+nucleationType isotropic
+nucleationHalfIsotropicDensity 0.5
+ellipseSidewaysAngle 35
+ellipseLeftFraction 0.31
+ellipseRightFraction 0.31
+ellipseBackwardFraction 0.07
+ellipseEpsilon 0.89
+ellipseForwardAlongMT 1
+nucleationAlpha 0.
+preSeededType biased
+preSeededAlpha 1.5
+preSeededRate 0.1
+preSeededSeedDensity 0.2
+#
+wallClockLimit 1E+10  double: in seconds - simulation stops after this amount of time
+memoryLimit 450  # in MB
+#
+movieEnabled 1
+movieFrameInterval 1200
+#
+histogramAverageSamples 0    averaging over this number of samples
+#
+loresAngleHistogramBins 0    low res. angle histogram (for segments)
+loresLengthHistogramBins 0    low res. length histogram (for segments)
+loresLifetimeHistogramBins 0
+#
+angleHistogramBins 20    number of angles for regular histogram (each measurement)
+angleHistogramOptical 1    also calculate regular histogram using optical length (each measurement)
+hiresLengthHistogramBins 0    high res. length histogram    (MTs)
+hiresLifetimeHistogramBins 0

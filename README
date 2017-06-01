@@ -1,0 +1,35 @@
+CorticalSim - cortical microtubule simulator
+
+If you use CorticalSim in publications, please include a citation to:
+[for general use] http://dx.doi.org/10.3389/fphy.2014.00019 
+[for microtubule dependent nucleation] http://dx.doi.org/10.1088/1478-3975/8/5/056002
+[for microtubule severing] http://dx.doi.org/10.1073/pnas.1702650114 
+
+This document contains only build instructions; see ‘manual.pdf’ for usage instructions. 
+
+BUILD INSTRUCTIONS
+
+Compilers:
+CorticalSim is coded in C++ and can be compiled using common C++ compilers, including GNU g++, Apple LLVM and Microsoft Visual Studio.
+
+Dependencies:
+CorticalSim makes use of the Boost C++ libraries, which can be downloaded from www.boost.org, or installed as the libboost-dev package on select Linux systems. Only header libraries are used, so compilation of the Boost libraries is not required. 
+
+The compilation requires the BOOST_ROOT environment variable to point to the 
+On Linux systems, this can be achieved using the command:
+	export BOOST_ROOT=“[full path to boost libraries]”
+
+Compilation:
+On Linux and OSX/macOS, g++ compilation is invoked using the ‘make’ command. 
+‘make release’ creates a release version
+‘make debug’ creates a debug version
+‘make clean’ removes build files
+‘make cleanmore’ removes build and output files
+The executable is named corticalSim.release / corticalSim.debug [according to build preference]
+
+On Windows, use Microsoft Visual Studio (tested on VS Community 2015) to open the file VC++\corticalSim.sln. The executable corticalSim.exe is created in the directory VC++\debug or VC++\release, according to the build preference.
+
+Notes:
+The code depends on "old" C++ standards for several elements of std:: namespace. gnu compiler flags contain the correct reference to this. 
+
+

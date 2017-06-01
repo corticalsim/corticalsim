@@ -1,2 +1,0 @@
-# corticalsim
-Cortical microtubule simulator
