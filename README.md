@@ -15,13 +15,6 @@ https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005959
 
 Testing and contributing is very welcome, especially if you can contribute with new algorithms and features.
 
-## build from sorce
-
-    Option 1: Download the package from the Github:https://github.com/HiBandan/modelTissueFlow/archive/refs/heads/main.zip
-
-
-    Option 2: Clone from terminal: git clone https://github.com/HiBandan/modelTissueFlow.git
-
 ## WINDOWS
 
   ### install gcc/g++ 
@@ -50,6 +43,13 @@ Testing and contributing is very welcome, especially if you can contribute with 
   
       copy "Boost" to C:\Program Files 
   
+  ### get the source code
+
+    Option 1: Download the package from the Github:https://github.com/HiBandan/modelTissueFlow/archive/refs/heads/main.zip
+
+
+    Option 2: Clone from terminal: git clone https://github.com/HiBandan/modelTissueFlow.git
+
   ### run 
   
     open -> compile.CB (in code-block)
@@ -88,6 +88,13 @@ Testing and contributing is very welcome, especially if you can contribute with 
   
       copy "Boost" to /usr/local/include
 
+  ### get the source code
+
+    Option 1: Download the package from the Github:https://github.com/HiBandan/modelTissueFlow/archive/refs/heads/main.zip
+
+
+    Option 2: Clone from terminal: git clone https://github.com/HiBandan/modelTissueFlow.git
+    
   ### run 
 
     open -> compile.CB (in code-block)
