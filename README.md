@@ -106,13 +106,11 @@ Testing and contributing is very welcome, especially if you can contribute with 
     settings -> compiler -> search directories (compiler) -> add 
   
         -> /usr/local/include/Eigen
-  
         -> /usr/local/include/Boost 
        
     project -> 
     
       set program’s arguments: ./paramFiles/parameters_ARRAY.txt
-      
       build options -> search directories -> compiler -> add -> cppFiles 
       build options -> search directories -> compiler -> add -> headFiles
   
