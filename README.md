@@ -52,7 +52,6 @@ Testing and contributing is very welcome, especially if you can contribute with 
   
     git clone https://github.com/HiBandan/modelCMT.git
 
- 
   ### install Code::Blocks: 
   https://code-blocks.en.uptodown.com/windows
     
@@ -106,11 +105,18 @@ Testing and contributing is very welcome, especially if you can contribute with 
   
   Option 1: Download the package from the Github: https://github.com/HiBandan/modelCMT/archive/refs/heads/main.zip
 
-
   Option 2: Clone from terminal: 
   
     git clone https://github.com/HiBandan/modelCMT.git
     
+  ### install Code::Blocks: 
+  
+  sudo add-apt-repository ppa:damien-moore/codeblocks-stable
+
+  sudo apt update
+
+  sudo apt install codeblocks codeblocks-contrib
+ 
   ### run 
 
     open (with code-block): modelCMT.cbp
