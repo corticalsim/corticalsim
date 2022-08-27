@@ -54,15 +54,18 @@ Testing and contributing is very welcome, especially if you can contribute with 
 
   ### run 
   
-    open -> compile.CB (in code-block)
+    open (with code-block): modelCMT.cbp
   
     settings -> compiler -> search directories (compiler) -> add 
   
         -> C:\Program Files\Eigen 
-  
         -> C:\Program Files\Boost 
 
-    project -> set program’s arguments: ./paramFiles/parameters_ARRAY.txt
+    project -> 
+    
+      set program’s arguments: ./paramFiles/parameters_ARRAY.txt
+      build options -> search directories -> compiler -> add -> cppFiles 
+      build options -> search directories -> compiler -> add -> headFiles
   
     run -> 
 
@@ -101,7 +104,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
     
   ### run 
 
-    open -> compile.CB (in code-block)
+    open (with code-block): modelCMT.cbp
   
     settings -> compiler -> search directories (compiler) -> add 
   
