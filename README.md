@@ -53,7 +53,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
     git clone https://github.com/HiBandan/modelCMT.git
 
  
-  ### install code-block: 
+  ### install Code::Blocks: 
   https://code-blocks.en.uptodown.com/windows
     
   ### run 
