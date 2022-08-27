@@ -1,5 +1,27 @@
 # modelCMT
 
+![alt text](https://github.com/HiBandan/modelTissueFlow/blob/main/logo/logoModelTissueFlow-2.0.png)
+
+
+This is a program for simulating cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cell 
+
+Application: 
+
+https://www.sciencedirect.com/science/article/pii/S0960982218309242
+
+https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005959
+
+## Note
+
+Testing and contributing is very welcome, especially if you can contribute with new algorithms and features.
+
+## build from sorce
+
+    Option 1: Download the package from the Github:https://github.com/HiBandan/modelTissueFlow/archive/refs/heads/main.zip
+
+
+    Option 2: Clone from terminal: git clone https://github.com/HiBandan/modelTissueFlow.git
+
 ## WINDOWS
 
   ### install gcc/g++ 
@@ -29,7 +51,7 @@
       copy "Boost" to C:\Program Files 
   
   ### run 
-
+  
     open -> compile.CB (in code-block)
   
     settings -> compiler -> search directories (compiler) -> add 
