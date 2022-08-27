@@ -75,7 +75,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
       build options -> search directories -> compiler -> add -> cppFiles 
       build options -> search directories -> compiler -> add -> headFiles
   
-    run -> 
+    run 
 
 ## LINUX
 
@@ -137,4 +137,4 @@ Testing and contributing is very welcome, especially if you can contribute with 
       build options -> search directories -> compiler -> add -> cppFiles 
       build options -> search directories -> compiler -> add -> headFiles
   
-    run -> 
+    run 
