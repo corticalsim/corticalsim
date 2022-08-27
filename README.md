@@ -56,7 +56,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
   
     open (with code-block): modelCMT.cbp
   
-    Project -> modelCMT.cbp -> add files -
+    Projects -> modelCMT.cbp -> add files -
         -> cppFiles (all files except 'inline.cpp')
         -> headFiles (all files)
         -> paramFiles (all files)
@@ -111,7 +111,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
 
     open (with code-block): modelCMT.cbp
     
-    Project -> modelCMT.cbp -> add files -
+    Projects -> modelCMT.cbp -> add files -
       -> cppFiles (all files except 'inline.cpp')
       -> headFiles (all files)
       -> paramFiles (all files)
