@@ -1,0 +1,130 @@
+#########################
+### Input-Output path ###
+#########################
+inputDir 	./inputData/LRP
+outputDir 	./inputData/LRP/outputData
+createSubdir 0
+
+##################################
+### changing parameters on fly ###
+##################################
+newParameterFile ./parameters_FLY.txt
+newParameterReadInterval	 1e+101
+
+#############
+### PPB  ####
+#############
+PPB	0
+PPBformingTime	1e+101
+
+########################
+### severing events ####
+########################
+kSev	0.0
+severing	0
+kCross  0.0
+crossSevering	0
+crossSeveringTop 0
+crossSeveringStartAngle 0
+
+###############
+### speeds ####
+###############
+vPlus	0.08
+vMin	-0.16
+treadmilling	1
+vTM	0.01
+
+#######################################
+### dynamic instability parameters ####
+#######################################
+kCat	0.003
+kRes	0.007
+
+##########################
+### nucleation events ####
+##########################
+nucleationType	isotropic
+kNuc	0.01
+
+#################################
+### using finite tubulin pool ###
+#################################
+restrictedPool 	 1
+poolDensity	10
+
+##################################
+### zip-indCat-Severing events ###
+##################################
+interactionType zipFirst
+ind_cat	        1
+cat_start_angle	40
+induced_cat_fraction	0.5
+proportionalCatastrophes 0
+zippering	1
+magic_angle	40
+zipFraction     1.0
+bundleType	simple
+
+###############################
+### on/off edge-catastrophe ###
+###############################
+edgeCatastropheEnabled 1
+edgeCatastropheSmooth 0
+
+#################################################
+### edge-catastrophe (catastrophe multiplier) ###
+#################################################
+
+###### for standard cube ######
+pCatSpecialEdgeMax 0.40
+pCatRegularEdgeMax 0.26
+
+### for arbitrary shape ###
+edgNumber 9
+edgCat_1 0.0
+edgCat_2 0.0
+edgCat_3 0.0
+edgCat_4 0.0
+edgCat_5 0.0
+edgCat_6 0.0
+edgCat_7 0.0
+edgCat_8 0.0
+edgCat_9 0.0
+
+##############################################
+### face stability(catastrophe multiplier) ###
+##############################################
+faceNumber 5
+faceCat_1 1.0
+faceCat_2 2.0
+faceCat_3 3.0
+faceCat_4 4.0
+faceCat_5 30.0
+
+################################
+### random seed and run time ###
+################################
+random_seed	119909
+stopTime	3000.1
+memoryLimit	4500
+wallClockLimit	6000
+measurementInterval 10
+
+####################
+### movie select ###
+####################
+movieEnabled 1
+movieFrameInterval 50
+
+######################
+### display output ###
+######################
+showMesh 0
+showOutput 1
+
+##############################
+### geometry specification ###
+##############################
+geometryScaleFactor 	 1
+geometry LRP
