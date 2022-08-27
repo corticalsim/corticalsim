@@ -60,9 +60,9 @@ Testing and contributing is very welcome, especially if you can contribute with 
     open (with Code::Blocks): modelCMT.cbp
   
     Projects -> modelCMT.cbp -> add files
-        -> cppFiles (all files except 'inline.cpp')
-        -> headFiles (all files)
-        -> paramFiles (all files)
+        -> modules/cppFiles (all files except 'inline.cpp')
+        -> modules/headFiles (all files)
+        -> modules/paramFiles (all files)
         
     settings -> compiler -> search directories (compiler) -> add 
   
@@ -71,9 +71,9 @@ Testing and contributing is very welcome, especially if you can contribute with 
 
     project -> 
     
-      set program’s arguments: ./paramFiles/parameters_ARRAY.txt
-      build options -> search directories -> compiler -> add -> cppFiles 
-      build options -> search directories -> compiler -> add -> headFiles
+      set program’s arguments: ./modules/paramFiles/parameters_ARRAY.txt
+      build options -> search directories -> compiler -> add -> modules/cppFiles 
+      build options -> search directories -> compiler -> add -> modules/headFiles
   
     run 
 
@@ -122,9 +122,9 @@ Testing and contributing is very welcome, especially if you can contribute with 
     open (with code-block): modelCMT.cbp
     
     Projects -> modelCMT.cbp -> add files
-      -> cppFiles (all files except 'inline.cpp')
-      -> headFiles (all files)
-      -> paramFiles (all files)
+      -> modules/cppFiles (all files except 'inline.cpp')
+      -> modules/headFiles (all files)
+      -> modules/paramFiles (all files)
   
     settings -> compiler -> search directories (compiler) -> add 
   
@@ -133,8 +133,8 @@ Testing and contributing is very welcome, especially if you can contribute with 
        
     project -> 
     
-      set program’s arguments: ./paramFiles/parameters_ARRAY.txt
-      build options -> search directories -> compiler -> add -> cppFiles 
-      build options -> search directories -> compiler -> add -> headFiles
+      set program’s arguments: ./modules/paramFiles/parameters_ARRAY.txt
+      build options -> search directories -> compiler -> add -> modules/cppFiles 
+      build options -> search directories -> compiler -> add -> modules/headFiles
   
     run 
