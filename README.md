@@ -48,7 +48,9 @@ Testing and contributing is very welcome, especially if you can contribute with 
   Option 1: Download the package from the Github: https://github.com/HiBandan/modelCMT/archive/refs/heads/main.zip
 
 
-  Option 2: Clone from terminal: git clone https://github.com/HiBandan/modelCMT.git
+  Option 2: Clone from terminal: 
+  
+    git clone https://github.com/HiBandan/modelCMT.git
 
   ### run 
   
