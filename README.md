@@ -52,6 +52,10 @@ Testing and contributing is very welcome, especially if you can contribute with 
   
     git clone https://github.com/HiBandan/modelCMT.git
 
+ 
+  ### install code-block: 
+  https://code-blocks.en.uptodown.com/windows
+    
   ### run 
   
     open (with code-block): modelCMT.cbp
