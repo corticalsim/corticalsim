@@ -91,11 +91,13 @@ Testing and contributing is very welcome, especially if you can contribute with 
       copy "Boost" to /usr/local/include
 
   ### get the source code
+  
+  Option 1: Download the package from the Github: https://github.com/HiBandan/modelCMT/archive/refs/heads/main.zip
 
-    Option 1: Download the package from the Github:https://github.com/HiBandan/modelTissueFlow/archive/refs/heads/main.zip
 
-
-    Option 2: Clone from terminal: git clone https://github.com/HiBandan/modelTissueFlow.git
+  Option 2: Clone from terminal: 
+  
+    git clone https://github.com/HiBandan/modelCMT.git
     
   ### run 
 
