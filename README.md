@@ -105,6 +105,11 @@ Testing and contributing is very welcome, especially if you can contribute with 
   ### run 
 
     open (with code-block): modelCMT.cbp
+    
+    Project -> modelCMT.cbp -> add files -
+      > cppFiles (all files except 'inline.cpp')
+      > headFiles (all files)
+      > paramFiles (all files)
   
     settings -> compiler -> search directories (compiler) -> add 
   
