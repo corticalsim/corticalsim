@@ -62,7 +62,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
   
         -> C:\Program Files\Boost 
 
-    project -> set program’s arguments: parameters_ARRAY.txt
+    project -> set program’s arguments: ./paramFiles/parameters_ARRAY.txt
   
     run -> 
 
@@ -108,7 +108,12 @@ Testing and contributing is very welcome, especially if you can contribute with 
         -> /usr/local/include/Eigen
   
         -> /usr/local/include/Boost 
-
-    project -> set program’s arguments: parameters_ARRAY.txt
+       
+    project -> 
+    
+      set program’s arguments: ./paramFiles/parameters_ARRAY.txt
+      
+      build options -> search directories -> compiler -> add -> cppFiles 
+      build options -> search directories -> compiler -> add -> headFiles
   
     run -> 
