@@ -1,4 +1,4 @@
-# modelCMT
+# modelCMT (cortical microtubule dynamics)
 
 ![alt text](https://github.com/HiBandan/modelTissueFlow/blob/main/logo/logoModelTissueFlow-2.0.png)
 
