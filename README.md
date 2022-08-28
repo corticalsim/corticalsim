@@ -1,6 +1,6 @@
 # modelCMT (cortical microtubule dynamics)
 
-![alt text](https://github.com/HiBandan/modelCMT/blob/main/modules/logo/logomodelCMT-1.0.png)
+![alt text](https://github.com/HiBandan/modelCMT/blob/main/logo/logomodelCMT-1.0.png)
 
 
 This is a program for simulating cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cell 
