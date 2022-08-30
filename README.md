@@ -74,7 +74,10 @@ Testing and contributing is very welcome, especially if you can contribute with 
       set program’s arguments: ./modules/paramFiles/parameters_ARRAY.txt
       build options -> search directories -> compiler -> add -> modules/cppFiles 
       build options -> search directories -> compiler -> add -> modules/headFiles
-  
+      build options -> linker settings -> add -> boost_system
+      build options -> linker settings -> add -> boost_filesystem
+      build options -> linker settings -> add -> libboost_filesystem
+      
     run 
 
 ## LINUX
