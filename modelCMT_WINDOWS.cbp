@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="modelCMT" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/modelCMT" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="./modules/paramFiles/parameters_ARRAY.txt" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/modelCMT" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="modules/cppFiles" />
+			<Add directory="modules/headFiles" />
+		</Compiler>
+		<Linker>
+			<Add library="boost_system" />
+			<Add library="boost_filesystem" />
+			<Add library="libboost_filesystem" />
+		</Linker>
+		<Unit filename="modules/cppFiles/IO-analysis.cpp" />
+		<Unit filename="modules/cppFiles/eig3.cpp" />
+		<Unit filename="modules/cppFiles/geometry-generic.cpp" />
+		<Unit filename="modules/cppFiles/geometry-special.cpp" />
+		<Unit filename="modules/cppFiles/main.cpp" />
+		<Unit filename="modules/cppFiles/meshImport.cpp" />
+		<Unit filename="modules/cppFiles/microtubule.cpp" />
+		<Unit filename="modules/cppFiles/parameters.cpp" />
+		<Unit filename="modules/cppFiles/queue.cpp" />
+		<Unit filename="modules/cppFiles/system.cpp" />
+		<Unit filename="modules/headFiles/CompactList.h" />
+		<Unit filename="modules/headFiles/DLList.h" />
+		<Unit filename="modules/headFiles/MersenneTwister.h" />
+		<Unit filename="modules/headFiles/corticalSimReal.h" />
+		<Unit filename="modules/headFiles/eig3.h" />
+		<Unit filename="modules/headFiles/meshImport.h" />
+		<Unit filename="modules/paramFiles/parameters_ARRAY.txt" />
+		<Unit filename="modules/paramFiles/parameters_FLY.txt" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
