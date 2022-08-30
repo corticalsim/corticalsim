@@ -57,7 +57,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
     
   ### run 
   
-    open (with Code::Blocks): modelCMT.cbp
+    open (with Code::Blocks): modelCMT_WINDOWS.cbp
   
     Projects -> modelCMT.cbp -> add files
         -> modules/cppFiles (all files except 'inline.cpp')
@@ -122,7 +122,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
  
   ### run 
 
-    open (with code-block): modelCMT.cbp
+    open (with code-block): modelCMT_LINUX.cbp
     
     Projects -> modelCMT.cbp -> add files
       -> modules/cppFiles (all files except 'inline.cpp')
