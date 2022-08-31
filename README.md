@@ -84,8 +84,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
 
   ### install gcc/g++ 
   
-  download Mingw: https://nuwen.net/mingw.html
-  
+       sudo apt update
        sudo apt install build-essential
 
   ### install eigen:
