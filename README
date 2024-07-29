@@ -1,3 +1,5 @@
+README TO VERSION 1.26.1
+
 CorticalSim - cortical microtubule simulator
 
 If you use CorticalSim in publications, please include a citation to:
@@ -32,4 +34,6 @@ On Windows, use Microsoft Visual Studio (tested on VS Community 2015) to open th
 Notes:
 The code depends on "old" C++ standards for several elements of std:: namespace. gnu compiler flags contain the correct reference to this. 
 
-
+Alternative sources:
+This version is also available from https://github.com/corticalsim/corticalsim
+Zenodo DOI: https://doi.org/10.5281/zenodo.801852
