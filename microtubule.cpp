@@ -1,7 +1,3 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -62,7 +58,10 @@ Microtubule::~Microtubule()
 	if ((segments.first()->start - segments.last()->end) > ZERO_CUTOFF)
 	{
 		cerr << "DBG/ASSERT: Microtubule::~Microtubule: endpoints do not coincide/\n";
+    cerr << "DBG/ASSERT: " << segments.first()->start << "\t" <<  segments.last()->end << "\t" << plus.velocity << " ("<< system->p.vMin <<")\t" << minus.velocity << " (" << system->p.vTM << ")\n";
+#ifndef SLEEZY
 		exit(-1);
+	#endif
 	}
 	
 	#endif
@@ -124,6 +123,9 @@ void Microtubule::handleEvent(const EventDescriptor* ei)
 	case ev_disappear:
 		harakiri();
 		break;	
+  case ev_deflection:
+    handleDeflection();
+    break;
 		
 	};
 
@@ -434,11 +436,52 @@ void Microtubule::collision()
 	CollisionType type;
 		Direction dir;
 
-	if (plus.nextCollision->second.mirror->second.occupancy == 0)
-		type = ct_crossover;
+	if (plus.nextCollision->ISREF.mirror->ISREF.occupancy == 0)
+  {
+    if (not system->p.useBundleTracking)
+  		type = ct_crossover;
+    else
+    {
+      // Exclude angles larger than a certain number
+      double angle1 = plus.trajectory->base.angle;
+      double angle2 = plus.nextCollision->ISREF.otherTrajectory->base.angle;
+      double angleDiff = abs(angle1-angle2);
+      while (angleDiff > 0.5*PI) // get the smaller of the two angles between trajectories (assuming not tracking segments with > 90 degrees deflection)
+        angleDiff = abs(PI - angleDiff);
+      if (angleDiff > system->p.bundleTrackMaxAngle)
+        type = ct_crossover;
+      else
+      {
+        // get number of segments that pass and deflect at intersection
+        int numberPassing = plus.trajectory->numberOfSegmentsPassingPoint(plus.position());
+        int numberDeflecting = plus.trajectory->numberOfSegmentsDeflectingAtIntersection(plus.nextCollision, &(plus.segment()));
+        // if not in bundle, just cross
+        if (numberPassing + numberDeflecting == 0)
+          type = ct_crossover;
+        else
+        {
+          // pick random segment from bundle to follow
+          int segToFollow = system->randomGen.randInt(numberPassing + numberDeflecting - 1);
+          // if that segment crosses, cross along with it
+          if (segToFollow >= numberDeflecting)
+            type = ct_crossover;
+          else
+          {
+            // switch trajectory to follow deflecting segment (using zippering; assuming we're not tracking segments with > 90 degrees deflection)
+            type = ct_zipper;
+            double diffAngle = plus.trajectory->base.region->intersectionAngle(plus.trajectory, plus.nextCollision->ISREF.otherTrajectory);
+        		if (diffAngle > 0.5*PI)
+  			      dir = (plus.dir == ::forward) ? backward : ::forward;
+        		else
+  			      dir = plus.dir;
+          }
+        }
+      }
+    }
+  }
 	else
 	{
-		double diffAngle = plus.trajectory->base.region->intersectionAngle(plus.trajectory, plus.nextCollision->second.otherTrajectory);
+		double diffAngle = plus.trajectory->base.region->intersectionAngle(plus.trajectory, plus.nextCollision->ISREF.otherTrajectory);
 	
 		if (diffAngle > 0.5*PI)
 		{
@@ -448,7 +491,7 @@ void Microtubule::collision()
 		else
 			dir = plus.dir;
 	
-		type = system->collisionResult(diffAngle, plus.nextCollision->second.occupancy, plus.nextCollision->second.mirror->second.occupancy);
+		type = system->collisionResult(diffAngle, plus.nextCollision->ISREF.occupancy, plus.nextCollision->ISREF.mirror->ISREF.occupancy);
 	}
 
 	switch(type)
@@ -489,12 +532,12 @@ void Microtubule::zipper(Direction dir)
 	}
 	#endif
 
-	TrajectoryVector tv(plus.nextCollision->second.mirror->first, dir, plus.nextCollision->second.otherTrajectory);
+	TrajectoryVector tv(plus.nextCollision->ISREF.mirror->first, dir, plus.nextCollision->ISREF.otherTrajectory);
 
 	segments.last()->endItr = plus.nextCollision;
 	segments.create(this,tv);
-	segments.last()->startItr = plus.nextCollision->second.mirror;
-	plus.switchTrajectory(plus.nextCollision->second.otherTrajectory, dir, plus.nextCollision->second.mirror);
+	segments.last()->startItr = plus.nextCollision->ISREF.mirror;
+	plus.switchTrajectory(plus.nextCollision->ISREF.otherTrajectory, dir, plus.nextCollision->ISREF.mirror);
 
 	if (segments.size() == 2)
 	{
@@ -503,6 +546,167 @@ void Microtubule::zipper(Direction dir)
 	}
 
 	return;
+}
+
+void Microtubule::handleDeflection()
+{
+  // Determine if deflection is rejected due to bundling
+  double position = plus.position();
+  if (system->p.deflectionBundleCompensation or system->p.deflectionBundleProtection)
+  {
+    int n = plus.trajectory->numberOfSegmentsPassingPoint(position);
+    if (system->p.deflectionBundleProtection and n > 1)
+    {
+      plus.determineEvent();
+      return;
+    }
+    else if (system->p.deflectionBundleCompensation)
+    {
+      double rand = system->randomGen.randDblExc();
+      if (rand > 1./(n+1))
+      {
+        plus.determineEvent();
+        return;
+      }
+    }
+  }
+
+  // Get new angle
+//  double deflectionAngle = system->randomGen.randDblExc(2*(system->p.deflectionMaxAngle)) - system->p.deflectionMaxAngle;                    // Previous implementation, with unbiased direction for MT deflection
+  
+  //double biasDeflectionRight = 0.5;   //this works, but the parameter needs to be put in the parameter list and in parameters.cpp
+  double deflectionAngle;
+  if ( system->randomGen.randDblExc(1) > system->p.biasDeflectionRight )
+  {
+  	deflectionAngle = system->randomGen.randDblExc( system->p.deflectionMaxAngle );
+  }
+  else
+  {
+  	deflectionAngle = -system->randomGen.randDblExc( system->p.deflectionMaxAngle );
+  }
+  
+  if (abs(deflectionAngle) < system->p.deflectionMinAngle)
+    deflectionAngle = 0;
+  if (abs(deflectionAngle) < system->p.deflectionMaxAngle/100)
+  {
+    plus.determineEvent();
+    return; // no need to make a new trajectory of about the same angle; the code really doesn't seem to like that very much
+  }
+  double newAngle = plus.trajectory->base.angle + deflectionAngle;
+  while (newAngle > 2*PI)
+    newAngle -= 2*PI;
+  while (newAngle < 0)
+    newAngle += 2*PI;
+
+  // Make new surfacevector and trajectory
+  SurfaceVector sv;
+  sv = plus.trajectory->base;
+  sv.region->translateVector(sv, position);
+  sv.angle = newAngle;
+//  sv.region->translateVector(sv, ZERO_CUTOFF); // Dit is hoe het voor bound nucleations gedaan werd. Een keer met de oude hoek en nieuwe positie en een keer met de nieuwe hoek en zero-cutoff. Eva denkt dat dit niet nodig is.
+  TrajectoryVector tv = system->geometry->createTrajectory(sv);
+
+
+
+  // Determine direction of plus tip on new trajectory. (Copied from collision function)
+  double diffAngle = plus.trajectory->base.region->intersectionAngle(plus.trajectory, tv.trajectory);
+  Direction dir;
+  if (diffAngle > 0.5*PI)
+    dir = (plus.dir == ::forward) ? backward : ::forward;
+  else
+    dir = plus.dir;
+
+
+  // Find intersection of the old and new trajectories
+  IntersectionItr is;
+  is = segments.last()->startItr; // start at minus end of last segment
+  // loop forward or backward over intersection depending on direction of segment
+  if (segments.last()->dir == ::forward)
+  {
+  	while ((is->ISREF.otherTrajectory != tv.trajectory) and (is != plus.trajectory->intersections.end()))
+	  {
+	  	is++;
+  	}
+  }
+  else
+  {
+    while ((is->ISREF.otherTrajectory != tv.trajectory) and (is != plus.trajectory->intersections.begin()))
+	  {
+	  	is--;
+  	}
+  }
+
+  #ifdef DBG_ASSERT
+  if (is == plus.trajectory->intersections.end())
+  {
+    IntersectionItr isTest;
+   	isTest = ++plus.trajectory->intersections.begin();	//start one past the beginning since the first element is a stub...
+    while ((isTest->ISREF.otherTrajectory != tv.trajectory) and (isTest != plus.trajectory->intersections.end()))
+	  {
+	  	isTest++;    
+	  }
+    cerr << "No intersection with new trajectory for deflection\n";
+    cerr << "Last segment length " << segments.last()->length() << '\n';
+    cerr << "Last segment start " << segments.last()->start << '\n';
+    cerr << "Last segment end " << segments.last()->end << '\n';
+    cerr << "Plus tip pos " << position << '\n';
+    cerr << "Actual intersection pos " << isTest->first << '\n';
+    cerr << "Plus tip dir " << plus.dir << '\n';
+    cerr << "Segment dir " << segments.last()->dir << '\n';
+    exit(5);
+  }
+  if (is->ISREF.otherTrajectory != tv.trajectory)
+  {
+    cerr << "incorrect intersection trajectory at deflection\n";
+    exit(4);
+  }
+  if (is->ISREF.mirror->ISREF.otherTrajectory != plus.trajectory)
+  {
+    cerr << "incorrect intersection trajectory at deflection\n";
+    exit(4);
+  }
+
+  IntersectionItr is2;
+	is2 = ++tv.trajectory->intersections.begin();	//start one past the beginning since the first element is a stub...
+	while ((is2->ISREF.otherTrajectory != plus.trajectory) and (is2 != tv.trajectory->intersections.end()))
+	{
+		is2++;
+	}
+  if (is->ISREF.mirror != is2)
+  {
+    cerr << "intersections found for trajectories involved in deflection do not match\n";
+    exit(4);
+  }
+  #endif
+
+  // make a new trajectory vector in the proper direction
+  TrajectoryVector tv2(is->ISREF.mirror->first, dir, tv.trajectory);
+
+  // Save pointer to current last segment
+  Segment* formerLastSeg = segments.last();
+
+  // Create new segment and move tip to new trajectory. (Based on zipper function)
+  segments.last()->endItr = is;
+	segments.create(this,tv2); // Segment constructor initializes start and end as tv.pos. Use tv2 to get segment in right direction.
+	segments.last()->startItr = is->ISREF.mirror;
+	plus.switchTrajectory(is->ISREF.otherTrajectory, dir, is->ISREF.mirror);
+
+	if (segments.size() == 2)
+	{
+		minus.determineEvent();
+		setDisappearEvent();
+	}
+
+  // Reset occupancy to all segments crossing the deflection point excluding the deflecting MT. 
+  // Use accurate occupancy function for this, not the sloppy one for getting the n at the start of this function!
+  is->ISREF.occupancy = is->ISREF.mirror->ISREF.otherTrajectory->numberOfOtherSegmentsPassingIntersection(is, formerLastSeg);
+  // On the other side of the intersection this shouldn't be necessary
+  //is->ISREF.mirror->ISREF.occupancy = is->ISREF.otherTrajectory->numberOfOtherSegmentsPassingIntersection(is->ISREF.mirror, segments.last());
+
+  // Update deterministic event for plus tip
+  //plus.determineEvent(); // Not necessary; called by switchTrajectory
+  system->totalDeflectionCount++;
+  return;
 }
 
 void Microtubule::endOfSegment(MTTip* tip)
@@ -536,9 +740,9 @@ void Microtubule::endOfSegment(MTTip* tip)
 	}
 
 	#ifdef DBG_ASSERT
-	if (abs(killSeg->end - killSeg->start) > ZERO_CUTOFF)
+	if (abs(killSeg->end - killSeg->start) > 1000*ZERO_CUTOFF)
 	{
-		cout << "DEBUG/ASSERT: ERROR: non-zero segment length on end of segment event\n";
+		cout << "DEBUG/ASSERT: ERROR: non-zero segment length " << abs(killSeg->end - killSeg->start) << " on end of segment event (ZERO_CUTOFF = " << ZERO_CUTOFF << ")\n";
 		exit(-1);
 	}		
 	#endif
@@ -552,7 +756,7 @@ void Microtubule::endOfSegment(MTTip* tip)
 		system->boundaryCrossingCount--;
 	}
 	else
-		tip->switchTrajectory(tip->nextCollision->second.otherTrajectory, newDir, tip->nextCollision->second.mirror);
+		tip->switchTrajectory(tip->nextCollision->ISREF.otherTrajectory, newDir, tip->nextCollision->ISREF.mirror);
 
 	if (segments.size()==1)
 	{
@@ -574,13 +778,18 @@ void Microtubule::backtrack(MTTip* tip)
 	else
 		segments.first()->start = minus.nextEventPos;
 
-	tip->nextCollision->second.occupancy--;
-	if ((tip->nextCollision->second.occupancy == 0) && (tip->nextCollision->second.mirror->second.occupancy > 0))
+	tip->nextCollision->ISREF.occupancy--;
+	if ((tip->nextCollision->ISREF.occupancy == 0) && (tip->nextCollision->ISREF.mirror->ISREF.occupancy > 0))
 	{
-		system->removeOccupiedIntersection(tip->nextCollision->second);
+		system->removeOccupiedIntersection(tip->nextCollision->ISREF);
 	}
 
 	#ifdef DBG_ASSERT
+  if (tip->nextCollision == tip->trajectory->intersections.end())
+  {
+    cerr << "nextCollision does not exist after backtracking\n";
+    exit(3);
+  }
 	if (tip->nextCollision->second.occupancy < 0)
 	{
 		cerr << "DBG/ASSERT: ERROR: negative intersection occupancy after ";
@@ -607,6 +816,7 @@ void Microtubule::backtrack(MTTip* tip)
 		exit(-1);
 	}
 	#endif
+  //cout << "TESTING " << tip->velocity << " " << tip->type() << "\n";
 	tip->advanceIntersection();
 	tip->determineEvent();
 	return;
@@ -623,11 +833,11 @@ void Microtubule::crossover()
 	}
 	#endif
 
-	if ((plus.nextCollision->second.occupancy == 0) && plus.nextCollision->second.mirror->second.occupancy > 0)
+	if ((plus.nextCollision->ISREF.occupancy == 0) && plus.nextCollision->ISREF.mirror->ISREF.occupancy > 0)
 	{
 		system->addOccupiedIntersection(plus.nextCollision);
 	}
-	plus.nextCollision->second.occupancy++;
+	plus.nextCollision->ISREF.occupancy++;
 	plus.advanceIntersection();
 	plus.determineEvent();
 	return;
@@ -675,21 +885,21 @@ bool Microtubule::integrityCheck()
 		
 		if ((seg->endItr != seg->trajectory->wallEnd()) && (seg->endItr != seg->trajectory->wallBegin()))
 		{
-			if (seg->endItr->second.mirror != seg->next()->startItr)
+			if (seg->endItr->ISREF.mirror != seg->next()->startItr)
 			{
 				valid = false;
 				cerr << "reciprocity violated\n";
 			}
-			if (abs(seg->end - seg->endItr->first) > ZERO_CUTOFF)
+			if (abs(seg->end - seg->endItr->first) > 10000*ZERO_CUTOFF)
 			{
 				valid = false;
-				cerr << "Location of segment end does not coincide with intersection position\n";
+				cerr << "Location of segment end does not coincide with intersection position. Difference: " << abs(seg->end - seg->endItr->first) << " ZERO_CUTOFF: " << ZERO_CUTOFF << "\n";
 			}
 			maxDeviation = max(maxDeviation, abs(seg->end - seg->endItr->first));
-			if (abs(seg->next()->start - seg->next()->startItr->first) > ZERO_CUTOFF)
+			if (abs(seg->next()->start - seg->next()->startItr->first) > 10000*ZERO_CUTOFF)
 			{
 				valid = false;
-				cerr << "Location of segment end does not coincide with intersection position\n";
+				cerr << "Location of segment end does not coincide with intersection position. Difference: " << abs(seg->next()->start - seg->next()->startItr->first) << " ZERO_CUTOFF: " << ZERO_CUTOFF  << "\n";
 			}
 			maxDeviation = max(maxDeviation, abs(seg->next()->start - seg->next()->startItr->first));
 		}
@@ -698,7 +908,7 @@ bool Microtubule::integrityCheck()
 			// positions should match with wall
 			if (seg->endItr == seg->trajectory->wallEnd())
 			{
-				if(abs(seg->end - seg->trajectory->length) > ZERO_CUTOFF)
+				if(abs(seg->end - seg->trajectory->length) > 100*ZERO_CUTOFF)
 				{
 					valid = false;
 					cerr << "Segment end location does not coincide with end of trajectory\n";
@@ -717,7 +927,7 @@ bool Microtubule::integrityCheck()
 			
 			if (seg->next()->startItr == seg->next()->trajectory->wallEnd())
 			{
-				if(abs(seg->next()->start - seg->next()->trajectory->length) > ZERO_CUTOFF)
+				if(abs(seg->next()->start - seg->next()->trajectory->length) > 100*ZERO_CUTOFF)
 				{
 					valid = false;
 					cerr << "Segment start location does not coincide with end of trajectory\n";
@@ -882,7 +1092,7 @@ bool Microtubule::integrityCheck()
 	{
 		if (seg->dir == ::forward)
 		{ 
-			if (seg->end - seg->start < -ZERO_CUTOFF)
+			if (seg->end - seg->start < -1000*ZERO_CUTOFF)
 			{
 				cerr << "false directionality in positions. diff=" << seg->end - seg->start << "\n";
 				valid = false;
@@ -897,12 +1107,13 @@ bool Microtubule::integrityCheck()
 			if (is != seg->endItr)
 			{
 				cerr << "false directionality in intersection iterators\n";
+   			cerr << "Number of segments in MT: " << segments.size() << "\n";
 				valid = false;
 			}
 		}
 		else
 		{
-			if (seg->end - seg->start > ZERO_CUTOFF)
+			if (seg->end - seg->start > 1000*ZERO_CUTOFF)
 			{
 				cerr << "false directionality in positions. diff=" << seg->end - seg->start << "\n";
 				valid = false;
@@ -917,6 +1128,7 @@ bool Microtubule::integrityCheck()
 			if (is != seg->endItr)
 			{
 				cerr << "false directionality in intersection iterators\n";
+  			cerr << "Number of segments in MT: " << segments.size() << "\n";
 				valid = false;
 			}
 		}		
@@ -983,7 +1195,7 @@ bool Segment::crossesIntersection(IntersectionItr& is)
 {
 	double temp;
 
-	temp = (is->first - end) * (is->first - start);
+	temp = (is->first - end) * (is->first - start);                      // start/end are double, stand for position (?) of minus/plus end
 	if (temp < -ZERO_CUTOFF)
 		return true;
 	else if (temp < ZERO_CUTOFF)
@@ -998,6 +1210,47 @@ bool Segment::crossesIntersection(IntersectionItr& is)
 
 
 }
+
+bool Segment::crossesPoint(double position)
+{
+	double temp;
+
+	temp = (position - end) * (position - start);
+	if (temp < -ZERO_CUTOFF)
+		return true;
+  else
+  	return false;
+}
+
+bool Segment::deflectsAtIntersection(IntersectionItr& is, Direction refdir)
+{
+//  double position = is->first;
+
+// not sure if checking this first is slower or faster?
+/*  double temp = (position - end) * (position - start);
+  if (abs(temp) > ZERO_CUTOFF)
+    return false;*/
+
+  if (dir == refdir)
+  {
+    // facing same way; test if start is before intersection, end is at intersection, and MT continues after intersection
+    if ((endItr == is) and (not isLastInMT()))// and (refdir*(position - start) > ZERO_CUTOFF))
+      return true;
+    else
+      return false;
+  }
+  else
+  {
+    // facing opposite ways; test if end is before intersection, start is at intersection, and MT continues after intersection
+    if ((startItr == is) and (not isFirstInMT()))// and (refdir*(position - end) > ZERO_CUTOFF))
+      return true;
+    else
+      return false;
+  }
+
+}
+
+
 /*************************** MT tip functions ******************************/
 
 
@@ -1136,6 +1389,18 @@ void MTTip::determineEvent()
 			eventType = ev_collision;
 			eventPos = nextCollision->first;
 		}
+    if (mt->system->p.useMTdeflection)
+    {
+      double deflectionStepsize = -log(mt->system->randomGen.randDblExc()) * (mt->system->p.deflectionStepsize); // Random drawing from exponential distribution with mean stepsize
+      if (deflectionStepsize < ZERO_CUTOFF)
+        deflectionStepsize = ZERO_CUTOFF; // Ensure event is placed in the future
+      double eventDistance = (eventPos-pos)*dir;
+      if (eventDistance > deflectionStepsize)
+      {
+        eventType = ev_deflection;
+        eventPos = deflectionStepsize*dir+pos;
+      }
+    }
 	}
 	else // (velocity<=0), i.e. a tip that's 'eating' tubulin
 	{

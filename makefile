@@ -44,7 +44,7 @@ HDIR=.
 LDIR=.
 
 # list of include directories, separated by white space
-IDIRS=. $(BOOST_ROOT)
+IDIRS=. $(BOOST_ROOT) ./libs
 
 
 ################# User: build configuration ##############
@@ -59,9 +59,12 @@ FLAG_NAME = makeConfigurationFlag
 ############## User: compiler names and options for each build configuration ##########
 # NOTE: the CC field can be left empty and absorbed in the _CFLAGS fields
 gnu_CC=g++
-gnu_release_CFLAGS=-O3 -std=gnu++0x
-gnu_debug_CFLAGS=-g -std=gnu++0x
-gnu_warning_CFLAGS=-g -Wall -std=gnu++0x
+#gnu_release_CFLAGS=-O3 -std=gnu++0x
+#gnu_debug_CFLAGS=-g -std=gnu++0x
+#gnu_warning_CFLAGS=-g -Wall -std=gnu++0x
+gnu_release_CFLAGS=-O3 -std=gnu++11
+gnu_debug_CFLAGS=-g -std=gnu++11
+gnu_warning_CFLAGS=-g -Wall -std=gnu++11
 ms_CC=cl
 ms_release_CFLAGS=/Ox /EHsc /arch:SSE2 /nologo
 ms_debug_CFLAGS=/EHsc /nologo /Zi

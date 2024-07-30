@@ -1,7 +1,3 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
 #ifndef NO_INLINE
 inline
 #endif
@@ -273,10 +269,9 @@ void Region::updateRegionLength(bool forceUpdate)
 	// situation.
 	if ((previousUpdateTag != geometry->system->currentTimeTag) || (forceUpdate))
 	{
-
-		totalLength += geometry->system->timeQueue.progression(previousUpdateTag)
-			*(geometry->system->p.vMin*(shrinkingPlusTipList.size()) - geometry->system->p.vTM*(minusTipList.size()) ) 
-				+ geometry->system->vPlusQueue.progression(previousUpdateTag)*(geometry->system->p.vPlus*(growingPlusTipList.size()));
+    totalLength += geometry->system->timeQueue.progression(previousUpdateTag)
+      *(geometry->system->p.vMin*(shrinkingPlusTipList.size()) - geometry->system->p.vTM*(minusTipList.size()) ) 
+      + geometry->system->vPlusQueue.progression(previousUpdateTag)*(geometry->system->p.vPlus*(growingPlusTipList.size()));
 
 		previousUpdateTag = geometry->system->currentTimeTag;
 	}

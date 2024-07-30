@@ -1,6 +1,4 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
 
 #pragma warning(disable:981)
 //#pragma warning(disable:177)
@@ -64,13 +62,13 @@ int main(int argc, char* argv[])
     time_t startTime = time(0);
 
 	s1 = new System(argv[1]);
-
 	s1->run(s1->p.stopTime);
 
 	cout << "\nTotal running time: " << static_cast<int>(time(0)) - startTime << " seconds.\n";
 	cout << "stochastic events: " << s1->totalSEventCount << ", deterministic events: " << s1->totalValidDEventCount << ".\n";
-
-
+	cout << "Nucleation events: " << s1->totalNucleationCount << ", of which unbound: " << s1->totalUnboundNucleationCount << ", and microtubule-based: " << s1->totalMTbasedNucleationCount << ".\n";
+	cout << "Area: " << s1->geometry->area << endl;
+	cout << "Number of regions: " << s1->geometry->regions.size() << ", with area: " << s1->geometry->regions[0]->area << ", " << s1->geometry->regions[1]->area << ", " << s1->geometry->regions[2]->area << endl;
 	delete s1;
 	return 0;
 }

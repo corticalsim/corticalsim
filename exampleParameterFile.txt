@@ -1,23 +1,23 @@
-outputDir      /your/favourite/directory
+outputDir     outputDir
 createSubdir 0
-#newParameterFile parameters-1.txt
-newParameterReadInterval 72002
-stopTime 7201
-measurementInterval 1200
-#random_seed 32839020
-geometry grid 100 100 20 this needs three numbers; sometimes only two are used (x,y)
-forbiddenZones 1
-vPlus   0.08
-vMin    -0.16
+newParameterFile parameters-1.txt            //this parameter file will be loaded and replaces the file given when you launch the program after newParameterReadInterval
+newParameterReadInterval 100000
+stopTime 30000.1
+measurementInterval 30000
+#random_seed 119999
+geometry gridcylinder 40 6 40  //this needs three numbers; sometimes only two are used (x,y)
+forbiddenZones 0
+vPlus   0.05
+vMin    -0.08
 vTM     0.01
-kCat    0.008  
-kRes    0.007
-kSev    0.0
-kCross	0.0
+kCat    0.00225
+kRes    0.001
+kSev    0
+kCross	0.023
 treadmilling    1
 severing 0
 crossSevering 0
-kNuc    0.001   value per um^2
+kNuc    0.001  //value per um^2
 zippering    1
 ind_cat 1
 catastropheMultiplier 1
@@ -31,33 +31,68 @@ cat_start_angle         40
 c0Value 0.75
 z0Value 1
 discreteAngleNumber 8 
-nucleationType isotropic
-nucleationHalfIsotropicDensity 0.5
+nucleationType aster
+nucleationHalfIsotropicDensity 0.05
 ellipseSidewaysAngle 35
 ellipseLeftFraction 0.31
 ellipseRightFraction 0.31
 ellipseBackwardFraction 0.07
 ellipseEpsilon 0.89
 ellipseForwardAlongMT 1
-nucleationAlpha 0.
+nucleationAlpha 0.5
 preSeededType biased
 preSeededAlpha 1.5
 preSeededRate 0.1
 preSeededSeedDensity 0.2
-#
-wallClockLimit 1E+10  double: in seconds - simulation stops after this amount of time
-memoryLimit 450  # in MB
-#
-movieEnabled 1
-movieFrameInterval 1200
-#
-histogramAverageSamples 0    averaging over this number of samples
-#
-loresAngleHistogramBins 0    low res. angle histogram (for segments)
-loresLengthHistogramBins 0    low res. length histogram (for segments)
+
+numberOfRays	2
+maxMetaTrajectoryLength	1.5
+diffusionCoefficient	0.013
+rvRejectionUnbound	0.98
+rvRejectionBound	0.76
+unboundNucleationRate 0.002
+
+useAbsoluteBidirectionalNucBias 0        // turn on to give unbound nucleations a specific orientation
+absoluteNucBiasAngle 0                  // angle of the orientation that unbound nucleations will get
+nucBiasVariance 0.01                       // angle of the orientation that unbound nucleations will get     ////////////////////////////////////////////////////////////////////////////////// not read below here
+useMTdeflection 0                        // have MTs change direction every deflectionStepsize by a uniform angle between + and - deflectionMaxAngle
+deflectionStepsize 1                   // length at which next deflection is to occur
+deflectionMaxAngle 0.1731186                    // deflection angles are drawn uniformly from [-deflectionAngle, +deflectionAngle]
+deflectionMinAngle 0.00174533                    // deflection angles are drawn uniformly from [-deflectionAngle, +deflectionAngle] excluding [-minAngle,minAngle]
+deflectionBundleCompensation 0           // reduce deflection rate of MTs in bundles proportional to the number of MTs in the bundle
+deflectionBundleProtection 0             // no deflection of MTs in bundles
+useBundleTracking 1                      // MTs in bundle will pick random MT from bundle to follow at intersection
+bundleTrackMaxAngle 0.174533                    // Maximum angle along which to track MTs in bundle
+biasDeflectionRight 0.5                  // Probability that a MT deflection occur to the right with respect to the plus end growth direction
+
+useRegionalNucleationSaturation 0        // apply saturation of bound nucleations regionally, with a fixed unbound nucleation rate
+f_unbound 0.                             // fraction of kNuc that will be unbound if useRegionalNucleationSaturation == true
+useDoubleNucleationSaturation 0          // apply saturation of bound nucleations regionally, with max and base rates depending on global NC availability
+rn_targetratio 0.                        // ratio between rnmax at the start and rnmax for an established homogeneous array
+occupancytimeNC 0.                       // time a nucleation complex spends occupied at the membrane upon nucleating before being available for a new nucleation
+
+wallClockLimit 1E+10  			//double: in seconds - simulation stops after this amount of time
+memoryLimit 450  			//in MB
+
+movieEnabled 0
+movieFrameInterval 1000
+
+histogramAverageSamples 1    		//averaging over this number of samples
+spatialHistogramType none		// options: none or x
+
+loresAngleHistogramBins 0    		//low res. angle histogram (for segments)
+loresLengthHistogramBins 0   		//low res. length histogram (for segments)
 loresLifetimeHistogramBins 0
-#
-angleHistogramBins 20    number of angles for regular histogram (each measurement)
-angleHistogramOptical 1    also calculate regular histogram using optical length (each measurement)
-hiresLengthHistogramBins 0    high res. length histogram    (MTs)
-hiresLifetimeHistogramBins 0
+angleHistogramBins 20     		//number of angles for regular histogram (each measurement)
+spatialHistogramBinsX 20
+
+angleHistogramOptical 1    		//also calculate regular histogram using optical length (each measurement)
+hiresLengthHistogramBins 1    		//high res. length histogram    (MTs)
+hiresLifetimeHistogramBins 1
+spatialHistogramWriteRaw 1
+spatialHistogramCountCaps 1
+
+
+
+
+

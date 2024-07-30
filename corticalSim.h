@@ -1,12 +1,8 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
 #ifndef CORTICALSIM_H_
 #define CORTICALSIM_H_
 
 /* corticalSim - Cortical microtubule simulator
- * Simon Tindemans and Eva Deinum, FOM Institute AMOLF, 2008-2017
+ * Simon Tindemans and Eva Deinum, FOM Institute AMOLF, 2008-2014
  * 
  * IMPORTANT: pitfalls to watch out for when extending the code
  * * A right handed 3D coordinate system is used, based on screen coordinates. X increased to the right, Y increases
@@ -20,6 +16,8 @@
  *   assumed to be in a 'shrinking' state.
  * * The program assumes a stable sort order for the intersection lists. This is true in practice (in all common
  *   implementations as far as I could ascertain), but not mandated by the C++ standard.
+ * * If the tubulin pool size is decreased on the fly, care should be taken that the actual density doesn't exceed the
+ *   pool size. If this occurs, the program behaviour is undefined.
  * * In microtubule.cpp and system.cpp, compiler warnings are (should be) issued for using the 'this' pointer within
  *   the initializer list, because the 'this' pointer cannot be used until the initialization has completed. The 
  *   current use is ok, because the pointer is only used to store the address of the parent object. NOTE: when making 
@@ -30,14 +28,24 @@
  */
 
 
-#define PROGRAM_VERSION "1.26.1"
+#define PROGRAM_VERSION "2.0 beta"
 
+//#define VAR_CAT // if defined, it is possible to have variable r_cat by sine function
+//#define BAND_CAT // if defined, it is possible to have variable r_cat by distinct bands   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+
+#define COMPILER_RECURSIVE_SUPPORT    // if defined, defines 'class Intersection' using an incomplete type.
+                                        // This leads to a large reduction in redundant memory allocations for
+                                        // compilers that support it (gcc, VC++, but *not* CLANG/Xcode)
+                                        // DBG_ASSERT code fails without this support.
 //#define NO_INLINE				// if defined, avoids inlining the functions in inline.cpp. This 
 								// carries a performance penalty, but may aid debugging
 //#define NO_INTEGRITY_CHECK	// if defined, disables the system integrity checks performed
 								// at every measurement. This may speed up execution if you perform 
 								// measurements at a high rate, but makes the code less aware of
 								// potential bugs. Not recommended.
+//#define SLEEZY // if defined, integrity check may be carried out, but code continues running upon failure. Not recommended.
+
+//#define MTBASED_NUCLEATION_PROBABILITY               //if defined, calculates the probability of MT based nucleation as a function of the local density of tubulin
 
 // various debug flags which can be enabled at compile time
 //#define DBG_ASSERT
@@ -49,6 +57,9 @@
 //#define DBG_EVENT
 //#define DBG_SYSTEM
 //#define DBG_INTERACTION_TEST
+//#define DBG_SPATIAL
+//#define DBG_VELOCITY
+//#define DBG_ASTER
 	
 // disable specific compiler warnings
 #define NOMINMAX					// to prevent problems with numeric_limits on VC++
@@ -66,6 +77,8 @@
 #include <queue>
 #include <boost/pool/pool_alloc.hpp>
 #include <boost/lexical_cast.hpp>  //Wat doet dit?
+#include <boost/container/map.hpp>
+#include <boost/variant.hpp>
 #include <string>
 #include <cstring>
 #include <cmath>
@@ -89,6 +102,7 @@ const int MAXBINOM = 100;
 const int MICROTUBULE_GRANULARITY = 256;
 const int SEGMENT_GRANULARITY = 1024;
 const int TRAJECTORY_GRANULARITY = 512;
+const int METATRAJECTORY_GRANULARITY = 512; ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// TODO CLARIFY THIS!!!!!!!
 const int INTERSECTION_GRANULARITY = 4096;
 const int EVENT_GRANULARITY = 1024;
 const int OCCUPIED_INTERSECTION_GRANULARITY = 256;
@@ -100,7 +114,7 @@ const int MIN_HISTORY_SIZE = 64;  // minimum size of measurement cache (minimum 
 const int POSITION_CACHE_SIZE = 32768;
 const int CLOCK_POLLING_INTERVAL = 10000;
 const int MEMORY_POLLING_INTERVAL = 200;
-const int QUEUE_FLUSH_INTERVAL = 1000000;			//note that this is related to the total number of events...
+const int QUEUE_FLUSH_INTERVAL = 1000000;//1000000;			//note that this is related to the total number of events...
 
 const int NUCLEATION_DISCRETIZATION_STEPS = 512;
 
@@ -112,18 +126,27 @@ extern string GeometryTypeText[]; // = {"periodic", "grid", "wormhole", "box", "
 typedef enum {r_rectangle, r_disc, r_dome} RegionType;
 extern string RegionTypeText[]; // = {"rectangle", "disc", "dome"};
 
+typedef enum {o_x, o_y, o_z, o_COUNT_LAST} OrientationType;
+extern string OrientationTypeText[]; // = {"x", "y", "z"};
+
+typedef enum {sh_none, sh_x, sh_y,  sh_xy, sh_COUNT_LAST} SpatialHistogramType;
+extern string SpatialHistogramTypeText[]; // = {"none", "x", "y", "xy" };
+
+
 typedef enum {forward=1, backward=-1} Direction;
 typedef enum {s_top, s_left, s_bottom, s_right} RectangleSide;
 
-typedef enum {ev_none, ev_wall=1, ev_collision, ev_backtrack, ev_end_of_segment, ev_disappear} DeterministicEventType;
+typedef enum {ev_none, ev_wall=1, ev_collision, ev_backtrack, ev_end_of_segment, ev_disappear, ev_deflection} DeterministicEventType;
 typedef enum {status=1, snapshot, stop, parameter_change} GlobalEventType;
-typedef enum {catastrophe=1, rescue, katanin, severingAtCross, nucleation, preSeededNucleation} StochasticEventType;
+typedef enum {catastrophe=1, rescue, katanin, severingAtCross, nucleation, preSeededNucleation,extraRescue} StochasticEventType;
 typedef enum {ct_zipper=1, ct_crossover, ct_inducedCatastrophe} CollisionType;
 
-//typedef enum {nuc_isotropic, nuc_biased, nuc_discreteAngles, nuc_chanLloyd, nuc_chanLloydRandomPosition, nuc_chanLloydIsotropic, nuc_ellipse,  nuc_COUNT_LAST} NucleationType;	
+//typedef enum {nuc_isotropic, nuc_aster, nuc_biased, nuc_discreteAngles, nuc_chanLloyd, nuc_chanLloydRandomPosition, nuc_chanLloydIsotropic, nuc_ellipse,  nuc_COUNT_LAST} NucleationType;	
 //extern string NucleationTypeText[]; // = {"isotropic", "biased", "discreteAngles", "chanLloyd", "chanLloydRandomPosition", "chanLloydIsotropic", "ellipse" };
-typedef enum {nuc_isotropic, nuc_biased, nuc_discreteAngles, nuc_ellipse,  nuc_COUNT_LAST} NucleationType;	
+typedef enum {nuc_isotropic, nuc_aster, nuc_biased, nuc_discreteAngles, nuc_ellipse, nuc_COUNT_LAST} NucleationType;	
+typedef enum {nbias_cross, nbias_ellipsePolar, nbias_ellipseApolar, nbias_COUNT_LAST} NucleationBiasType;	
 extern string NucleationTypeText[]; // = {"isotropic", "biased", "discreteAngles", "ellipse" };
+extern string NucleationBiasTypeText[]; // = {"cross", "ellipsePolar", "ellipseApolar" };
 
 typedef enum {int_zipFirst,  int_catFirst, int_minimalFourier, int_COUNT_LAST} InteractionType;
 extern string InteractionTypeText[];// = {"zipFirst", "catFirst", "minimalFourier" };
@@ -139,6 +162,13 @@ typedef enum {graphics_mt, graphics_trajectory, graphics_plus, graphics_minus} G
 typedef enum { r_accounting_normal, r_accounting_dontcount } RegionAccountingType;
 typedef enum { r_param_normal, r_param_modified } RegionParameterType;
 
+typedef enum { p_bar, p_cross, p_band, p_singleBand, p_COUNT_LAST } PatternType;
+extern string PatternTypeText[];
+
+typedef enum { r_cos, r_COUNT_LAST } extraRescueType;
+
+extern string extraRescueTypeText[];
+
 class System;
 class Microtubule;
 class Segment;
@@ -149,10 +179,12 @@ class Parameters;
 class Geometry;
 class Region;
 class Trajectory;
+class MetaTrajectory;
 class Intersection;
 class OccupiedIntersection;
+class OneDSpatialMeasurement;
 
-typedef multimap<double, Intersection, std::less<double>, boost::fast_pool_allocator<std::pair<double, Intersection> > >::iterator IntersectionItr;
+
 typedef int EventDescriptorIndex;	// TO DO: turn into unsigned, and replace -1 by ::max()
 typedef int EventTrackingTag;		// TO DO: turn into unsigned, and replace -1 by ::max()
 
@@ -185,12 +217,6 @@ struct SurfaceVector {
 	Region* region;
 };
 
-class OccupiedIntersection : public CompactListItem<OccupiedIntersection>
-{
-public:
-	OccupiedIntersection(IntersectionItr is) : intersectionToCut(is) {}; 
-	IntersectionItr intersectionToCut;
-};
 
 
 class TrajectoryVector {
@@ -209,6 +235,42 @@ public:
 
 
 
+struct Aster 
+{       /* Very similar concept to SurfaceVector, except it has nor distinct angles.
+	 * 
+	 * Note that the names x, y and angle are chosen to reflect their meaning for 
+	 * for 2D cartesian surfaces, but their meaning may differ depending on the region type
+	 */
+  	int nor;
+  	double x;
+  	double y;
+  	vector<double> angles;
+  	Region* region;
+};
+
+
+struct NucSpotCandidate
+{       /* 
+	 * Defines a possible nucleation spot at a certain SurfaceVector
+	 */
+	Trajectory* motherTrajectory;
+	double posOnMother;
+	int numOfSegmentsInBundle;
+	SurfaceVector position;
+	double distanceFromAster;
+};
+
+
+struct localDensity
+{	/*
+	 * Defines the local density, nearby an insertion point
+	*/
+	vector<Region*> nearbyRegions;                                  // list of regions close to the insertion point to calculate the local density /////////////////////////////////////////////////////////////
+	//double nearbyTotalLength;
+	double nearbyDensity;
+};
+
+
 /*************************** Analysis tools ********************************/
 
 
@@ -222,10 +284,13 @@ struct OrderParameters
 	double S2angleOpt;
 	double S4Opt;
 	double S4angleOpt;
+  double localL;
+  double localLOpt;
 
 	double R;
 	double Rdirector[3];
 };
+
 
 class OrderParametersRaw
 {
@@ -305,6 +370,21 @@ public:
 /************************** Geometry/regions/trajectories/intersections ***************************/
 
 
+
+
+/* NOTE:
+ The definition of class Intersection contains an IntersectionItr, which is an iterator to a multimap that contains Intersection itself. According to the C++ standard, the outcome is not defined and some compilers (notably Xcode) reject it. This is remedied using the boost::recursive_wrapper, but it results in large numbers of memory allocations. If the compiler supports multimap iterator definitions using incomplete types, defining COMPILER_RECURSIVE_SUPPORT avoids this overhead.
+ */
+#ifdef COMPILER_RECURSIVE_SUPPORT
+typedef multimap<double, Intersection, std::less<double>, boost::fast_pool_allocator<std::pair<double, Intersection> > > IntersectionMap;
+#define ISREF second
+#else
+typedef multimap<double, boost::recursive_wrapper<Intersection>, std::less<double>, boost::fast_pool_allocator<std::pair<double, boost::recursive_wrapper<Intersection> > > > IntersectionMap;
+#define ISREF second.get()
+#endif
+typedef IntersectionMap::iterator IntersectionItr;
+
+
 class Intersection
 /*
  * The intersection object describes the intersection of one trajectory with another, from one side.
@@ -313,11 +393,22 @@ class Intersection
  */
 {
 public:
-	int occupancy;					// number of MTs that are crossing the intersection along this trajectory
+    Intersection() : occupancy(0), otherTrajectory(nullptr), occupiedListPtr(nullptr) {};
+    
+    int occupancy;					// number of MTs that are crossing the intersection along this trajectory
 	Trajectory* otherTrajectory;	// pointer to the other trajectory
 	IntersectionItr mirror;			// pointer to the mirroring Intersection structure of the other trajectory
 	// TODO: maybe add corner count
 	OccupiedIntersection* occupiedListPtr;
+};
+
+
+class OccupiedIntersection : public CompactListItem<OccupiedIntersection>
+{
+public:
+    OccupiedIntersection(IntersectionItr is) : intersectionToCut(is) {};
+    IntersectionItr intersectionToCut;                                    
+    //IntersectionItr metaIntersection;		                                  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
 
 class Trajectory : public DLBaseItem<Trajectory>
@@ -328,6 +419,7 @@ class Trajectory : public DLBaseItem<Trajectory>
  */
 {
 	friend class Region;
+	friend class MetaTrajectory;
 
 public:
 	const SurfaceVector		base;			// coordinates and angle of the base of the trajectory
@@ -338,7 +430,7 @@ public:
 	double					prevTrCosAngle;	// Cosine of the 3D angle with the previous trajectory (for edge catastrophes)
 	double					nextTrCosAngle; // Cosine of the 3D angle with the next trajectory (for edge catastrophes)
 
-	multimap<double, Intersection, std::less<double>, boost::fast_pool_allocator<std::pair<double, Intersection> > > intersections;
+    IntersectionMap intersections;
 																	// sorted list of all intersections
 	IntersectionItr wallEnd() { return intersections.end(); }		// returns an iterator to the intersection that stands for the far wall
 	IntersectionItr wallBegin() { return intersections.begin(); }	// returns an iterator to the intersection that stands for the zero wall
@@ -369,6 +461,11 @@ public:
 	// analysis functions
 	double coveredLength();											// total length of trajectory that is covered by segments
 	double segmentLength();											// total length of segments on the trajectory
+	//void coveredLengthSplit(double * length, double* Olength, double* cuts, int n, int); // combination of coveredLength ("Olength") and segmentLength ("length"), divided in n pieces by cuts
+	void coveredLengthSplit(double * length, double* Olength, double* count,double* cuts, int n, int); // combination of coveredLength ("Olength") and segmentLength ("length"), divided in n pieces by cuts // count doesn't work yet.
+  int numberOfSegmentsPassingPoint(double position); // find number of segments in trajectory that pass a certain point, excluding segments that precisely reach it.
+  int numberOfOtherSegmentsPassingIntersection(IntersectionItr& refis, Segment* refseg); // Find number of segments passing an intersection excluding the reference segment
+  int numberOfSegmentsDeflectingAtIntersection(IntersectionItr& is, Segment* refseg); // get all segments that switch trajectory at intersection
 
 private:
 	// avoid accidental (expensive) copying of Trajectory objects, by declaring private copy constructors without definitions
@@ -378,7 +475,34 @@ private:
 
 
 
+class MetaTrajectory : public DLBaseItem<MetaTrajectory>
+{
+	//friend class Region;
+	//friend class Geometry;
 
+public:
+	System* const system;                           //pointer to the overall system: I need it cause the meta trajectory needs to know everything that is going on
+	const double maxDistance;                          //max distance before assuming that the closest MT is too far for MT-based nucleation TODO: add it to the parameter list 
+	const SurfaceVector startOfMetaTrajectory;           //location of the centre of the aster and angle
+	bool doesItIntersectOccupied;
+	Direction firstDirection;
+	#ifdef MTBASED_NUCLEATION_PROBABILITY
+	vector<Region*> crossedRegions; 
+	#endif
+	
+	bool getFindMT() { return doesItIntersectOccupied; }                    //returns whether meta trajectory meets a MT lattice  
+	vector<Trajectory*> trajectoriesOfRay;         //pointers to all trajectories that form the meta trajectory
+	
+	NucSpotCandidate nsc;
+	double metaTrajectoryLength;                   //total length of the meta trajectory
+		
+	MetaTrajectory(System* const, double /*maxDist*/, SurfaceVector);              //any SurfaceVector, but it should take the SurfaceVector from the Aster
+	~MetaTrajectory();
+	
+	void addFirstTrajectory();                           //add the first trajectory to the vector
+	void removeTrajectories();                                //remove all trajectories of the Meta Trajectory
+	
+};
 
 
 
@@ -389,11 +513,12 @@ class Region
  * Virtual base class for a geometry patch with a 2D coordinate system. Within a region,
  * trajectories may only intersect once.
  * 
- * Region functions are only called by geometry or trajectory member functions.
+ * Region functions are only called by geometry or (meta)trajectory member functions.
  */
 {
 	friend class Geometry;
 	friend class Trajectory;
+	friend class MetaTrajectory;
 
 public:
 	Geometry* const 	geometry;			// pointer to containing geometry
@@ -403,8 +528,8 @@ public:
 	const RegionAccountingType accountingType;	// whether segments in this region are part of the 'main' region or not
 	const RegionParameterType parameterType;
 
-	DLList<Trajectory, TRAJECTORY_GRANULARITY> trajectories;
-											// list of trajectories on the region
+	DLList<Trajectory, TRAJECTORY_GRANULARITY> trajectories;					// list of trajectories on the region
+	
 
 	// tip management functions
 	list<MTTip*> growingPlusTipList;									// list of pointers to growing tips
@@ -440,6 +565,7 @@ protected:
 	void removeTrajectory(Trajectory*);							// removes a trajectory from the region
 	virtual void makeIntersectionList(Trajectory*) =0;
 	virtual SurfaceVector randomSurfaceVector() =0;				// creates a random surface vector
+	virtual Aster createAster(int, SurfaceVector) =0;                       // generates random angles for the aster
 
 private:
 	// avoid accidental (expensive) copying of Region objects, by declaring private copy constructors without definitions
@@ -463,6 +589,7 @@ class Geometry
  */
 {
 	friend class System;
+	friend class MetaTrajectory;
 
 public:	
 	const GeometryType 	type;					// the geometry type (periodic, sphere, etc.)
@@ -470,6 +597,8 @@ public:
 	System* const		system;					// pointer to the containing system
 //protected:
 	vector<Region*> regions;					// list of the Region-derived objects that make up the geometry
+	
+	DLList<MetaTrajectory, METATRAJECTORY_GRANULARITY> metaTrajectories;
 
 public:
 	Geometry(GeometryType g, System* s, double a) : type(g), area(a), system(s) {};
@@ -479,14 +608,32 @@ public:
 	double opticalLength();
 	int trajectoryCount();
 	virtual void getOrderParameters(OrderParameters&) = 0;
+  virtual void getLocalOrderParameters(vector<OrderParameters>&) = 0;
 	virtual double calculateHistogram(double[],bool=false) = 0;
 	virtual void outputSnapshot(ostream&) = 0;
+	virtual void getOneDmeasurement(OneDSpatialMeasurement&,double) = 0;
+  virtual void fixRegion(SurfaceVector&) = 0; // Used for nucleation if x,y position is shifted independent from trajectory
+                            // Checks if x,y falls outside region and adjusts region and x,y accordingly if needed.
+                            // Implemented for grid and gridcylinder only. 
+  virtual void shiftSurfaceVectorNoWrap(SurfaceVector&,double,double,double,double) = 0; // Implemented for grid and gridcylinder only. 
+
 
 public:
+	Aster createAster(int, SurfaceVector);
+	void removeMetaTrajectory(MetaTrajectory*);
 	SurfaceVector randomSurfaceVector();		// returns a random surface vector
 	TrajectoryVector createTrajectory(const SurfaceVector&, bool scanExisting = false);
 												// creates a trajectory at a given surface vector and returns a trajectory vector
 	TrajectoryVector createAndLinkTrajectory(const SurfaceVector&, Trajectory*, Direction, double);
+	
+
+  // Turn xpos on gridcell into xpos on domain
+  virtual double xPosGridToDomain(double xPos, int ridx) {return xPos;}
+  // Turn ypos on gridcell into xpos on domain
+  virtual double yPosGridToDomain(double yPos, int ridx) {return yPos;}
+
+  // Get total area used in spatial histograms (no caps)
+  virtual double getAreaForSpatialHist(double geomPar1, double geomPar2) {return geomPar1*geomPar2;}
 
 private:	// only called by Trajectory (friend)
 	friend TrajectoryVector Trajectory::nextTrajectory(Direction);
@@ -650,6 +797,7 @@ private:
 
 class Segment : public DLBaseItem<Segment>
 {
+	friend class MetaTrajectory;
 public:
 	Microtubule* mt;			// pointer to containing microtubule
 	Trajectory* const trajectory;	// pointer to containing trajectory
@@ -671,6 +819,8 @@ public:
 	bool isLastInMT();
 	bool isFirstInMT();
 	bool crossesIntersection(IntersectionItr& is) ;
+	bool crossesPoint(double position) ;
+	bool deflectsAtIntersection(IntersectionItr& is, Direction refdir) ;
 };
 
 
@@ -716,6 +866,7 @@ public:
 	void severAtCross(IntersectionItr is, Segment* cutSeg);		// severs the microtubule at the specified intersection.
 	void splitSegmentAtTrajPos(double cutPos, Segment* cutSeg);	// performs the actual splitting of sever... and schedules the next event etc.
 	void translatePositionMT2Segment(double& cutPos, Segment*& cutSeg);	 //translates random position at MT to corresponding position at Segment
+  void handleDeflection(); // perform deflection
 
 private:
 	// avoid accidental (disastrous) copying of Microtubule objects, by declaring private copy constructors without definitions
@@ -739,6 +890,7 @@ public:
 	double segmentsPerMT;
 
 	OrderParameters order;
+  vector<OrderParameters> local_order;
 
 	int growingNumber;
 	int shrinkingNumber;
@@ -756,11 +908,48 @@ public:
 	int lengthSeveringCount;
 	int intersectionSeveringCount;
 	int occupiedIntersectionCount;
+  int nucleationCount;
+  int deflectionCount;
 
 	double G_effAdjust_normal;
 	double G_effAdjust_special;
+	double G_effMeasured;
+
+	double G_effAdjust_min;
+	double G_effAdjust_max;
+	double G_effAdjust_S2angle;
+
+#ifdef BAND_CAT
+  double G_effAdjust_band;
+  double G_effAdjust_gap;
+#endif
+
+  double nOccupiedNCs;
+
 };
 
+class OneDSpatialMeasurement {
+private:
+	ofstream file;
+	double binSurface;
+	double writeRaw;
+public:
+	int bins;
+	double * cuts;
+	OrientationType ori ;
+	bool includeCaps;
+	OrderParametersRaw * opHist;
+	double * nHist;
+	OneDSpatialMeasurement (int,bool,OrientationType,double,double,bool);
+	~OneDSpatialMeasurement();
+	void process();
+	void writeToFile(double);
+	void writeHeader();
+	void writeLine(double,int);
+	void setFileName(string);
+	void closeFile();
+	void reset();
+};
 
 class ExtensibleHistogram {
 	int bins;
@@ -825,20 +1014,60 @@ public:
 	System* system;
 
 	// biological parameters
-	double vPlus;			// plus end growing velocity 
+	double vPlus;			// plus end growing velocity (for infinite tubulin pool)
 	double vMin;			// plus end shrinking velocity
 	double vTM;				// minus end shrinking velocity
 	double kSev;			// severing rate [1/(sec*mu)]
 	double kCross;			// severing rate at (occupied) intersections [1/#OccupiedIntersections/sec]
+#ifdef VAR_CAT
+	OrientationType kCatOrient;			// if spontaneous catastrophe rate varies:  along x / y / z axis (z not implemented)
+	double kCatBands;			// if spontaneous catastrophe rate varies along y-axis: # periods of sin function
+	double kCatAlpha;			// if spontaneous catastrophe rate varies along y-axis: amplitude
+	double invKCatPeriod;			// if spontaneous catastrophe rate varies along y-axis: admin parameter
+  double catMin;
+  double catMax;
+  double Gmin;
+  double Gmax;
+#endif
+double Gmax;                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#ifdef BAND_CAT
+	OrientationType kCatOrient;			// if spontaneous catastrophe rate varies:  along x / y / z axis (z not implemented)
+  double catMin;
+  double catMax;
+  double Gmin;
+  double Gmax;
+  double kCat[2]; // for zone based bands; ultimately with "all" parameters zone dependent: [0] = band ; [1] = gap
+  double bandGapWidth[2];  // for zone based bands; ultimately with "all" parameters zone dependent: [0] = band ; [1] = gap
+  int nSpirals; // if spirals along cylinder (orientation = x), then n continuous spirals (0 -> rings)
+  double spiralPitch; // internal parameter based on nSpirals, orientation and geometry dimensions
+  bool calcNucBiasAngle; // if true: calculate nucleationBiasAngle such that it follows the spiral path. 
+  double wrapLength; // internal constant for spirals: length of domain to wrap (or 1/meaningless)
+  double projectedPeriod; // projection along x/y/z axis of bandGapWidth[0] + [1] 
+  double projectedBand; // projection along x/y/z axis of bandGapWidth[0] 
+  bool redistributeNucleationOverBands;
+  double redistributeShift;
+  double redistributeShiftMax;
+  int redistributeShiftNumber;
+  PatternType catPattern;
+  bool reducedGapNucleation; // switch: reduce nucleation if chosen inside gap
+  double gapNucleationAcceptFraction; // if reducedGapNucleation, kNuc_gap = kNuc[applicable] * gapNucleationAcceptFraction
+#else
 	double kCat;			// spontaneous catastrophe rate [1/sec]
+#endif
 	double kRes;			// spontaneous rescue rate
+	double kResExtraMax;			// extra spontaneous rescue rate
+	double kResExtraAngle;			// angle of highest rescue rate
+	extraRescueType extraRescueFunction;    // function used for angle dependent rescues. Initially implementing only "cos"
+	double poolDensity;			// size of tubulin pool [mu]
 	double catastropheMultiplier;
 
 	int treadmillingEnabled;
 	int severingEnabled;
 	int crossSeveringEnabled;
 	int crossSeveringTop;
+  double crossSeveringTopFraction;
 	double crossSeveringStartAngle;
+	int restrictedPool;
 
 	int forbiddenZones;
 
@@ -850,12 +1079,45 @@ public:
 	// nucleation stuff
 	double kNuc;			// nucleation rate [1/(sec*mu^2)]
 	NucleationType nucleationType;
+	NucleationBiasType nucleationBiasType;
 	double nucleationAlpha;
+	double nucleationBiasAngle;
 	double * nucleationAngles;
   double preSeededSeedDensity;
   double preSeededRate;
   NucleationType preSeededType;
   double preSeededAlpha;
+  bool useRegionalNucleationSaturation;
+  double f_unbound;
+  bool useDoubleNucleationSaturation;
+  double rn_targetratio;
+  double occupancytimeNC;
+  int nNCmax;
+  double rn_base0;
+	double gridAspectratio;
+  bool useAbsoluteBidirectionalNucBias;
+  double absoluteNucBiasAngle;
+  double nucBiasVariance;
+  
+  // nucleation with aster
+  int numberOfRays;
+  double maxMetaTrajectoryLength;
+  double diffusionCoefficient;
+  double rvRejectionUnbound;
+  double rvRejectionBound;
+  double unboundNucleationRate;
+
+  // deflection stuff
+  bool useMTdeflection;
+  double deflectionStepsize;
+  double deflectionMaxAngle;
+  double deflectionMinAngle;
+  bool deflectionBundleCompensation;
+  bool deflectionBundleProtection;
+  bool useBundleTracking;
+  double bundleTrackMaxAngle;
+  double biasDeflectionRight;
+
 
 	// interaction stuff
 
@@ -882,6 +1144,7 @@ public:
         int ellipseReducedFreeRate;                  // If true, a fraction of free nucleation events is rejected
         double ellipseReducedFreeRateAcceptFraction;    // This fraction of free nucleation events is accepted. No point in making this >1. 
 	double ellipseEpsilon;				// Eccentricity of ellipse
+	double ellipseEpsilonAlongMT;				// Eccentricity of ellipse for (anti)parallel nucleations
 	int ellipseForwardAlongMT;			// Forward/backward nucleations not elliptic, but exactly along MT
 	double ellipseLeftFraction;			// Fraction of nucleation events rotated left (by sidewaysAngle degrees)
 	double ellipseRightFraction;			// ... right
@@ -925,6 +1188,15 @@ public:
 	int hiresLifetimeHistogramBins;
 	int histogramAverageSamples;
 
+	SpatialHistogramType spatialHistogramType;
+	int spatialHistogramBinsX;
+	int spatialHistogramBinsY;
+	bool spatialHistogramCountCaps;
+	bool spatialHistogramWriteRaw;
+	bool regionalOutputQuantities;
+
+  string outputNucPos;
+
 
 	// theory parameters
 	double c0calc;
@@ -941,6 +1213,7 @@ public:
 	bool readFromFile(const char*, bool);	// reads parameters from file and checks them
 	bool writeToFile();			// writes all parameters to file
 	void verifyParameters();	// performes a consistency check on the parameters and adjusts where necessary
+  double calcG(double,double); // ugly: uses default parameters or alternative value of kCat / kRes. UPDATE WHEN NEEDED!
 	bool calcTheoryParameters();	
 	// path outputDir();
 };
@@ -986,6 +1259,10 @@ public:
 	int totalZipperCount;
 	int totalCrossoverCount;
 	int totalInducedCatastropheCount;
+  int totalNucleationCount;
+  int totalDeflectionCount;
+  	int totalUnboundNucleationCount;
+  	int totalMTbasedNucleationCount;
 
 	// for memory usage tracking
 	int countSegments;
@@ -997,7 +1274,7 @@ public:
 	double nextStochasticEventTime;				// time of next stochastic event
 	StochasticEventType nextStochasticEventType;// type of next stochastic event
 	DeterministicQueue timeQueue;				// queue object for time-defined events
-	DeterministicQueue vPlusQueue;				// queue object for vPlus-defined events 
+	DeterministicQueue vPlusQueue;				// queue object for vPlus-defined events (regulated by tubulin pool size)
 	double identity(double i) {return i;}		// identity function function
 	double vPlusToTime(double);					// distance to time conversion for growing tips
 	double timeToVPlus(double);					// time to distance conversion for growing tips
@@ -1006,6 +1283,9 @@ public:
 	double nextStatusEventTime;
 	double nextSnapshotEventTime;
 	double nextParameterEventTime;
+
+  // occupied nucleation time queue
+  deque<double> occupiedNCs;
 
 	// manage event descriptor objects
 	EventDescriptorIndex EventDescriptorID;							// current tag for event descriptor
@@ -1034,12 +1314,19 @@ public:
 	void nextEvent(void);					// gets the first event from the queue and handles it
 	void handleGlobalEvent(DeterministicEvent&);
 	void determineStochasticEvent();		// function that determines and queues the next stochastic event
+  bool handleReducedGapNucleation(SurfaceVector& sv, bool useIsotropic, Segment* nucSeg, double* pospointer);
+  void handleBoundNucleation(SurfaceVector& sv, TrajectoryVector& tv, Segment* nucSeg, double& pos);
+  double handleBiasedNucleationAngle(SurfaceVector& sv, double overrideAngle, bool preSeeded);
 	void handleNucleationEvent(bool=false);
 	void handleSeveringEvent();
 	void handleSeveringAtCrossEvent();
-	void handleRescueEvent();
+	void handleRescueEvent(bool=false);
 	void handleCatastropheEvent();
 	void randomPositionOnMicrotubule(double& cutLength, Segment*& cutSeg);
+	void randomSegmentAtMetaIntersection(double posOnTrajectory, Trajectory* tr, int occupancy, Segment*& seg);
+  bool handleRegionalNucleationSaturation(int ridx, double& randomPos, Segment*& randomSeg);
+  void randomPositionOnMicrotubuleInRegion(int ridx, double cutLength, double& randomPos, Segment*& randomSeg);
+  void selectRandomRegionProportionalBy(string quantitytype, double quantitymax, int& ridx, double& cutLength);
 
 	CollisionType collisionResult(double, int, int);	// returns the result of a collision at a specified angle, and bundle occupancies
 	void collisionProbabilities(double, double&, double&);
@@ -1051,6 +1338,7 @@ public:
 	double multiPzip(int Npar, int Ncoll, double xSingle, double zSingle);
 
 
+	
 
 
 	ofstream parameterFile;
@@ -1061,6 +1349,10 @@ public:
 	ofstream angleHistogramOpticalFile;
 	ofstream angleLengthFile;
 	ofstream angleNumberFile;
+	#ifdef MTBASED_NUCLEATION_PROBABILITY
+	ofstream MTbasedProbDensityFile;
+	ofstream unboundProbDensityFile;
+	#endif
 
 	deque<Measurement> measurementHistory;
 	deque<double *> angleHistory;
@@ -1073,6 +1365,12 @@ public:
 	MultiAngleHistogram segAngleLengthHistogram;
 	MultiAngleHistogram segAngleLifetimeHistogram;
 	int histogramAverageCount;
+	
+	OneDSpatialMeasurement * histX;
+	OneDSpatialMeasurement * histY;
+
+  vector<double> nucleationXpositions;
+  vector<double> nucleationYpositions;
 
 	bool dataSaved;
 	void initializeOutput();
@@ -1083,6 +1381,17 @@ public:
 	void removeOccupiedIntersection(Intersection& is);	// removes pointers from is and its mirror
 	void addOccupiedIntersection(IntersectionItr is);   	// creates pointers for is and its mirror 
 								// OccupiedIntersection contains only one pointer: to the one "on top" (to be cut).
+
+  void initDoubleSatPars(); // initialize extra parameters for double saturating nucleation
+  
+  	#ifdef MTBASED_NUCLEATION_PROBABILITY
+    	vector<double> regionalDensityVector;
+    	vector<double> nearbyDensityVector;
+    	vector<double> globalDensityVector;
+    	vector<double> regionalDensityVectorUnbound;
+    	vector<double> nearbyDensityVectorUnbound;
+    	vector<double> globalDensityVectorUnbound;
+    	#endif
 
 private:
 	// avoid accidental (expensive) copying of Trajectory objects, by declaring private copy constructors without definitions
@@ -1102,13 +1411,17 @@ class Periodic : public Geometry
  * 
  */
 {
-	const Coord2D size;				// x and y dimensions
 public:
+	const Coord2D size;				// x and y dimensions
 	Periodic(Coord2D, System*);
 	TrajectoryVector extendTrajectory(Trajectory*, Direction);
 	void getOrderParameters(OrderParameters&);
+	void getLocalOrderParameters(vector<OrderParameters>&) {return;};
 	double calculateHistogram(double[], bool=false);
 	void outputSnapshot(ostream&);
+	void getOneDmeasurement(OneDSpatialMeasurement&, double);
+  void fixRegion(SurfaceVector&);
+  void shiftSurfaceVectorNoWrap(SurfaceVector&,double,double,double,double);
 	
 	
 	// this function is specific to the periodic geometry
@@ -1121,15 +1434,30 @@ class Grid : public Geometry
  * 
  */
 {
+	friend class MetaTrajectory;
+	
+public:
 	const Coord2D size;				// x and y dimensions
 	const int xNumber;
 	int yNumber;
-public:
-	Grid(Coord2D, int, System*);
+	Grid(Coord2D, int, double, System*);
 	TrajectoryVector extendTrajectory(Trajectory*, Direction);
 	void getOrderParameters(OrderParameters&);
+	void getLocalOrderParameters(vector<OrderParameters>&) {return;};
 	double calculateHistogram(double[],bool=false);
 	void outputSnapshot(ostream&);
+	void getOneDmeasurement(OneDSpatialMeasurement&, double);
+  void fixRegion(SurfaceVector&);
+  void shiftSurfaceVectorNoWrap(SurfaceVector&,double,double,double,double);
+  // Turn xpos on gridcell into xpos on domain
+  virtual double xPosGridToDomain(double xPos, int ridx) {
+    return xPos + size.x * (-0.5 + 1./xNumber * (ridx%xNumber + 0.5));  
+  }
+  // Turn ypos on gridcell into xpos on domain
+  virtual double yPosGridToDomain(double yPos, int ridx) {
+    //return yPos + size.y * (0.5 - 1./yNumber * (ridx/xNumber));
+    return yPos + size.y * (0.5 - 1./yNumber * (ridx/xNumber + 0.5));
+  }
 	
 	// this function is specific to the periodic geometry
 	void calculateDiscreteAngleLengths(double[], int[]);
@@ -1148,8 +1476,12 @@ public:
 	Box(double, double, double, System*);
 	TrajectoryVector extendTrajectory(Trajectory*, Direction);
 	void getOrderParameters(OrderParameters&);
+	void getLocalOrderParameters(vector<OrderParameters>&) {return;};
 	double calculateHistogram(double[],bool=false);
 	void outputSnapshot(ostream&);
+	void getOneDmeasurement(OneDSpatialMeasurement&, double);
+  void fixRegion(SurfaceVector&);
+  void shiftSurfaceVectorNoWrap(SurfaceVector&,double,double,double,double);
 };
 
 class Cylinder : public Geometry
@@ -1157,14 +1489,21 @@ class Cylinder : public Geometry
  * 3D cylinder geometry
  */
 {
+public:
 	const double radius;
 	const double length;
-public:
 	Cylinder(double, double, System*);
 	TrajectoryVector extendTrajectory(Trajectory*, Direction);
 	void getOrderParameters(OrderParameters&);
+	void getLocalOrderParameters(vector<OrderParameters>&) {return;};
 	double calculateHistogram(double[],bool=false);
 	void outputSnapshot(ostream&);
+	void getOneDmeasurement(OneDSpatialMeasurement&, double);
+  void fixRegion(SurfaceVector&);
+  void shiftSurfaceVectorNoWrap(SurfaceVector&,double,double,double,double);
+
+  // Get total area used in spatial histograms (no caps)
+  virtual double getAreaForSpatialHist(double geomPar1, double geomPar2) {return geomPar1*2*geomPar2*PI;}
 };
 
 class GridCylinder : public Geometry
@@ -1173,18 +1512,33 @@ class GridCylinder : public Geometry
  * 
  */
 {
+public:
 	const double radius;
 	const double length;
+	double gridLenSize;
 	const int number;
 	int gridRNumber;
 	double gridRSize;
-	double gridLenSize;
-public:
-	GridCylinder(double, double, int, System*);
+	GridCylinder(double, double, int, double, System*);
 	TrajectoryVector extendTrajectory(Trajectory*, Direction);
 	void getOrderParameters(OrderParameters&);
+  void getLocalOrderParameters(vector<OrderParameters>&);
 	double calculateHistogram(double[],bool=false);
 	void outputSnapshot(ostream&);
+	void getOneDmeasurement(OneDSpatialMeasurement&, double);
+  void fixRegion(SurfaceVector&);
+  void shiftSurfaceVectorNoWrap(SurfaceVector&,double,double,double,double);
+  // Turn xpos on gridcell into xpos on domain
+  virtual double xPosGridToDomain(double xPos, int ridx) {
+    return xPos + ((ridx-2)%number-(number-1)/2.)*gridLenSize; 
+  }
+  // Turn ypos on gridcell into xpos on domain
+  virtual double yPosGridToDomain(double yPos, int ridx) {
+    return yPos - ((ridx-2)/number-(gridRNumber-1)/2.)*gridRSize;
+  }
+
+  // Get total area used in spatial histograms (no caps)
+  virtual double getAreaForSpatialHist(double geomPar1, double geomPar2) {return geomPar1*2*geomPar2*PI;}
 	
 };
 
@@ -1198,8 +1552,12 @@ public:
 	Pancake(double, System*);
 	TrajectoryVector extendTrajectory(Trajectory*, Direction);
 	void getOrderParameters(OrderParameters&);
+	void getLocalOrderParameters(vector<OrderParameters>&) {return;};
 	double calculateHistogram(double[],bool=false);
 	void outputSnapshot(ostream&);
+	void getOneDmeasurement(OneDSpatialMeasurement&, double);
+  void fixRegion(SurfaceVector&);
+  void shiftSurfaceVectorNoWrap(SurfaceVector&,double,double,double,double);
 };
 
 class Wormhole : public Geometry
@@ -1217,8 +1575,12 @@ public:
 	Wormhole(Coord2D, System*);
 	TrajectoryVector extendTrajectory(Trajectory*, Direction);
 	void getOrderParameters(OrderParameters&);
+	void getLocalOrderParameters(vector<OrderParameters>&) {return;};
 	double calculateHistogram(double[],bool=false);
 	void outputSnapshot(ostream&);
+	void getOneDmeasurement(OneDSpatialMeasurement&, double);
+  void fixRegion(SurfaceVector&);
+  void shiftSurfaceVectorNoWrap(SurfaceVector&,double,double,double,double);
 
 };
 
@@ -1233,6 +1595,7 @@ public:
 	// virtual function implementations	
 	virtual SurfaceVector randomSurfaceVector() = 0;				// produces a random surface vector inside the region
 	virtual void getTrajectoryCoordinates(SurfaceVector&, double&, TrajectoryVector&) = 0;
+	virtual Aster createAster(int, SurfaceVector) = 0;
 														// Used for nucleation:
 														// adjusts the surface vector to become the base for a trajectoryvector, and 
 														// returns the total length and trajectory vector (minus trajectory label).
@@ -1241,10 +1604,13 @@ public:
 	double intersectionAngle(Trajectory*, Trajectory*);	// determines the intersection angle between two trajectories
 	void getOrderParameters(OrderParameters&);
 	void getOrderParametersRawFlat(OrderParametersRaw&, double[3][2]);
+	void getOrderParametersRawFlatBinned(OneDSpatialMeasurement&, double[3][2],  double* , int,int,int,OrientationType,double*);
+	void transformCuts(double *cutsIn, int  binsIn, double * cutsOut, const SurfaceVector & sVec, OrientationType mOri );
 	void getOrderParametersRawCylinder(OrderParametersRaw&, double, double, double);
 	double calculateHistogram(double[], bool optical = false, bool partOfSequence = false); 	// return value: localLength. 
 	void outputSnapshotOffset(ostream&, double, double);
 	void outputSnapshot(ostream&);
+	void getOneDmeasurement(OneDSpatialMeasurement&, double);
 };
 
 class GRectangle : public Cartesian
@@ -1259,6 +1625,7 @@ public:
 
 	// virtual function implementations	
 	SurfaceVector randomSurfaceVector();				// produces a random surface vector inside the region
+	Aster createAster(int, SurfaceVector);
 	void getTrajectoryCoordinates(SurfaceVector&, double&, TrajectoryVector&);
 														// Used for nucleation:
 														// adjusts the surface vector to become the base for a trajectoryvector, and 
@@ -1282,6 +1649,7 @@ public:
 
 	// virtual function implementations	
 	SurfaceVector randomSurfaceVector();				// produces a random surface vector inside the region
+	Aster createAster(int, SurfaceVector);
 	void getTrajectoryCoordinates(SurfaceVector&, double&, TrajectoryVector&);
 														// Used for nucleation:
 														// adjusts the surface vector to become the base for a trajectoryvector, and 

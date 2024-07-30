@@ -1,7 +1,3 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -20,6 +16,7 @@
 
 ostream& operator<<(ostream& o, const Measurement m)
 {
+#ifdef BAND_CAT
 	return o << setprecision(9) << m.time << setprecision(6) << "\t" << m.lengthDensity << "\t" 	\
 				<< m.averageLength << "\t" 	\
 				<< m.order.S2 << "\t" << m.order.S2angle << "\t" << m.order.S4 << "\t" << m.order.S4angle << "\t" \
@@ -30,22 +27,117 @@ ostream& operator<<(ostream& o, const Measurement m)
 				<< m.intersectionSeveringCount << "\t" << m.order.S2Opt << "\t" << m.order.S2angleOpt << "\t" \
 				<< m.order.S4Opt << "\t" << m.order.S4angleOpt << "\t" << m.occupiedIntersectionCount << "\t" \
 				<< m.order.R << "\t" << m.order.Rdirector[0] << "\t" << m.order.Rdirector[1] << "\t" << m.order.Rdirector[2] << "\t" \
-				<< m.G_effAdjust_normal << "\t" << m.G_effAdjust_special << "\r\n";
+				<< m.G_effAdjust_normal << "\t" << m.G_effAdjust_special << "\t" << m.G_effMeasured << "\t" << m.G_effAdjust_band << "\t" << m.G_effAdjust_gap << "\t" \
+				<< m.G_effAdjust_min << "\t" << m.G_effAdjust_max << "\t"	<< m.G_effAdjust_S2angle << "\t"	<< m.nucleationCount  << "\t"	<< m.deflectionCount << "\t"	<< m.nOccupiedNCs << "\r\n";
+				//<< m.G_effAdjust_normal << "\t" << m.G_effAdjust_special << "\t"	<< m.G_effAdjust_band << "\t" << m.G_effAdjust_gap << "\r\n";
+#else
+	return o << setprecision(9) << m.time << setprecision(6) << "\t" << m.lengthDensity << "\t" 	\
+				<< m.averageLength << "\t" 	\
+				<< m.order.S2 << "\t" << m.order.S2angle << "\t" << m.order.S4 << "\t" << m.order.S4angle << "\t" \
+				<< m.growingNumber << "\t" << m.shrinkingNumber << "\t" << m.segments << "\t" << m.trajectories << "\t" \
+				<< m.zipperCount << "\t" << m.crossoverCount << "\t" << m.inducedCatastropheCount << "\t"\
+				<< m.validDEventCount << "\t" << m.invalidDEventCount << "\t" << m.sEventCount  << "\t" \
+				<< m.opticalDensity << "\t"  << m.numberOfMTs << "\t" << m.segmentsPerMT<<  "\t" << m.lengthSeveringCount << "\t" \
+				<< m.intersectionSeveringCount << "\t" << m.order.S2Opt << "\t" << m.order.S2angleOpt << "\t" \
+				<< m.order.S4Opt << "\t" << m.order.S4angleOpt << "\t" << m.occupiedIntersectionCount << "\t" \
+				<< m.order.R << "\t" << m.order.Rdirector[0] << "\t" << m.order.Rdirector[1] << "\t" << m.order.Rdirector[2] << "\t" \
+				<< m.G_effAdjust_normal << "\t" << m.G_effAdjust_special << "\t" << m.G_effMeasured << "\t" \
+				<< m.G_effAdjust_min << "\t" << m.G_effAdjust_max << "\t"	<< m.G_effAdjust_S2angle << "\t"	<< m.nucleationCount  << "\t"	<< m.deflectionCount << "\t"	<< m.nOccupiedNCs << "\r\n";
+				//<< m.G_effAdjust_normal << "\t" << m.G_effAdjust_special << "\r\n";
+#endif
 }
 
 void writeMeasurementDescriptors(ostream& o)
 {
+#ifdef BAND_CAT
 	o << "time\tdensity"\
 		<< "\t<l>" \
-		<< "\tS2\tS2 angle\tS4\tS4 angle\t#growing\t#shrinking\t#segments\t#trajectories"\
-		<< "\tzippering events\tcrossover events\tinduced catastrophe events\t"\
-		<< "valid deterministic events\tinvalid deterministic events\tstochastic events"\
-		<< "\toptical density\tmicrotubules\tsegments per MT\trandom severing events\tintersection severing events"\
-		<< "\tS2 opt\tS2 opt angle\tS4 opt\tS4 opt angle\toccupied intersections"\
+		<< "\tS2\tS2angle\tS4\tS4angle\t#growing\t#shrinking\t#segments\t#trajectories"\
+		<< "\tzippering_ev\tcrossover_ev\tinduced_catastrophe_ev\t"\
+		<< "valid_deterministic_ev\tinvalid_deterministic_ev\tstochastic_ev"\
+		<< "\toptical_density\tmicrotubules\tsegments_per_MT\trandom_severing_ev\tintersection_severing_ev"\
+		<< "\tS2opt\tS2opt_angle\tS4opt\tS4opt_angle\toccupied_intersections"\
 		<< "\tR\tR_x\tR_y\tR_z"\
-		<< "\tG_eff_adjusted normal\tG_eff_adjusted special\r\n";
+		<< "\tG_eff_adjusted_normal\tG_eff_adjusted_special\tG_eff_measured\tG_eff_adjusted_band\tG_eff_adjusted_gap\t"\
+		<< "\tG_eff_adjusted_min\tG_eff_adjusted_max\tG_eff_adjusted_S2angle\tnucleation_ev\tdeflection_ev\tn_occupied_NCs\r\n";
+		//<< "\tG_eff_adjusted normal\tG_eff_adjusted special\tG_eff_adjusted band\tG_eff_adjusted gap\r\n";
+#else
+	o << "time\tdensity"\
+		<< "\t<l>" \
+		<< "\tS2\tS2angle\tS4\tS4angle\t#growing\t#shrinking\t#segments\t#trajectories"\
+		<< "\tzippering_ev\tcrossover_ev\tinduced_catastrophe_ev\t"\
+		<< "valid_deterministic_ev\tinvalid_deterministic_ev\tstochastic_ev"\
+		<< "\toptical_density\tmicrotubules\tsegments_per_MT\trandom_severing_ev\tintersection_severing_ev"\
+		<< "\tS2opt\tS2opt_angle\tS4opt\tS4opt_angle\toccupied_intersections"\
+		<< "\tR\tR_x\tR_y\tR_z"\
+		<< "\tG_eff_adjusted_normal\tG_eff_adjusted_special\tG_eff_measured\t"\
+		<< "\tG_eff_adjusted_min\tG_eff_adjusted_max\tG_eff_adjusted_S2angle\tnucleation_ev\tdeflection_ev\tn_occupied_NCs\r\n";
+		//<< "\tG_eff_adjusted normal\tG_eff_adjusted special\r\n";
+#endif
 	return;
 }
+
+void writeNucleationPositions(string outputdir, vector<double> &nucleationpositions, double time)
+{
+  string filename = "/nucleationsXpos.txt";
+  ofstream outfile;
+  outfile.open(outputdir + filename,ios::out | ios::app);
+  outfile << "time " << time << '\n';
+  for (double elem : nucleationpositions)
+  {
+    outfile << elem << '\t';
+  }
+  outfile << "\n\n";
+  outfile.close();
+  return;
+}
+
+void writeRegionOrder(vector<OrderParameters> &ops, string outputdir, const int number, double time)
+{
+    vector<string> filenames = {"/localS2.txt","/localS2angle.txt","/localS2Opt.txt","/localS2angleOpt.txt","/localL.txt","/localLOpt.txt"};
+    for (int fi = 0; fi < filenames.size(); fi++)
+    {
+        ofstream outfile;
+        outfile.open(outputdir + filenames.at(fi),ios::out | ios::app);
+        outfile << "time " << time << '\n';
+        int row = 0;
+        for(int i=0; i < ops.size(); i++)
+        {
+            int regionColumn = (i)%number;
+            int regionRow = (i)/number;
+            if (regionRow > row)
+            {
+                row++;
+                outfile << '\n';
+            }
+            switch (fi)
+            {
+                case 0:
+                    outfile << ops.at(i).S2 << '\t';
+                    break;
+                case 1:
+                    outfile << ops.at(i).S2angle << '\t';
+                    break;
+                case 2:
+                    outfile << ops.at(i).S2Opt << '\t';
+                    break;
+                case 3:
+                    outfile << ops.at(i).S2angleOpt << '\t';
+                    break;
+                case 4:
+                    outfile << ops.at(i).localL << '\t';
+                    break;
+                case 5:
+                    outfile << ops.at(i).localLOpt << '\t';
+                    break;
+            }
+        }
+        outfile << "\n\n";
+        outfile.close();
+    }
+    return;
+}
+
 
 
 void System::initializeOutput(void)
@@ -88,6 +180,16 @@ void System::initializeOutput(void)
 	mtLifetimeHistogram.setFileName(p.outputDir + string("/mtLifetimeHistogram.txt"));
 	segAngleLengthHistogram.setFileName(p.outputDir + string("/segAngleLengthHistogram.txt"));
 	segAngleLifetimeHistogram.setFileName(p.outputDir + string("/segAngleLifetimeHistogram.txt"));
+    if (p.spatialHistogramType == sh_x || p.spatialHistogramType == sh_xy)
+    {
+        histX->setFileName(p.outputDir + string("/spatialHistogramX.txt"));
+        histX->writeHeader();
+    }
+    if (p.spatialHistogramType == sh_y || p.spatialHistogramType == sh_xy)
+    {
+        histY->setFileName(p.outputDir + string("/spatialHistogramY.txt"));
+        histY->writeHeader();
+    }
 
 	measurementFile.open(string(p.outputDir + string("/measurements.txt")).c_str());
 	if (!measurementFile.is_open())
@@ -142,6 +244,21 @@ void System::initializeOutput(void)
         angleNumberFile << "\n";
 
     }
+    
+    #ifdef MTBASED_NUCLEATION_PROBABILITY
+    	MTbasedProbDensityFile.open(string(p.outputDir + string("/densityMTbased.txt")).c_str());
+    	if (!MTbasedProbDensityFile.is_open())
+    	{
+      		cout << "ERROR: cannot open file for output (MT-based probability vs density)\n";
+      		exit(-1);
+    	}
+    	unboundProbDensityFile.open(string(p.outputDir + string("/densityUnbound.txt")).c_str());
+    	if (!unboundProbDensityFile.is_open())
+    	{
+      		cout << "ERROR: cannot open file for output (unbound probability vs density)\n";
+      		exit(-1);
+    	}
+    #endif
 	
 	return;	
 }
@@ -159,11 +276,19 @@ void System::closeFiles()
 	angleHistogramOpticalFile.close();
 	angleLengthFile.close();
 	angleNumberFile.close();
+	#ifdef MTBASED_NUCLEATION_PROBABILITY
+	MTbasedProbDensityFile.close();
+	unboundProbDensityFile.close();
+	#endif
 
 	mtLengthHistogram.closeFile();
 	mtLifetimeHistogram.closeFile();
 	segAngleLengthHistogram.closeFile();
 	segAngleLifetimeHistogram.closeFile();
+    if (p.spatialHistogramType == sh_x || p.spatialHistogramType == sh_xy)
+        histX->closeFile();
+    if (p.spatialHistogramType == sh_y || p.spatialHistogramType == sh_xy)
+        histY->closeFile();
 
 	return;
 }
@@ -218,6 +343,8 @@ void System::performMeasurement(void)
 	}
 
 	geometry->getOrderParameters(m.order);
+  if (p.regionalOutputQuantities)
+    geometry->getLocalOrderParameters(m.local_order);// for gridcylinder only
 
 
 	m.zipperCount = totalZipperCount;
@@ -229,19 +356,61 @@ void System::performMeasurement(void)
 	m.lengthSeveringCount = totalLengthSeveringCount;
 	m.intersectionSeveringCount = totalIntersectionSeveringCount;
 	m.occupiedIntersectionCount = OccupiedIntersectionList.size();
+  m.nucleationCount = totalNucleationCount;
+  m.deflectionCount = totalDeflectionCount;
+
+  if (p.useDoubleNucleationSaturation)
+  {
+    while ((not occupiedNCs.empty()) and occupiedNCs.front() < systemTime + systemTimeOffset - p.occupancytimeNC)
+      occupiedNCs.pop_front();
+    m.nOccupiedNCs = occupiedNCs.size();
+  }
+  else
+  {
+    m.nOccupiedNCs = 0;
+  }
 
 	double realVplus;
 	double realNuc;
 	double freeNucFraction;
-  realVplus = p.vPlus;
+  double localCat;
+  double majorityRes;
+#ifdef BAND_CAT
+  localCat = p.catMin;
+#else
+  localCat = p.kCat;
+#endif
+	if (p.restrictedPool == 0)
+		realVplus = p.vPlus;
+	else
+		realVplus = p.vPlus*(1.0 - totalLength/(p.poolDensity*geometry->area));
 	if (p.ellipseReducedFreeRate) {
 		freeNucFraction = p.nucleationHalfIsotropicDensity/(p.nucleationHalfIsotropicDensity + m.lengthDensity);
 		realNuc = p.kNuc*(p.ellipseReducedFreeRateAcceptFraction * freeNucFraction + 1.-freeNucFraction);
 	}
 	else 
-		realNuc = p.kNuc;
-	m.G_effAdjust_normal =  (p.kRes/(-p.vMin+p.vTM) - p.kCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
-	m.G_effAdjust_special =(p.kRes/(-p.vMin+p.vTM) - p.catastropheMultiplier*p.kCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
+    realNuc = p.kNuc;
+  switch (p.extraRescueFunction) {
+    case r_cos: // 1/2 + 1/2 *cos(2 (theta - kResExtraAngle))
+      majorityRes = p.kRes + p.kResExtraMax *( 0.5 + 0.5*cos(2*(m.order.S2angle - p.kResExtraAngle)));
+      break;
+    default:
+      majorityRes = p.kRes;
+      break;
+  }
+
+#ifdef BAND_CAT
+  m.G_effAdjust_band =  (p.kRes/(-p.vMin+p.vTM) - p.kCat[0]/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
+  m.G_effAdjust_gap =  (p.kRes/(-p.vMin+p.vTM) - p.kCat[1]/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
+#endif
+  m.G_effAdjust_min =  (p.kRes/(-p.vMin+p.vTM) - localCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
+	m.G_effAdjust_max =  ((p.kRes+p.kResExtraMax)/(-p.vMin+p.vTM) - localCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.); //for BAND_CAT: maybe better change to p.catMax...
+	m.G_effAdjust_S2angle =  ((majorityRes)/(-p.vMin+p.vTM) - localCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.); 
+	m.G_effAdjust_normal =  (p.kRes/(-p.vMin+p.vTM) - localCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
+	m.G_effAdjust_special =(p.kRes/(-p.vMin+p.vTM) - p.catastropheMultiplier*localCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/(realNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
+	
+	m.G_effMeasured = (m.G_effAdjust_normal)*pow( (p.kNuc)*(m.time)*(geometry->area)/totalNucleationCount, 1./3.);
+	//cout << m.time << "	" << totalNucleationCount << "	" << m.G_effAdjust_normal << "	" << totalNucleationCount/((m.time)*(geometry->area)) << endl;
 
 	measurementHistory.push_back(m);
 
@@ -360,7 +529,8 @@ void System::performMeasurement(void)
 		<< "S4 [real]     : " << m.order.S4 << "\tS4 angle:" << m.order.S4angle<< "\n"\
 		<< "S4 [optical]  : " << m.order.S4Opt << "\tS4 angle:" << m.order.S4angleOpt << "\n"\
 		<< "R  [real]     : " << m.order.R << " [" << m.order.Rdirector[0] << ", " << m.order.Rdirector[1] << ", " << m.order.Rdirector[2] << "]\n"\
-		<< "G_eff_adjust  : " << m.G_effAdjust_normal << " [on regular surfaces]\n\n";
+		<< "G_eff_adjust  : " << m.G_effAdjust_normal << " [on regular surfaces]\n"\
+		<< "G_eff_measured: " << m.G_effMeasured << " [on regular surfaces]\n\n";
 
 
 	if ((p.discreteAngleNumber) && ((geometry->type == g_periodic) || (geometry->type == g_grid)))
@@ -387,7 +557,22 @@ void System::performMeasurement(void)
 			cout << "\t\t" << p.nucleationAngles[i] << ": " << an[i];
 		cout << "\n\n";	
 	}	
+    if (p.spatialHistogramType == sh_x || p.spatialHistogramType == sh_xy)
+        geometry->getOneDmeasurement((*histX),m.time);
+    if (p.spatialHistogramType == sh_y || p.spatialHistogramType == sh_xy)
+        geometry->getOneDmeasurement((*histY),m.time);
 
+  if (p.outputNucPos == "X" or p.outputNucPos == "XY")
+  {
+    writeNucleationPositions(p.outputDir, nucleationXpositions, systemTime + systemTimeOffset);
+    nucleationXpositions.clear();
+  }
+  if (p.outputNucPos == "Y" or p.outputNucPos == "XY")
+  {
+    writeNucleationPositions(p.outputDir, nucleationYpositions, systemTime + systemTimeOffset);
+    nucleationYpositions.clear();
+  }
+        
 	return;
 }
 
@@ -400,6 +585,10 @@ void System::writeMeasurementsToFile(int numberToKeep)
 	for (i=0; i<iMax; i++)
 	{
 		measurementFile << measurementHistory[0];
+    if (p.regionalOutputQuantities and p.geometry == g_gridcylinder)
+    {
+      writeRegionOrder(measurementHistory[0].local_order, p.outputDir, static_cast<GridCylinder*>(geometry)->number, measurementHistory[0].time);
+    }
 		measurementHistory.pop_front();
 	}
 
@@ -459,6 +648,18 @@ void System::writeMeasurementsToFile(int numberToKeep)
             angleNumberFile << "\n";
          }
     }
+    
+    #ifdef MTBASED_NUCLEATION_PROBABILITY
+    for (int i=0; i<nearbyDensityVector.size(); ++i)
+    {
+    	MTbasedProbDensityFile << regionalDensityVector[i] << "\t" << nearbyDensityVector[i] << "\t" << globalDensityVector[i] << "\n";
+    }
+    for (int i=0; i<nearbyDensityVectorUnbound.size(); ++i)
+    {
+    	unboundProbDensityFile << regionalDensityVectorUnbound[i] << "\t" << nearbyDensityVectorUnbound[i] << "\t" << globalDensityVectorUnbound[i] << "\n";
+    }
+    #endif
+    
     return;
 }
 
@@ -716,4 +917,180 @@ void MultiAngleHistogram::save()
 	return;
 }
 
+OneDSpatialMeasurement::OneDSpatialMeasurement(int n, bool caps, OrientationType oo, double len, double ts, bool wr) : bins(n),includeCaps(caps),ori(oo),binSurface(ts/n),writeRaw(wr){
+    double dlen;
+    dlen = len/n;
+    cuts = new double[n];
+    cuts[n-1] = VERY_LARGE;
+    for (int i=0 ; i < n-1; i++)
+    {
+        cuts[i] = -0.5*len + dlen*(i+1)  ;
+    }
+    if (includeCaps){
+        opHist = new OrderParametersRaw[n+2];
+        nHist = new double[n+2];
+        cuts[n] = 0.;
+        cuts[n+1]= len;
+    }
+    else 
+    {
+        opHist = new OrderParametersRaw[n];
+        nHist = new double[n];
+    }
+    //for (int i = 0 ; i< n + 2*includeCaps ; i++) {
+        //cout << cuts[i] << "\t";
+    //}
+    //cout << "\n";
+    return;
+}
+
+OneDSpatialMeasurement::~OneDSpatialMeasurement() {
+	delete[] cuts;
+	delete[] opHist;
+	delete[] nHist;
+	return;
+}
+
+void OneDSpatialMeasurement::writeHeader() {
+    if (writeRaw){
+        file << "#position\tMTcount\tdensity\tS2\tS2_angle\tS4\tS4_angle\tdensityOpt\tS2Opt\tS2Opt_angle\tS4Opt\tS4Opt_angle\tR\tR_x\tR_y\tR_z";
+        file << "\tsi2\tsi4\tco2\tco4\tlocalL\tsi2Opt\tsi4Opt\tco2Opt\tco4Opt\tlocalLOpt\tQxx\tQxy\tQxz\tQyy\tQyz\tQzz\tisoWeights0\tisoWeights1\tisoWeights2\n";
+    }
+    else
+        file << "#position\tMTcount\tdensity\tS2\tS2_angle\tS4\tS4_angle\tdensityOpt\tS2Opt\tS2Opt_angle\tS4Opt\tS4Opt_angle\tR\tR_x\tR_y\tR_z\n";
+}
+
+void OneDSpatialMeasurement::writeLine(double pos, int i) {
+    double R, Rdirector[3];
+    R = opHist[i].extractR(Rdirector);
+    file << pos << "\t" << nHist[i] << "\t" \
+        << opHist[i].localL/binSurface << "\t" \
+        << sqrt(opHist[i].si2*opHist[i].si2 + opHist[i].co2*opHist[i].co2) << "\t" \
+        << 0.5*atan2(opHist[i].si2,opHist[i].co2) << "\t" \
+        << sqrt(opHist[i].si4*opHist[i].si4 + opHist[i].co4*opHist[i].co4) << "\t" \
+        << 0.25*atan2(opHist[i].si4,opHist[i].co4) << "\t" \
+        << opHist[i].localLOpt/binSurface << "\t" \
+        << sqrt(opHist[i].si2Opt*opHist[i].si2Opt + opHist[i].co2Opt*opHist[i].co2Opt) << "\t" \
+        << 0.5*atan2(opHist[i].si2Opt,opHist[i].co2Opt) << "\t" \
+        << sqrt(opHist[i].si4Opt*opHist[i].si4Opt + opHist[i].co4Opt*opHist[i].co4Opt) << "\t" \
+        << 0.25*atan2(opHist[i].si4Opt,opHist[i].co4Opt) << "\t" \
+        << R << "\t" << Rdirector[0] << "\t" << Rdirector[1] << "\t" << Rdirector[2]; 
+    if (writeRaw) {
+        file << "\t" << opHist[i].si2 * opHist[i].localL << "\t" \
+        << opHist[i].si4 * opHist[i].localL << "\t" \
+        << opHist[i].co2 * opHist[i].localL << "\t" \
+        << opHist[i].co4 * opHist[i].localL << "\t"  << opHist[i].localL << "\t"  \
+        << opHist[i].si2Opt * opHist[i].localLOpt << "\t" \
+        << opHist[i].si4Opt * opHist[i].localLOpt << "\t" \
+        << opHist[i].co2Opt * opHist[i].localLOpt << "\t" \
+        << opHist[i].co4Opt * opHist[i].localLOpt << "\t"  << opHist[i].localLOpt << "\t"  \
+        << opHist[i].Qxx * opHist[i].localL << "\t" \
+        << opHist[i].Qxy * opHist[i].localL << "\t" \
+        << opHist[i].Qxz * opHist[i].localL << "\t" \
+        << opHist[i].Qyy * opHist[i].localL << "\t" \
+        << opHist[i].Qyz * opHist[i].localL << "\t" \
+        << opHist[i].Qzz * opHist[i].localL << "\t" \
+        << opHist[i].isoWeights[0] * binSurface << "\t" \
+        << opHist[i].isoWeights[1] * binSurface << "\t" \
+        << opHist[i].isoWeights[2] * binSurface;
+    }
+    file << "\n";
+    return;
+}
+
+void OneDSpatialMeasurement::writeToFile(double t) {
+    // IMPORTANT! assumes that ::process() is called just before.
+    double pos;
+    //file << "#Time "<<setprecision(9) << t << " s\n"; 
+    file << "#Time " << t << " s\n"; 
+   if (includeCaps ) 
+       writeLine(0.,bins);
+   for (int i=0; i<bins ; i++) {
+       if (i == 0)
+           pos=0.5*(cuts[0]+cuts[1])-(cuts[1]-cuts[0]);
+       else if (i == bins -1)
+           pos=0.5*(cuts[bins-2]+cuts[bins-3]) + cuts[1] - cuts[0]; // assume equally spaced cuts!
+       else
+           pos=0.5*(cuts[i]+cuts[i-1]);
+       writeLine(pos,i);
+   } 
+   if (includeCaps ) 
+       writeLine(cuts[bins+1],bins+1);
+   file << "\n";
+   return;
+}
+
+void OneDSpatialMeasurement::process() {
+    // IMPORTANT! Only call before writing to file. Needs reset before meaningful new measurement can be made.
+    for (int i= 0 ; i < bins + 2*includeCaps; i++ ){
+        if (opHist[i].localL > ZERO_CUTOFF)
+        {
+            opHist[i].si2 /= opHist[i].localL;
+            opHist[i].si4 /= opHist[i].localL;
+            opHist[i].co2 /= opHist[i].localL;
+            opHist[i].co4 /= opHist[i].localL;
+            opHist[i].si2Opt /= opHist[i].localLOpt;
+            opHist[i].si4Opt /= opHist[i].localLOpt;
+            opHist[i].co2Opt /= opHist[i].localLOpt;
+            opHist[i].co4Opt /= opHist[i].localLOpt;
+
+            opHist[i].Qxx /= opHist[i].localL;
+            opHist[i].Qxy /= opHist[i].localL;
+            opHist[i].Qxz /= opHist[i].localL;
+            opHist[i].Qyy /= opHist[i].localL;
+            opHist[i].Qyz /= opHist[i].localL;
+            opHist[i].Qzz /= opHist[i].localL;
+        }
+            opHist[i].isoWeights[0] /= binSurface;
+            opHist[i].isoWeights[1] /= binSurface;
+            opHist[i].isoWeights[2] /= binSurface;
+    }
+    return;
+}
+void OneDSpatialMeasurement::reset(void) 
+{
+    for (int i=0; i<bins+2*includeCaps; i++) 
+    {   
+        nHist[i] = 0.;
+        opHist[i].si2 =0.;
+        opHist[i].si4 =0.;
+        opHist[i].co2 =0.;
+        opHist[i].co4 =0.;
+        opHist[i].localL =0.;
+        opHist[i].si2Opt =0.;
+        opHist[i].si4Opt =0.;
+        opHist[i].co2Opt =0.;
+        opHist[i].co4Opt =0.;
+        opHist[i].localLOpt =0.;
+        opHist[i].Qxx =0.;
+        opHist[i].Qxy =0.;
+        opHist[i].Qxz =0.;
+        opHist[i].Qyy =0.;
+        opHist[i].Qyz =0.;
+        opHist[i].Qzz =0.;
+        opHist[i].isoWeights[0] =0.;
+        opHist[i].isoWeights[1] =0.;
+        opHist[i].isoWeights[2] =0.;
+      } 
+    return;
+}
+
+void OneDSpatialMeasurement::setFileName(string f)
+{
+	if (file.is_open())
+		file.close();
+	file.open(f.c_str());
+	if (!file)
+	{
+		cerr << "Unable to open histogram output file [" << f << "]. Aborting.\n";
+		return;
+	}
+}
+
+void OneDSpatialMeasurement::closeFile()
+{
+	if (file.is_open())
+		file.close();
+	return;
+}
 

@@ -1,7 +1,3 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -52,6 +48,8 @@ double DeterministicQueue::firstEventTime()
 	}
 #endif
 
+  //if (system->randomGen() < 0.0001)
+    //cout << "BLAH "<< (system->*distanceTimeConversionFunction)(event.eventTimeDist - currentBase) << " " << event.eventTimeDist - currentBase << " " << system->p.vPlus << "\n";
 	return system->systemTime + (system->*distanceTimeConversionFunction)(event.eventTimeDist - currentBase);
 }
 
@@ -164,9 +162,11 @@ void EventDescriptor::pushOnQueue(double dist, DeterministicEventType t)
 		cerr << "system time=" << mt->system->systemTime << ", reference time=" << queue->currentPos() << ", offset=" <<  dist*distanceScaleFactor << ", event type=" << t << ", tag=" << tag << ".\n";
 	}
 	#endif
-
 	type = t;
 	tag = queue->pushDeterministic(queue->currentPos() + dist*distanceScaleFactor, index);
+#ifdef DBG_VELOCITY
+cout << "DBG/VELOCITY: " << 1./distanceScaleFactor << "\t" << mt->plus.velocity << "\t" << mt->minus.velocity << "\t" << type << "\n";
+	#endif
 	return;
 }
 	
