@@ -28,7 +28,7 @@
  */
 
 
-#define PROGRAM_VERSION "2.0 beta"
+#define PROGRAM_VERSION "2.0.1 beta"
 
 //#define VAR_CAT // if defined, it is possible to have variable r_cat by sine function
 //#define BAND_CAT // if defined, it is possible to have variable r_cat by distinct bands   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -1019,6 +1019,7 @@ public:
 	double vTM;				// minus end shrinking velocity
 	double kSev;			// severing rate [1/(sec*mu)]
 	double kCross;			// severing rate at (occupied) intersections [1/#OccupiedIntersections/sec]
+	double Gmax;                 
 #ifdef VAR_CAT
 	OrientationType kCatOrient;			// if spontaneous catastrophe rate varies:  along x / y / z axis (z not implemented)
 	double kCatBands;			// if spontaneous catastrophe rate varies along y-axis: # periods of sin function
@@ -1027,15 +1028,15 @@ public:
   double catMin;
   double catMax;
   double Gmin;
-  double Gmax;
+  //double Gmax;
 #endif
-double Gmax;                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//double Gmax;                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifdef BAND_CAT
 	OrientationType kCatOrient;			// if spontaneous catastrophe rate varies:  along x / y / z axis (z not implemented)
   double catMin;
   double catMax;
   double Gmin;
-  double Gmax;
+ // double Gmax;
   double kCat[2]; // for zone based bands; ultimately with "all" parameters zone dependent: [0] = band ; [1] = gap
   double bandGapWidth[2];  // for zone based bands; ultimately with "all" parameters zone dependent: [0] = band ; [1] = gap
   int nSpirals; // if spirals along cylinder (orientation = x), then n continuous spirals (0 -> rings)
