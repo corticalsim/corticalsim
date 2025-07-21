@@ -70,7 +70,7 @@ void writeMeasurementDescriptors(ostream& o)
 		<< "\toptical_density\tmicrotubules\tsegments_per_MT\trandom_severing_ev\tintersection_severing_ev"\
 		<< "\tS2opt\tS2opt_angle\tS4opt\tS4opt_angle\toccupied_intersections"\
 		<< "\tR\tR_x\tR_y\tR_z"\
-		<< "\tG_eff_adjusted_normal\tG_eff_adjusted_special\tG_eff_measured\t"\
+		<< "\tG_eff_adjusted_normal\tG_eff_adjusted_special\tG_eff_measured"\
 		<< "\tG_eff_adjusted_min\tG_eff_adjusted_max\tG_eff_adjusted_S2angle\tnucleation_ev\tdeflection_ev\tn_occupied_NCs\r\n";
 		//<< "\tG_eff_adjusted normal\tG_eff_adjusted special\r\n";
 #endif
