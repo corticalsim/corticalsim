@@ -188,7 +188,7 @@ Parameters::Parameters(System* s) :
     gridAspectratio(1.),     // aspect ratio of grid cells for gridcylinder or grid geometry
     useAbsoluteBidirectionalNucBias(false),   // turn on to give unbound nucleations a specific orientation
     absoluteNucBiasAngle(0.),                  // angle of the orientation that unbound nucleations will get
-    nucBiasVariance(0.),                  // angle of the orientation that unbound nucleations will get
+    nucBiasVariance(0.),                  // variance at angle of the orientation that unbound nucleations will get
     useMTdeflection(true),   // have MTs change direction every deflectionStepsize by a uniform angle between + and - deflectionMaxAngle
     deflectionStepsize(3.),     // length at which next deflection is to occur
     deflectionMaxAngle(PI/9.),     // deflection angles are drawn uniformly from [-deflectionAngle, +deflectionAngle]
@@ -315,7 +315,7 @@ bool Parameters::writeToFile()
 	of << "restrictedPool\t" << restrictedPool << "\r\n";
 
 	of << "edgeCatastropheEnabled\t" << edgeCatastropheEnabled << "\r\n";
-	of << "edgeCatastropheSmooth\t" << edgeCatastropheEnabled << "\r\n";
+	of << "edgeCatastropheSmooth\t" << edgeCatastropheSmooth << "\r\n";
 	of << "pCatRegularEdge\t" << pCatRegularEdge << "\r\n";
 	of << "pCatSpecialEdge\t" << pCatSpecialEdge << "\r\n";
 
@@ -561,6 +561,11 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
 	string id;
   	bool recognized;
 
+	// This prevents unwanted new seeding upon loading new parameters. 
+	// preSeededSeedDensity has to be restated explicitly in the new parameter file if new seeds are desired.
+	// VERSION ALERT/BUG FIXED: WAS WITHIN PARAMETER READING ROUTINE, i.e. was reset to 0 for each new line in the parameter file. 
+	preSeededSeedDensity = 0.; 
+
     while (parFile.good() )
     {
 		parFile >> id;
@@ -571,9 +576,6 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
       	{
 	      	recognized = false;
 
-			// This prevents unwanted new seeding upon loading new parameters. 
-			// preSeededSeedDensity has to be restated explicitly in the new parameter file if new seeds are desired.
-			preSeededSeedDensity = 0.; 
 			
 
 			// the following parameters are only read upon program initialization
