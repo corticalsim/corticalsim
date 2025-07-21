@@ -7,7 +7,7 @@ If you use CorticalSim in publications, please include a citation to:
 [for microtubule dependent nucleation] https://doi.org/10.1101/2024.03.25.586463
 [for microtubule dependent nucleation - old algorithm only (nuc_ellipse)] http://dx.doi.org/10.1088/1478-3975/8/5/056002
 [for microtubule severing] http://dx.doi.org/10.1073/pnas.1702650114 
-[for microtubule deflections] https://doi.org/10.1101/2024.04.04.588070
+[for microtubule deflections] https://doi.org/10.1017/qpb.2024.17 
 
 This document contains only build instructions (more detail in 'code_manual_v2.pdf'); see ‘user_manual_v2.pdf’ for usage instructions. 
 
@@ -41,8 +41,11 @@ The code depends on "old" C++ standards for several elements of std:: namespace.
 Public release versions history:
 2017: VERSION 1.26.1
 This version is also available from https://github.com/corticalsim/corticalsim
-Zenodo DOI: https://doi.org/10.5281/zenodo.801852
+Zenodo DOI: https://doi.org/10.5281/zenodo.801852 
 Contributors: Simon Tindemans, Eva Deinum
 
 2024: VERSION 2.0
+2025: VERSION 2.0.1
 Contributors: Marco Saltini, Bas Jacobs, Eva Deinum
+This version is also available from https://github.com/corticalsim/corticalsim
+Zenodo DOI: https://doi.org/10.5281/zenodo.16282498
