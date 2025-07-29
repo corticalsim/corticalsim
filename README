@@ -4,7 +4,7 @@ CorticalSim - cortical microtubule simulator
 
 If you use CorticalSim in publications, please include a citation to:
 [for general use] http://dx.doi.org/10.3389/fphy.2014.00019 
-[for microtubule dependent nucleation] https://doi.org/10.1101/2024.03.25.586463
+[for microtubule dependent nucleation] ] http://dx.doi.org/10.1371/journal.pcbi.1013282 
 [for microtubule dependent nucleation - old algorithm only (nuc_ellipse)] http://dx.doi.org/10.1088/1478-3975/8/5/056002
 [for microtubule severing] http://dx.doi.org/10.1073/pnas.1702650114 
 [for microtubule deflections] https://doi.org/10.1017/qpb.2024.17 
