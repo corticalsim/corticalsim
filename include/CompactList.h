@@ -2,6 +2,7 @@
 #define COMPACTLIST_H_
 #include <boost/pool/singleton_pool.hpp>
 #include <new>
+#include <iostream>
 
 using namespace std;
 
@@ -64,7 +65,7 @@ void CompactList<T, i>::removeAll()
     {
         remove(elements[j]);
     }
-    elements.pop_back(); 
+    elements.pop_back();
 }
 
 template<class T, int i>
@@ -123,7 +124,7 @@ inline void CompactList<T,i>::RemoveElement(int idx)
     {
         remove(elements[idx]);
         // if idx was not the last element, move last element to the gap
-        if (idx != size -1)	
+        if (idx != size -1)
         {
             elements[idx] = elements.back();
             elements[idx]->index = idx;
@@ -146,5 +147,5 @@ protected:
     template<class Q, int i> friend class CompactList;
 };
 
-#endif 
+#endif
 //COMPACTLIST_H_

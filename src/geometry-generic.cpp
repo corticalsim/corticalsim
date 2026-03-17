@@ -4,7 +4,7 @@ void Geometry::callTranslator(SurfaceVector& sVec,int regionIndex,int regionInde
 {
     int Index1(regions[regionIndex]->sideRevMap[regionIndexNeigh]);
 
-    // use affine transformation of triangle to map a point from one region to other region 
+    // use affine transformation of triangle to map a point from one region to other region
     Vector2d V1(sVec.x,sVec.y),V2;
     V2 = regions[regionIndex]->side[Index1].A*V1 + regions[regionIndex]->side[Index1].b;
     sVec.x = V2(0,0);
@@ -26,20 +26,20 @@ TrajectoryVector Geometry::createAndLinkTrajectory(const SurfaceVector& newBase,
     // first create a new trajectory vector (trajectory)
     TrajectoryVector tVec = createTrajectory(newBase);
 
-    // declare a dummy trajectory vector 
+    // declare a dummy trajectory vector
     TrajectoryVector thisVec;
 
     // copy old trajectory vector
     thisVec.trajectory = oldtr;
 
-    // old trajectory vector has direction forward, set the new trajectory vector as next 
+    // old trajectory vector has direction forward, set the new trajectory vector as next
     if (olddir == ::forward)
     {
         oldtr->nextTr = tVec;
         oldtr->nextTrCosAngle = cosAngle;
 	oldtr->nextTrpCat = pCat;
 
-        // get the direction and position of the dummy trajectory vector 
+        // get the direction and position of the dummy trajectory vector
         thisVec.dir = backward;
         thisVec.pos = oldtr->length;
     }
@@ -50,13 +50,13 @@ TrajectoryVector Geometry::createAndLinkTrajectory(const SurfaceVector& newBase,
         oldtr->prevTr = tVec;
         oldtr->prevTrCosAngle = cosAngle;
 	oldtr->prevTrpCat = pCat;
-        
-        // get the direction and position of the dummy trajectory vector 
+
+        // get the direction and position of the dummy trajectory vector
         thisVec.dir = ::forward;
         thisVec.pos = 0;
     }
 
-    // new trajectory vector has direction forward, set the dummy trajectory vector as previous 
+    // new trajectory vector has direction forward, set the dummy trajectory vector as previous
     if (tVec.dir == ::forward)
     {
         tVec.trajectory->prevTr = thisVec;
@@ -80,7 +80,7 @@ SurfaceVector Geometry::randomSurfaceVector()
 	int regionSelector = 0;
 	double rArea = 0;
         int domainType;
-                       
+
         if (regions.size() > 1)
 	{
 		// nucleation on PPB
@@ -93,8 +93,8 @@ SurfaceVector Geometry::randomSurfaceVector()
 		// nucleation outside PPB
 		else
 		domainType = 0;
-                
-		// select a region 
+
+		// select a region
 		rArea = system->randomGen.randDblExc(patchArea[domainType]);
 
 		if (rArea < 0.5*patchArea[domainType])
@@ -232,17 +232,17 @@ TrajectoryVector Region::insertTrajectory(const SurfaceVector& sVec)
     SurfaceVector newBase(sVec);
 
     vector<PointATedge> endPoint;
-    
+
     // gather coordinates of the trajectory to be created
     getTrajectoryCoordinates(newBase,tLength,endPoint,tVec);
 
     // create the trajectory
     tVec.trajectory = trajectories.create(newBase,endPoint,tLength);
 
-    // make a list of intersections of the created trajectory with all other trajectories 
+    // make a list of intersections of the created trajectory with all other trajectories
     makeIntersectionList(tVec.trajectory);
 
-    // increase total number of intersections accordingly 
+    // increase total number of intersections accordingly
     geometry->system->countIntersections += 2*(tVec.trajectory->intersections.size());
 
     return tVec;
@@ -255,7 +255,7 @@ void Region::removeTrajectory(Trajectory* tr)
     #endif
 
     #ifdef DBG_ASSERT
-    // when removing a trajectory, it should be already run out of segments  
+    // when removing a trajectory, it should be already run out of segments
     if (!tr->segments.empty())
     {
         cout << "Big problem";
@@ -275,7 +275,7 @@ void Region::removeTrajectory(Trajectory* tr)
     IntersectionItr is(++tr->intersections.begin());
 
     Trajectory* otherTr(NULL);
- 
+
     while (is != tr->intersections.end())
     {
         otherTr = is->second.otherTrajectory;
@@ -321,7 +321,7 @@ double Region::opticalLength()
     Trajectory* tr(trajectories.first());
     double sum(0.0);
 
-    // calculate total optical length present in this region 
+    // calculate total optical length present in this region
     while (tr != NULL)
     {
         sum += tr->coveredLength();
@@ -332,10 +332,10 @@ double Region::opticalLength()
 
 RegionMTTipTag Region::registerOnRegion(MTTip* pTip, TipType tiptype, MTType mttype)
 {
-    // update length 
+    // update length
     updateRegionLength();
 
-    // minus tip 
+    // minus tip
     if (tiptype == t_minus)
         return minusTipList.insert(minusTipList.end(),pTip);
 
@@ -349,7 +349,7 @@ RegionMTTipTag Region::registerOnRegion(MTTip* pTip, TipType tiptype, MTType mtt
             return growingPlusTipList.insert(growingPlusTipList.end(),pTip);
         }
 
-        // insert shrinking MT 
+        // insert shrinking MT
         else
             return shrinkingPlusTipList.insert(shrinkingPlusTipList.end(),pTip);
     }
@@ -374,7 +374,7 @@ void Region::unregisterFromRegion(RegionMTTipTag tag, TipType tiptype, MTType mt
             growingPlusTipList.erase(tag);
         }
 
-        // erase shrinking MT 
+        // erase shrinking MT
         else
             shrinkingPlusTipList.erase(tag);
     }
@@ -554,7 +554,7 @@ double Trajectory::coveredLength()
     // make sure the last value of start-point-list is maximum of all values from both lists
     startPoints.push_back(VERY_LARGE);
 
-    // sort the distances 
+    // sort the distances
     startPoints.sort();
     endPoints.sort();
 
@@ -569,7 +569,7 @@ double Trajectory::coveredLength()
     {
         currentPos = min(*stepup, *stepdown);
 
-        // sum up only once and if the trajectory is covered, i.e. avoid multiple addition for bundles 
+        // sum up only once and if the trajectory is covered, i.e. avoid multiple addition for bundles
         if (occupancy >= 1)
             cLength += currentPos - previousPos;
 
@@ -601,7 +601,7 @@ void Trajectory::invalidateIntersection(IntersectionItr& oldIs)
 {
     list<MTTip*>::iterator tip(notificationList.begin());
 
-    // notify all tips on the current trajectory that a previous insertion is invalidated 
+    // notify all tips on the current trajectory that a previous insertion is invalidated
     while (tip != notificationList.end())
     {
         (**tip).notifyRemove(oldIs);
@@ -621,7 +621,7 @@ void Trajectory::newIntersection(IntersectionItr& newIs)
 
     int occupancy(0);
 
-    // find whether the new intersection is a cross-intersection for the segment 
+    // find whether the new intersection is a cross-intersection for the segment
     while (seg != segments.end())
     {
         (**seg).mt->updateLength();
@@ -688,7 +688,7 @@ TrjSegmentTag Trajectory::insertSegment(Segment* s)
     }
     #endif
 
-    // insert a new segment to the trajectory 
+    // insert a new segment to the trajectory
     return segments.insert(segments.end(),s);
 }
 
@@ -698,10 +698,10 @@ void Trajectory::removeSegment(TrjSegmentTag s)
     cout << "DBG/GEOMETRY: Trajectory::removeSegment() called.\n";
     #endif
 
-    // remove segment 
+    // remove segment
     segments.erase(s);
 
-    // if the associated trajectory has no segement and no tips, then remove the whole trajectory 
+    // if the associated trajectory has no segement and no tips, then remove the whole trajectory
     conditionalRemove();
 
     return;
@@ -709,13 +709,13 @@ void Trajectory::removeSegment(TrjSegmentTag s)
 
 TrjMTTipTag Trajectory::registerForNotifications(MTTip* pTip)
 {
-    // a new tip arrived on the trajectory, add it to the notification list 
+    // a new tip arrived on the trajectory, add it to the notification list
     return notificationList.insert(notificationList.end(),pTip);
 }
 
 void Trajectory::unregisterForNotifications(TrjMTTipTag tag)
 {
-    // a tip is leaving the trajectory, remove it from the notification list 
+    // a tip is leaving the trajectory, remove it from the notification list
     notificationList.erase(tag);
 
     // if the associated trajectory has no tips and no segments, then remove the whole trajectory
@@ -753,6 +753,6 @@ TrajectoryVector Trajectory::nextTrajectory(Direction dir)
         }
     }
 
-    // there is no next/previous trajectory to take the tip, so extend (create a new) trajectory 
+    // there is no next/previous trajectory to take the tip, so extend (create a new) trajectory
     return base.region->geometry->extendTrajectory(this,dir);
 }

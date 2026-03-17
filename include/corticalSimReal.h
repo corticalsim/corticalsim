@@ -42,7 +42,7 @@
 #include <cmath>
 #include <iomanip>
 #include <fstream>
-#include "Eigen/Dense"
+#include <Eigen/Dense>
 #include "MersenneTwister.h"
 #include "eig3.h"
 #include "DLList.h"
@@ -1116,7 +1116,7 @@ class Triangle : public Cartesian
 };
 
 #ifndef NO_INLINE
-#include "inline.cpp"
+#include "../src/inline.cpp"
 #endif
 
 #endif

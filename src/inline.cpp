@@ -1,19 +1,21 @@
+#include<cstddef>
+
 #ifndef NO_INLINE
-inline
+    inline
 #endif
 
-void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
+    void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
 {
 	switch (p.interactionType)
 	{
 		case int_zipFirst:
-                        
-			// angle < magic angle 
+
+			// angle < magic angle
 			if(angle < PI*p.magicAngle/180.0)
 			{
 				Pcat = 0.0;
 
-				// zippering enabled 
+				// zippering enabled
 				if(p.zipperingEnabled)
 					Pzip = p.zipFraction;
 				else
@@ -27,7 +29,7 @@ void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
                         // angle > p.catStartAngle and induced catastrophes enabled
 			if (p.catastrophesEnabled && (angle > p.catStartAngle/180.0*PI))
 			{
-				// proportional catastrophe enabled 
+				// proportional catastrophe enabled
 				if(p.proportionalCatastrophes)
 					Pcat = (angle - p.catStartAngle/180.0*PI)/(PI/2. - p.catStartAngle/180.0*PI)*p.inducedCatastropheFraction;
 
@@ -42,10 +44,10 @@ void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
 
 		case int_catFirst:
 
-			// angle > p.catStartAngle and induced catastrophes enabled 
+			// angle > p.catStartAngle and induced catastrophes enabled
 			if (p.catastrophesEnabled && (angle > p.catStartAngle/180.0*PI))
 			{
-				// proportional catastrophe enabled 
+				// proportional catastrophe enabled
 				if(p.proportionalCatastrophes)
 					Pcat = (angle - p.catStartAngle/180.0*PI)/(PI/2. - p.catStartAngle/180.0*PI)*p.inducedCatastropheFraction;
 
@@ -56,7 +58,7 @@ void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
 			else
 				Pcat = 0.0;
 
-			// angle < magic angle and zippering enabled 
+			// angle < magic angle and zippering enabled
 			if(p.zipperingEnabled && (angle < p.magicAngle/180.0*PI))
 				Pzip = 1.0 - Pcat;
 			else
@@ -132,7 +134,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross)	/
 	double Pzip;
 	double Psum;
 
-        // get a random number 
+        // get a random number
 	double rand = randomGen.randDblExc();
 
         // get the available Pcat and Pzip
@@ -155,7 +157,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross)	/
 
 		case bdl_simple:
 
-			// induced catastrophe selected 
+			// induced catastrophe selected
 			if (rand < Pcat)
 				return ct_inducedCatastrophe;
 
@@ -168,7 +170,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross)	/
 				return ct_crossover;
 
 		// though never reached
-		//break;	
+		//break;
 
 		case bdl_Ncollision:
 
@@ -177,7 +179,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross)	/
 			Pzip *= nCross;
 			Psum = Pcat + Pzip;
 
-                        // now normalize the probabilities 
+                        // now normalize the probabilities
 			if (Psum > 1)
 			{
 				Pcat /= Psum;
@@ -194,7 +196,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross)	/
 				return ct_crossover;
 
 		// though never reached
-		//break;	
+		//break;
 
 		case bdl_multiCollision:
 
@@ -212,12 +214,12 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross)	/
 				return ct_inducedCatastrophe;
 
 		// though never reached
-		// break;	
+		// break;
 
 	}
 
 	// should never occur
-	return ct_crossover;	
+	return ct_crossover;
 }
 
 #ifndef NO_INLINE
@@ -229,7 +231,7 @@ double Microtubule::length()
 	double temp = 0.0;
 	Segment* seg = segments.first();
 
-	// calculate total length of a MT 
+	// calculate total length of a MT
 	while (seg != NULL)
 	{
 		temp += seg->length();
@@ -287,8 +289,8 @@ void Trajectory::conditionalRemove()
 {
 	// if there is no segments and no tips, associted with a trajectory, then remove it rigth way
 	if (segments.empty() && (notificationList.size()==0))
-	base.region->removeTrajectory(this); 
-	
+	base.region->removeTrajectory(this);
+
 	return;
 }
 
