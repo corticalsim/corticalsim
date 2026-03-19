@@ -10,7 +10,7 @@ incdir = include_directories('include')
 subdir('src')
 
 # Dependencies
-eigen = dependency('eigen3')
+eigen = dependency('Eigen3', modules: ['Eigen3::Eigen'])
 boost = dependency('boost', modules : ['filesystem'])
 
 # Executable(s)
