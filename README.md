@@ -95,12 +95,9 @@ Run the `corticalsim3D` executable with a parameter file as the first argument. 
 ./corticalsim3d ../corticalsim3D/config/parameters_ARRAY.txt
 ```
 
-NOTE: Currently, the program crashes for both parameter files with the error `Euler condition violated ... emergency exit !!!`.
-
 # TODO
 
 - [ ] Reproduce the installation instructions for Windows and update them as necessary.
 - [ ] Add specific installation instructions for dependencies for different Linux distributions (Ubuntu, Debian, Arch...).
 - [ ] Add installation instructions for MacOSX.
 - [ ] Meson: Option to install the executable into a custom directory
-- [ ] Parameter files: debug (`Euler condition violated ...`)
