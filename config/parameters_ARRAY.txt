@@ -1,8 +1,8 @@
 #########################
 ### Input-Output path ###
 #########################
-inputDir 	../corticalsim3D/data
-outputDir 	../corticalsim3D/data
+inputDir 	corticalsim3D/data
+outputDir 	corticalsim3D/data
 createSubdir 0
 ##################################
 ### changing parameters on fly ###

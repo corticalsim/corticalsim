@@ -91,7 +91,7 @@ sudo apt install gcc libboost-filesystem-dev libeigen3-dev meson ninja-build cma
 Run the `corticalsim3D` executable with a parameter file as the first argument. Two example parameter files are provided in the `corticalsim3D/config` directory: `parameters_ARRAY.txt` and `parameters_FLY.txt`. The
 
 ```bash
-./corticalsim3d ../corticalsim3D/config/parameters_ARRAY.txt
+./build/corticalsim3d ./corticalsim3D/config/parameters_ARRAY.txt
 ```
 
 # TODO
