@@ -81,8 +81,7 @@ sudo apt install gcc libboost-all-dev libeigen3-dev meson ninja-build cmake
 1. Enter the build directory and compile the source:
 
     ```bash
-    cd build
-    meson compile
+    meson compile -C build
     ```
 
     This will generate an executable file called `corticalsim3D` in the current directory (`build`).
