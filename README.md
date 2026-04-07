@@ -57,7 +57,7 @@ Instructions for Ubuntu (*to be confirmed, may be incomplete*):
 
 ```bash
 sudo apt update && apt upgrade
-sudo apt install gcc libboost-all-dev libeigen3-dev meson ninja-build cmake
+sudo apt install gcc libboost-filesystem-dev libeigen3-dev meson ninja-build cmake
 ```
 
 ## Compile
