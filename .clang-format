@@ -1,5 +1,5 @@
 BasedOnStyle: GNU
-Standard: Cpp17
+Standard: c++17
 Language: Cpp
 AlignConsecutiveMacros:
   Enabled: true
