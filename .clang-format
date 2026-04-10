@@ -1,0 +1,38 @@
+BasedOnStyle: GNU
+Standard: Cpp17
+Language: Cpp
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: false
+AlignOperands: Align
+BinPackArguments: false
+BinPackParameters: false
+BreakAfterReturnType: Automatic
+BreakBeforeBraces: Allman
+BreakConstructorInitializers: AfterColon
+BreakTemplateDeclarations: Yes
+ContinuationIndentWidth: 0
+IncludeBlocks: Preserve
+IndentCaseLabels: true
+IndentPPDirectives: BeforeHash
+IndentWidth: 4
+IndentWrappedFunctionNames: false
+# InsertBraces: true
+NamespaceIndentation: All
+PackConstructorInitializers: Never
+PenaltyReturnTypeOnItsOwnLine: 1000000
+PointerAlignment: Left
+QualifierAlignment: Leave
+ReferenceAlignment: Left
+RemoveEmptyLinesInUnwrappedLines: true
+SeparateDefinitionBlocks: Always
+SortIncludes: Never
+SpaceAfterOperatorKeyword: false
+SpaceBeforeCaseColon: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: false
+SpaceBeforeEnumUnderlyingTypeColon: false
+SpaceBeforeInheritanceColon: false
+SpaceBeforeParens: ControlStatements
+TabWidth: 4
