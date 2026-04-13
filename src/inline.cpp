@@ -64,7 +64,10 @@
 			else
 				Pzip = 0.0;
 		break;
-	}
+
+        default:
+        break;
+    }
 
 	#ifdef DBG_INTERACTION_TEST
 	cout << "InteractionTest\t" << angle << "\t" << Pzip << "\t" << Pcat << "\t" << 1-Pzip-Pcat << "\n";
@@ -142,6 +145,12 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross)	/
 
 	switch(p.bundleType)
 	{
+        // TODO
+        // This needs to be fixed properly.
+        // Adding this case or `default` at the end causes an error becasue
+        // of the initialisation of multiPx & multiPz in the last case.
+        case bdl_COUNT_LAST:
+        break;
 		case bdl_noZip:
 
 			if (nParallel > 0)
@@ -215,8 +224,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross)	/
 
 		// though never reached
 		// break;
-
-	}
+        }
 
 	// should never occur
 	return ct_crossover;
