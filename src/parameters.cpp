@@ -11,36 +11,35 @@ Parameters::Parameters(System* s) :
     vMin(-0.16),
     vTM(0.01),
     kSev(0.001),
-    geometryScaleFactor(15.0),
     kCross(0.001),
     kCat(0.005),
     kRes(0.007),
+    kNuc(0.001),
+    PPBformingTime(VERY_LARGE),
     poolDensity(5.0),
     treadmillingEnabled(1),
     severingEnabled(0),
     crossSeveringEnabled(0),
+    crossSeveringTop(1),
+    crossSeveringStartAngle(0),
+    PPB(0),
+    restrictedPool(0),
     edgeCatastropheEnabled(0),
     edgeCatastropheSmooth(0),
     pCatSpecialEdgeMax(0.0),
     pCatRegularEdgeMax(0.0),
     edgNumber(0),
     faceNumber(0),
-    kNuc(0.001),
     nucleationType(nuc_isotropic),
-    interactionType(int_zipFirst),
     zipperingEnabled(1),
     catastrophesEnabled(1),
-    PPB(0),
-    PPBformingTime(VERY_LARGE),
     proportionalCatastrophes(0),
     inducedCatastropheFraction(0.5),
-    catStartAngle(0),
     zipFraction(1.0),
     PPBkNucFraction(0.0),
+    catStartAngle(0),
     magicAngle(40),
-    crossSeveringTop(1),
-    crossSeveringStartAngle(0),
-    restrictedPool(0),
+    interactionType(int_zipFirst),
     bundleType(bdl_simple),
     geomParam("0"),
     seed(time(0)),
@@ -48,19 +47,20 @@ Parameters::Parameters(System* s) :
     measurementInterval(600),
     wallClockLimit(1000),
     memoryLimit(10000000),
-    outputDir("."),
     inputDir("."),
+    outputDir("."),
     createSubdir(1),
     newParameterReadInterval(VERY_LARGE),
     newParameterFile(""),
-    movieEnabled(0),			
-    movieFrameInterval(-1),
-    geometry ("2D-plane_1_0_0"),
-    showMesh(0),
+    movieEnabled(0),
     showOutput(0),
+    showMesh(0),
+    geometry ("2D-plane_1_0_0"),
+    movieFrameInterval(-1),
+    geometryScaleFactor(15.0),
     c0calc(0),
     x0calc(0),
-    z0calc(0)		
+    z0calc(0)
 {
     return;
 }
@@ -364,8 +364,6 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
 
 void Parameters::verifyParameters()
 {
-    int i;
-
     // adjust the parameter values in accordance with the swith (on/off) values
     vTM *= treadmillingEnabled;
     kSev *= severingEnabled;
@@ -441,6 +439,9 @@ void Parameters::verifyParameters()
             		if (zipFraction > 1.)
                 	zipFraction = 1.;
         	}
+        break;
+
+        case int_COUNT_LAST:
         break;
     }
 
