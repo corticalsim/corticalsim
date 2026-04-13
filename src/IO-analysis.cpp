@@ -22,7 +22,6 @@ void writeMeasurementDescriptors(ostream& o)
 
 void System::initializeOutput(void)
 {
-    int j;
 
     // if create sub-directory in enabled
     if (p.createSubdir)
@@ -103,10 +102,6 @@ void System::closeFiles()
 void System::performMeasurement(void)
 {
     Measurement m;
-    double *h;
-    double *al;
-    int *an;
-    int i;
 
     // measurementHistory reach at MAX_HISTORY_SIZE, archive only upto last MIN_HISTORY_SIZE arrays, and write down the rest on output file (immediately !)
     if (measurementHistory.size() == MAX_HISTORY_SIZE)
@@ -189,16 +184,6 @@ void System::performMeasurement(void)
     m.occupiedIntersectionCount = 0;
     #endif
 
-    // value of plus end velocity
-    double realVplus;
-
-    // infinite tubulin pool
-    if (p.restrictedPool == 0)
-        realVplus = p.vPlus;
-    // finite tubulin pool
-    else
-        realVplus = p.vPlus*(1.0 - totalLength/(p.poolDensity*geometry->area));
-
     // G-effective at difference faces
     //for(int dTag =0;dTag <=p.faceNumber; dTag++)
     //m.G_effAdjust.push_back = (p.kRes/(-p.vMin+p.vTM) - p.RegionKcatMultiplier[dTag]*p.kCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/
@@ -223,7 +208,7 @@ void System::performMeasurement(void)
 
 void System::writeMeasurementsToFile(int numberToKeep)
 {
-    int i,j, iMax;
+    int i, iMax;
 
     iMax = measurementHistory.size()-numberToKeep;
 
