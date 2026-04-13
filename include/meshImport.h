@@ -32,7 +32,7 @@ class Triangle3D
 
         Triangle3D()
         {
-            elementId = 0;   
+            elementId = 0;
 	    edgeTag = 0;
 	    faceTag = 1;
             polyIntersectMark = 0;
@@ -41,7 +41,7 @@ class Triangle3D
             area = 0.000001;
             periMeter = 0.000001;
 	    edgAngNorm = 0.000001;
-	    pcatEdgeWeight = 0.000001;           
+	    pcatEdgeWeight = 0.000001;
             midPoint << 0.0,0.0,0.0;
             givenNormal << 0.0,0.0,0.0;
 
@@ -110,6 +110,3 @@ bool linePlaneIntersect(Vector3d, Vector3d, Vector3d, Vector3d, Vector3d&);
 double areaPolygon3D(vector<Vertics>&,Vector3d);
 
 double intersectingPolygon(vector<Vertics>&,vector<Vertics>&,vector<Region*>&,vector<elementList> &,Vector3d,Vector3d,string);
-
-
-

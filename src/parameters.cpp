@@ -95,34 +95,34 @@ bool Parameters::writeToFile()
 	ofstream & of = system->parameterFile;
 	of << "# CorticalSim parameters\r\n";
 	of << "########## Input-Output path ########################\r\n";
-	of << "inputDir\t" << inputDir << "\r\n"; 	
-	of << "outputDir\t" << outputDir << "\r\n"; 
-	of << "newParameterReadInterval\t"<< newParameterReadInterval<< "\r\n"; 
-	of << "createSubdir\t"<< createSubdir << "\r\n"; 
-	of << "newParameterFile\t"<< newParameterFile << "\r\n"; 
-	of << "########## Dynamic parameters ##########\r\n"; 
-	of << "kSev\t"<< kSev	<< "\r\n"; 
-	of << "kCross\t"<< kCross  << "\r\n"; 
-	of << "vPlus\t"<< vPlus	<< "\r\n"; 
-	of << "vMin\t"<< vMin	<< "\r\n"; 
-	of << "vTM\t"<< vTM	<< "\r\n"; 
-	of << "kCat\t"<<  kCat 	 << "\r\n"; 
-	of << "kRes\t"<< kRes	<< "\r\n"; 
-	of << "kNuc\t"<<  kNuc 	 << "\r\n"; 
-	of << "magic_angle\t"<< magicAngle	<< "\r\n"; 
-	of << "poolDensity\t"<< poolDensity	<< "\r\n"; 
-	of << "nucleationType\t"<< nucleationType	<< "\r\n"; 
-	of << "########## Zip-IndCat-Severing events ######\r\n"; 
-	of << "treadmilling\t"<< treadmillingEnabled	<< "\r\n"; 
-	of << "ind_cat\t"<< catastrophesEnabled	       << "\r\n"; 
-	of << "cat_start_angle\t"<< catStartAngle	<< "\r\n"; 
-	of << "induced_cat_fraction\t"<< inducedCatastropheFraction	<< "\r\n"; 
-	of << "zippering\t"<< zipperingEnabled	<< "\r\n"; 
-	of << "zipFraction\t"<< zipFraction    << "\r\n"; 
-	of << "severing\t"<< severingEnabled	<< "\r\n"; 
-	of << "crossSevering\t"<< crossSeveringEnabled	<< "\r\n"; 
-	of << "crossSeveringTop\t"<< crossSeveringTop << "\r\n"; 
-	of << "crossSeveringStartAngle\t"<< crossSeveringStartAngle << "\r\n"; 
+	of << "inputDir\t" << inputDir << "\r\n";
+	of << "outputDir\t" << outputDir << "\r\n";
+	of << "newParameterReadInterval\t"<< newParameterReadInterval<< "\r\n";
+	of << "createSubdir\t"<< createSubdir << "\r\n";
+	of << "newParameterFile\t"<< newParameterFile << "\r\n";
+	of << "########## Dynamic parameters ##########\r\n";
+	of << "kSev\t"<< kSev	<< "\r\n";
+	of << "kCross\t"<< kCross  << "\r\n";
+	of << "vPlus\t"<< vPlus	<< "\r\n";
+	of << "vMin\t"<< vMin	<< "\r\n";
+	of << "vTM\t"<< vTM	<< "\r\n";
+	of << "kCat\t"<<  kCat 	 << "\r\n";
+	of << "kRes\t"<< kRes	<< "\r\n";
+	of << "kNuc\t"<<  kNuc 	 << "\r\n";
+	of << "magic_angle\t"<< magicAngle	<< "\r\n";
+	of << "poolDensity\t"<< poolDensity	<< "\r\n";
+	of << "nucleationType\t"<< nucleationType	<< "\r\n";
+	of << "########## Zip-IndCat-Severing events ######\r\n";
+	of << "treadmilling\t"<< treadmillingEnabled	<< "\r\n";
+	of << "ind_cat\t"<< catastrophesEnabled	       << "\r\n";
+	of << "cat_start_angle\t"<< catStartAngle	<< "\r\n";
+	of << "induced_cat_fraction\t"<< inducedCatastropheFraction	<< "\r\n";
+	of << "zippering\t"<< zipperingEnabled	<< "\r\n";
+	of << "zipFraction\t"<< zipFraction    << "\r\n";
+	of << "severing\t"<< severingEnabled	<< "\r\n";
+	of << "crossSevering\t"<< crossSeveringEnabled	<< "\r\n";
+	of << "crossSeveringTop\t"<< crossSeveringTop << "\r\n";
+	of << "crossSeveringStartAngle\t"<< crossSeveringStartAngle << "\r\n";
 	of << "########## Edge catastrophe specification ####\r\n";
 	map<string, double>::iterator it;
 	of << "########################\r\n";
@@ -130,33 +130,33 @@ bool Parameters::writeToFile()
 	for(it = edgCatMap.begin(); it!= edgCatMap.end(); it++)
 	of << it->first <<"\t"<< it->second  << "\r\n";
 	of << "########################\r\n";
-	of << "faceNumber\t"<< faceNumber	<< "\r\n"; 
+	of << "faceNumber\t"<< faceNumber	<< "\r\n";
 	for(it = faceCatMap.begin(); it!= faceCatMap.end(); it++)
-	of << it->first <<"\t"<< it->second  << "\r\n"; 
+	of << it->first <<"\t"<< it->second  << "\r\n";
 	of << "########################\r\n";
-	of << "edgeCatastropheSmooth\t"<< edgeCatastropheSmooth << "\r\n"; 
-	of << "edgeCatastropheEnabled\t"<< edgeCatastropheEnabled << "\r\n";  
-	of << "PPBkNucFraction\t"<< PPBkNucFraction << "\r\n"; 
-	of << "proportionalCatastrophes\t"<< proportionalCatastrophes 	 << "\r\n"; 
-	of << "########## specific conditions ###########\r\n"; 
-	of << "restrictedPool\t"<< restrictedPool 	 << "\r\n";   
-	of << "interactionType\t"<< interactionType << "\r\n"; 
-	of << "bundleType\t"<< bundleType	<< "\r\n"; 
-	of << "########## Random seed and run time #####\r\n"; 
-	of << "memoryLimit\t"<< memoryLimit	<< "\r\n"; 
-	of << "wallClockLimit\t"<< wallClockLimit	<< "\r\n"; 
-	of << "stopTime\t"<< stopTime	<< "\r\n"; 
-	of << "random_seed\t"<< seed	<< "\r\n"; 
-	of << "########## Movie select ############\r\n"; 
-	of << "movieEnabled\t"<< movieEnabled	<< "\r\n";  
-	of << "movieFrameInterval\t"<< movieFrameInterval	<< "\r\n"; 
-	of << "measurementInterval\t"<< measurementInterval	<< "\r\n"; 
-	of << "########## Display output ##########\r\n"; 
-	of << "showMesh\t"<<  showMesh 	<< "\r\n"; 
-	of << "showOutput\t"<< showOutput 	 << "\r\n"; 
-	of << "########## Geometry ################\r\n";  
-	of << "geometryScaleFactor\t"<< geometryScaleFactor 	<< "\r\n"; 
-	of << "geometry\t"<< geometry 	 << "\r\n"; 
+	of << "edgeCatastropheSmooth\t"<< edgeCatastropheSmooth << "\r\n";
+	of << "edgeCatastropheEnabled\t"<< edgeCatastropheEnabled << "\r\n";
+	of << "PPBkNucFraction\t"<< PPBkNucFraction << "\r\n";
+	of << "proportionalCatastrophes\t"<< proportionalCatastrophes 	 << "\r\n";
+	of << "########## specific conditions ###########\r\n";
+	of << "restrictedPool\t"<< restrictedPool 	 << "\r\n";
+	of << "interactionType\t"<< interactionType << "\r\n";
+	of << "bundleType\t"<< bundleType	<< "\r\n";
+	of << "########## Random seed and run time #####\r\n";
+	of << "memoryLimit\t"<< memoryLimit	<< "\r\n";
+	of << "wallClockLimit\t"<< wallClockLimit	<< "\r\n";
+	of << "stopTime\t"<< stopTime	<< "\r\n";
+	of << "random_seed\t"<< seed	<< "\r\n";
+	of << "########## Movie select ############\r\n";
+	of << "movieEnabled\t"<< movieEnabled	<< "\r\n";
+	of << "movieFrameInterval\t"<< movieFrameInterval	<< "\r\n";
+	of << "measurementInterval\t"<< measurementInterval	<< "\r\n";
+	of << "########## Display output ##########\r\n";
+	of << "showMesh\t"<<  showMesh 	<< "\r\n";
+	of << "showOutput\t"<< showOutput 	 << "\r\n";
+	of << "########## Geometry ################\r\n";
+	of << "geometryScaleFactor\t"<< geometryScaleFactor 	<< "\r\n";
+	of << "geometry\t"<< geometry 	 << "\r\n";
 
     return true;
 }
@@ -182,7 +182,7 @@ template<class T> inline void loadParamMaps(bool& recognized, ifstream& file, st
         {
             file >> target;
 	    string key = boost::lexical_cast<string>(tag);
-	    edgCatMap[key] = target; 
+	    edgCatMap[key] = target;
             recognized = true;
         }
     }
@@ -199,7 +199,7 @@ template<class T> inline void loadParamRandom(bool& recognized, ifstream& file, 
             {
                 string temp;
                 file >> temp;
-                while (temp > boost::lexical_cast<string>(ULONG_MAX)) 
+                while (temp > boost::lexical_cast<string>(ULONG_MAX))
                 {
                     cout << temp <<" Bigger than" <<boost::lexical_cast<string>(ULONG_MAX)<<endl;
                     temp = temp.substr(1);
@@ -226,7 +226,7 @@ template<class T> inline void loadParamEnumText(bool& recognized, ifstream& file
         {
             int i = 0;
             string temp;
-            file >> temp; 
+            file >> temp;
             while(i<compareCount)
             {
                 if (temp == compareList[i])
@@ -253,7 +253,7 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
         return false;
 
     ifstream parFile;
-    parFile.open(pf); 
+    parFile.open(pf);
     if (!parFile.good())
     {
         cerr << "Could not open parameter file [" << pf << "].\n";
@@ -268,7 +268,7 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
     while (parFile.good() )
     {
         parFile >> id;
-        if (!parFile.good()) 
+        if (!parFile.good())
 	break;
 
         if (id[0] == '#')
@@ -278,8 +278,8 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
             recognized = false;
 
             if (initialRun)
-            loadParamRandom(recognized, parFile, id, "random_seed", seed); 
-    
+            loadParamRandom(recognized, parFile, id, "random_seed", seed);
+
             loadParam(recognized, parFile, id, "outputDir", outputDir);
 	    loadParam(recognized, parFile, id, "inputDir", inputDir);
             loadParam(recognized, parFile, id, "createSubdir", createSubdir);
@@ -352,7 +352,7 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
             {
                 cerr << "Parameter not recognized: " << id << "\n";
             }
-            getline(parFile, id);	
+            getline(parFile, id);
         }
     }
 
@@ -425,7 +425,7 @@ void Parameters::verifyParameters()
     switch(interactionType)
     {
         // catastrophe first, need no further conditional check
-    	case int_catFirst: 
+    	case int_catFirst:
         break;
 
         // zip first needs further check
@@ -456,7 +456,7 @@ bool Parameters::calcTheoryParameters(void)
 
     switch (interactionType)
     {
-	// zippering first is requested   	
+	// zippering first is requested
 	case int_zipFirst:
 
 		// fzippering is enabled
@@ -482,9 +482,9 @@ bool Parameters::calcTheoryParameters(void)
                     		c0calc = (4.0/PI)*2.0*inducedCatastropheFraction*(1.0 - sin(csRad))/(PI - 2.0*csRad);
             		}
 
-	    		// proportional catastrophe is disabled 
+	    		// proportional catastrophe is disabled
             		else
-			c0calc = (4.0/PI)*inducedCatastropheFraction*cos(max(maRad,csRad));           		
+			c0calc = (4.0/PI)*inducedCatastropheFraction*cos(max(maRad,csRad));
         	}
 
 		// catastrophe is disabled
@@ -495,7 +495,7 @@ bool Parameters::calcTheoryParameters(void)
         	x0calc = (4.0/PI) - z0calc - c0calc;
         break;
 
-    	// catastrophe first is requested  
+    	// catastrophe first is requested
     	case int_catFirst:
 
 		// catastrophe is enabled
@@ -508,7 +508,7 @@ bool Parameters::calcTheoryParameters(void)
                 		c0calc = (4.0/PI)*2.0*inducedCatastropheFraction*(1.0-sin(temp)+(temp - csRad)*cos(temp))/(PI-2.0*csRad);
             		}
 
-			// proportional catastrophe is disabled 
+			// proportional catastrophe is disabled
             		else
                 	c0calc = (4.0/PI)*inducedCatastropheFraction*cos(max(csRad,0.));
         	}
@@ -529,9 +529,9 @@ bool Parameters::calcTheoryParameters(void)
                               		- (maRad - csRad)*cos(maRad) - sin(leftBoundary) + sin(maRad))/(PI- 2.0*csRad);
                 		}
 
-				// proportional catastrophe is disabled 
-                		else                
-                    		z0calc -= (4.0/PI)*inducedCatastropheFraction*(cos(csRad)-cos(maRad)) ;                
+				// proportional catastrophe is disabled
+                		else
+                    		z0calc -= (4.0/PI)*inducedCatastropheFraction*(cos(csRad)-cos(maRad)) ;
             		}
         	}
 
@@ -553,7 +553,7 @@ bool Parameters::calcTheoryParameters(void)
     double l0 = pow((2.0*(-vMin+vTM)*(vPlus-vTM)*(vPlus - vTM))/(kNuc*vPlus*(-vMin+vPlus)), 1./3.);
     double lavgInv = kRes/(-vMin+vTM) - kCat/(vPlus - vTM);
     double G_0 =  l0*lavgInv ;
- 
+
     if(showOutput == 1)
     {
 	    cout <<"==============================================="<<endl;

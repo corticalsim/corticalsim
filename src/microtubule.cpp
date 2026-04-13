@@ -5,7 +5,7 @@ Microtubule::Microtubule(System* s, TrajectoryVector tv, bool initialize)
       plus(this, tv, s->p.vPlus, &(s->vPlusQueue), s->p.vPlus),
 
       // reverse direction
-      minus(this, tv.flipped(), -s->p.vTM, &(s->timeQueue), -s->p.vTM),	
+      minus(this, tv.flipped(), -s->p.vTM, &(s->timeQueue), -s->p.vTM),
       disappearEvent(this, &(s->timeQueue), - s->p.vMin + s->p.vTM),
       type(mt_growing),
       nucleationTime(s->systemTime + s->systemTimeOffset),
@@ -56,7 +56,7 @@ Microtubule::~Microtubule()
 void Microtubule::setDisappearEvent()
 {
     // push to disappear event: (plus.velocity - minus.velocity < 0)
-    if ((segments.size() == 1) && (type == mt_shrinking)) 
+    if ((segments.size() == 1) && (type == mt_shrinking))
         disappearEvent.pushOnQueue(segments.first()->length(), ev_disappear);
 
     // flush disappear event queue
@@ -67,7 +67,7 @@ void Microtubule::setDisappearEvent()
 
 void Microtubule::handleEvent(const EventDescriptor* ei)
 {
-    // better update length before processing next event 
+    // better update length before processing next event
     updateLength();
 
     #ifdef DBG_ACID_TEST
@@ -80,12 +80,12 @@ void Microtubule::handleEvent(const EventDescriptor* ei)
 
     switch(ei->type)
     {
-        // wall collision event encountered 
+        // wall collision event encountered
     	case ev_wall:
         	wall();
         break;
 
-	// MT-MT collision event encountered 
+	// MT-MT collision event encountered
     	case ev_collision:
         	collision();
         break;
@@ -143,22 +143,22 @@ void Microtubule::catastrophe()
     // update MT length
     updateLength();
 
-    // growing MT will become shrinking MT, hence unregister the tip from growing-plus-tip list of this region 
+    // growing MT will become shrinking MT, hence unregister the tip from growing-plus-tip list of this region
     plus.trajectory->base.region->unregisterFromRegion(plus.regionTag,t_plus,mt_growing);
 
-    // now, this is shrinking MT 
+    // now, this is shrinking MT
     type = mt_shrinking;
 
-    // growing MT will become shrinking MT, hence register the tip on shrinking-plus-tip list of this region 
+    // growing MT will become shrinking MT, hence register the tip on shrinking-plus-tip list of this region
     plus.regionTag = plus.trajectory->base.region->registerOnRegion(&plus,t_plus,mt_shrinking);
 
-    // replace plus velocity by minus velocity  
+    // replace plus velocity by minus velocity
     plus.velocity = system->p.vMin;
 
-    // 
+    //
     plus.event.reinitialize(&(system->timeQueue),system->p.vMin);
 
-    // import the growing MT as shrinking MT 
+    // import the growing MT as shrinking MT
     system->shrinking_mts.import(system->growing_mts, this);
 
     if (system->p.vMin < 0)
@@ -170,7 +170,7 @@ void Microtubule::catastrophe()
     // schedule next event, (if this is triggered by a collision, and vMin > 0, increase occupancy)
     plus.determineEvent();
 
-    // check possibility of a disappear event 
+    // check possibility of a disappear event
     setDisappearEvent();
 
     return;
@@ -192,16 +192,16 @@ void Microtubule::rescue()
 
     updateLength();
 
-    // shrinking MT will become growing  MT, hence unregister the tip from shrinking-plus-tip list of this region 
+    // shrinking MT will become growing  MT, hence unregister the tip from shrinking-plus-tip list of this region
     plus.trajectory->base.region->unregisterFromRegion(plus.regionTag,t_plus,mt_shrinking);
 
-    // now, this is growing MT 
+    // now, this is growing MT
     type = mt_growing;
 
     // shrinking MT will become growing MT, hence register the tip on growing-plus-tip list of this region
     plus.regionTag = plus.trajectory->base.region->registerOnRegion(&plus,t_plus,mt_growing);
 
-    // replace minue velocity by plus velocity 
+    // replace minue velocity by plus velocity
     plus.velocity = system->p.vPlus;
 
     plus.event.reinitialize(&(system->vPlusQueue), system->p.vPlus);
@@ -369,7 +369,7 @@ void Microtubule::translatePositionMT2Segment(double& cutPos, Segment*& cutSeg)
 
 void Microtubule::wall()
 {
-    // only for plus end 
+    // only for plus end
 
     TrajectoryVector tv;
 
@@ -387,17 +387,17 @@ void Microtubule::wall()
         return;
     }
 
-    // edge catastrophe enabled 
+    // edge catastrophe enabled
     if (system->p.edgeCatastropheEnabled)
     {
         double cosAngle = (plus.dir == ::forward) ? plus.trajectory->nextTrCosAngle : plus.trajectory->prevTrCosAngle;
 
-        // MT is moving non-parallel to the edege 
+        // MT is moving non-parallel to the edege
         if ((1.0 - cosAngle) > ZERO_CUTOFF)
-        {          
+        {
             double pCat(0.0);
-	    
-	    // for sharp edged cube 
+
+	    // for sharp edged cube
 	    if(system->p.geometry == "cubeReal")
 	    {
 		if(abs(plus.trajectory->base.region->faceTag - tv.trajectory->base.region->faceTag) > 0)
@@ -410,17 +410,17 @@ void Microtubule::wall()
 		}
 	    }
 
-	    // other  
+	    // other
             else
-	    pCat = (plus.dir == ::forward) ? plus.trajectory->nextTrpCat : plus.trajectory->prevTrpCat; 
+	    pCat = (plus.dir == ::forward) ? plus.trajectory->nextTrpCat : plus.trajectory->prevTrpCat;
 
-            // when smooth catastrophe is enabled 
+            // when smooth catastrophe is enabled
             if(system->p.edgeCatastropheSmooth)
             {
                 pCat *= (1.0 - cosAngle);
             }
 
-            // apply catastrophe 
+            // apply catastrophe
             if (system->randomGen.rand() <= pCat)
             {
                 tv.trajectory->conditionalRemove();
@@ -432,7 +432,7 @@ void Microtubule::wall()
         }
     }
 
-    // update boundarty crossing count 
+    // update boundarty crossing count
     system->boundaryCrossingCount++;
 
     #ifdef DBG_ASSERT
@@ -440,19 +440,19 @@ void Microtubule::wall()
         cerr << "DBG/ASSERT: nextCollision does not match with endItr upon entering wall event.\n";
     #endif
 
-    // wall crossing 
+    // wall crossing
     segments.last()->endItr = plus.nextCollision;
 
-    // create a new segment 
+    // create a new segment
     segments.create(this, tv);
     segments.last()->startItr = tv.dir == ::forward ? tv.trajectory->wallBegin() : tv.trajectory->wallEnd();
 
-    // switch trajectory 
+    // switch trajectory
     plus.switchTrajectory(tv.trajectory, tv.dir, tv.dir == ::forward ? tv.trajectory->wallBegin() : tv.trajectory->wallEnd());
 
     if (segments.size() == 2)
     {
-        // MT with two segment of zero (=0) length, consider possibilty of a disappear event 
+        // MT with two segment of zero (=0) length, consider possibilty of a disappear event
         minus.determineEvent();
         setDisappearEvent();
     }
@@ -467,11 +467,11 @@ void Microtubule::collision()
     CollisionType type;
     Direction dir;
 
-    // no MT(s) passing throught the next collision point, resulting a simple crossover 
+    // no MT(s) passing throught the next collision point, resulting a simple crossover
     if (plus.nextCollision->second.mirror->second.occupancy == 0)
         type = ct_crossover;
 
-    // MT(s) passing through the next collision point  
+    // MT(s) passing through the next collision point
     else
     {
         double diffAngle = plus.trajectory->base.region->intersectionAngle(plus.trajectory, plus.nextCollision->second.otherTrajectory);
@@ -483,20 +483,20 @@ void Microtubule::collision()
         }
         else
         	dir = plus.dir;
-	
-	// find out type of collision event to be occured 
+
+	// find out type of collision event to be occured
         type = system->collisionResult(diffAngle, plus.nextCollision->second.occupancy, plus.nextCollision->second.mirror->second.occupancy);
     }
 
     switch(type)
     {
-	// zippering 
+	// zippering
     	case ct_zipper:
         	system->totalZipperCount++;
         	zipper(dir);
         break;
 
-	// crossover 
+	// crossover
     	case ct_crossover:
         	system->totalCrossoverCount++;
         	crossover();
@@ -546,7 +546,7 @@ void Microtubule::zipper(Direction dir)
 
     if (segments.size() == 2)
     {
-        // number of segment is two (=2), HERE it means two zero length segment, prepare to schedule a disappear event 
+        // number of segment is two (=2), HERE it means two zero length segment, prepare to schedule a disappear event
         minus.determineEvent();
         setDisappearEvent();
     }
@@ -568,7 +568,7 @@ void Microtubule::endOfSegment(MTTip* tip)
 	Segment* newSeg(NULL);
 	Segment* killSeg(NULL);
 
-        // select plus tip associated segment 
+        // select plus tip associated segment
 	if (tip == &plus)
 	{
 		killSeg = segments.last();
@@ -576,7 +576,7 @@ void Microtubule::endOfSegment(MTTip* tip)
 		newDir = newSeg->dir;
 	}
 
-        // select minus tip associated segment 
+        // select minus tip associated segment
 	else
 	{
 		killSeg = segments.first();
@@ -595,32 +595,32 @@ void Microtubule::endOfSegment(MTTip* tip)
     }
     #endif
 
-    // kill the selected segment 
+    // kill the selected segment
     segments.remove(killSeg);
 
-    // tip switching to a new trajectory (in a different region) after encountering wall-begin/wall-end 
+    // tip switching to a new trajectory (in a different region) after encountering wall-begin/wall-end
     if ((tip->nextCollision == tip->trajectory->wallBegin()) ||(tip->nextCollision == tip->trajectory->wallEnd()))
     {
         tip->switchTrajectory(newSeg->trajectory, newDir, newDir == ::forward ? newSeg->trajectory->wallEnd() : newSeg->trajectory->wallBegin());
         system->boundaryCrossingCount--;
     }
 
-    // tip switching to a new trajectory (in the same region) 
+    // tip switching to a new trajectory (in the same region)
     else
         tip->switchTrajectory(tip->nextCollision->second.otherTrajectory, newDir, tip->nextCollision->second.mirror);
 
     // MT length zero (=0) encountered
     if (segments.size()==1)
     {
-        // current tip is a plus tip, so determine the minus tip associated event 
+        // current tip is a plus tip, so determine the minus tip associated event
         if (tip == &(plus))
             minus.determineEvent();
 
-        // current tip is a minus tip, so determine the plus tip associated event 
+        // current tip is a minus tip, so determine the plus tip associated event
         else
             plus.determineEvent();
 
-        // schedule a disappear event 
+        // schedule a disappear event
         setDisappearEvent();
     }
 
@@ -629,14 +629,14 @@ void Microtubule::endOfSegment(MTTip* tip)
 
 void Microtubule::backtrack(MTTip* tip)
 {
-    // asociated with depolymerizing plus/minus end 
+    // asociated with depolymerizing plus/minus end
 
     if (tip == &(plus))
         segments.last()->end = plus.nextEventPos;
     else
         segments.first()->start = minus.nextEventPos;
 
-    // MT is back tracked from this site, resulting a decrease in occupancy 
+    // MT is back tracked from this site, resulting a decrease in occupancy
     tip->nextCollision->second.occupancy--;
 
     #ifdef CROSS_SEV
@@ -674,7 +674,7 @@ void Microtubule::backtrack(MTTip* tip)
     }
     #endif
 
-    // schedule next event 
+    // schedule next event
     tip->advanceIntersection();
     tip->determineEvent();
 
@@ -698,7 +698,7 @@ void Microtubule::crossover()
     }
     #endif
 
-    // skip any (active) event in the current intersection point, instead move the tip to the next intersection point 
+    // skip any (active) event in the current intersection point, instead move the tip to the next intersection point
     plus.nextCollision->second.occupancy++;
     plus.advanceIntersection();
     plus.determineEvent();
@@ -756,7 +756,7 @@ bool Microtubule::integrityCheck()
         {
             if (seg->endItr->second.mirror != seg->next()->startItr)
             {
-                // next-start-iterator should match with the end-second-mirror-iterator 
+                // next-start-iterator should match with the end-second-mirror-iterator
                 valid = false;
                 cerr << "reciprocity violated\n";
             }
@@ -840,7 +840,7 @@ bool Microtubule::integrityCheck()
     {
         if (plus.nextCollision == plus.trajectory->wallEnd())
         {
-            // segment end location does not coincide with the first intersection site 
+            // segment end location does not coincide with the first intersection site
             if (segments.last()->end - plus.trajectory->length > ZERO_CUTOFF)
                 valid = false;
         }
@@ -1038,7 +1038,7 @@ Segment::Segment(Microtubule* m, TrajectoryVector& tv)
     cout << "begin position: " << start << ", end position: " << end << "\n";
     #endif
 
-    // insert this segment to the associated MT trajectory 
+    // insert this segment to the associated MT trajectory
     trajectoryTag = tv.trajectory->insertSegment(this);
 
     // increase total number of segments for the associated MT
@@ -1052,7 +1052,7 @@ Segment::~Segment()
     cout << "DBG/MTS: Segment destroyed.\n";
     #endif
 
-    // decrease total number of segments for the associated MT 
+    // decrease total number of segments for the associated MT
     mt->system->countSegments--;
 
     // if this is the last segment, remove the tip references...
@@ -1120,10 +1120,10 @@ MTTip::~MTTip()
 
 void MTTip::initialize()
 {
-    // register the tip for notification in the current trajectory 
+    // register the tip for notification in the current trajectory
     notificationTag = trajectory->registerForNotifications(this);
 
-    // get the region tag of the tip 
+    // get the region tag of the tip
     regionTag = trajectory->base.region->registerOnRegion(this,type(),mt->type);
 
     // locate the next intersection position of the tip
@@ -1236,7 +1236,7 @@ void MTTip::determineEvent()
     // get the current position of the tip on the trajectory
     double pos = position();
 
-    // a tip that is polymerizing 
+    // a tip that is polymerizing
     if (velocity > 0)
     {
         // next collision on wall begenning (at the bottom of the trajectory)
@@ -1253,7 +1253,7 @@ void MTTip::determineEvent()
             eventPos = trajectory->length;
         }
 
-        // next collision, some where at the middle of trajectory 
+        // next collision, some where at the middle of trajectory
         else
         {
             eventType = ev_collision;
@@ -1261,8 +1261,8 @@ void MTTip::determineEvent()
         }
     }
 
-    // a tip that is either paused or depolymerizing 
-    else  
+    // a tip that is either paused or depolymerizing
+    else
     {
         // next collision on wall begenning (at the bottom of the trajectory)
         if (nextCollision == trajectory->wallBegin())
@@ -1307,7 +1307,7 @@ void MTTip::determineEvent()
     // store the event with: (a) type of event and (b) distance to travel
     event.pushOnQueue((eventPos - pos)*dir, eventType);
 
-    // transfer the value of the calculated event position to the next event position 
+    // transfer the value of the calculated event position to the next event position
     nextEventPos = eventPos;
 
     #ifdef DBG_EVENT
@@ -1328,7 +1328,7 @@ void MTTip::notifyRemove(IntersectionItr& oldIs)
     // update the length of MT
     mt->updateLength();
 
-     // scheduled next collision is at this invalid intersection point, so skip it to reach the next intersection point 
+     // scheduled next collision is at this invalid intersection point, so skip it to reach the next intersection point
     if (oldIs == nextCollision)
     {
         advanceIntersection();
@@ -1338,7 +1338,7 @@ void MTTip::notifyRemove(IntersectionItr& oldIs)
     // get the tip start/end iterator
     IntersectionItr& ref = (type() == t_plus) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
 
-     // link the tip start/end iterator to the new inserted iterator 
+     // link the tip start/end iterator to the new inserted iterator
     if (ref == oldIs)
     {
         if (dir == ::forward)
@@ -1353,15 +1353,15 @@ void MTTip::notifyRemove(IntersectionItr& oldIs)
 void MTTip::notifyInsert(IntersectionItr& newIs)
 {
 
-    // update the MT 
+    // update the MT
     mt->updateLength();
 
     IntersectionItr temp = newIs;
-    
+
     // next collission site in front
     if ((dir*velocity > 0) || ((velocity == 0) && (dir==backward)))
     {
-        // if the scheduled next collision is located after the new intersection point,  then replace it by the new intersection 
+        // if the scheduled next collision is located after the new intersection point,  then replace it by the new intersection
         if ((++temp == nextCollision) && (newIs->first > position()))
         {
             nextCollision = newIs;
@@ -1372,7 +1372,7 @@ void MTTip::notifyInsert(IntersectionItr& newIs)
     // next collission site in back
     else
     {
-        // if the scheduled next collision is located after the new intersection point,  then replace it by the new intersection 
+        // if the scheduled next collision is located after the new intersection point,  then replace it by the new intersection
         if ((--temp == nextCollision) && (newIs->first < position()))
         {
             nextCollision = newIs;
@@ -1385,10 +1385,10 @@ void MTTip::notifyInsert(IntersectionItr& newIs)
     // get the tip start/end iterator
     IntersectionItr& refItr = (type() == t_plus) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
 
-    // get the tip start/end position 
+    // get the tip start/end position
     double& refPos = (type() == t_plus) ? mt->segments.last()->end : mt->segments.first()->start;
 
-    // link the tip start/end iterator to the new inserted iterator 
+    // link the tip start/end iterator to the new inserted iterator
     if (dir == ::forward)
     {
         if ((++temp == refItr) && (newIs->first > refPos))
@@ -1424,7 +1424,7 @@ double MTTip::position()
 
 double MTTip::otherPosition()
 {
-    // get the (bottom) position of an active segment 
+    // get the (bottom) position of an active segment
     if (this == &(mt->minus))
         return mt->segments.first()->end;
     else
@@ -1433,7 +1433,7 @@ double MTTip::otherPosition()
 
 Segment& MTTip::segment()
 {
-    // get the current segement of the tip 
+    // get the current segement of the tip
     if (this == &(mt->minus))
         return *(mt->segments.first());
     else
@@ -1446,10 +1446,10 @@ void MTTip::switchTrajectory(Trajectory* newTr, Direction d, IntersectionItr int
     // copy old trajectory of the tip (required to unregister the tip from old trajectory region)
     Trajectory* oldTr(trajectory);
 
-    // assign new trajectory to the tip 
+    // assign new trajectory to the tip
     trajectory = newTr;
 
-    // assign new direction to the tip 
+    // assign new direction to the tip
     dir = d;
     nextCollision = intersect;
 
@@ -1460,7 +1460,7 @@ void MTTip::switchTrajectory(Trajectory* newTr, Direction d, IntersectionItr int
     // assign an event to the tip
     determineEvent();
 
-    // unregister the tip from old trajectory 
+    // unregister the tip from old trajectory
     oldTr->base.region->unregisterFromRegion(regionTag,type(),mt->type);
 
     // find the new regiontag of the tip
@@ -1477,4 +1477,3 @@ void MTTip::switchTrajectory(Trajectory* newTr, Direction d, IntersectionItr int
 
     return;
 }
-

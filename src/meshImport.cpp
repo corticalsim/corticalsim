@@ -5,7 +5,7 @@ void iniEdgeRecord(struct edgeRecord *head, vector<int>& v,int cid,int fid){
 
     for(int i=0;i<2;i++)
 	    head->key.push_back(v[i]);
-    
+
     head->cell_id = cid;
 	head->edge_index = fid;
 	head->next =NULL;
@@ -1821,4 +1821,3 @@ void establishPBC(vector<Vertics*>& vertices,vector<Triangle3D*>& triangles,vect
 
     	indexBoundary.clear();
 }
-

@@ -221,4 +221,3 @@ void System::writeMeasurementsToFile(int numberToKeep)
 
     return;
 }
-

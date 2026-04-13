@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	cout << fixed;
 	cout << setprecision(3);
    	time_t startTime = time(0);
-	
+
 	s1 = new System(argv[1]);
 
 	// run the simulation (else show the mesh statistics)
@@ -31,6 +31,3 @@ int main(int argc, char* argv[])
 	delete s1;
 	return 0;
 }
-
-
-

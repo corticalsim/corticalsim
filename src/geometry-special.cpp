@@ -3,7 +3,7 @@
 
 TriMeshGeometry::TriMeshGeometry(System* s):Geometry(s,0.0)
 {
-	// loading a triangle mesh 
+	// loading a triangle mesh
     	pickup_shape(this);
 
     	return;
@@ -34,9 +34,9 @@ void TriMeshGeometry::getOrderParameters(OrderParameters& op)
 		opRaw.Qzz /= opRaw.localL;
 	}
 
-    	/// calculate Q(2) tensor order parameter 
+    	/// calculate Q(2) tensor order parameter
     	op.R = opRaw.extractR(op.Rdirector,system->p.geometry);
-    
+
     	// normalize the order parameter director
         Vector3d Rvec(op.Rdirector[0],op.Rdirector[1],op.Rdirector[2]);
 	Rvec/= Rvec.norm();
@@ -52,10 +52,10 @@ void TriMeshGeometry::getOrderParameters(OrderParameters& op)
 
 void TriMeshGeometry::outputSnapshot(ostream& out)
 {
-    // output the simulation results 
+    // output the simulation results
     for(int eno = 0;eno< elementMax; eno++)
     regions[eno]->outputSnapshot(out);
-   
+
     out << endl;
 
     return;
@@ -67,20 +67,20 @@ void TriMeshGeometry::outputOrderHeatMap(ostream& out,vector<double>& localOrder
 	{
         	Vector3d seg3D;
 
-		// Incircle radius of the triangle 
+		// Incircle radius of the triangle
 		double svLength = (2.0*regions[eno]->area*regions[eno]->area)/regions[eno]->periMeter;
 
-        	// get the region 3D rotation axis 
+        	// get the region 3D rotation axis
 		Vector3d cross(regions[eno]->Q.x(),regions[eno]->Q.y(),regions[eno]->Q.z());
-     		double crossMagnitude = cross.norm();  
-  
+     		double crossMagnitude = cross.norm();
+
 		Quaternion<double> qr(0.0,0.0,0.0,0.0),QR(0.0,0.0,0.0,0.0);
 
 
                 // region (and hence all the sgments in this region) need 3D rotation + translation
 		if(crossMagnitude>0.0)
 		{
-                        // translate and rotate the start point of the segment 
+                        // translate and rotate the start point of the segment
 			QR.w()= 0;
 			QR.x() = -1.0*svLength*sv[eno](0,0)+regions[eno]->midPoint(0,0);
 			QR.y() = -1.0*svLength*sv[eno](1,0)+regions[eno]->midPoint(1,0);
@@ -105,15 +105,15 @@ void TriMeshGeometry::outputOrderHeatMap(ostream& out,vector<double>& localOrder
 			out << seg3D(0,0)<< "," <<seg3D(1,0)<< "," << seg3D(2,0) << ","<<regions[eno]->regionId<<"@";
 	 	}
 
-                // need no rotation of the region (and hence all the sgments in this region) 
+                // need no rotation of the region (and hence all the sgments in this region)
 		else
 		{
-                        // translate the start point of the segment 
+                        // translate the start point of the segment
 			seg3D << -1.0*svLength*sv[eno](0,0)+regions[eno]->midPoint(0,0),-1.0*svLength*sv[eno](1,0)+regions[eno]->midPoint(1,0),-1.0*svLength*sv[eno](2,0)+regions[eno]->zOffset;
 			seg3D+=objectCM;
 			out << seg3D(0,0) << "," <<seg3D(1,0)<< "," << seg3D(2,0) << ",";
 
-			//translate the end point of the segment 
+			//translate the end point of the segment
 			seg3D << svLength*sv[eno](0,0)+regions[eno]->midPoint(0,0),svLength*sv[eno](1,0)+regions[eno]->midPoint(1,0),-1.0*svLength*sv[eno](2,0)+regions[eno]->zOffset;
 			seg3D+=objectCM;
 			out << seg3D(0,0)<< "," <<seg3D(1,0)<< "," << seg3D(2,0) << ","<<regions[eno]->regionId<<"@";
@@ -139,7 +139,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
         // get copy of old trajectory region index
     	int regionIndex(oldtr->base.region->regionId),regionIndexNeigh(0);
 
-        // forward direction: move to the end of the trajectory 
+        // forward direction: move to the end of the trajectory
     	if(dir == ::forward)
     	{
         	newBase.x = oldtr->endPoint[1].x;
@@ -149,7 +149,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
                 double tDx = oldtr->endPoint[1].x-oldtr->endPoint[0].x;
     		double tDy = oldtr->endPoint[1].y-oldtr->endPoint[0].y;
     		tDirector << tDx/oldtr->length,tDy/oldtr->length;
- 
+
                 // get the neighbouring region index
         	regionIndexNeigh = oldtr->endPoint[1].nextElement;
     	}
@@ -176,7 +176,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
 
     	// get the new region for the fresh trajectory (to be created)
     	newBase.region = regions[regionIndexNeigh];
-   	
+
     	double cosEdgeAngle(1.0),pCatReg(0.0);
         int s(oldtr->base.region->sideRevMap[regionIndexNeigh]);
 
@@ -188,7 +188,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
 
         // assign pCatReg for this for this (encountered) triangle edge
 	pCatReg = oldtr->base.region->side[s].pCat;
-	
+
     	// final correction to newBase angle -> [0 ... 2*PI]
 	if(newBase.angle >= 2*PI)
 	newBase.angle -= 2*PI;
@@ -232,7 +232,7 @@ double Cartesian::intersectionAngle(Trajectory* t1, Trajectory* t2)
 }
 
 void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR,vector<Vector3d>& orientation,double area)
-{		
+{
 	double sin2(0.0),cos2(0.0);
 	Vector3d sv(0.0,0.0,0.0);
     	double angle(0.0),length(0.0),localLength(0.);
@@ -240,7 +240,7 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR,vector<Vector3
     	double u1(0.0),u2(0.0),u3(0.0),orderLocal(0.0);
 	MatrixXd QF(3,3),QC(3,3),e(3,3),O_l(2,2);
 
-        // get the rotation matrix 
+        // get the rotation matrix
 	e << 	orientation[0][0],orientation[1][0],orientation[2][0],
 		orientation[0][1],orientation[1][1],orientation[2][1],
 	        orientation[0][2],orientation[1][2],orientation[2][2];
@@ -289,7 +289,7 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR,vector<Vector3
 		sin2 /= localLength;
         	cos2 /= localLength;
 
-		// local order 		
+		// local order
 		double matrix[3][3] = {{qxx,qxy,qxz},{qxy,qyy,qyz},{qxz,qyz,qzz}};
         	double evecMat[3][3];
         	double eVal[3];
@@ -315,19 +315,19 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR,vector<Vector3
                       	qxy,qyy,qyz,
                       	qxz,qyz,qzz;
 
-                // make tensor transformation 
+                // make tensor transformation
                 QC = e*QF*e.transpose();
-	
+
     		// accumulate all the Q(2) tensors components from different regions
     		opR.Qxx += localLength*QC(0,0);
     		opR.Qxy += localLength*QC(0,1);
     		opR.Qxz += localLength*QC(0,2);
     		opR.Qyy += localLength*QC(1,1);
     		opR.Qyz += localLength*QC(1,2);
-    		opR.Qzz += localLength*QC(2,2);	
+    		opR.Qzz += localLength*QC(2,2);
 
 		// add up length of the segments from all the regions
-		opR.localL += localLength;	
+		opR.localL += localLength;
 	}
 
         opR.localOrder = orderLocal;
@@ -350,10 +350,10 @@ void Cartesian::outputSnapshotOffset(ostream& out,double xOffset,double yOffset)
 {
         Vector3d seg3D;
 
-        // get the region 3D rotation axis 
+        // get the region 3D rotation axis
 	Vector3d cross(Q.x(),Q.y(),Q.z());
-     	double crossMagnitude = cross.norm();  
-  
+     	double crossMagnitude = cross.norm();
+
 	Quaternion<double> qr(0.0,0.0,0.0,0.0),QR(0.0,0.0,0.0,0.0);
 
 	Trajectory* tr;
@@ -363,16 +363,16 @@ void Cartesian::outputSnapshotOffset(ostream& out,double xOffset,double yOffset)
 	tr = trajectories.first();
 
 	while(tr != NULL)
-	{	
+	{
 		svec = tr->base;
 
-                // record segments in the snapshots	
+                // record segments in the snapshots
 		seg = tr->segments.begin();
 		while (seg != tr->segments.end())
 		{
 			svec = tr->base;
 
-                        // move to the starting end of the segment 
+                        // move to the starting end of the segment
 			translateVector(svec, (**seg).start);
 
 			// for backward direction retrieve actual base angle (during nucleation)
@@ -386,7 +386,7 @@ void Cartesian::outputSnapshotOffset(ostream& out,double xOffset,double yOffset)
                         // region (and hence all the sgments in this region) need 3D rotation + translation
      			if(crossMagnitude>0.0)
      			{
-                                // translate and rotate the start point of the segment 
+                                // translate and rotate the start point of the segment
         			QR.w()= 0;
 				QR.x() = svec.x+midPoint(0,0);
 				QR.y() = svec.y+midPoint(1,0);
@@ -411,15 +411,15 @@ void Cartesian::outputSnapshotOffset(ostream& out,double xOffset,double yOffset)
 				out << seg3D(0,0)<< "," <<seg3D(1,0)<< "," << seg3D(2,0) << ","<<regionId<<"@";
     		 	}
 
-                        // need no rotation of the region (and hence all the sgments in this region) 
+                        // need no rotation of the region (and hence all the sgments in this region)
    			else
     			{
-                                // translate the start point of the segment 
+                                // translate the start point of the segment
 				seg3D << svec.x+midPoint(0,0),svec.y+midPoint(1,0),zOffset;
 				seg3D+=geometry->objectCM;
 				out << seg3D(0,0) << "," <<seg3D(1,0)<< "," << seg3D(2,0) << ",";
-	
-				//translate the end point of the segment 
+
+				//translate the end point of the segment
         			seg3D << svec.x+midPoint(0,0)+(**seg).length()*cos(svec.angle),svec.y+midPoint(1,0)+(**seg).length()*sin(svec.angle),zOffset;
 				seg3D+=geometry->objectCM;
 				out << seg3D(0,0)<< "," <<seg3D(1,0)<< "," << seg3D(2,0) << ","<<regionId<<"@";
@@ -429,7 +429,7 @@ void Cartesian::outputSnapshotOffset(ostream& out,double xOffset,double yOffset)
 
 		tr = tr->next();
 	}
-	
+
 	return;
 }
 
@@ -529,7 +529,7 @@ void Cartesian::makeIntersectionList(Trajectory* tr1)
 
 Triangle::Triangle(double elementArea, Geometry* g):Cartesian(g,elementArea)
 {
-        // necessary to create a full geometry, made with many triangles 
+        // necessary to create a full geometry, made with many triangles
 	return;
 }
 
@@ -538,7 +538,7 @@ SurfaceVector Triangle::randomSurfaceVector()
 	SurfaceVector v;
 	double r1(0.0),r2(0.0);
 
-        // get system pointer 
+        // get system pointer
     	System* s(geometry->system);
 
         // random number between (0,1)
@@ -551,7 +551,7 @@ SurfaceVector Triangle::randomSurfaceVector()
     	// generate uniformly and isotropically distributed nucleation points on each triangle
     	v.x = (1 - sqr1) * Vertics[0](0,0) + (sqr1 * (1 - r2)) * Vertics[1](0,0) + (sqr1 * r2) * Vertics[2](0,0);
     	v.y = (1 - sqr1) * Vertics[0](1,0) + (sqr1 * (1 - r2)) * Vertics[1](1,0) + (sqr1 * r2) * Vertics[2](1,0);
-        
+
         // make the unifor distribution also isotropic
     	v.angle = s->randomGen.randExc(2*PI);
 
@@ -581,7 +581,7 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,double& totalLength,
         	    tVec.dir = backward;
         	    sVec.angle -= PI;
         	}
-    	}	
+    	}
 
     	else if(acos<0)
     	{
@@ -590,11 +590,11 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,double& totalLength,
         	if (sVec.angle>2*PI)
         	    sVec.angle-= 2*PI;
     	}
-	
+
     	else
         tVec.dir = ::forward;
 
-    	// use the triangle perimeter to create a trajectory, this will to make sure to have exactly two intersections 
+    	// use the triangle perimeter to create a trajectory, this will to make sure to have exactly two intersections
     	Vector2d v1(sVec.x+periMeter*acos,sVec.y+periMeter*asin);
     	Vector2d v2(sVec.x-periMeter*acos,sVec.y-periMeter*asin);
 
@@ -628,12 +628,12 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,double& totalLength,
         	    encounter+=1;
         	    Neno = sideMap[i];
 
-                    // get triangle-edge to trajectory intersection point 
+                    // get triangle-edge to trajectory intersection point
         	    endPoint.push_back(PointATedge(u1(0,0)+sval*(u2(0,0)-u1(0,0)),u1(1,0)+sval*(u2(1,0)-u1(1,0)),0.0,Neno));
         	}
-    	}	
+    	}
 
-    	// base coordinate (x_base < x_other) of the trajectory 
+    	// base coordinate (x_base < x_other) of the trajectory
     	if(endPoint[0].x>endPoint[1].x)
     	reverse(endPoint.begin(),endPoint.end());
 
@@ -658,4 +658,3 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,double& totalLength,
 
     	return;
 }
-

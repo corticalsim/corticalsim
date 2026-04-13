@@ -9,4 +9,3 @@ sources = files('eig3.cpp',
     'geometry-special.cpp',
     'main.cpp'
 )
-

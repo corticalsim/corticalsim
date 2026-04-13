@@ -1453,5 +1453,3 @@ void System::makeBinomialTable(void)
             binomialTable[i][j] = factorial[i]/(factorial[j]*factorial[i-j]);
     return;
 }
-
-

@@ -1122,6 +1122,3 @@ class Triangle : public Cartesian
 
 #endif
 //CORTICALSIM_H_
-
-
-

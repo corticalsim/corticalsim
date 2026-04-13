@@ -320,4 +320,3 @@ void Region::updateRegionLength(bool forceUpdate)
 
 	return;
 }
-

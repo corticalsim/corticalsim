@@ -57,14 +57,14 @@ DeterministicEvent DeterministicQueue::pop()
 
 void DeterministicQueue::advanceTime(double t)
 {
-        // get advanced in time 
+        // get advanced in time
 	currentBase += (system->*timeDistanceConversionFunction)(t - system->systemTime);
 	return;
 }
 
 void DeterministicQueue::storeTime(int tag)
 {
-        // store the current base time 
+        // store the current base time
 	valueCache[tag] = currentBase;
 	return;
 }
@@ -122,7 +122,7 @@ EventDescriptor::EventDescriptor(Microtubule* m, DeterministicQueue* q, double v
 
 EventDescriptor::~EventDescriptor()
 {
-	// unregister the event descriptor	
+	// unregister the event descriptor
 	mt->system->unregisterEventDescriptor(index);
 	return;
 }
@@ -156,7 +156,7 @@ void EventDescriptor::pushOnQueue(double dist, DeterministicEventType t)
 
 	type = t;
 
-        // store deterministic event into the queue 
+        // store deterministic event into the queue
 	tag = queue->pushDeterministic(queue->currentPos() + dist*distanceScaleFactor, index);
 	return;
 }
