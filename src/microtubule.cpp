@@ -111,6 +111,8 @@ void Microtubule::handleEvent(const EventDescriptor* ei)
         	harakiri();
         break;
 
+        case ev_none:
+        break;
     };
 
     #ifdef DBG_ACID_TEST
@@ -722,7 +724,7 @@ bool Microtubule::integrityCheck()
 
     Segment* seg(NULL);
     IntersectionItr is;
-    int count(0);
+    size_t count(0);
 
     // check connections between end-of segment iterators and match with positions (should be exact)
     if (segments.size() == 0)
@@ -1023,11 +1025,11 @@ bool Microtubule::integrityCheck()
 Segment::Segment(Microtubule* m, TrajectoryVector& tv)
     : mt(m),
       trajectory(tv.trajectory),
-      start(tv.pos),
-      end(tv.pos),
-      dir(tv.dir),
       trajectoryTag(tv.trajectory->segments.end()),
       nucleationTime(m->system->systemTime + m->system->systemTimeOffset),
+      dir(tv.dir),
+      start(tv.pos),
+      end(tv.pos),
       startItr(tv.trajectory->wallEnd()),
       endItr(tv.trajectory->wallEnd())
 {
