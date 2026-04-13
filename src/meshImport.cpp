@@ -2,9 +2,11 @@
 
 // initialize edge
 void iniEdgeRecord(struct edgeRecord *head, vector<int>& v,int cid,int fid){
+
     for(int i=0;i<2;i++)
-	head->key.push_back(v[i]);
-	head->cell_id = cid;
+	    head->key.push_back(v[i]);
+    
+    head->cell_id = cid;
 	head->edge_index = fid;
 	head->next =NULL;
 }
@@ -170,7 +172,7 @@ void pickup_shape(Geometry* g)
     	vector<elementList*> eList;
 
         int a0(0),a1(0),a2(0);
-	int vmax(0),trimax(0),id(0),spf(0),cur(0),pol(0),shw(0);
+	int vmax(0),trimax(0),spf(0),cur(0);
 	string str;
 
     	string filename;
@@ -371,7 +373,7 @@ void pickup_shape(Geometry* g)
 		element3D[23]->vertexIds[2] = 6;
 		element3D[23]->faceTag = 4;
 
-		for(int i=0;i<element3D.size();i++)
+		for(size_t i=0;i<element3D.size();i++)
 		element3D[i]->elementId = i;
     	}
 
@@ -490,7 +492,7 @@ void pickup_shape(Geometry* g)
 
 	// copy triangle elements for viewing mesh (visualization in meshLab)
 	vector<Triangle3D*>viewTriangle;
-	for(int i = 0; i < element3D.size(); i++)
+	for(size_t i = 0; i < element3D.size(); i++)
 	{
 		viewTriangle.push_back(new Triangle3D());
 		viewTriangle[i]->vertexIds[0] = element3D[i]->vertexIds[0];
@@ -529,12 +531,13 @@ void pickup_shape(Geometry* g)
 	viewGraph(Gvertex,viewTriangle,centroid,g->system->p.outputDir + "/" + g->system->p.geometry + "/outputData");
 
 	double totalArea(0.0);
-        for(int eno=0;eno<element3D.size();eno++)
-	totalArea+=element3D[eno]->area;
+    for(size_t eno=0;eno<element3D.size();eno++)
+    {
+	    totalArea+=element3D[eno]->area;
+    }
 
-
-        // show mesh in enabled
-    	if(showMesh==1)
+    // show mesh in enabled
+    if(showMesh==1)
     	{
          	cout << "============================================"<<endl;
 
@@ -615,15 +618,17 @@ void pickup_shape(Geometry* g)
         g->patchArea[0]= g->area;
 
 	// include all triangles to a single path (at first place)
-	for(int eno=0;eno<element3D.size();eno++)
-	g->RegionsIndex[0].push_back(eno);
+	for(size_t eno=0;eno<element3D.size();eno++)
+    {
+	    g->RegionsIndex[0].push_back(eno);
+    }
 
         // total number of region in the geometry
 	g->elementMax = element3D.size();
 
         // to create PPB
         // (a)  global vertex to be used to create PPB
-        for(int i=0;i< Gvertex.size();i++)
+        for(size_t i=0;i< Gvertex.size();i++)
 	{
                 g->globalVertex.push_back(Vertics(0.0,0.0,0.0));
 		g->globalVertex[i].x = Gvertex[i]->x;
@@ -632,11 +637,11 @@ void pickup_shape(Geometry* g)
 	}
 
         // (b) element list
-        for(int i=0;i< eList.size();i++)
+        for(size_t i=0;i< eList.size();i++)
 	{
 		g->ppbEdgeList.push_back(elementList());
 
-		for(int j=0;j<2;j++)
+		for(size_t j=0;j<2;j++)
 		{
     			g->ppbEdgeList[i].nodes[j] = eList[i]->nodes[j];
 			g->ppbEdgeList[i].sharedElement[j] = eList[i]->sharedElement[j];
@@ -645,35 +650,40 @@ void pickup_shape(Geometry* g)
 	}
 
         // assign memory for all the 2d-triangular regions of the geometry
-	for(int eno = 0; eno < element3D.size(); eno++)
-	g->regions.push_back(new Triangle(element3D[eno]->area,g));
+	for(size_t eno = 0; eno < element3D.size(); eno++)
+    {
+        g->regions.push_back(new Triangle(element3D[eno]->area,g));
+    }
 
 	// copy 3d-triangle properties information to 2d-triangular regions
 	Image3dTo2D(g->regions,element3D,pCatList);
 
 
-    	// 3d-triangle properties are transfered to 2d-triangular regions, so release all the memory occupied by 3d triangles
-    	for(int eno  = 0; eno < element3D.size(); eno++)
-    	{
-        	delete element3D[eno];
-    		element3D[eno] == NULL;
-    	}
-    	element3D.clear();
+    // 3d-triangle properties are transfered to 2d-triangular regions, so release all the memory occupied by 3d triangles
+    for(size_t eno  = 0; eno < element3D.size(); eno++)
+    {
+        delete element3D[eno];
+        // FOLLOW-UP
+        // This used to be a comparison (element3D[eno] == NULL).
+        // Check if the fix introduces any regressions.
+        element3D[eno] = NULL;
+    }
+    element3D.clear();
 
-	// global vertices no longer needed, so release the memories occupied by the global vertices
-    	for(int gno = 0; gno < Gvertex.size(); gno++)
-    	{
-        	delete Gvertex[gno];
-    		Gvertex[gno] = NULL;
-    	}
-    	Gvertex.clear();
+    // global vertices no longer needed, so release the memories occupied by the global vertices
+    for(size_t gno = 0; gno < Gvertex.size(); gno++)
+    {
+        delete Gvertex[gno];
+        Gvertex[gno] = NULL;
+    }
+    Gvertex.clear();
 
-        // edge list is no longer needed, so release the memories occupied by the edges
-	for(int el = 0; el < eList.size(); el++)
-    	{
-        	delete eList[el];
-    		eList[el] = NULL;
-    	}
+    // edge list is no longer needed, so release the memories occupied by the edges
+    for(size_t el = 0; el < eList.size(); el++)
+    {
+        delete eList[el];
+        eList[el] = NULL;
+    }
 	eList.clear();
 
     return;
@@ -695,7 +705,7 @@ void makeGraph(int Gvertex,vector<elementList*>& eList, vector<Triangle3D*>& ele
 
     	v.clear();
 
-    	for(int i=0;i<element3D.size();i++)
+    	for(size_t i=0;i<element3D.size();i++)
     	{
         	for(int j=0;j<3;j++)
         	element3D[i]->vertexIdsMap[element3D[i]->vertexIds[j]] = j;
@@ -726,7 +736,7 @@ void makeGraph(int Gvertex,vector<elementList*>& eList, vector<Triangle3D*>& ele
     	edge_sort(&EdgList,Gvertex);
     	find_connectivity(&EdgList,eList);
 
-    	for(int i=0;i<eList.size();i++)
+    	for(size_t i=0;i<eList.size();i++)
     	{
        	 	element3D[eList[i]->sharedElement[0]]->sideMap[eList[i]->sharedEdge[0]]=eList[i]->sharedElement[1];
         	element3D[eList[i]->sharedElement[1]]->sideMap[eList[i]->sharedEdge[1]]=eList[i]->sharedElement[0];
@@ -800,9 +810,9 @@ void correctOrientation(vector<Vertics*>& Gvertex,Triangle3D*& nextTriangle,Tria
 bool checkSurfaceOrientation(vector<Triangle3D*>& element3D)
 {
     bool match(false);
-    for(int i=0;i< element3D.size();i++)
+    for(size_t i=0;i< element3D.size();i++)
     {
-        for(int j=0;j<3;j++)
+        for(size_t j=0;j<3;j++)
         {
             match = false;
             int n = element3D[i]->sideMap[j];
@@ -854,7 +864,7 @@ void rigidBodyProperties(vector<Vertics*>& Gvertex,vector<Triangle3D*>& element3
     	double x_3,y_3,z_3;
     	double x_2y,x_2z,y_2x,y_2z,z_2y,z_2x,xyz;
 
-    	for(int eno = 0; eno < element3D.size();eno++)
+    	for(size_t eno = 0; eno < element3D.size();eno++)
     	{
 		// calculate normals to each triangle elements
         	x =  Gvertex[element3D[eno]->side[0].orientation[1]]->x- Gvertex[element3D[eno]->side[0].orientation[0]]->x;
@@ -933,7 +943,7 @@ void rigidBodyProperties(vector<Vertics*>& Gvertex,vector<Triangle3D*>& element3
     	double m110(0.0),m101(0.0),m011(0.0),m200(0.0),m020(0.0),m002(0.0);
     	double totalArea(0.0);
 
-    	for(int eno = 0; eno < element3D.size();eno++)
+    	for(size_t eno = 0; eno < element3D.size();eno++)
     	{
 		totalArea += element3D[eno]->area;
 
@@ -983,7 +993,6 @@ void rigidBodyProperties(vector<Vertics*>& Gvertex,vector<Triangle3D*>& element3
     	double matrix[3][3] = {{Ixx,-Ixy,-Ixz},{-Ixy,Iyy,-Iyz},{-Ixz,-Iyz,Izz}};
     	double evecMat[3][3];
     	double eVal[3];
-    	int minPos;
 
     	eigen_decomposition(matrix,evecMat,eVal);
 
@@ -1014,7 +1023,7 @@ void rigidBodyProperties(vector<Vertics*>& Gvertex,vector<Triangle3D*>& element3
 	}
 
 	// change the global coordiantes w.r.t. centroid
-    	for(int gno=0;gno<Gvertex.size();gno++)
+    	for(size_t gno=0;gno<Gvertex.size();gno++)
     	{
         	Gvertex[gno]->x-=cm(0,0);
         	Gvertex[gno]->y-=cm(1,0);
@@ -1023,7 +1032,7 @@ void rigidBodyProperties(vector<Vertics*>& Gvertex,vector<Triangle3D*>& element3
 
     	// make the surface normals (to each triangle elements) oriented outwards
 	double dsum(0.0);
-        for(int i =0;i< 3;i++)
+        for(size_t i =0;i< 3;i++)
 	{
                 x = Gvertex[element3D[0]->side[i].orientation[1]]->x - Gvertex[element3D[0]->side[i].orientation[0]]->x;
                 y = Gvertex[element3D[0]->side[i].orientation[1]]->y + Gvertex[element3D[0]->side[i].orientation[0]]->y;
@@ -1033,8 +1042,10 @@ void rigidBodyProperties(vector<Vertics*>& Gvertex,vector<Triangle3D*>& element3
 	// sign of the area of the triangle is negative (<0), i.e. triangle vertex orientation clock-wise, normal needs to be flipped
         if(dsum > 0)
 	{
-                for(int eno=0;eno<element3D.size();eno++)
-        	element3D[eno]->givenNormal*=-1.0;
+            for (size_t eno = 0; eno < element3D.size (); eno++)
+            {
+                element3D[eno]->givenNormal*=-1.0;
+            }
 
 	}
 }
@@ -1044,10 +1055,10 @@ void edgeDescriptors(vector<Vertics*>& Gvertex,vector<elementList*> & eList,vect
         // edge descriptors
 
 	int eno,neno,p1,p2;
-    	double x,y,z,signal,edgeAngle,cosTheta,sinTheta;
+    	double x,y,z,signal,edgeAngle;
 
 	// calculate the 3D-edge angles and angle-axis pairs
-    	for(int i=0;i<eList.size();i++)
+    	for(size_t i=0;i<eList.size();i++)
     	{
         	x = Gvertex[eList[i]->nodes[0]]->x-Gvertex[eList[i]->nodes[1]]->x;
         	y = Gvertex[eList[i]->nodes[0]]->y-Gvertex[eList[i]->nodes[1]]->y;
@@ -1096,11 +1107,11 @@ void edgeDescriptors(vector<Vertics*>& Gvertex,vector<elementList*> & eList,vect
     	}
 
 	/// Calculate perimeter for each triangle elements
-    	for(int eno=0;eno< element3D.size(); eno++)
+    	for(size_t eno=0;eno< element3D.size(); eno++)
     	{
         	double l(0.0);
 
-        	for(int sid=0;sid<3;sid++)
+        	for(size_t sid=0;sid<3;sid++)
         	{
             		l+= eList[element3D[eno]->sideToEdge[sid]]->length;
 
@@ -1115,7 +1126,7 @@ void edgeDescriptors(vector<Vertics*>& Gvertex,vector<elementList*> & eList,vect
 void connectWithGlobe(vector<Vertics*>& Gvertex,vector<Triangle3D*>& element3D)
 {
 	// link the global coordinates to the triangles
-	for(int eno=0;eno<element3D.size();eno++)
+	for(size_t eno=0;eno<element3D.size();eno++)
     	{
         	element3D[eno]->Vertex[0] << Gvertex[element3D[eno]->vertexIds[0]]->x,Gvertex[element3D[eno]->vertexIds[0]]->y,Gvertex[element3D[eno]->vertexIds[0]]->z;
         	element3D[eno]->Vertex[1] << Gvertex[element3D[eno]->vertexIds[1]]->x,Gvertex[element3D[eno]->vertexIds[1]]->y,Gvertex[element3D[eno]->vertexIds[1]]->z;
@@ -1135,9 +1146,8 @@ void Image3dTo2D(vector<Region*> &regions,vector<Triangle3D*> &element3D, double
     Vector3d cross;
     double cosAngle(0.0);
     double crossMagnitude(0.0);
-    bool match(false);
 
-    for(int eno = 0; eno < element3D.size(); eno++)
+    for(size_t eno = 0; eno < element3D.size(); eno++)
     {
         // quarternion rotation angle (cosine)
         cosAngle = element3D[eno]->givenNormal.dot(z);
@@ -1225,19 +1235,15 @@ void Image3dTo2D(vector<Region*> &regions,vector<Triangle3D*> &element3D, double
         nz/=nz.norm();
         double s = nz.dot(z);
 
-        if(s>0)
-        match = true;
-
-        else
+        if(s<=0)
         {
-            match = false;
             cout << "Normals not aligned towards z (anti-parallel to) axis !!! emergency exit"<<endl;
             exit(-1);
         }
 
         // change the local coordinate frame to the Center of Mass frame
         regions[eno]->midPoint = (regions[eno]->Vertics[0]+regions[eno]->Vertics[1]+regions[eno]->Vertics[2])/3.0;
-        for(int i=0;i<3;i++)
+        for(size_t i=0;i<3;i++)
         regions[eno]->Vertics[i]-=regions[eno]->midPoint;
 
         // assign the necessary components from 3d-triangle to 2d-triangle
@@ -1264,12 +1270,11 @@ void Image3dTo2D(vector<Region*> &regions,vector<Triangle3D*> &element3D, double
     Vector2d b1,b2;
     int v0,v1,v2;
     double cosTheta,sinTheta,x,y;
-    match = false;
 
     // calculate the rotation angle between two 2d-triangle side
-    for(int eno=0;eno<element3D.size();eno++)
+    for(size_t eno=0;eno<element3D.size();eno++)
     {
-        for(int j=0;j<3;j++)
+        for(size_t j=0;j<3;j++)
         {
             int ceno = regions[eno]->sideMap[j];
             int cesd = regions[ceno]->sideRevMap[regions[eno]->regionId];
@@ -1307,12 +1312,8 @@ void Image3dTo2D(vector<Region*> &regions,vector<Triangle3D*> &element3D, double
 
             MatrixXd G =A1.inverse();
 
-            if(fabs(A1.determinant()*A2.determinant())>0.0)
-            match = true;
-
-            else
+            if(fabs(A1.determinant()*A2.determinant())<=0.0)
             {
-                match = false;
                 cout << "Affine matrix with Determinant = 0.0, is detected !!! emergency exit"<<endl;
                 exit(-1);
             }
@@ -1348,7 +1349,7 @@ void Image3dTo2D(vector<Region*> &regions,vector<Triangle3D*> &element3D, double
         }
 
         // get the orientation axis (required for calculating the order parameter)
-	vector<Vector3d> ends3D;
+	    vector<Vector3d> ends3D;
     	for(int p = 0;p < 2;p++)
     	ends3D.push_back(Vector3d(0,0,0));
 
@@ -1359,7 +1360,7 @@ void Image3dTo2D(vector<Region*> &regions,vector<Triangle3D*> &element3D, double
         y = 0.0;
 
         // first two (=2) base vactor : rotate 2-d (x-axis and y-axis) -> triangle normal plane
-        for(int ax = 0;ax < 2;ax++)
+        for(size_t ax = 0;ax < 2;ax++)
         {
             cross << regions[eno]->Q.x(),regions[eno]->Q.y(),regions[eno]->Q.z();
             crossMagnitude = cross.norm();
@@ -1423,13 +1424,13 @@ void viewGraph(vector<Vertics*>& Gvertex,vector<Triangle3D*>& element3D,Vector3d
 	fp1 << "OFF" <<endl;
 	fp1 << Gvertex.size() << " "<< element3D.size() << " " << 0 <<endl;
 
-	for(int i=0;i<Gvertex.size();i++)
+	for(size_t i=0;i<Gvertex.size();i++)
 	fp1 << Gvertex[i]->x + centroid(0,0) << " " << Gvertex[i]->y + centroid(1,0) << " " << Gvertex[i]->z + centroid(2,0) <<endl;
 
-        for(int i=0;i<element3D.size();i++)
+        for(size_t i=0;i<element3D.size();i++)
 	{
 		fp1 << 3 << " ";
-		for(int j =0;j<3;j++)
+		for(size_t j =0;j<3;j++)
 		fp1 << element3D[i]->vertexIds[j] << " ";
 		fp1  <<endl;
 
@@ -1546,12 +1547,17 @@ double intersectingPolygon(vector<Vertics>& polygon,vector<Vertics>& Gvertex,vec
 	{
 		polygon.clear();
 
-		for(int eno=0;eno< regions.size();eno++)
-		regions[eno]->polyIntersectMark==0;
+		for(size_t eno=0;eno< regions.size();eno++)
+        {
+            // FOLLOW-UP
+            // This used to be a comparison (regions[eno]->polyIntersectMark==0).
+            // Check if the fix introduces any regressions.
+            regions[eno]->polyIntersectMark=0;
+        }
 
 		vector<int> intersectedEdges;
 		double x,y,z;
-		for(int i =0;i< eList.size();i++)
+		for(size_t i =0;i< eList.size();i++)
 		{
 		        x = Gvertex[eList[i].nodes[0]].x;
 		        y = Gvertex[eList[i].nodes[0]].y;
@@ -1574,7 +1580,7 @@ double intersectingPolygon(vector<Vertics>& polygon,vector<Vertics>& Gvertex,vec
 		        }
 		}
 
-		for(int i =0;i< intersectedEdges.size();i++)
+		for(size_t i =0;i< intersectedEdges.size();i++)
 		{
 		        int edg = intersectedEdges[i];
 
@@ -1607,7 +1613,7 @@ double intersectingPolygon(vector<Vertics>& polygon,vector<Vertics>& Gvertex,vec
 		}
 
 		// construct polygon
-		for(int i =0; i< polygonEdg.size();i++)
+		for(size_t i =0; i< polygonEdg.size();i++)
 		{
 		        int edg = polygonEdg[i];
 			Vector3d pv = eList[edg].intersectionByPlane;
@@ -1620,11 +1626,11 @@ double intersectingPolygon(vector<Vertics>& polygon,vector<Vertics>& Gvertex,vec
 		intersectedEdges.clear();
 		polygonEdg.clear();
 
-		for(int i=0;i<  regions.size() ;i++)
+		for(size_t i=0;i<  regions.size() ;i++)
 		regions[i]->intersectEdg.clear();
 
-		return(polyArea);
 	}
+    return(polyArea);
 }
 
 vector<string> split(string str, char delimiter) {
@@ -1646,7 +1652,7 @@ void establishPBC(vector<Vertics*>& vertices,vector<Triangle3D*>& triangles,vect
 	vector<int>edgeInMesh,edgeInBoundary;
 
 	/// find the boundary edges
-	for(int i=0;i<eList.size();i++)
+	for(size_t i=0;i<eList.size();i++)
 	{
 		bool hitorigin(eList[i]->nodes[1]==5);
 
@@ -1659,7 +1665,7 @@ void establishPBC(vector<Vertics*>& vertices,vector<Triangle3D*>& triangles,vect
 
 	int firstBT=triangles.size()-bCount;
 
-	for(int i=0;i<edgeInMesh.size();i++)
+	for(size_t i=0;i<edgeInMesh.size();i++)
 	{
 		int n1 = eList[edgeInMesh[i]]->sharedElement[0];
 		int n2 = eList[edgeInMesh[i]]->sharedElement[1];
@@ -1682,7 +1688,7 @@ void establishPBC(vector<Vertics*>& vertices,vector<Triangle3D*>& triangles,vect
 
 	/// boundary edge (clock/anti-clock wise) sorting
 	int vid(vertices.size()-1);
-	for(int i=0;i<edgeInBoundary.size();i++)
+	for(size_t i=0;i<edgeInBoundary.size();i++)
 	{
 		vid++;
 		eList[edgeInBoundary[i]]->midPoint = vid;
@@ -1695,10 +1701,9 @@ void establishPBC(vector<Vertics*>& vertices,vector<Triangle3D*>& triangles,vect
 		vertices.push_back(new Vertics(vm(0,0),vm(1,0),vm(2,0)));
 	}
 
-	double elementDistance;
 	vector<double> edgePositionBoundary;
 
-	for(int i=0;i<edgeInBoundary.size();i++)
+	for(size_t i=0;i<edgeInBoundary.size();i++)
 	{
                 Vector2d radialExt(vertices[eList[edgeInBoundary[i]]->midPoint]->x,vertices[eList[edgeInBoundary[i]]->midPoint]->y);
                 radialExt/=radialExt.norm();
@@ -1715,20 +1720,20 @@ void establishPBC(vector<Vertics*>& vertices,vector<Triangle3D*>& triangles,vect
 	}
 
 	/// remove un-necessary vertices
-        for(int i=0;i<=edgeInBoundary.size();i++)
+        for(size_t i=0;i<=edgeInBoundary.size();i++)
         vertices.pop_back();
 
 	vector<pair<double,int> > vp;
 	vp.reserve(edgePositionBoundary.size());
 
-	for(int i = 0 ; i != edgePositionBoundary.size() ; i++)
+	for(size_t i = 0 ; i != edgePositionBoundary.size() ; i++)
 	vp.push_back(make_pair(edgePositionBoundary[i],i));
 	edgePositionBoundary.clear();
 
 	sort(vp.begin(),vp.end());
 
 	vector<int> indexBoundary;
-	for(int i=0;i<vp.size();i++)
+	for(size_t i=0;i<vp.size();i++)
 	indexBoundary.push_back(vp[i].second);
 
 	int n1,n2,p1,p2,e1,e2,s1,s2,l1,l2;
