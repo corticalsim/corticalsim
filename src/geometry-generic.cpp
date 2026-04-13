@@ -138,14 +138,13 @@ SurfaceVector Geometry::randomSurfaceVector()
 
 bool Geometry::integrityCheck()
 {
-    int ridx(0);
     bool valid(true);
     int plusGrowCount(0);
     int plusShrinkCount(0);
     int minusCount(0);
     Trajectory* tptr(NULL);
 
-    for (ridx = 0; ridx < regions.size(); ridx++)
+    for (size_t ridx = 0; ridx < regions.size(); ridx++)
     {
         plusGrowCount += regions[ridx]->growingPlusTipList.size();
         plusShrinkCount += regions[ridx]->shrinkingPlusTipList.size();
@@ -196,11 +195,10 @@ bool Geometry::integrityCheck()
 
 double Geometry::opticalLength()
 {
-    int ridx(0);
     double sum(0.0);
 
     // calculate total optical length present in the geometry
-    for (ridx = 0; ridx < regions.size(); ridx++)
+    for (size_t ridx = 0; ridx < regions.size(); ridx++)
     {
         sum += regions[ridx]->opticalLength();
     }
@@ -209,11 +207,10 @@ double Geometry::opticalLength()
 
 int Geometry::trajectoryCount()
 {
-    int ridx(0);
     int sum(0);
 
     // calculate total number of trajectory present in the geometry
-    for (ridx = 0; ridx < regions.size(); ridx++)
+    for (size_t ridx = 0; ridx < regions.size(); ridx++)
     {
         sum += regions[ridx]->trajectories.size();
     }
@@ -457,9 +454,8 @@ bool Trajectory::integrityCheck()
     }
 
     IntersectionItr is(wallBegin());
-    int isCount(0);
 
-    for (isCount = 1; isCount < intersections.size(); isCount++)
+    for (size_t isCount = 1; isCount < intersections.size(); isCount++)
     {
         is++;
         if (is->second.mirror->second.mirror != is)
