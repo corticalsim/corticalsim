@@ -1,10 +1,10 @@
 #include "corticalSimReal.h"
 
 DeterministicQueue::DeterministicQueue(System* s, double (System::*dtFunc)(double), double (System::*tdFunc)(double)) :
-		system(s),
-		distanceTimeConversionFunction(dtFunc),
-		timeDistanceConversionFunction(tdFunc),
-		currentBase(0)
+        system(s),
+        currentBase(0),
+        distanceTimeConversionFunction(dtFunc),
+        timeDistanceConversionFunction(tdFunc)
 {
 	// do not use the system pointer here, as it has not been initialized
 	valueCache[0] = 0;
@@ -94,8 +94,8 @@ EventTrackingTag DeterministicQueue::pushDeterministic(double timedist, EventDes
 }
 
 EventDescriptor::EventDescriptor(Microtubule* m, DeterministicQueue* q, double velocity) :
-		mt(m),
-		index(0),
+        index(0),
+        mt(m),
 		type(ev_none),
 		tag(-1),
 		queue(q)
