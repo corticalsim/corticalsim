@@ -170,9 +170,9 @@ class TrajectoryVector
 {
     public:
 
-    Trajectory* trajectory;
     double pos;
     Direction dir,Cdir;
+    Trajectory* trajectory;
 
     TrajectoryVector(double p, Direction d, Trajectory* t) : pos(p), dir(d), trajectory(t) {}
     TrajectoryVector() {}
@@ -451,6 +451,9 @@ class Region
 
     //const RegionType type;
     double area;
+    double totalLength;
+    // time tag at which the length was last updated
+    int previousUpdateTag;
     int regionId;
     double zOffset;
     double rotAngle;
@@ -475,10 +478,7 @@ class Region
     list<MTTip*> minusTipList;
     RegionMTTipTag registerOnRegion(MTTip*,TipType,MTType);
     void unregisterFromRegion(RegionMTTipTag,TipType,MTType);
-    double totalLength;
 
-    // time tag at which the length was last updated
-    int previousUpdateTag;
 
     // updates the length to the current system time tag
     void updateRegionLength(bool forceUpdate = false);
@@ -602,15 +602,6 @@ class Geometry
 class DeterministicQueue
 //'Smart' queue object that contains logic to transform to and from the system time.
 {
-    //public:
-    friend class System;
-    priority_queue<DeterministicEvent> queue;	// the queue itself
-    double currentBase;							// the current 'distance'
-    double valueCache[POSITION_CACHE_SIZE];		// cache of previous 'distance' values
-    double (System::* const distanceTimeConversionFunction)(double);
-    // pointer to a function that converts a distance to a time
-    double (System::* const timeDistanceConversionFunction)(double);
-    // pointer to a function that converts a time to a distance
 
     public:
     System* const 	system;						// pointer to containing system
@@ -636,6 +627,16 @@ class DeterministicQueue
     void pushGlobal(double, GlobalEventType);	// pushes a global event onto the queue at a certain distance
     EventTrackingTag pushDeterministic(double, EventDescriptorIndex);
     // pushes a deterministic (MT) event onto the queue at a certain distance
+
+    private:
+    friend class System;
+    priority_queue<DeterministicEvent> queue; // the queue itself
+    double currentBase;                       // the current 'distance'
+    double valueCache[POSITION_CACHE_SIZE]; // cache of previous 'distance' values
+    double (System::* const distanceTimeConversionFunction) (double);
+    // pointer to a function that converts a distance to a time
+    double (System::* const timeDistanceConversionFunction) (double);
+    // pointer to a function that converts a time to a distance
 };
 
 class EventDescriptor
@@ -701,13 +702,13 @@ class MTTip
     Microtubule* mt;
     Trajectory* trajectory;
 
+    Direction dir;
+    double velocity;
+    EventDescriptor event;
+    IntersectionItr	nextCollision;
     TrjMTTipTag notificationTag;
     RegionMTTipTag regionTag;
-    double velocity;
-    Direction dir;
-    IntersectionItr	nextCollision;
     double nextEventPos;
-    EventDescriptor event;
     MTTip(Microtubule*, TrajectoryVector, double, DeterministicQueue*, double);
     ~MTTip();
     TipType type();
@@ -762,19 +763,19 @@ class Microtubule : public DLBaseItem<Microtubule>
 {
     public:
     System* const system;
+    MTTip plus;
+    MTTip minus;
+
+    // event descriptor for events that are not directly associated to a single tip (only disappearance)
+    EventDescriptor disappearEvent;
+    // type of microtubule (growing, shrinking)
+    MTType type;
     double nucleationTime;
 
     // time tag at which the positions and lengths were last updated
     int previousUpdateTag;
 
-    // type of microtubule (growing, shrinking)
-    MTType type;
-    MTTip plus;
-    MTTip minus;
     DLList<Segment>	segments;
-
-    // event descriptor for events that are not directly associated to a single tip (only disappearance)
-    EventDescriptor disappearEvent;
 
     Microtubule(System*, TrajectoryVector, bool = true);
     ~Microtubule();
