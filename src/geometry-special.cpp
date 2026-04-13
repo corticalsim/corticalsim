@@ -63,7 +63,7 @@ void TriMeshGeometry::outputSnapshot(ostream& out)
 
 void TriMeshGeometry::outputOrderHeatMap(ostream& out,vector<double>& localOrder,vector<Vector3d>& sv)
 {
-	for(int eno = 0; eno < localOrder.size(); eno++)
+	for(size_t eno = 0; eno < localOrder.size(); eno++)
 	{
         	Vector3d seg3D;
 
@@ -235,7 +235,7 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR,vector<Vector3
 {		
 	double sin2(0.0),cos2(0.0);
 	Vector3d sv(0.0,0.0,0.0);
-    	double angle(0.0),length(0.0),Olength(0.0),localLength(0.);
+    	double angle(0.0),length(0.0),localLength(0.);
     	double qxx(0.0),qxy(0.0),qxz(0.0),qyy(0.0),qyz(0.0),qzz(0.0);
     	double u1(0.0),u2(0.0),u3(0.0),orderLocal(0.0);
 	MatrixXd QF(3,3),QC(3,3),e(3,3),O_l(2,2);
