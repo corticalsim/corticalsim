@@ -2,33 +2,34 @@
 #include "meshImport.h"
 
 System::System(char* parFile) :
-    EventDescriptorID(0),
-    eventID(0),
-    memUsage(0),
-    totalLength(0),
+    geometry(NULL),
+    p(this),
     systemTime(0),
     systemTimeOffset(0),
+    currentTimeTag(0),
+    totalLength(0),
+    memUsage(0),
     stopSignal(false),
-    timeQueue(this, &System::identity, &System::identity),
-    vPlusQueue(this, &System::vPlusToTime, &System::timeToVPlus),
+    wallClockStartTime(time(0)),
     totalSEventCount(0),
-    totalInvalidDEventCount(0),
     totalValidDEventCount(0),
+    totalInvalidDEventCount(0),
+    totalLengthSeveringCount(0),
+    totalIntersectionSeveringCount(0),
     boundaryCrossingCount(0),
     totalZipperCount(0),
     totalCrossoverCount(0),
     totalInducedCatastropheCount(0),
-    totalLengthSeveringCount(0),
-    totalIntersectionSeveringCount(0),
     countSegments(0),
     countTrajectories(0),
     countIntersections(0),
-    dataSaved(false),
-    currentTimeTag(0),
-    wallClockStartTime(time(0)),
-    nextSnapshotEventTime(0),
+    timeQueue(this, &System::identity, &System::identity),
+    vPlusQueue(this, &System::vPlusToTime, &System::timeToVPlus),
     nextStatusEventTime(0),
-    p(this),geometry(NULL)
+    nextSnapshotEventTime(0),
+    EventDescriptorID(0),
+    eventID(0),
+    dataSaved(false)
 {
      	/// read parameters
      	p.initialize(parFile);
@@ -231,10 +232,9 @@ void System::flushAndReload(bool refreshParameterEvent)
     // recalculate total lengths to avoid drift (in DBG mode, also check for large deviations)
     double regionLength(0.);
     double systemLength(0);
-    int ridx(0);
     Trajectory* tptr(NULL);
 
-    for (ridx = 0; ridx < geometry->regions.size(); ridx++)
+    for (size_t ridx = 0; ridx < geometry->regions.size(); ridx++)
     {
         regionLength = 0;
         tptr = geometry->regions[ridx]->trajectories.first();
@@ -497,7 +497,7 @@ void System::advanceTime(double newTime)
 void System::updateAll(bool forceUpdate)
 {
     // always nice to be updated in lengths of all regions and microtubules (convenient for snapshots, etc.)
-    for (int ridx = 0; ridx < geometry->regions.size(); ridx++)
+    for (size_t ridx = 0; ridx < geometry->regions.size(); ridx++)
         geometry->regions[ridx]->updateRegionLength(forceUpdate);
 
     Microtubule* mt;
@@ -655,7 +655,8 @@ inline
 void System::handleCatastropheEvent()
 {
 
-    int tipNumber(0), totalRelevantTips(0),ridx(0),domainType(0);
+    size_t tipNumber (0), totalRelevantTips (0), ridx (0);
+    int domainType (0);
     RegionMTTipTag tipTag;
 
     double norm(0.0);
@@ -746,15 +747,19 @@ inline
 
 void System::handleRescueEvent()
 {
-    int ridx(0);
-    int tipNumber(0);
+    // TODO
+    // Fix the logic below and the types of these variables
+    // to eliminate the need for static_cast.
+    size_t ridx(0);
+    unsigned long int tipNumber (0);
+
     RegionMTTipTag tipTag;
 
     // select the number of the tip to be rescued
     tipNumber = randomGen.randInt(shrinking_mts.size() - 1);
 
     // determine the region this tip is located : binary search algorithm
-    if (tipNumber < shrinking_mts.size()/2)
+    if (tipNumber < static_cast<unsigned long long>(shrinking_mts.size()/2))
     {
         while (tipNumber >= geometry->regions[ridx]->shrinkingPlusTipList.size())
         {
@@ -824,7 +829,10 @@ void System::handleSeveringEvent()
 
 void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
 {
-    int ridx(0);
+    // TODO
+    // Fix the logic below and the type of this variable
+    // to eliminate the need for static_cast.
+    long long ridx(0);
     // select position at which severing will take place
     double cutLength = randomGen.randDblExc(totalLength);
     // first, select relevant region. Go from both sides to reduce time.
@@ -838,7 +846,7 @@ void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
                 break;
             cutLength -= geometry->regions[ridx]->totalLength;
             ridx++;
-            if (ridx == geometry->regions.size())
+            if (ridx == static_cast<long long>(geometry->regions.size()))
             {
                 // apparently, cutLength was *just* too long...
                 cutLength -= ZERO_CUTOFF;
@@ -855,7 +863,7 @@ void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
     }
     else
     {
-        ridx = geometry->regions.size()-1;
+        ridx = static_cast<long long>(geometry->regions.size()-1);
         cutLength = totalLength - cutLength;
         while (true)
         {
@@ -1091,8 +1099,7 @@ void System::handleNucleationEvent()
     if (sv.region->faceTag == -1)
         return;
 
-    Segment* nucSeg(NULL);
-    double pos(0.0),posOnSeg(0.0),overrideAngle(0.0),rand(0.0),rand2(0.0),preTheta(0.0),cosTheta(0.0),temp(0.0);
+    double overrideAngle (0.0);
 
     switch (p.nucleationType)
     {
@@ -1106,7 +1113,7 @@ void System::handleNucleationEvent()
 
     sv.angle = overrideAngle;
     tv = geometry->createTrajectory(sv);
-    Microtubule* mt = growing_mts.create(this, tv);
+    growing_mts.create(this, tv);
 
     return;
 }
@@ -1237,6 +1244,9 @@ void System::handleGlobalEvent(DeterministicEvent& event)
 
     switch (event.global_type)
     {
+
+        case measure:
+            break;
     	case status:
         	if (!integrityCheck())
         	{
@@ -1344,14 +1354,16 @@ void System::handleGlobalEvent(DeterministicEvent& event)
 		for(int dTag = 0; dTag <= p.faceNumber; dTag++)
 		growingTipsReg[dTag] = 0;
 
-		for(int eno = 0; eno < geometry->regions.size(); eno++)
+		for(size_t eno = 0; eno < geometry->regions.size(); eno++)
 		{
 			if(geometry->regions[eno]->polyIntersectMark==1)
 			{
 				geometry->regions[eno]->faceTag = 1;
 
-				for(int tip =0; tip< geometry->regions[eno]->growingPlusTipList.size();tip++)
-				growingTipsReg[1]+=1;
+				for(size_t tip =0; tip< geometry->regions[eno]->growingPlusTipList.size();tip++)
+				{
+                    growingTipsReg[1]+=1;
+                }
 
 				geometry->patchArea[1]+=geometry->regions[eno]->area;
                         	geometry->RegionsIndex[1].push_back(eno);
@@ -1361,8 +1373,10 @@ void System::handleGlobalEvent(DeterministicEvent& event)
 			{
 				geometry->regions[eno]->faceTag = 2;
 
-				for(int tip =0; tip< geometry->regions[eno]->growingPlusTipList.size();tip++)
-				growingTipsReg[2]+=1;
+				for(size_t tip =0; tip< geometry->regions[eno]->growingPlusTipList.size();tip++)
+				{
+                    growingTipsReg[2]+=1;
+                }
 
 				geometry->patchArea[2]+=geometry->regions[eno]->area;
                         	geometry->RegionsIndex[2].push_back(eno);
@@ -1372,6 +1386,7 @@ void System::handleGlobalEvent(DeterministicEvent& event)
         	nextPPBEventTime = VERY_LARGE;
 
         	break;
+
     }
 
     return;
