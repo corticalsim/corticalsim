@@ -1,35 +1,39 @@
+# Prerequisites
+*.d
+
 # Compiled Object files
-**/*.slo
-**/*.lo
-**/*.o
-**/*.obj
+*.slo
+*.lo
+*.o
+*.obj
 
 # Precompiled Headers
-**/*.gch
-**/*.pch
+*.gch
+*.pch
 
 # Linker files
-**/*.ilk
+*.ilk
 
 # Debugger Files
-**/*.pdb
+*.pdb
 
 # Compiled Dynamic libraries
-**/*.so
-**/*.dylib
-**/*.dll
-**/*.so.*
+*.so
+*.dylib
+*.dll
+*.so.*
+
 
 # Compiled Static libraries
-**/*.lai
-**/*.la
-**/*.a
-**/*.lib
+*.lai
+*.la
+*.a
+*.lib
 
 # Executables
-**/*.exe
-**/*.out
-**/*.app
+*.exe
+*.out
+*.app
 
 # Build directories
 build/
@@ -37,13 +41,17 @@ Build/
 build-*/
 
 # Temporary files
-**/*.tmp
-**/*.log
-**/*.bak
-**/*.swp
+*.tmp
+*.log
+*.bak
+*.swp
 
 # debug information files
-**/*.dwo
+*.dwo
 
-# output data
+# test output & cache
+Testing/
+.cache/
+
+# Output data
 **/outputData*
