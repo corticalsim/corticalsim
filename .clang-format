@@ -14,6 +14,9 @@ BreakConstructorInitializers: AfterColon
 BreakTemplateDeclarations: Yes
 ColumnLimit: 120
 ContinuationIndentWidth: 0
+EmptyLineAfterAccessModifier: Always
+EmptyLineBeforeAccessModifier: Always
+FixNamespaceComments: true
 IncludeBlocks: Preserve
 IndentCaseLabels: true
 IndentWidth: 4
@@ -21,6 +24,9 @@ IndentWrappedFunctionNames: false
 InsertBraces: true
 NamespaceIndentation: All
 PackConstructorInitializers: Never
+PenaltyBreakBeforeMemberAccess: 1000000
+PenaltyBreakScopeResolution: 1000000
+PenaltyBreakString: 1000000
 PenaltyReturnTypeOnItsOwnLine: 1000000
 PointerAlignment: Left
 QualifierAlignment: Leave
