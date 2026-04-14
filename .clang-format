@@ -12,10 +12,10 @@ BreakAfterReturnType: Automatic
 BreakBeforeBraces: Allman
 BreakConstructorInitializers: AfterColon
 BreakTemplateDeclarations: Yes
+ColumnLimit: 120
 ContinuationIndentWidth: 0
 IncludeBlocks: Preserve
 IndentCaseLabels: true
-IndentPPDirectives: BeforeHash
 IndentWidth: 4
 IndentWrappedFunctionNames: false
 InsertBraces: true
