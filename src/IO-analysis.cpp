@@ -3,20 +3,19 @@
 ostream& operator<<(ostream& o, const Measurement m)
 {
     // set precession to 4 decimal digits
-    o.setf(ios::fixed,ios::floatfield);
+    o.setf(ios::fixed, ios::floatfield);
     o.precision(4);
 
     // write output data in file
-    return o << m.time << "\t"<< m.numberOfMTs <<"\t"<< m.averageLength << "\t"<< m.lengthDensity << "\t"
-             << m.opticalDensity << "\t"<< m.order.R << "\t" << m.order.Rdirector[0] << "\t"
-             << m.order.Rdirector[1] << "\t" << m.order.Rdirector[2] <<"\r\n";
-
+    return o << m.time << "\t" << m.numberOfMTs << "\t" << m.averageLength << "\t" << m.lengthDensity << "\t"
+             << m.opticalDensity << "\t" << m.order.R << "\t" << m.order.Rdirector[0] << "\t" << m.order.Rdirector[1]
+             << "\t" << m.order.Rdirector[2] << "\r\n";
 }
 
 void writeMeasurementDescriptors(ostream& o)
 {
     // write header of the output file
-    o << "time\t\t" <<" #MT\t"<< " <l>\t"<<" rho\t"<<"rho_opt\t"<<" R\t"<<"R_x\t"<<"R_y\t"<<"R_z\r\n";
+    o << "time\t\t" << " #MT\t" << " <l>\t" << " rho\t" << "rho_opt\t" << " R\t" << "R_x\t" << "R_y\t" << "R_z\r\n";
     return;
 }
 
@@ -28,12 +27,12 @@ void System::initializeOutput(void)
     {
         string identifier;
         time_t timeRaw;
-        struct tm * timeStruct;
+        struct tm* timeStruct;
         char timeName[100];
 
         time(&timeRaw);
         timeStruct = localtime(&timeRaw);
-        strftime(timeName,100,"%c",timeStruct);
+        strftime(timeName, 100, "%c", timeStruct);
 
         // create subdirectory with a time Tag, to isolate each data folder
         p.outputDir += "/" + p.geometry + "/outputData" + string(timeName);
@@ -57,7 +56,7 @@ void System::initializeOutput(void)
     }
 
     // open output measurements file
-    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" +  string("/measurements.txt"));
+    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/measurements.txt"));
     measurementFile.open(FileName.c_str());
     if (!measurementFile.is_open())
     {
@@ -69,7 +68,7 @@ void System::initializeOutput(void)
     writeMeasurementDescriptors(measurementFile);
 
     // open output Draw_MT_segments file
-    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" +  string("/Draw_MT_segments.txt"));
+    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/Draw_MT_segments.txt"));
     movieFile.open(FileName.c_str());
     if (!movieFile.is_open())
     {
@@ -103,17 +102,18 @@ void System::performMeasurement(void)
 {
     Measurement m;
 
-    // measurementHistory reach at MAX_HISTORY_SIZE, archive only upto last MIN_HISTORY_SIZE arrays, and write down the rest on output file (immediately !)
+    // measurementHistory reach at MAX_HISTORY_SIZE, archive only upto last MIN_HISTORY_SIZE arrays, and write down the
+    // rest on output file (immediately !)
     if (measurementHistory.size() == MAX_HISTORY_SIZE)
     {
-        writeMeasurementsToFile(MIN_HISTORY_SIZE-1);
+        writeMeasurementsToFile(MIN_HISTORY_SIZE - 1);
     }
 
     m.time = systemTime + systemTimeOffset;
 
     // length densities (per area)
-    m.lengthDensity = totalLength/geometry->area;
-    m.opticalDensity = geometry->opticalLength()/geometry->area;
+    m.lengthDensity = totalLength / geometry->area;
+    m.opticalDensity = geometry->opticalLength() / geometry->area;
 
     // total number of microtubules
     m.numberOfMTs = growing_mts.size() + shrinking_mts.size();
@@ -143,10 +143,10 @@ void System::performMeasurement(void)
     m.trajectories = geometry->trajectoryCount();
 
     // average length of microtubules
-    if(m.numberOfMTs)
+    if (m.numberOfMTs)
     {
-        m.averageLength = totalLength/m.numberOfMTs;
-        m.segmentsPerMT = static_cast<double>(m.segments)/m.numberOfMTs;
+        m.averageLength = totalLength / m.numberOfMTs;
+        m.segmentsPerMT = static_cast<double>(m.segments) / m.numberOfMTs;
     }
     else
     {
@@ -177,30 +177,34 @@ void System::performMeasurement(void)
     m.lengthSeveringCount = totalLengthSeveringCount;
     m.intersectionSeveringCount = totalIntersectionSeveringCount;
 
-    // total number of occupied intersections
-    #ifdef CROSS_SEV
+// total number of occupied intersections
+#ifdef CROSS_SEV
     m.occupiedIntersectionCount = OccupiedIntersectionList.size();
-    #else
+#else
     m.occupiedIntersectionCount = 0;
-    #endif
+#endif
 
     // G-effective at difference faces
-    //for(int dTag =0;dTag <=p.faceNumber; dTag++)
-    //m.G_effAdjust.push_back = (p.kRes/(-p.vMin+p.vTM) - p.RegionKcatMultiplier[dTag]*p.kCat/(realVplus - p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/
-			  // (p.kNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
+    // for(int dTag =0;dTag <=p.faceNumber; dTag++)
+    // m.G_effAdjust.push_back = (p.kRes/(-p.vMin+p.vTM) - p.RegionKcatMultiplier[dTag]*p.kCat/(realVplus -
+    // p.vTM))*pow((2.0*(-p.vMin+p.vTM)*(realVplus-p.vTM)*(realVplus - p.vTM))/
+    // (p.kNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
 
     // archive (store) measurement
     measurementHistory.push_back(m);
 
-   // show output
-   if(p.showOutput ==1)
-   {
-         cout << "[t=" << setprecision(9) << m.time << setprecision(6) << "\t\t" << m.trajectories << " trajectories \t" << m.segments << " segments]\n"
-         << "density [real]: " << m.lengthDensity << "\t\t [optical]: " << m.opticalDensity << "\n"
-         << "length/MT     : " << m.averageLength << "\tMT#: " << m.numberOfMTs << "\tsegments/MT: " << m.segmentsPerMT << "\n"
-         << "R  [real]     : " << m.order.R <<"[" << m.order.Rdirector[0] << ", " << m.order.Rdirector[1] << ", " << m.order.Rdirector[2] << "]"<<"\n"
-         << "C  [real]     : " << m.order.C <<"\n\n";
-         //<< "G_eff_adjust  : " << m.G_effAdjust[0] << " [on regular surfaces]\n\n";
+    // show output
+    if (p.showOutput == 1)
+    {
+        cout << "[t=" << setprecision(9) << m.time << setprecision(6) << "\t\t" << m.trajectories << " trajectories \t"
+             << m.segments << " segments]\n"
+             << "density [real]: " << m.lengthDensity << "\t\t [optical]: " << m.opticalDensity << "\n"
+             << "length/MT     : " << m.averageLength << "\tMT#: " << m.numberOfMTs
+             << "\tsegments/MT: " << m.segmentsPerMT << "\n"
+             << "R  [real]     : " << m.order.R << "[" << m.order.Rdirector[0] << ", " << m.order.Rdirector[1] << ", "
+             << m.order.Rdirector[2] << "]" << "\n"
+             << "C  [real]     : " << m.order.C << "\n\n";
+        //<< "G_eff_adjust  : " << m.G_effAdjust[0] << " [on regular surfaces]\n\n";
     }
 
     return;
@@ -210,10 +214,10 @@ void System::writeMeasurementsToFile(int numberToKeep)
 {
     int i, iMax;
 
-    iMax = measurementHistory.size()-numberToKeep;
+    iMax = measurementHistory.size() - numberToKeep;
 
     // write output on files
-    for (i=0; i<iMax; i++)
+    for (i = 0; i < iMax; i++)
     {
         measurementFile << measurementHistory[0];
         measurementHistory.pop_front();

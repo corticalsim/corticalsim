@@ -1,16 +1,16 @@
 #include "corticalSimReal.h"
 
-void Geometry::callTranslator(SurfaceVector& sVec,int regionIndex,int regionIndexNeigh)
+void Geometry::callTranslator(SurfaceVector& sVec, int regionIndex, int regionIndexNeigh)
 {
     int Index1(regions[regionIndex]->sideRevMap[regionIndexNeigh]);
 
     // use affine transformation of triangle to map a point from one region to other region
-    Vector2d V1(sVec.x,sVec.y),V2;
-    V2 = regions[regionIndex]->side[Index1].A*V1 + regions[regionIndex]->side[Index1].b;
-    sVec.x = V2(0,0);
-    sVec.y = V2(1,0);
+    Vector2d V1(sVec.x, sVec.y), V2;
+    V2 = regions[regionIndex]->side[Index1].A * V1 + regions[regionIndex]->side[Index1].b;
+    sVec.x = V2(0, 0);
+    sVec.y = V2(1, 0);
 
-    sVec.angle+=regions[regionIndex]->side[Index1].xyRotationAngle;
+    sVec.angle += regions[regionIndex]->side[Index1].xyRotationAngle;
 
     return;
 }
@@ -21,7 +21,8 @@ TrajectoryVector Geometry::createTrajectory(const SurfaceVector& sVec)
     return sVec.region->insertTrajectory(sVec);
 }
 
-TrajectoryVector Geometry::createAndLinkTrajectory(const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAngle,double pCat)
+TrajectoryVector Geometry::createAndLinkTrajectory(
+const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAngle, double pCat)
 {
     // first create a new trajectory vector (trajectory)
     TrajectoryVector tVec = createTrajectory(newBase);
@@ -37,7 +38,7 @@ TrajectoryVector Geometry::createAndLinkTrajectory(const SurfaceVector& newBase,
     {
         oldtr->nextTr = tVec;
         oldtr->nextTrCosAngle = cosAngle;
-	oldtr->nextTrpCat = pCat;
+        oldtr->nextTrpCat = pCat;
 
         // get the direction and position of the dummy trajectory vector
         thisVec.dir = backward;
@@ -49,7 +50,7 @@ TrajectoryVector Geometry::createAndLinkTrajectory(const SurfaceVector& newBase,
     {
         oldtr->prevTr = tVec;
         oldtr->prevTrCosAngle = cosAngle;
-	oldtr->prevTrpCat = pCat;
+        oldtr->prevTrpCat = pCat;
 
         // get the direction and position of the dummy trajectory vector
         thisVec.dir = ::forward;
@@ -69,7 +70,7 @@ TrajectoryVector Geometry::createAndLinkTrajectory(const SurfaceVector& newBase,
     {
         tVec.trajectory->nextTr = thisVec;
         tVec.trajectory->nextTrCosAngle = cosAngle;
-	tVec.trajectory->nextTrpCat = pCat;
+        tVec.trajectory->nextTrpCat = pCat;
     }
 
     return tVec;
@@ -77,63 +78,65 @@ TrajectoryVector Geometry::createAndLinkTrajectory(const SurfaceVector& newBase,
 
 SurfaceVector Geometry::randomSurfaceVector()
 {
-	int regionSelector = 0;
-	double rArea = 0;
-        int domainType;
+    int regionSelector = 0;
+    double rArea = 0;
+    int domainType;
 
-        if (regions.size() > 1)
-	{
-		// nucleation on PPB
-		if(system->p.PPBkNucFraction > 0)
-		{
-			double randGen = system->randomGen.rand();
-			domainType = (randGen < system->p.PPBkNucFraction) ? 1 : 2;
-		}
+    if (regions.size() > 1)
+    {
+        // nucleation on PPB
+        if (system->p.PPBkNucFraction > 0)
+        {
+            double randGen = system->randomGen.rand();
+            domainType = (randGen < system->p.PPBkNucFraction) ? 1 : 2;
+        }
 
-		// nucleation outside PPB
-		else
-		domainType = 0;
+        // nucleation outside PPB
+        else
+        {
+            domainType = 0;
+        }
 
-		// select a region
-		rArea = system->randomGen.randDblExc(patchArea[domainType]);
+        // select a region
+        rArea = system->randomGen.randDblExc(patchArea[domainType]);
 
-		if (rArea < 0.5*patchArea[domainType])
-		{
-			regionSelector = 0;
-			while (rArea > regions[RegionsIndex[domainType][regionSelector]]->area)
-			{
-				rArea -= regions[RegionsIndex[domainType][regionSelector++]]->area;
+        if (rArea < 0.5 * patchArea[domainType])
+        {
+            regionSelector = 0;
+            while (rArea > regions[RegionsIndex[domainType][regionSelector]]->area)
+            {
+                rArea -= regions[RegionsIndex[domainType][regionSelector++]]->area;
 
-                		#ifdef DBG_ACID_TEST
-				if (regionSelector == regions.size())
-				{
-					cerr << "DBG/ASSERT: ERROR: Ran out of surfaces for random surface vector creation.\n";
-					exit(-1);
-				}
-                		#endif
-			}
-		}
+#ifdef DBG_ACID_TEST
+                if (regionSelector == regions.size())
+                {
+                    cerr << "DBG/ASSERT: ERROR: Ran out of surfaces for random surface vector creation.\n";
+                    exit(-1);
+                }
+#endif
+            }
+        }
 
-		else
-		{
-			regionSelector = RegionsIndex[domainType].size()-1;
-			rArea = patchArea[domainType] - rArea;
-			while (rArea > regions[RegionsIndex[domainType][regionSelector]]->area)
-			{
-				rArea -= regions[RegionsIndex[domainType][regionSelector--]]->area;
+        else
+        {
+            regionSelector = RegionsIndex[domainType].size() - 1;
+            rArea = patchArea[domainType] - rArea;
+            while (rArea > regions[RegionsIndex[domainType][regionSelector]]->area)
+            {
+                rArea -= regions[RegionsIndex[domainType][regionSelector--]]->area;
 
-                		#ifdef DBG_ACID_TEST
-				if (regionSelector == -1)
-				{
-					cerr << "DBG/ASSERT: ERROR: Ran out of surfaces for random surface vector creation.\n";
-					exit(-1);
-				}
-                		#endif
-			}
-		}
-	}
+#ifdef DBG_ACID_TEST
+                if (regionSelector == -1)
+                {
+                    cerr << "DBG/ASSERT: ERROR: Ran out of surfaces for random surface vector creation.\n";
+                    exit(-1);
+                }
+#endif
+            }
+        }
+    }
 
-	return regions[RegionsIndex[domainType][regionSelector]]->randomSurfaceVector();
+    return regions[RegionsIndex[domainType][regionSelector]]->randomSurfaceVector();
 }
 
 bool Geometry::integrityCheck()
@@ -153,7 +156,9 @@ bool Geometry::integrityCheck()
         while (tptr != NULL)
         {
             if (!tptr->integrityCheck())
+            {
                 valid = false;
+            }
 
             tptr = tptr->next();
         }
@@ -167,20 +172,22 @@ bool Geometry::integrityCheck()
 
     if (plusGrowCount != system->growing_mts.size())
     {
-        cerr << "Integrity check failed: number of registered growing tips does not equal the number of growing microtubules.\n";
+        cerr << "Integrity check failed: number of registered growing tips does not equal the number of growing "
+                "microtubules.\n";
         valid = false;
     }
 
     if (plusShrinkCount != system->shrinking_mts.size())
     {
-        cerr << "Integrity check failed: number of registered shrinking tips does not equal the number of shrinking microtubules.\n";
+        cerr << "Integrity check failed: number of registered shrinking tips does not equal the number of shrinking "
+                "microtubules.\n";
         valid = false;
     }
 
     int totalPlusGrowCount(0);
-    for(int dTag = 0; dTag <= system->p.faceNumber; dTag++)
+    for (int dTag = 0; dTag <= system->p.faceNumber; dTag++)
     {
-        totalPlusGrowCount+= system->growingTipsReg[dTag];
+        totalPlusGrowCount += system->growingTipsReg[dTag];
     }
 
     if (plusGrowCount != totalPlusGrowCount)
@@ -191,7 +198,6 @@ bool Geometry::integrityCheck()
 
     return valid;
 }
-
 
 double Geometry::opticalLength()
 {
@@ -220,9 +226,9 @@ int Geometry::trajectoryCount()
 
 TrajectoryVector Region::insertTrajectory(const SurfaceVector& sVec)
 {
-    #ifdef DBG_GEOMETRY
+#ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Region::insertTrajectory() called\n";
-    #endif
+#endif
 
     TrajectoryVector tVec;
     double tLength(0.);
@@ -231,27 +237,27 @@ TrajectoryVector Region::insertTrajectory(const SurfaceVector& sVec)
     vector<PointATedge> endPoint;
 
     // gather coordinates of the trajectory to be created
-    getTrajectoryCoordinates(newBase,tLength,endPoint,tVec);
+    getTrajectoryCoordinates(newBase, tLength, endPoint, tVec);
 
     // create the trajectory
-    tVec.trajectory = trajectories.create(newBase,endPoint,tLength);
+    tVec.trajectory = trajectories.create(newBase, endPoint, tLength);
 
     // make a list of intersections of the created trajectory with all other trajectories
     makeIntersectionList(tVec.trajectory);
 
     // increase total number of intersections accordingly
-    geometry->system->countIntersections += 2*(tVec.trajectory->intersections.size());
+    geometry->system->countIntersections += 2 * (tVec.trajectory->intersections.size());
 
     return tVec;
 }
 
 void Region::removeTrajectory(Trajectory* tr)
 {
-    #ifdef DBG_GEOMETRY
+#ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Region::removeTrajectory() called\n";
-    #endif
+#endif
 
-    #ifdef DBG_ASSERT
+#ifdef DBG_ASSERT
     // when removing a trajectory, it should be already run out of segments
     if (!tr->segments.empty())
     {
@@ -263,10 +269,10 @@ void Region::removeTrajectory(Trajectory* tr)
     {
         cout << "oh dear\n";
     }
-    #endif
+#endif
 
     // decrease total number of intersections in the geometry
-    geometry->system->countIntersections -= 2* (tr->intersections.size());
+    geometry->system->countIntersections -= 2 * (tr->intersections.size());
 
     // skip the first intersection iterator, as it is a garbage
     IntersectionItr is(++tr->intersections.begin());
@@ -293,9 +299,13 @@ void Region::removeTrajectory(Trajectory* tr)
     if (tr->prevTr.trajectory != NULL)
     {
         if (tr->prevTr.dir == backward)
+        {
             tr->prevTr.trajectory->nextTr.trajectory = NULL;
+        }
         else
+        {
             tr->prevTr.trajectory->prevTr.trajectory = NULL;
+        }
 
         tr->prevTr.trajectory = NULL;
     }
@@ -303,9 +313,13 @@ void Region::removeTrajectory(Trajectory* tr)
     if (tr->nextTr.trajectory != NULL)
     {
         if (tr->nextTr.dir == ::forward)
+        {
             tr->nextTr.trajectory->prevTr.trajectory = NULL;
+        }
         else
+        {
             tr->nextTr.trajectory->nextTr.trajectory = NULL;
+        }
         tr->nextTr.trajectory = NULL;
     }
 
@@ -334,7 +348,9 @@ RegionMTTipTag Region::registerOnRegion(MTTip* pTip, TipType tiptype, MTType mtt
 
     // minus tip
     if (tiptype == t_minus)
-        return minusTipList.insert(minusTipList.end(),pTip);
+    {
+        return minusTipList.insert(minusTipList.end(), pTip);
+    }
 
     // plus tip
     else
@@ -342,13 +358,15 @@ RegionMTTipTag Region::registerOnRegion(MTTip* pTip, TipType tiptype, MTType mtt
         // insert growing MT
         if (mttype == mt_growing)
         {
-	    geometry->system->growingTipsReg[faceTag]++;
-            return growingPlusTipList.insert(growingPlusTipList.end(),pTip);
+            geometry->system->growingTipsReg[faceTag]++;
+            return growingPlusTipList.insert(growingPlusTipList.end(), pTip);
         }
 
         // insert shrinking MT
         else
-            return shrinkingPlusTipList.insert(shrinkingPlusTipList.end(),pTip);
+        {
+            return shrinkingPlusTipList.insert(shrinkingPlusTipList.end(), pTip);
+        }
     }
 }
 
@@ -359,7 +377,9 @@ void Region::unregisterFromRegion(RegionMTTipTag tag, TipType tiptype, MTType mt
 
     // minus tip
     if (tiptype == t_minus)
+    {
         minusTipList.erase(tag);
+    }
 
     // plus tip
     else
@@ -373,26 +393,30 @@ void Region::unregisterFromRegion(RegionMTTipTag tag, TipType tiptype, MTType mt
 
         // erase shrinking MT
         else
+        {
             shrinkingPlusTipList.erase(tag);
+        }
     }
     return;
 }
 
-Trajectory::Trajectory(SurfaceVector baseVec,vector<PointATedge> endP,double l) :
+Trajectory::Trajectory(SurfaceVector baseVec, vector<PointATedge> endP, double l):
     base(baseVec),
     length(l),
-    prevTr(0,::forward,NULL),
-    nextTr(0,::forward,NULL),
+    prevTr(0, ::forward, NULL),
+    nextTr(0, ::forward, NULL),
     prevTrCosAngle(1.0),
     nextTrCosAngle(1.0)
 {
-    #ifdef DBG_GEOMETRY
+#ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Trajectory created\n";
-    #endif
+#endif
 
     // assign end points of the trajectory
-    for(int i=0;i<2;i++)
-    endPoint.push_back(endP[i]);
+    for (int i = 0; i < 2; i++)
+    {
+        endPoint.push_back(endP[i]);
+    }
 
     // increase total number of trajectories in the geometry
     base.region->geometry->system->countTrajectories++;
@@ -463,7 +487,6 @@ bool Trajectory::integrityCheck()
             cout << "Integrity: intersection mirroring broken.\n";
             valid = false;
         }
-
     }
 
     list<Segment*>::iterator segItr(segments.begin());
@@ -474,12 +497,16 @@ bool Trajectory::integrityCheck()
         if ((**segItr).dir == ::forward)
         {
             while (++is != (**segItr).endItr)
+            {
                 is->second.occupancy--;
+            }
         }
         else
         {
             while (--is != (**segItr).endItr)
+            {
                 is->second.occupancy--;
+            }
         }
         segItr++;
     }
@@ -501,12 +528,16 @@ bool Trajectory::integrityCheck()
         if ((**segItr).dir == ::forward)
         {
             while (++is != (**segItr).endItr)
+            {
                 is->second.occupancy++;
+            }
         }
         else
         {
             while (--is != (**segItr).endItr)
+            {
                 is->second.occupancy++;
+            }
         }
         segItr++;
     }
@@ -567,7 +598,9 @@ double Trajectory::coveredLength()
 
         // sum up only once and if the trajectory is covered, i.e. avoid multiple addition for bundles
         if (occupancy >= 1)
+        {
             cLength += currentPos - previousPos;
+        }
 
         previousPos = currentPos;
 
@@ -609,9 +642,9 @@ void Trajectory::invalidateIntersection(IntersectionItr& oldIs)
 
 void Trajectory::newIntersection(IntersectionItr& newIs)
 {
-    #ifdef DBG_GEOMETRY
+#ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Trajectory::newIntersection() called.\n";
-    #endif
+#endif
 
     list<Segment*>::iterator seg(segments.begin());
 
@@ -646,53 +679,66 @@ void Trajectory::newIntersection(IntersectionItr& newIs)
 
 int Trajectory::differenceSign(IntersectionItr itr1, double pos1, IntersectionItr itr2, double pos2)
 {
-    // returns the sign of 'pos1 - pos2'. If the two positions are equal, the iterators are used instead to determine order.
-    if(pos1 - pos2 > ZERO_CUTOFF)
+    // returns the sign of 'pos1 - pos2'. If the two positions are equal, the iterators are used instead to determine
+    // order.
+    if (pos1 - pos2 > ZERO_CUTOFF)
+    {
         return 1;
+    }
 
-    else if(pos1 - pos2 < -ZERO_CUTOFF)
+    else if (pos1 - pos2 < -ZERO_CUTOFF)
+    {
         return -1;
+    }
 
     else
     {
-        if(itr1 == itr2)
+        if (itr1 == itr2)
+        {
             return 0;
-        if(itr1 == wallEnd())
+        }
+        if (itr1 == wallEnd())
+        {
             return 1;
+        }
 
         do
         {
             itr2++;
-        }
-        while ((itr2 != wallEnd()) && (itr1 != itr2));
+        } while ((itr2 != wallEnd()) && (itr1 != itr2));
 
-        if(itr1 == itr2)
+        if (itr1 == itr2)
+        {
             return 1;
+        }
         else
+        {
             return -1;
+        }
     }
 }
 
 TrjSegmentTag Trajectory::insertSegment(Segment* s)
 {
-    #ifdef DBG_ASSERT
-    // check whether the size of the inserted segment equals zero, for insertion of non-zero segments, take care to update the occupancy numbers
+#ifdef DBG_ASSERT
+    // check whether the size of the inserted segment equals zero, for insertion of non-zero segments, take care to
+    // update the occupancy numbers
     if (abs(s->end - s->start) > ZERO_CUTOFF)
     {
         cerr << "DBG/ASSERT: ERROR: Not permitted to insert segment with non-zero length.\n";
         exit(-1);
     }
-    #endif
+#endif
 
     // insert a new segment to the trajectory
-    return segments.insert(segments.end(),s);
+    return segments.insert(segments.end(), s);
 }
 
 void Trajectory::removeSegment(TrjSegmentTag s)
 {
-    #ifdef DBG_GEOMETRY
+#ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Trajectory::removeSegment() called.\n";
-    #endif
+#endif
 
     // remove segment
     segments.erase(s);
@@ -706,7 +752,7 @@ void Trajectory::removeSegment(TrjSegmentTag s)
 TrjMTTipTag Trajectory::registerForNotifications(MTTip* pTip)
 {
     // a new tip arrived on the trajectory, add it to the notification list
-    return notificationList.insert(notificationList.end(),pTip);
+    return notificationList.insert(notificationList.end(), pTip);
 }
 
 void Trajectory::unregisterForNotifications(TrjMTTipTag tag)
@@ -723,13 +769,14 @@ TrajectoryVector Trajectory::nextTrajectory(Direction dir)
 {
     if (dir == ::forward)
     {
-	// direction forward and a next trajectory is waiting to take the tip on board
+        // direction forward and a next trajectory is waiting to take the tip on board
         if (nextTr.trajectory != NULL)
         {
-            #ifdef DBG_GEOMETRY
-            cout << "DBG/GEOMETRY: Following existing trajectory link forward. [from " << RegionTypeText[base.region->type] << \
-                 " to " << RegionTypeText[nextTr.trajectory->base.region->type] << "]\n";
-            #endif
+#ifdef DBG_GEOMETRY
+            cout << "DBG/GEOMETRY: Following existing trajectory link forward. [from "
+                 << RegionTypeText[base.region->type] << " to " << RegionTypeText[nextTr.trajectory->base.region->type]
+                 << "]\n";
+#endif
 
             return nextTr;
         }
@@ -740,15 +787,16 @@ TrajectoryVector Trajectory::nextTrajectory(Direction dir)
         // direction backward and a previous trajectory is waiting to take the on board
         if (prevTr.trajectory != NULL)
         {
-            #ifdef DBG_GEOMETRY
-            cout << "DBG/GEOMETRY: Following existing trajectory link forward. [from " << RegionTypeText[base.region->type] << \
-                 " to " << RegionTypeText[prevTr.trajectory->base.region->type] << "]\n";
-            #endif
+#ifdef DBG_GEOMETRY
+            cout << "DBG/GEOMETRY: Following existing trajectory link forward. [from "
+                 << RegionTypeText[base.region->type] << " to " << RegionTypeText[prevTr.trajectory->base.region->type]
+                 << "]\n";
+#endif
 
             return prevTr;
         }
     }
 
     // there is no next/previous trajectory to take the tip, so extend (create a new) trajectory
-    return base.region->geometry->extendTrajectory(this,dir);
+    return base.region->geometry->extendTrajectory(this, dir);
 }

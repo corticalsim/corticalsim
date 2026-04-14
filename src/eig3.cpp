@@ -2,28 +2,25 @@
 #ifdef MAX
 #undef MAX
 #endif
-#define MAX(a, b) ((a)>(b)?(a):(b))
-#define n 3
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define n         3
 
-static double hypot2(double x, double y)
-{
-    return sqrt(x*x+y*y);
-}
+static double hypot2(double x, double y) { return sqrt(x * x + y * y); }
 
 // Symmetric Householder reduction to tridiagonal form.
-//  This is derived from the Algol procedures tred2 by
-//  Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
-//  Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
-//  Fortran subroutine in EISPACK.
+// This is derived from the Algol procedures tred2 by
+// Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
+// Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
+// Fortran subroutine in EISPACK.
 static void tred2(double V[n][n], double d[n], double e[n])
 {
 
     for (int j = 0; j < n; j++)
     {
-        d[j] = V[n-1][j];
+        d[j] = V[n - 1][j];
     }
     // Householder reduction to tridiagonal form.
-    for (int i = n-1; i > 0; i--)
+    for (int i = n - 1; i > 0; i--)
     {
         // Scale to avoid under/overflow.
         double scale = 0.0;
@@ -34,10 +31,10 @@ static void tred2(double V[n][n], double d[n], double e[n])
         }
         if (scale == 0.0)
         {
-            e[i] = d[i-1];
+            e[i] = d[i - 1];
             for (int j = 0; j < i; j++)
             {
-                d[j] = V[i-1][j];
+                d[j] = V[i - 1][j];
                 V[i][j] = 0.0;
                 V[j][i] = 0.0;
             }
@@ -50,7 +47,7 @@ static void tred2(double V[n][n], double d[n], double e[n])
                 d[k] /= scale;
                 h += d[k] * d[k];
             }
-            double f = d[i-1];
+            double f = d[i - 1];
             double g = sqrt(h);
             if (f > 0)
             {
@@ -58,7 +55,7 @@ static void tred2(double V[n][n], double d[n], double e[n])
             }
             e[i] = scale * g;
             h = h - f * g;
-            d[i-1] = f - g;
+            d[i - 1] = f - g;
             for (int j = 0; j < i; j++)
             {
                 e[j] = 0.0;
@@ -69,7 +66,7 @@ static void tred2(double V[n][n], double d[n], double e[n])
                 f = d[j];
                 V[j][i] = f;
                 g = e[j] + V[j][j] * f;
-                for (int k = j+1; k <= i-1; k++)
+                for (int k = j + 1; k <= i - 1; k++)
                 {
                     g += V[k][j] * d[k];
                     e[k] += V[k][j] * f;
@@ -91,34 +88,34 @@ static void tred2(double V[n][n], double d[n], double e[n])
             {
                 f = d[j];
                 g = e[j];
-                for (int k = j; k <= i-1; k++)
+                for (int k = j; k <= i - 1; k++)
                 {
                     V[k][j] -= (f * e[k] + g * d[k]);
                 }
-                d[j] = V[i-1][j];
+                d[j] = V[i - 1][j];
                 V[i][j] = 0.0;
             }
         }
         d[i] = h;
     }
     // Accumulate transformations.
-    for (int i = 0; i < n-1; i++)
+    for (int i = 0; i < n - 1; i++)
     {
-        V[n-1][i] = V[i][i];
+        V[n - 1][i] = V[i][i];
         V[i][i] = 1.0;
-        double h = d[i+1];
+        double h = d[i + 1];
         if (h != 0.0)
         {
             for (int k = 0; k <= i; k++)
             {
-                d[k] = V[k][i+1] / h;
+                d[k] = V[k][i + 1] / h;
             }
             for (int j = 0; j <= i; j++)
             {
                 double g = 0.0;
                 for (int k = 0; k <= i; k++)
                 {
-                    g += V[k][i+1] * V[k][j];
+                    g += V[k][i + 1] * V[k][j];
                 }
                 for (int k = 0; k <= i; k++)
                 {
@@ -128,42 +125,42 @@ static void tred2(double V[n][n], double d[n], double e[n])
         }
         for (int k = 0; k <= i; k++)
         {
-            V[k][i+1] = 0.0;
+            V[k][i + 1] = 0.0;
         }
     }
     for (int j = 0; j < n; j++)
     {
-        d[j] = V[n-1][j];
-        V[n-1][j] = 0.0;
+        d[j] = V[n - 1][j];
+        V[n - 1][j] = 0.0;
     }
-    V[n-1][n-1] = 1.0;
+    V[n - 1][n - 1] = 1.0;
     e[0] = 0.0;
 }
 
 // Symmetric tridiagonal QL algorithm.
 static void tql2(double V[n][n], double d[n], double e[n])
 {
-//  This is derived from the Algol procedures tql2, by
-//  Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
-//  Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
-//  Fortran subroutine in EISPACK.
+    //  This is derived from the Algol procedures tql2, by
+    //  Bowdler, Martin, Reinsch, and Wilkinson, Handbook for
+    //  Auto. Comp., Vol.ii-Linear Algebra, and the corresponding
+    //  Fortran subroutine in EISPACK.
 
     for (int i = 1; i < n; i++)
     {
-        e[i-1] = e[i];
+        e[i - 1] = e[i];
     }
-    e[n-1] = 0.0;
+    e[n - 1] = 0.0;
     double f = 0.0;
     double tst1 = 0.0;
-    double eps = pow(2.0,-52.0);
+    double eps = pow(2.0, -52.0);
     for (int l = 0; l < n; l++)
     {
         // Find small sub-diagonal element
-        tst1 = MAX(tst1,fabs(d[l]) + fabs(e[l]));
+        tst1 = MAX(tst1, fabs(d[l]) + fabs(e[l]));
         int m = l;
         while (m < n)
         {
-            if (fabs(e[m]) <= eps*tst1)
+            if (fabs(e[m]) <= eps * tst1)
             {
                 break;
             }
@@ -176,20 +173,20 @@ static void tql2(double V[n][n], double d[n], double e[n])
             int iter = 0;
             do
             {
-                iter = iter + 1;  // (Could check iteration count here.)
+                iter = iter + 1; // (Could check iteration count here.)
                 // Compute implicit shift
                 double g = d[l];
-                double p = (d[l+1] - g) / (2.0 * e[l]);
-                double r = hypot2(p,1.0);
+                double p = (d[l + 1] - g) / (2.0 * e[l]);
+                double r = hypot2(p, 1.0);
                 if (p < 0)
                 {
                     r = -r;
                 }
                 d[l] = e[l] / (p + r);
-                d[l+1] = e[l] * (p + r);
-                double dl1 = d[l+1];
+                d[l + 1] = e[l] * (p + r);
+                double dl1 = d[l + 1];
                 double h = g - d[l];
-                for (int i = l+2; i < n; i++)
+                for (int i = l + 2; i < n; i++)
                 {
                     d[i] -= h;
                 }
@@ -199,27 +196,27 @@ static void tql2(double V[n][n], double d[n], double e[n])
                 double c = 1.0;
                 double c2 = c;
                 double c3 = c;
-                double el1 = e[l+1];
+                double el1 = e[l + 1];
                 double s = 0.0;
                 double s2 = 0.0;
-                for (int i = m-1; i >= l; i--)
+                for (int i = m - 1; i >= l; i--)
                 {
                     c3 = c2;
                     c2 = c;
                     s2 = s;
                     g = c * e[i];
                     h = c * p;
-                    r = hypot2(p,e[i]);
-                    e[i+1] = s * r;
+                    r = hypot2(p, e[i]);
+                    e[i + 1] = s * r;
                     s = e[i] / r;
                     c = p / r;
                     p = c * d[i] - s * g;
-                    d[i+1] = h + s * (c * g + s * d[i]);
+                    d[i + 1] = h + s * (c * g + s * d[i]);
                     // Accumulate transformation.
                     for (int k = 0; k < n; k++)
                     {
-                        h = V[k][i+1];
-                        V[k][i+1] = s * V[k][i] + c * h;
+                        h = V[k][i + 1];
+                        V[k][i + 1] = s * V[k][i] + c * h;
                         V[k][i] = c * V[k][i] - s * h;
                     }
                 }
@@ -227,18 +224,17 @@ static void tql2(double V[n][n], double d[n], double e[n])
                 e[l] = s * p;
                 d[l] = c * p;
                 // Check for convergence.
-            }
-            while (fabs(e[l]) > eps*tst1);
+            } while (fabs(e[l]) > eps * tst1);
         }
         d[l] = d[l] + f;
         e[l] = 0.0;
     }
     // Sort eigenvalues and corresponding vectors.
-    for (int i = 0; i < n-1; i++)
+    for (int i = 0; i < n - 1; i++)
     {
         int k = i;
         double p = d[i];
-        for (int j = i+1; j < n; j++)
+        for (int j = i + 1; j < n; j++)
         {
             if (d[j] < p)
             {

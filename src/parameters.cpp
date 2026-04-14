@@ -1,11 +1,12 @@
 #include "corticalSimReal.h"
 
-string DirectionTypeText[] = {"forward","backward"};
-string GeometryTypeText[] = {"cell"};
-string InteractionTypeText[] = {"zipFirst","catFirst","minimalFourier"};
-string NucleationTypeText[] = {"isotropic","biased","ellipse" };
-string BundleTypeText[] = {"simple","sticky","noZip","multiCollision","Ncollision" };
-Parameters::Parameters(System* s) :
+string DirectionTypeText[] = { "forward", "backward" };
+string GeometryTypeText[] = { "cell" };
+string InteractionTypeText[] = { "zipFirst", "catFirst", "minimalFourier" };
+string NucleationTypeText[] = { "isotropic", "biased", "ellipse" };
+string BundleTypeText[] = { "simple", "sticky", "noZip", "multiCollision", "Ncollision" };
+
+Parameters::Parameters(System* s):
     system(s),
     vPlus(0.08),
     vMin(-0.16),
@@ -55,7 +56,7 @@ Parameters::Parameters(System* s) :
     movieEnabled(0),
     showOutput(0),
     showMesh(0),
-    geometry ("2D-plane_1_0_0"),
+    geometry("2D-plane_1_0_0"),
     movieFrameInterval(-1),
     geometryScaleFactor(15.0),
     c0calc(0),
@@ -87,81 +88,88 @@ bool Parameters::reinitialize(const char* pf)
         return (true);
     }
     else
-    return (false);
+    {
+        return (false);
+    }
 }
 
 bool Parameters::writeToFile()
 {
-	ofstream & of = system->parameterFile;
-	of << "# CorticalSim parameters\r\n";
-	of << "########## Input-Output path ########################\r\n";
-	of << "inputDir\t" << inputDir << "\r\n";
-	of << "outputDir\t" << outputDir << "\r\n";
-	of << "newParameterReadInterval\t"<< newParameterReadInterval<< "\r\n";
-	of << "createSubdir\t"<< createSubdir << "\r\n";
-	of << "newParameterFile\t"<< newParameterFile << "\r\n";
-	of << "########## Dynamic parameters ##########\r\n";
-	of << "kSev\t"<< kSev	<< "\r\n";
-	of << "kCross\t"<< kCross  << "\r\n";
-	of << "vPlus\t"<< vPlus	<< "\r\n";
-	of << "vMin\t"<< vMin	<< "\r\n";
-	of << "vTM\t"<< vTM	<< "\r\n";
-	of << "kCat\t"<<  kCat 	 << "\r\n";
-	of << "kRes\t"<< kRes	<< "\r\n";
-	of << "kNuc\t"<<  kNuc 	 << "\r\n";
-	of << "magic_angle\t"<< magicAngle	<< "\r\n";
-	of << "poolDensity\t"<< poolDensity	<< "\r\n";
-	of << "nucleationType\t"<< nucleationType	<< "\r\n";
-	of << "########## Zip-IndCat-Severing events ######\r\n";
-	of << "treadmilling\t"<< treadmillingEnabled	<< "\r\n";
-	of << "ind_cat\t"<< catastrophesEnabled	       << "\r\n";
-	of << "cat_start_angle\t"<< catStartAngle	<< "\r\n";
-	of << "induced_cat_fraction\t"<< inducedCatastropheFraction	<< "\r\n";
-	of << "zippering\t"<< zipperingEnabled	<< "\r\n";
-	of << "zipFraction\t"<< zipFraction    << "\r\n";
-	of << "severing\t"<< severingEnabled	<< "\r\n";
-	of << "crossSevering\t"<< crossSeveringEnabled	<< "\r\n";
-	of << "crossSeveringTop\t"<< crossSeveringTop << "\r\n";
-	of << "crossSeveringStartAngle\t"<< crossSeveringStartAngle << "\r\n";
-	of << "########## Edge catastrophe specification ####\r\n";
-	map<string, double>::iterator it;
-	of << "########################\r\n";
-	of << "edgNumber\t"<< edgNumber	<< "\r\n";
-	for(it = edgCatMap.begin(); it!= edgCatMap.end(); it++)
-	of << it->first <<"\t"<< it->second  << "\r\n";
-	of << "########################\r\n";
-	of << "faceNumber\t"<< faceNumber	<< "\r\n";
-	for(it = faceCatMap.begin(); it!= faceCatMap.end(); it++)
-	of << it->first <<"\t"<< it->second  << "\r\n";
-	of << "########################\r\n";
-	of << "edgeCatastropheSmooth\t"<< edgeCatastropheSmooth << "\r\n";
-	of << "edgeCatastropheEnabled\t"<< edgeCatastropheEnabled << "\r\n";
-	of << "PPBkNucFraction\t"<< PPBkNucFraction << "\r\n";
-	of << "proportionalCatastrophes\t"<< proportionalCatastrophes 	 << "\r\n";
-	of << "########## specific conditions ###########\r\n";
-	of << "restrictedPool\t"<< restrictedPool 	 << "\r\n";
-	of << "interactionType\t"<< interactionType << "\r\n";
-	of << "bundleType\t"<< bundleType	<< "\r\n";
-	of << "########## Random seed and run time #####\r\n";
-	of << "memoryLimit\t"<< memoryLimit	<< "\r\n";
-	of << "wallClockLimit\t"<< wallClockLimit	<< "\r\n";
-	of << "stopTime\t"<< stopTime	<< "\r\n";
-	of << "random_seed\t"<< seed	<< "\r\n";
-	of << "########## Movie select ############\r\n";
-	of << "movieEnabled\t"<< movieEnabled	<< "\r\n";
-	of << "movieFrameInterval\t"<< movieFrameInterval	<< "\r\n";
-	of << "measurementInterval\t"<< measurementInterval	<< "\r\n";
-	of << "########## Display output ##########\r\n";
-	of << "showMesh\t"<<  showMesh 	<< "\r\n";
-	of << "showOutput\t"<< showOutput 	 << "\r\n";
-	of << "########## Geometry ################\r\n";
-	of << "geometryScaleFactor\t"<< geometryScaleFactor 	<< "\r\n";
-	of << "geometry\t"<< geometry 	 << "\r\n";
+    ofstream& of = system->parameterFile;
+    of << "# CorticalSim parameters\r\n";
+    of << "########## Input-Output path ########################\r\n";
+    of << "inputDir\t" << inputDir << "\r\n";
+    of << "outputDir\t" << outputDir << "\r\n";
+    of << "newParameterReadInterval\t" << newParameterReadInterval << "\r\n";
+    of << "createSubdir\t" << createSubdir << "\r\n";
+    of << "newParameterFile\t" << newParameterFile << "\r\n";
+    of << "########## Dynamic parameters ##########\r\n";
+    of << "kSev\t" << kSev << "\r\n";
+    of << "kCross\t" << kCross << "\r\n";
+    of << "vPlus\t" << vPlus << "\r\n";
+    of << "vMin\t" << vMin << "\r\n";
+    of << "vTM\t" << vTM << "\r\n";
+    of << "kCat\t" << kCat << "\r\n";
+    of << "kRes\t" << kRes << "\r\n";
+    of << "kNuc\t" << kNuc << "\r\n";
+    of << "magic_angle\t" << magicAngle << "\r\n";
+    of << "poolDensity\t" << poolDensity << "\r\n";
+    of << "nucleationType\t" << nucleationType << "\r\n";
+    of << "########## Zip-IndCat-Severing events ######\r\n";
+    of << "treadmilling\t" << treadmillingEnabled << "\r\n";
+    of << "ind_cat\t" << catastrophesEnabled << "\r\n";
+    of << "cat_start_angle\t" << catStartAngle << "\r\n";
+    of << "induced_cat_fraction\t" << inducedCatastropheFraction << "\r\n";
+    of << "zippering\t" << zipperingEnabled << "\r\n";
+    of << "zipFraction\t" << zipFraction << "\r\n";
+    of << "severing\t" << severingEnabled << "\r\n";
+    of << "crossSevering\t" << crossSeveringEnabled << "\r\n";
+    of << "crossSeveringTop\t" << crossSeveringTop << "\r\n";
+    of << "crossSeveringStartAngle\t" << crossSeveringStartAngle << "\r\n";
+    of << "########## Edge catastrophe specification ####\r\n";
+    map<string, double>::iterator it;
+    of << "########################\r\n";
+    of << "edgNumber\t" << edgNumber << "\r\n";
+    for (it = edgCatMap.begin(); it != edgCatMap.end(); it++)
+    {
+        of << it->first << "\t" << it->second << "\r\n";
+    }
+    of << "########################\r\n";
+    of << "faceNumber\t" << faceNumber << "\r\n";
+    for (it = faceCatMap.begin(); it != faceCatMap.end(); it++)
+    {
+        of << it->first << "\t" << it->second << "\r\n";
+    }
+    of << "########################\r\n";
+    of << "edgeCatastropheSmooth\t" << edgeCatastropheSmooth << "\r\n";
+    of << "edgeCatastropheEnabled\t" << edgeCatastropheEnabled << "\r\n";
+    of << "PPBkNucFraction\t" << PPBkNucFraction << "\r\n";
+    of << "proportionalCatastrophes\t" << proportionalCatastrophes << "\r\n";
+    of << "########## specific conditions ###########\r\n";
+    of << "restrictedPool\t" << restrictedPool << "\r\n";
+    of << "interactionType\t" << interactionType << "\r\n";
+    of << "bundleType\t" << bundleType << "\r\n";
+    of << "########## Random seed and run time #####\r\n";
+    of << "memoryLimit\t" << memoryLimit << "\r\n";
+    of << "wallClockLimit\t" << wallClockLimit << "\r\n";
+    of << "stopTime\t" << stopTime << "\r\n";
+    of << "random_seed\t" << seed << "\r\n";
+    of << "########## Movie select ############\r\n";
+    of << "movieEnabled\t" << movieEnabled << "\r\n";
+    of << "movieFrameInterval\t" << movieFrameInterval << "\r\n";
+    of << "measurementInterval\t" << measurementInterval << "\r\n";
+    of << "########## Display output ##########\r\n";
+    of << "showMesh\t" << showMesh << "\r\n";
+    of << "showOutput\t" << showOutput << "\r\n";
+    of << "########## Geometry ################\r\n";
+    of << "geometryScaleFactor\t" << geometryScaleFactor << "\r\n";
+    of << "geometry\t" << geometry << "\r\n";
 
     return true;
 }
 
-template<class T> inline void loadParam(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
+template <class T>
+inline void loadParam(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
 {
     if (!recognized)
     {
@@ -174,22 +182,25 @@ template<class T> inline void loadParam(bool& recognized, ifstream& file, string
     return;
 }
 
-template<class T> inline void loadParamMaps(bool& recognized, ifstream& file, string& id, const char* tag, T& target,map<string,T>& edgCatMap)
+template <class T>
+inline void loadParamMaps(
+bool& recognized, ifstream& file, string& id, const char* tag, T& target, map<string, T>& edgCatMap)
 {
     if (!recognized)
     {
         if (id == tag)
         {
             file >> target;
-	    string key = boost::lexical_cast<string>(tag);
-	    edgCatMap[key] = target;
+            string key = boost::lexical_cast<string>(tag);
+            edgCatMap[key] = target;
             recognized = true;
         }
     }
     return;
 }
 
-template<class T> inline void loadParamRandom(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
+template <class T>
+inline void loadParamRandom(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
 {
     if (!recognized)
     {
@@ -201,7 +212,7 @@ template<class T> inline void loadParamRandom(bool& recognized, ifstream& file, 
                 file >> temp;
                 while (temp > boost::lexical_cast<string>(ULONG_MAX))
                 {
-                    cout << temp <<" Bigger than" <<boost::lexical_cast<string>(ULONG_MAX)<<endl;
+                    cout << temp << " Bigger than" << boost::lexical_cast<string>(ULONG_MAX) << endl;
                     temp = temp.substr(1);
                 }
                 target = boost::lexical_cast<T>(temp);
@@ -218,7 +229,9 @@ template<class T> inline void loadParamRandom(bool& recognized, ifstream& file, 
     return;
 }
 
-template<class T> inline void loadParamEnumText(bool& recognized, ifstream& file, string& id, const char* tag, T& target, string* compareList, T compareCount)
+template <class T>
+inline void loadParamEnumText(
+bool& recognized, ifstream& file, string& id, const char* tag, T& target, string* compareList, T compareCount)
 {
     if (!recognized)
     {
@@ -227,7 +240,7 @@ template<class T> inline void loadParamEnumText(bool& recognized, ifstream& file
             int i = 0;
             string temp;
             file >> temp;
-            while(i<compareCount)
+            while (i < compareCount)
             {
                 if (temp == compareList[i])
                 {
@@ -250,7 +263,9 @@ template<class T> inline void loadParamEnumText(bool& recognized, ifstream& file
 bool Parameters::readFromFile(const char* pf, bool initialRun)
 {
     if ((pf == NULL) || (*pf == 0))
+    {
         return false;
+    }
 
     ifstream parFile;
     parFile.open(pf);
@@ -260,28 +275,36 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
         return false;
     }
 
-    if(showOutput == 1)
-    cout << "Reading parameter file [" << pf << "]\n";
+    if (showOutput == 1)
+    {
+        cout << "Reading parameter file [" << pf << "]\n";
+    }
 
     string id;
     bool recognized;
-    while (parFile.good() )
+    while (parFile.good())
     {
         parFile >> id;
         if (!parFile.good())
-	break;
+        {
+            break;
+        }
 
         if (id[0] == '#')
-	getline(parFile,id);
+        {
+            getline(parFile, id);
+        }
         else
         {
             recognized = false;
 
             if (initialRun)
-            loadParamRandom(recognized, parFile, id, "random_seed", seed);
+            {
+                loadParamRandom(recognized, parFile, id, "random_seed", seed);
+            }
 
             loadParam(recognized, parFile, id, "outputDir", outputDir);
-	    loadParam(recognized, parFile, id, "inputDir", inputDir);
+            loadParam(recognized, parFile, id, "inputDir", inputDir);
             loadParam(recognized, parFile, id, "createSubdir", createSubdir);
             loadParam(recognized, parFile, id, "newParameterReadInterval", newParameterReadInterval);
             loadParam(recognized, parFile, id, "newParameterFile", newParameterFile);
@@ -308,10 +331,10 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
             loadParam(recognized, parFile, id, "restrictedPool", restrictedPool);
             loadParam(recognized, parFile, id, "edgeCatastropheEnabled", edgeCatastropheEnabled);
             loadParam(recognized, parFile, id, "edgeCatastropheSmooth", edgeCatastropheSmooth);
-	    loadParam(recognized, parFile, id, "pCatSpecialEdgeMax", pCatSpecialEdgeMax);
-	    loadParam(recognized, parFile, id, "pCatRegularEdgeMax", pCatRegularEdgeMax);
-	    loadParam(recognized, parFile, id, "PPB", PPB);
-	    loadParam(recognized, parFile, id, "PPBformingTime",PPBformingTime);
+            loadParam(recognized, parFile, id, "pCatSpecialEdgeMax", pCatSpecialEdgeMax);
+            loadParam(recognized, parFile, id, "pCatRegularEdgeMax", pCatRegularEdgeMax);
+            loadParam(recognized, parFile, id, "PPB", PPB);
+            loadParam(recognized, parFile, id, "PPBformingTime", PPBformingTime);
             loadParam(recognized, parFile, id, "kNuc", kNuc);
             loadParam(recognized, parFile, id, "stopTime", stopTime);
             loadParam(recognized, parFile, id, "measurementInterval", measurementInterval);
@@ -319,35 +342,38 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
             loadParam(recognized, parFile, id, "memoryLimit", memoryLimit);
             loadParam(recognized, parFile, id, "movieEnabled", movieEnabled);
             loadParam(recognized, parFile, id, "movieFrameInterval", movieFrameInterval);
-            loadParam(recognized, parFile, id, "geometryScaleFactor",geometryScaleFactor);
-            loadParamEnumText<NucleationType>(recognized, parFile, id, "nucleationType", nucleationType, NucleationTypeText, nuc_COUNT_LAST);
-            loadParamEnumText<InteractionType>(recognized, parFile, id, "interactionType", interactionType, InteractionTypeText, int_COUNT_LAST);
-            loadParamEnumText<BundleType>(recognized, parFile, id, "bundleType", bundleType, BundleTypeText, bdl_COUNT_LAST);
-	    loadParam(recognized, parFile, id, "showOutput", showOutput);
-	    loadParam(recognized, parFile, id, "showMesh", showMesh);
-	    loadParam(recognized, parFile, id, "geometry", geometry);
-            loadParam(recognized, parFile, id, "edgNumber",edgNumber);
+            loadParam(recognized, parFile, id, "geometryScaleFactor", geometryScaleFactor);
+            loadParamEnumText<NucleationType>(
+            recognized, parFile, id, "nucleationType", nucleationType, NucleationTypeText, nuc_COUNT_LAST);
+            loadParamEnumText<InteractionType>(
+            recognized, parFile, id, "interactionType", interactionType, InteractionTypeText, int_COUNT_LAST);
+            loadParamEnumText<BundleType>(
+            recognized, parFile, id, "bundleType", bundleType, BundleTypeText, bdl_COUNT_LAST);
+            loadParam(recognized, parFile, id, "showOutput", showOutput);
+            loadParam(recognized, parFile, id, "showMesh", showMesh);
+            loadParam(recognized, parFile, id, "geometry", geometry);
+            loadParam(recognized, parFile, id, "edgNumber", edgNumber);
 
-	    for(int edg = 1; edg <= edgNumber;edg++)
-	    {
+            for (int edg = 1; edg <= edgNumber; edg++)
+            {
                 double edgCatVal;
-		string edgCatType1 = "edgCat_" + boost::lexical_cast<string>(edg);
-		char *edgCatType = new char[edgCatType1.length() + 1];
-		strcpy(edgCatType, edgCatType1.c_str());
-	    	loadParamMaps(recognized, parFile,id,edgCatType,edgCatVal,edgCatMap);
-		delete [] edgCatType;
-	    }
+                string edgCatType1 = "edgCat_" + boost::lexical_cast<string>(edg);
+                char* edgCatType = new char[edgCatType1.length() + 1];
+                strcpy(edgCatType, edgCatType1.c_str());
+                loadParamMaps(recognized, parFile, id, edgCatType, edgCatVal, edgCatMap);
+                delete[] edgCatType;
+            }
 
-            loadParam(recognized, parFile, id, "faceNumber",faceNumber);
-	    for(int face = 1; face <= faceNumber;face++)
-	    {
+            loadParam(recognized, parFile, id, "faceNumber", faceNumber);
+            for (int face = 1; face <= faceNumber; face++)
+            {
                 double faceCatVal;
-		string faceCatType1 = "faceCat_" + boost::lexical_cast<string>(face);
-		char *faceCatType = new char[faceCatType1.length() + 1];
-		strcpy(faceCatType, faceCatType1.c_str());
-	    	loadParamMaps(recognized, parFile,id,faceCatType,faceCatVal,faceCatMap);
-		delete [] faceCatType;
-	    }
+                string faceCatType1 = "faceCat_" + boost::lexical_cast<string>(face);
+                char* faceCatType = new char[faceCatType1.length() + 1];
+                strcpy(faceCatType, faceCatType1.c_str());
+                loadParamMaps(recognized, parFile, id, faceCatType, faceCatVal, faceCatMap);
+                delete[] faceCatType;
+            }
             if (!recognized)
             {
                 cerr << "Parameter not recognized: " << id << "\n";
@@ -356,8 +382,10 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
         }
     }
 
-    if(showOutput == 1)
-    cout << "Finished loading parameters.\n";
+    if (showOutput == 1)
+    {
+        cout << "Finished loading parameters.\n";
+    }
 
     return true;
 }
@@ -372,19 +400,22 @@ void Parameters::verifyParameters()
     // treadmilling speed is not allowed to exceed the plus-end velocity
     if (vTM >= vPlus)
     {
-        cerr << "ERROR: treadmilling velocity larger than growth velocity. Microtubule growth is not possible. Exiting.\n";
+        cerr
+        << "ERROR: treadmilling velocity larger than growth velocity. Microtubule growth is not possible. Exiting.\n";
         exit(-1);
     }
 
     // minus-end velocity is not allowed to exceed the plus-end velocity
     if (vMin >= vPlus)
     {
-        cerr << "ERROR: Shrinking microtubules overtake growing microtubules. This will lead to queueing problems. Exiting.\n";
+        cerr << "ERROR: Shrinking microtubules overtake growing microtubules. This will lead to queueing problems. "
+                "Exiting.\n";
         exit(-1);
     }
 
     // only minus-end velocity is allowed to be negative
-    if ((vPlus <= 0) || (vTM <0) || (kCat < 0) || (kRes < 0) || (kNuc < 0) || (kSev < 0) || (kCross < 0) || (poolDensity < 0))
+    if ((vPlus <= 0) || (vTM < 0) || (kCat < 0) || (kRes < 0) || (kNuc < 0) || (kSev < 0) || (kCross < 0)
+        || (poolDensity < 0))
     {
         cerr << "Only vMin is allowed to be negative. Exiting to avoid nonsensical results.\n";
         exit(-1);
@@ -395,7 +426,8 @@ void Parameters::verifyParameters()
     {
         if ((poolDensity <= 0) || (poolDensity > VERY_LARGE))
         {
-            cerr << "ERROR [finite tubulin pool]: maximum density is out of range (0 : VERY_LARGE) :"<< poolDensity << "\n";
+            cerr << "ERROR [finite tubulin pool]: maximum density is out of range (0 : VERY_LARGE) :" << poolDensity
+                 << "\n";
             exit(-1);
         }
     }
@@ -412,37 +444,41 @@ void Parameters::verifyParameters()
 
     switch (nucleationType)
     {
-	// isotropic nucleation need no conditional check
-    	case nuc_isotropic:
-        break;
+            // isotropic nucleation need no conditional check
+        case nuc_isotropic:
+            break;
 
-    	default:
-        	cout << "Unknown nucleationType. Aborting.\n";
-        	exit(-1);
-        break;
+        default:
+            cout << "Unknown nucleationType. Aborting.\n";
+            exit(-1);
+            break;
     }
 
-    switch(interactionType)
+    switch (interactionType)
     {
         // catastrophe first, need no further conditional check
-    	case int_catFirst:
-        break;
+        case int_catFirst:
+            break;
 
         // zip first needs further check
-    	case int_zipFirst:
+        case int_zipFirst:
 
-		// zippering fraction must be in the range: (0.0 - 1.0)
-       		 if (zipperingEnabled)
-        	{
-            		if (zipFraction < 0.)
-                	zipFraction = 0.;
-            		if (zipFraction > 1.)
-                	zipFraction = 1.;
-        	}
-        break;
+            // zippering fraction must be in the range: (0.0 - 1.0)
+            if (zipperingEnabled)
+            {
+                if (zipFraction < 0.)
+                {
+                    zipFraction = 0.;
+                }
+                if (zipFraction > 1.)
+                {
+                    zipFraction = 1.;
+                }
+            }
+            break;
 
         case int_COUNT_LAST:
-        break;
+            break;
     }
 
     return;
@@ -451,119 +487,142 @@ void Parameters::verifyParameters()
 bool Parameters::calcTheoryParameters(void)
 {
     // convert the angle values from degrees to radians
-    double maRad = magicAngle*PI/180.0;
-    double csRad = catStartAngle*PI/180.0;
+    double maRad = magicAngle * PI / 180.0;
+    double csRad = catStartAngle * PI / 180.0;
 
     switch (interactionType)
     {
-	// zippering first is requested
-	case int_zipFirst:
+        // zippering first is requested
+        case int_zipFirst:
 
-		// fzippering is enabled
-        	if (zipperingEnabled)
-            	z0calc = (4./PI)*(1. - cos(maRad))*zipFraction;
+            // fzippering is enabled
+            if (zipperingEnabled)
+            {
+                z0calc = (4. / PI) * (1. - cos(maRad)) * zipFraction;
+            }
 
-		// zippering is disabled
-        	else
-            	z0calc = 0;
+            // zippering is disabled
+            else
+            {
+                z0calc = 0;
+            }
 
-        	// catastrophe is enabled
-        	if (catastrophesEnabled)
-        	{
-	    		// proportional catastrophe is enabled
-            		if (proportionalCatastrophes)
-            		{
-				// magic angle > catastrophe start angle
-                		if (magicAngle > catStartAngle)
-                    		c0calc = (4.0/PI)*2.0*inducedCatastropheFraction*(1.- sin(maRad)+(maRad-csRad)*cos(maRad))/(PI - 2.*csRad);
+            // catastrophe is enabled
+            if (catastrophesEnabled)
+            {
+                // proportional catastrophe is enabled
+                if (proportionalCatastrophes)
+                {
+                    // magic angle > catastrophe start angle
+                    if (magicAngle > catStartAngle)
+                    {
+                        c0calc = (4.0 / PI) * 2.0 * inducedCatastropheFraction
+                                 * (1. - sin(maRad) + (maRad - csRad) * cos(maRad)) / (PI - 2. * csRad);
+                    }
 
-				// magic angle <= catastrophe start angle
-                		else
-                    		c0calc = (4.0/PI)*2.0*inducedCatastropheFraction*(1.0 - sin(csRad))/(PI - 2.0*csRad);
-            		}
+                    // magic angle <= catastrophe start angle
+                    else
+                    {
+                        c0calc
+                        = (4.0 / PI) * 2.0 * inducedCatastropheFraction * (1.0 - sin(csRad)) / (PI - 2.0 * csRad);
+                    }
+                }
 
-	    		// proportional catastrophe is disabled
-            		else
-			c0calc = (4.0/PI)*inducedCatastropheFraction*cos(max(maRad,csRad));
-        	}
+                // proportional catastrophe is disabled
+                else
+                {
+                    c0calc = (4.0 / PI) * inducedCatastropheFraction * cos(max(maRad, csRad));
+                }
+            }
 
-		// catastrophe is disabled
-        	else
-            	c0calc = 0;
+            // catastrophe is disabled
+            else
+            {
+                c0calc = 0;
+            }
 
-		// calculate x0, using the values of c0 and/or z0
-        	x0calc = (4.0/PI) - z0calc - c0calc;
-        break;
+            // calculate x0, using the values of c0 and/or z0
+            x0calc = (4.0 / PI) - z0calc - c0calc;
+            break;
 
-    	// catastrophe first is requested
-    	case int_catFirst:
+        // catastrophe first is requested
+        case int_catFirst:
 
-		// catastrophe is enabled
-        	if (catastrophesEnabled)
-        	{
-			// proportional catastrophe is enabled
-            		if (proportionalCatastrophes)
-            		{
-                		double temp=max(0.,csRad);
-                		c0calc = (4.0/PI)*2.0*inducedCatastropheFraction*(1.0-sin(temp)+(temp - csRad)*cos(temp))/(PI-2.0*csRad);
-            		}
+            // catastrophe is enabled
+            if (catastrophesEnabled)
+            {
+                // proportional catastrophe is enabled
+                if (proportionalCatastrophes)
+                {
+                    double temp = max(0., csRad);
+                    c0calc = (4.0 / PI) * 2.0 * inducedCatastropheFraction
+                             * (1.0 - sin(temp) + (temp - csRad) * cos(temp)) / (PI - 2.0 * csRad);
+                }
 
-			// proportional catastrophe is disabled
-            		else
-                	c0calc = (4.0/PI)*inducedCatastropheFraction*cos(max(csRad,0.));
-        	}
+                // proportional catastrophe is disabled
+                else
+                {
+                    c0calc = (4.0 / PI) * inducedCatastropheFraction * cos(max(csRad, 0.));
+                }
+            }
 
-        	// zippering is enabled
-		if (zipperingEnabled)
-        	{
-            		z0calc = (4.0/PI)*(1.0 - cos(maRad));
+            // zippering is enabled
+            if (zipperingEnabled)
+            {
+                z0calc = (4.0 / PI) * (1.0 - cos(maRad));
 
-			// catastrophe is enabled and  (magic angle > catastrophe start angle)
-            		if (catastrophesEnabled && (csRad < maRad))
-            		{
-				// proportional catastrophe is enabled
-                		if (proportionalCatastrophes)
-                		{
-                    			double leftBoundary = max(0.,csRad);
-                    			z0calc -= (4.0/PI)*2.0*inducedCatastropheFraction*((leftBoundary - csRad)*cos(leftBoundary)
-                              		- (maRad - csRad)*cos(maRad) - sin(leftBoundary) + sin(maRad))/(PI- 2.0*csRad);
-                		}
+                // catastrophe is enabled and  (magic angle > catastrophe start angle)
+                if (catastrophesEnabled && (csRad < maRad))
+                {
+                    // proportional catastrophe is enabled
+                    if (proportionalCatastrophes)
+                    {
+                        double leftBoundary = max(0., csRad);
+                        z0calc -= (4.0 / PI) * 2.0 * inducedCatastropheFraction
+                                  * ((leftBoundary - csRad) * cos(leftBoundary) - (maRad - csRad) * cos(maRad)
+                                     - sin(leftBoundary) + sin(maRad))
+                                  / (PI - 2.0 * csRad);
+                    }
 
-				// proportional catastrophe is disabled
-                		else
-                    		z0calc -= (4.0/PI)*inducedCatastropheFraction*(cos(csRad)-cos(maRad)) ;
-            		}
-        	}
+                    // proportional catastrophe is disabled
+                    else
+                    {
+                        z0calc -= (4.0 / PI) * inducedCatastropheFraction * (cos(csRad) - cos(maRad));
+                    }
+                }
+            }
 
-		// zippering is disabled
-        	else
-            	z0calc = 0;
+            // zippering is disabled
+            else
+            {
+                z0calc = 0;
+            }
 
-        	// calculate x0, using the values of c0 and/or z0
-        	x0calc = (4.0/PI) - z0calc - c0calc;
-        break;
+            // calculate x0, using the values of c0 and/or z0
+            x0calc = (4.0 / PI) - z0calc - c0calc;
+            break;
 
-    default:
-        cerr << "no function to calculate z0, c0, x0 etc. (interactionType = " << interactionType << ")\n";
-        return false ;
-
+        default:
+            cerr << "no function to calculate z0, c0, x0 etc. (interactionType = " << interactionType << ")\n";
+            return false;
     }
 
     // theoretial value of G
-    double l0 = pow((2.0*(-vMin+vTM)*(vPlus-vTM)*(vPlus - vTM))/(kNuc*vPlus*(-vMin+vPlus)), 1./3.);
-    double lavgInv = kRes/(-vMin+vTM) - kCat/(vPlus - vTM);
-    double G_0 =  l0*lavgInv ;
+    double l0 = pow((2.0 * (-vMin + vTM) * (vPlus - vTM) * (vPlus - vTM)) / (kNuc * vPlus * (-vMin + vPlus)), 1. / 3.);
+    double lavgInv = kRes / (-vMin + vTM) - kCat / (vPlus - vTM);
+    double G_0 = l0 * lavgInv;
 
-    if(showOutput == 1)
+    if (showOutput == 1)
     {
-	    cout <<"==============================================="<<endl;
-	    cout << " Calculated theory parameters"<<endl;
-	    cout <<"==============================================="<<endl;
-	    cout << "l0 = " << l0 <<endl;;
-	    cout << "lavg = " << -1./lavgInv <<endl;
-	    cout << "G_0 = -l0/lavg = " << G_0 <<endl;
-	    cout <<"==============================================="<<endl;
-   }
+        cout << "===============================================" << endl;
+        cout << " Calculated theory parameters" << endl;
+        cout << "===============================================" << endl;
+        cout << "l0 = " << l0 << endl;
+        ;
+        cout << "lavg = " << -1. / lavgInv << endl;
+        cout << "G_0 = -l0/lavg = " << G_0 << endl;
+        cout << "===============================================" << endl;
+    }
 
     return (true);
 }

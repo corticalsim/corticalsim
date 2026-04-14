@@ -2,30 +2,38 @@
 #define CORTICALSIM_H_
 
 /*******************************************************************************************************************************************************/
-//For details of simulation implementation:
-//Chakrabortty B, Blilou I, Scheres B, Mulder BM (2018) A computational framework for cortical microtubule dynamics in realistically shaped plant cells.
-//PLoS Comput Biol 14(2): e1005959. https://doi.org/10.1371/journal.pcbi.1005959
+// For details of simulation implementation:
+// Chakrabortty B, Blilou I, Scheres B, Mulder BM (2018) A computational
+// framework for cortical microtubule dynamics in realistically shaped plant
+// cells. PLoS Comput Biol 14(2): e1005959.
+// https://doi.org/10.1371/journal.pcbi.1005959
 
 /***********************************************************************************************/
-// This is a framework to simulate cortical microtubule dynamics in arbitrary Shaped plant cells.
-// The program is developed by Bandan Chakrabortty (07/03/2013) and some basic implementations
-// are used from (cortSim:1.20) developed by Simon Tindemans (01/04/2008)
+// This is a framework to simulate cortical microtubule dynamics in arbitrary
+// Shaped plant cells. The program is developed by Bandan Chakrabortty
+// (07/03/2013) and some basic implementations are used from (cortSim:1.20)
+// developed by Simon Tindemans (01/04/2008)
 
 /*********************************************************************************************/
 /*
  * IMPORTANT: pitfalls to watch out for when extending the code
- * * The microtubule is only assumed to grow in length at the plus end. This is not an MTTip property, but a
- *   property of the Microtubule functions. Two-sided growth can be enabled, but needs plus/minus distinctions
- *   for the events. Also, tips with velocity zero (usually non-treadmilling minus ends) are
- *   assumed to be in a 'shrinking' state.
- * * The program assumes a stable sort order for the intersection lists. This is true in practice (in all common
- *   implementations), but not mandated by the standard.
- * * If the tubulin pool size is decreased on the fly, care should be taken that the actual density doesn't exceed the
- *   pool size. In this situation, the behaviour is undefined.
- * * In microtubule.cpp and system.cpp, compiler warnings are (should be) issued for using the 'this' pointer within
- *   the initializer list, because the 'this' pointer cannot be used until the initialization has completed. The
- *   current use is ok, because the pointer is only used to store the address of the parent object. NOTE: when making
- *   changes to the code, take care NOT to use this pointer within the constructors of other objects!
+ * * The microtubule is only assumed to grow in length at the plus end. This is
+ * not an MTTip property, but a property of the Microtubule functions.
+ * Two-sided growth can be enabled, but needs plus/minus distinctions for the
+ * events. Also, tips with velocity zero (usually non-treadmilling minus ends)
+ * are assumed to be in a 'shrinking' state.
+ * * The program assumes a stable sort order for the intersection lists. This
+ * is true in practice (in all common implementations), but not mandated by the
+ * standard.
+ * * If the tubulin pool size is decreased on the fly, care should be taken
+ * that the actual density doesn't exceed the pool size. In this situation, the
+ * behaviour is undefined.
+ * * In microtubule.cpp and system.cpp, compiler warnings are (should be)
+ * issued for using the 'this' pointer within the initializer list, because the
+ * 'this' pointer cannot be used until the initialization has completed. The
+ *   current use is ok, because the pointer is only used to store the address
+ * of the parent object. NOTE: when making changes to the code, take care NOT
+ * to use this pointer within the constructors of other objects!
  */
 
 #define PROGRAM_VERSION "BC.2018"
@@ -55,7 +63,7 @@ using namespace std;
 
 // numeric parameters
 const double PI = 3.141592653589793;
-const double ZERO_CUTOFF = 1000000*numeric_limits<double>::epsilon();   // approx 10E-10;//
+const double ZERO_CUTOFF = 1000000 * numeric_limits<double>::epsilon(); // approx 10E-10;//
 const double VERY_LARGE = 10E100;
 const int MAXBINOM = 100;
 
@@ -84,20 +92,90 @@ const int QUEUE_FLUSH_INTERVAL = 1000000;
 const int NUCLEATION_DISCRETIZATION_STEPS = 512;
 
 // new data type definition
-typedef enum {forward=1, backward=-1} Direction;
+typedef enum
+{
+    forward = 1,
+    backward = -1
+} Direction;
+
 extern string DirectionTypeText[];
-typedef enum {ev_none, ev_wall=1, ev_collision, ev_backtrack, ev_end_of_segment, ev_disappear} DeterministicEventType;
-typedef enum {measure=1, snapshot, stop, status,parameter_change, signalPPB} GlobalEventType;
-typedef enum {catastrophe=1, rescue, katanin, severingAtCross, nucleation} StochasticEventType;
-typedef enum {ct_zipper=1, ct_crossover, ct_inducedCatastrophe} CollisionType;
-typedef enum {nuc_isotropic, nuc_COUNT_LAST} NucleationType;
+
+typedef enum
+{
+    ev_none,
+    ev_wall = 1,
+    ev_collision,
+    ev_backtrack,
+    ev_end_of_segment,
+    ev_disappear
+} DeterministicEventType;
+
+typedef enum
+{
+    measure = 1,
+    snapshot,
+    stop,
+    status,
+    parameter_change,
+    signalPPB
+} GlobalEventType;
+
+typedef enum
+{
+    catastrophe = 1,
+    rescue,
+    katanin,
+    severingAtCross,
+    nucleation
+} StochasticEventType;
+
+typedef enum
+{
+    ct_zipper = 1,
+    ct_crossover,
+    ct_inducedCatastrophe
+} CollisionType;
+
+typedef enum
+{
+    nuc_isotropic,
+    nuc_COUNT_LAST
+} NucleationType;
+
 extern string NucleationTypeText[];
-typedef enum {int_zipFirst,int_catFirst,int_COUNT_LAST} InteractionType;
+
+typedef enum
+{
+    int_zipFirst,
+    int_catFirst,
+    int_COUNT_LAST
+} InteractionType;
+
 extern string InteractionTypeText[];
-typedef enum {bdl_simple,  bdl_sticky, bdl_noZip, bdl_multiCollision, bdl_Ncollision, bdl_COUNT_LAST} BundleType;
+
+typedef enum
+{
+    bdl_simple,
+    bdl_sticky,
+    bdl_noZip,
+    bdl_multiCollision,
+    bdl_Ncollision,
+    bdl_COUNT_LAST
+} BundleType;
+
 extern string BundleTypeText[];
-typedef enum {t_minus, t_plus} TipType;
-typedef enum {mt_growing, mt_shrinking} MTType;
+
+typedef enum
+{
+    t_minus,
+    t_plus
+} TipType;
+
+typedef enum
+{
+    mt_growing,
+    mt_shrinking
+} MTType;
 
 class System;
 class Microtubule;
@@ -114,7 +192,10 @@ class Intersection;
 class OccupiedIntersection;
 #endif
 
-typedef multimap<double, Intersection, std::less<double>, boost::fast_pool_allocator<std::pair<double, Intersection> > >::iterator IntersectionItr;
+typedef multimap<double,
+                 Intersection,
+                 std::less<double>,
+                 boost::fast_pool_allocator<std::pair<double, Intersection>>>::iterator IntersectionItr;
 typedef int EventDescriptorIndex;
 typedef int EventTrackingTag;
 typedef list<Segment*>::iterator TrjSegmentTag;
@@ -123,11 +204,13 @@ typedef list<MTTip*>::iterator RegionMTTipTag;
 
 class Vertics
 {
-public:
+  public:
+
     double x;
     double y;
     double z;
-    Vertics(double x1,double y1,double z1)
+
+    Vertics(double x1, double y1, double z1)
     {
         x = x1;
         y = y1;
@@ -148,44 +231,48 @@ struct SurfaceVector
     SurfaceVector()
     {
         x = 0.0;
-        y = 0.0 ;
-	z= 0.0;
+        y = 0.0;
+        z = 0.0;
 
         angle = 0.0;
-	tvPos = 0.0;
+        tvPos = 0.0;
     }
-
 };
 
 #ifdef CROSS_SEV
-class OccupiedIntersection : public CompactListItem<OccupiedIntersection>
+class OccupiedIntersection: public CompactListItem<OccupiedIntersection>
 {
-    public:
-    OccupiedIntersection(IntersectionItr is) : intersectionToCut(is) {};
+  public:
+
+    OccupiedIntersection(IntersectionItr is):
+        intersectionToCut(is) {};
     IntersectionItr intersectionToCut;
 };
 #endif
 
 class TrajectoryVector
 {
-    public:
+  public:
 
     double pos;
-    Direction dir,Cdir;
+    Direction dir, Cdir;
     Trajectory* trajectory;
 
-    TrajectoryVector(double p, Direction d, Trajectory* t) : pos(p), dir(d), trajectory(t) {}
+    TrajectoryVector(double p, Direction d, Trajectory* t):
+        pos(p),
+        dir(d),
+        trajectory(t)
+    {
+    }
+
     TrajectoryVector() {}
 
-    TrajectoryVector flipped()
-    {
-        return TrajectoryVector(pos, dir == ::forward ? backward : ::forward  ,trajectory);
-    }
+    TrajectoryVector flipped() { return TrajectoryVector(pos, dir == ::forward ? backward : ::forward, trajectory); }
 };
 
 struct OrderParameters
 {
-    double R,C;
+    double R, C;
     double Rdirector[3];
     vector<double> localOrder;
     vector<Vector3d> Sv;
@@ -193,7 +280,7 @@ struct OrderParameters
 
 class OrderParametersRaw
 {
-    public:
+  public:
 
     double localL;
     double localLOpt;
@@ -217,81 +304,104 @@ class OrderParametersRaw
         Qyz = 0;
         Qzz = 0;
 
-	Sv << 0.0,0.0,0.0;
+        Sv << 0.0, 0.0, 0.0;
 
         return;
     }
 
-    double extractR(double director[3],string geometry)
+    double extractR(double director[3], string geometry)
     {
-        double matrix[3][3] = {{Qxx,Qxy,Qxz},{Qxy,Qyy,Qyz},{Qxz,Qyz,Qzz}};
+        double matrix[3][3] = { { Qxx, Qxy, Qxz }, { Qxy, Qyy, Qyz }, { Qxz, Qyz, Qzz } };
         double evecMat[3][3];
-        double selEigenVal,eVal[3];
+        double selEigenVal, eVal[3];
         eigen_decomposition(matrix, evecMat, eVal);
 
-	if(geometry == "2D-plane_1_0_0")
-	{
-		int maxPos(0);
-		if(eVal[1] > eVal[0])
-		    maxPos = 1;
-		if(eVal[2] > eVal[maxPos])
-		    maxPos = 2;
-		selEigenVal = fabs(eVal[maxPos]);
-		for(int i=0 ; i<3 ; i++)
-		director[i] = evecMat[i][maxPos];
-	}
-	else
-	{
-		int minPos(0);
-		if(eVal[1] < eVal[0])
-		    minPos = 1;
-		if(eVal[2] < eVal[minPos])
-		    minPos = 2;
-		selEigenVal = fabs(eVal[minPos]);
-		for(int i=0 ; i<3 ; i++)
-		director[i] = evecMat[i][minPos];
-	}
+        if (geometry == "2D-plane_1_0_0")
+        {
+            int maxPos(0);
+            if (eVal[1] > eVal[0])
+            {
+                maxPos = 1;
+            }
+            if (eVal[2] > eVal[maxPos])
+            {
+                maxPos = 2;
+            }
+            selEigenVal = fabs(eVal[maxPos]);
+            for (int i = 0; i < 3; i++)
+            {
+                director[i] = evecMat[i][maxPos];
+            }
+        }
+        else
+        {
+            int minPos(0);
+            if (eVal[1] < eVal[0])
+            {
+                minPos = 1;
+            }
+            if (eVal[2] < eVal[minPos])
+            {
+                minPos = 2;
+            }
+            selEigenVal = fabs(eVal[minPos]);
+            for (int i = 0; i < 3; i++)
+            {
+                director[i] = evecMat[i][minPos];
+            }
+        }
 
-        return(selEigenVal);
+        return (selEigenVal);
     }
 };
 
 class Intersection
-//this object describes the intersection of one trajectory with another, from one side.
-//since it is created twice for every intersection, it is by far the most memory-intensive object
-//and should be kept as small as possible
+// this object describes the intersection of one trajectory with another, from
+// one side. since it is created twice for every intersection, it is by far the
+// most memory-intensive object and should be kept as small as possible
 {
-    public:
+  public:
+
     int occupancy;
     Trajectory* otherTrajectory;
     IntersectionItr mirror;
-    #ifdef CROSS_SEV
+#ifdef CROSS_SEV
     OccupiedIntersection* occupiedListPtr;
-    #endif
+#endif
 };
 
 class PointATedge
 {
-    public:
+  public:
+
     double x;
     double y;
     double z;
 
     int nextElement;
-    PointATedge(double x1,double y1,double z1,int n1){x = x1;y = y1;z = z1;nextElement = n1;}
+
+    PointATedge(double x1, double y1, double z1, int n1)
+    {
+        x = x1;
+        y = y1;
+        z = z1;
+        nextElement = n1;
+    }
 };
 
-class Trajectory : public DLBaseItem<Trajectory>
-//the trajectory is the basic geometrical object. Tips and segments associate with a trajectory
-//and move/lie alongside it. Trajectory intersections determine the collision points
+class Trajectory: public DLBaseItem<Trajectory>
+// the trajectory is the basic geometrical object. Tips and segments associate
+// with a trajectory and move/lie alongside it. Trajectory intersections
+// determine the collision points
 {
     friend class Region;
-    public:
+
+  public:
 
     const SurfaceVector base;
     const double length;
 
-    vector<PointATedge>     endPoint;
+    vector<PointATedge> endPoint;
     TrajectoryVector thisTr;
 
     // trajectoryVector of the connecting trajectory at the zero end
@@ -300,7 +410,8 @@ class Trajectory : public DLBaseItem<Trajectory>
     // trajectoryVector of the connecting trajectory at the far end
     TrajectoryVector nextTr;
 
-    // cosine of the 3D angle with the previous trajectory (for edge catastrophes)
+    // cosine of the 3D angle with the previous trajectory (for edge
+    // catastrophes)
     double prevTrCosAngle;
 
     // cosine of the 3D angle with the next trajectory (for edge catastrophes)
@@ -312,7 +423,8 @@ class Trajectory : public DLBaseItem<Trajectory>
     // regular catastrophe value at the trajectory far end
     double nextTrpCat;
 
-    multimap<double, Intersection, std::less<double>, boost::fast_pool_allocator<std::pair<double, Intersection> > > intersections;
+    multimap<double, Intersection, std::less<double>, boost::fast_pool_allocator<std::pair<double, Intersection>>>
+    intersections;
 
     // sorted list of all intersections
     IntersectionItr wallEnd()
@@ -320,18 +432,21 @@ class Trajectory : public DLBaseItem<Trajectory>
         // returns an iterator to the intersection that stands for the far wall
         return intersections.end();
     }
+
     IntersectionItr wallBegin()
     {
-        // returns an iterator to the intersection that stands for the zero wall
+        // returns an iterator to the intersection that stands for the zero
+        // wall
         return intersections.begin();
     }
 
-    explicit Trajectory(SurfaceVector,vector<PointATedge>,double);
+    explicit Trajectory(SurfaceVector, vector<PointATedge>, double);
     ~Trajectory();
 
     bool integrityCheck();
 
-    // returns the connected trajectory in a given direction, and creates it if necessary
+    // returns the connected trajectory in a given direction, and creates it if
+    // necessary
     TrajectoryVector nextTrajectory(Direction);
 
     // checks whether the trajectory can safely be removed - and does it
@@ -361,7 +476,8 @@ class Trajectory : public DLBaseItem<Trajectory>
     // is called when a new intersection is created
     void newIntersection(IntersectionItr&);
 
-    // returns the difference sign of pos1-pos2, or itr1-itr2 if the first, cannot be determined accurately
+    // returns the difference sign of pos1-pos2, or itr1-itr2 if the first,
+    // cannot be determined accurately
     int differenceSign(IntersectionItr itr1, double pos1, IntersectionItr itr2, double pos2);
 
     // total length of trajectory (optical) that is covered by segments
@@ -370,33 +486,36 @@ class Trajectory : public DLBaseItem<Trajectory>
     // total length of segments on the trajectory
     double segmentLength();
 
-    private:
-    // avoid accidental (expensive) copying of Trajectory objects, by declaring private copy constructors without definitions
+  private:
+
+    // avoid accidental (expensive) copying of Trajectory objects, by declaring
+    // private copy constructors without definitions
     Trajectory(const Trajectory&);
     Trajectory& operator=(const Trajectory&);
 };
 
-
 struct bendingOperator
 {
-    public:
-        double cosTheta;
-        double sinTheta;
+  public:
 
-        Vector3d axis;
+    double cosTheta;
+    double sinTheta;
 
-        bendingOperator()
-        {
-            cosTheta = 0.0;
-            sinTheta = 0.0;
+    Vector3d axis;
 
-            axis << 0.0,0.0,0.0;
-        }
+    bendingOperator()
+    {
+        cosTheta = 0.0;
+        sinTheta = 0.0;
+
+        axis << 0.0, 0.0, 0.0;
+    }
 };
 
 class Edge
 {
-public:
+  public:
+
     int excludePoint;
 
     double pCat;
@@ -412,8 +531,8 @@ public:
     Vector2d dir2D;
     vector<int> orientation;
 
-    map<int,int> orientationMap;
-    map<int,int> excludePointMap;
+    map<int, int> orientationMap;
+    map<int, int> excludePointMap;
 
     Edge()
     {
@@ -423,14 +542,13 @@ public:
         edgAngNorm = 0.0;
         xyRotationAngle = 0.0;
         edgAngle = 0.0;
-	edgBendAngle = 0.0;
+        edgBendAngle = 0.0;
 
-        midPoint << 0.0,0.0;
+        midPoint << 0.0, 0.0;
 
-        A << 0.0,0.0,
-             0.0,0.0;
+        A << 0.0, 0.0, 0.0, 0.0;
 
-        b << 0.0,0.0;
+        b << 0.0, 0.0;
 
         orientation.push_back(0);
         orientation.push_back(0);
@@ -438,18 +556,19 @@ public:
 };
 
 class Region
-//virtual base class for a geometry patch with a 2D coordinate system. Within a region,
-//region functions are only called by geometry or trajectory member functions
+// virtual base class for a geometry patch with a 2D coordinate system. Within
+// a region, region functions are only called by geometry or trajectory member
+// functions
 {
     friend class Geometry;
     friend class Trajectory;
 
-    public:
+  public:
 
     // pointer to geometry
     Geometry* const geometry;
 
-    //const RegionType type;
+    // const RegionType type;
     double area;
     double totalLength;
     // time tag at which the length was last updated
@@ -460,11 +579,11 @@ class Region
     double periMeter;
     Vector2d midPoint;
     vector<Edge> side;
-    map<int,int> sideMap;
-    map<int,int> sideRevMap;
+    map<int, int> sideMap;
+    map<int, int> sideRevMap;
     Quaternion<double> Q;
     vector<Vector2d> Vertics;
-    vector<Vector3d>orientation;
+    vector<Vector3d> orientation;
     int faceTag;
     int polyIntersectMark;
     vector<int> intersectEdg;
@@ -476,53 +595,61 @@ class Region
     list<MTTip*> growingPlusTipList;
     list<MTTip*> shrinkingPlusTipList;
     list<MTTip*> minusTipList;
-    RegionMTTipTag registerOnRegion(MTTip*,TipType,MTType);
-    void unregisterFromRegion(RegionMTTipTag,TipType,MTType);
-
+    RegionMTTipTag registerOnRegion(MTTip*, TipType, MTType);
+    void unregisterFromRegion(RegionMTTipTag, TipType, MTType);
 
     // updates the length to the current system time tag
     void updateRegionLength(bool forceUpdate = false);
 
-    Region(Geometry* g, double a)
-        :geometry(g), area(a),totalLength(0),
-         previousUpdateTag(0),regionId(0),zOffset(0.0),rotAngle(0.0),periMeter(0.0)
-         {
-            midPoint << 0.0,0.0;
-            for(int i=0;i<3;i++)
-            {
-                Vertics.push_back(Vector2d(0,0));
-                side.push_back(Edge());
-            }
-        }
-    virtual ~Region()
+    Region(Geometry* g, double a):
+        geometry(g),
+        area(a),
+        totalLength(0),
+        previousUpdateTag(0),
+        regionId(0),
+        zOffset(0.0),
+        rotAngle(0.0),
+        periMeter(0.0)
     {
-        return;
-    };
+        midPoint << 0.0, 0.0;
+        for (int i = 0; i < 3; i++)
+        {
+            Vertics.push_back(Vector2d(0, 0));
+            side.push_back(Edge());
+        }
+    }
+
+    virtual ~Region() { return; };
+
     double opticalLength();
 
     // vector computation functions (to be implemented in specializations)
-    virtual void translateVector(SurfaceVector&, const double) =0;
-    virtual void getTrajectoryCoordinates(SurfaceVector&, double&, vector<PointATedge>&,TrajectoryVector&) =0;
-    virtual double intersectionAngle(Trajectory*, Trajectory*) =0;
+    virtual void translateVector(SurfaceVector&, const double) = 0;
+    virtual void getTrajectoryCoordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
+    virtual double intersectionAngle(Trajectory*, Trajectory*) = 0;
     virtual void outputSnapshot(ostream&) = 0;
-    virtual void outputOrderHeatMap(ostream&,vector<double>&,vector<Vector3d>&) = 0;
+    virtual void outputOrderHeatMap(ostream&, vector<double>&, vector<Vector3d>&) = 0;
 
-    protected:
+  protected:
+
     // trajectory management functions
     TrajectoryVector insertTrajectory(const SurfaceVector&);
     void removeTrajectory(Trajectory*);
-    virtual void makeIntersectionList(Trajectory*) =0;
-    virtual SurfaceVector randomSurfaceVector() =0;
+    virtual void makeIntersectionList(Trajectory*) = 0;
+    virtual SurfaceVector randomSurfaceVector() = 0;
 
-    private:
-    // avoid accidental (expensive) copying of Region objects, by declaring private copy constructors without definitions
+  private:
+
+    // avoid accidental (expensive) copying of Region objects, by declaring
+    // private copy constructors without definitions
     Region(const Region&);
     Region& operator=(const Region&);
 };
 
 class elementList
 {
-    public:
+  public:
+
     int midPoint;
     double length;
     vector<int> nodes;
@@ -535,10 +662,10 @@ class elementList
     {
         midPoint = 0;
         length = 0.0;
-	edge3DAngle = 0.0;
-        intersectionByPlane << 0.0,0.0,0.0;
+        edge3DAngle = 0.0;
+        intersectionByPlane << 0.0, 0.0, 0.0;
 
-        for(int i=0;i<2;i++)
+        for (int i = 0; i < 2; i++)
         {
             nodes.push_back(0);
             sharedElement.push_back(0);
@@ -548,19 +675,19 @@ class elementList
 };
 
 class Geometry
-//virtual base class for the various types of geometries
+// virtual base class for the various types of geometries
 {
     friend class System;
 
-    public:
-    //const GeometryType type;
+  public:
+
+    // const GeometryType type;
     double area;
     double areainMesh;
     System* const system;
 
     vector<elementList> ppbEdgeList;
     vector<Vertics> globalVertex;
-
 
     double areaPPB;
     vector<Vertics> ppb;
@@ -569,104 +696,123 @@ class Geometry
     vector<int> RegionsIndex[3];
 
     int elementMax;
-    Vector3d objectCM,objectPA,nucleousPosition;
+    Vector3d objectCM, objectPA, nucleousPosition;
     vector<Region*> regions;
-    Geometry(System* s,double a) : area(a),system(s) {for(int i=0;i<3;i++)patchArea[i]=0.0;};
+
+    Geometry(System* s, double a):
+        area(a),
+        system(s)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            patchArea[i] = 0.0;
+        }
+    };
 
     // virtual destructor implies virtual class
-    virtual ~Geometry()
-    {
-        return;
-    };
+    virtual ~Geometry() { return; };
+
     bool integrityCheck();
     double opticalLength();
     int trajectoryCount();
-    void callTranslator(SurfaceVector&,int,int);
+    void callTranslator(SurfaceVector&, int, int);
 
     virtual void getOrderParameters(OrderParameters&) = 0;
     virtual void outputSnapshot(ostream&) = 0;
-    virtual void outputOrderHeatMap(ostream&,vector<double>&,vector<Vector3d>&) = 0;
+    virtual void outputOrderHeatMap(ostream&, vector<double>&, vector<Vector3d>&) = 0;
 
     SurfaceVector randomSurfaceVector();
     TrajectoryVector createTrajectory(const SurfaceVector&);
 
-    // creates a trajectory at a given surface vector and returns a trajectory vector
-    TrajectoryVector createAndLinkTrajectory(const SurfaceVector&, Trajectory*, Direction, double,double);
+    // creates a trajectory at a given surface vector and returns a trajectory
+    // vector
+    TrajectoryVector createAndLinkTrajectory(const SurfaceVector&, Trajectory*, Direction, double, double);
 
     // only called by Trajectory (friend class)
-    private:
+
+  private:
+
     friend TrajectoryVector Trajectory::nextTrajectory(Direction);
-    virtual TrajectoryVector extendTrajectory(Trajectory*, Direction) =0;
+    virtual TrajectoryVector extendTrajectory(Trajectory*, Direction) = 0;
 };
 
 class DeterministicQueue
-//'Smart' queue object that contains logic to transform to and from the system time.
+//'Smart' queue object that contains logic to transform to and from the system
+// time.
 {
 
-    public:
-    System* const 	system;						// pointer to containing system
+  public:
+
+    System* const system; // pointer to containing system
     DeterministicQueue(System*, double (System::*dtFunc)(double), double (System::*tdFunc)(double));
+
     double currentPos()
     {
-        return currentBase;    // returns the current 'distance'
+        return currentBase; // returns the current 'distance'
     }
-    void advanceTime(double);					// advances the parameters to the current system time
-    void storeTime(int);						// store 'currentBase' in the cache at a given tag position
-    double progression(int cachePos)
-    {
-        return currentBase - valueCache[cachePos];
-    }
+
+    void advanceTime(double); // advances the parameters to the current system time
+    void storeTime(int);      // store 'currentBase' in the cache at a given tag position
+
+    double progression(int cachePos) { return currentBase - valueCache[cachePos]; }
+
     // returns the progress of 'currentBase' relative to a given time tag
-    double firstEventTime();					// returns the system time of the first scheduled event
-    DeterministicEvent pop();					// returns and removes the first scheduled event
+    double firstEventTime();  // returns the system time of the first scheduled
+                              // event
+    DeterministicEvent pop(); // returns and removes the first scheduled event
+
     bool empty()
     {
-        return queue.empty();    // checks whether the queue is empty
+        return queue.empty(); // checks whether the queue is empty
     }
-    void flush();								// empties the queue and resets currentBase
-    void pushGlobal(double, GlobalEventType);	// pushes a global event onto the queue at a certain distance
+
+    void flush();                             // empties the queue and resets currentBase
+    void pushGlobal(double, GlobalEventType); // pushes a global event onto the
+                                              // queue at a certain distance
     EventTrackingTag pushDeterministic(double, EventDescriptorIndex);
     // pushes a deterministic (MT) event onto the queue at a certain distance
 
-    private:
+  private:
+
     friend class System;
     priority_queue<DeterministicEvent> queue; // the queue itself
     double currentBase;                       // the current 'distance'
-    double valueCache[POSITION_CACHE_SIZE]; // cache of previous 'distance' values
-    double (System::* const distanceTimeConversionFunction) (double);
+    double valueCache[POSITION_CACHE_SIZE];   // cache of previous 'distance' values
+    double (System::* const distanceTimeConversionFunction)(double);
     // pointer to a function that converts a distance to a time
-    double (System::* const timeDistanceConversionFunction) (double);
+    double (System::* const timeDistanceConversionFunction)(double);
     // pointer to a function that converts a time to a distance
 };
 
 class EventDescriptor
 {
-    //The EventDescriptor object is the microtubule-side interface to the event queues.
-    //It stores information about the upcoming event, and is used as an entry-point for the
-    //event handler when this event is executed.
-    //Every microtubule has three of these objects: one on every tip and one to keep track of
-    //'ev_disappear' events, when the two tips annihilate each other.
+    // The EventDescriptor object is the microtubule-side interface to the
+    // event queues. It stores information about the upcoming event, and is
+    // used as an entry-point for the event handler when this event is
+    // executed. Every microtubule has three of these objects: one on every tip
+    // and one to keep track of 'ev_disappear' events, when the two tips
+    // annihilate each other.
 
-    public:
+  public:
 
     // index of this object in the EventDescriptorMap (necessary for removal)
     EventDescriptorIndex index;
-    Microtubule* const 		mt;
+    Microtubule* const mt;
 
     // type of queued event
-    DeterministicEventType 	type;
+    DeterministicEventType type;
 
     // associated tracking tag (for validity testing)
-    EventTrackingTag 		tag;
+    EventTrackingTag tag;
 
     // inverse velocity (with respect to the event clock defined in the queue)
     double distanceScaleFactor;
-    DeterministicQueue* 	queue;
+    DeterministicQueue* queue;
     EventDescriptor(Microtubule*, DeterministicQueue*, double);
     ~EventDescriptor();
 
     // resets the queue and velocity of the event timer
-    void reinitialize(DeterministicQueue*, double) ;
+    void reinitialize(DeterministicQueue*, double);
 
     // pushes a deterministic event at a certain distance onto the queue
     void pushOnQueue(double, DeterministicEventType);
@@ -677,7 +823,8 @@ class EventDescriptor
 
 class DeterministicEvent
 {
-    public:
+  public:
+
     double eventTimeDist;
 
     // -1 indicates a global event
@@ -686,26 +833,25 @@ class DeterministicEvent
     union
     {
         EventTrackingTag tag;
-        GlobalEventType	global_type;
+        GlobalEventType global_type;
     };
 
-    // define the < operator for automatic sorting of events in the event queue (nearest first)
-    bool operator<(const DeterministicEvent& ev2) const
-    {
-        return eventTimeDist > ev2.eventTimeDist;
-    }
+    // define the < operator for automatic sorting of events in the event queue
+    // (nearest first)
+    bool operator<(const DeterministicEvent& ev2) const { return eventTimeDist > ev2.eventTimeDist; }
 };
 
 class MTTip
 {
-    public:
+  public:
+
     Microtubule* mt;
     Trajectory* trajectory;
 
     Direction dir;
     double velocity;
     EventDescriptor event;
-    IntersectionItr	nextCollision;
+    IntersectionItr nextCollision;
     TrjMTTipTag notificationTag;
     RegionMTTipTag regionTag;
     double nextEventPos;
@@ -724,16 +870,18 @@ class MTTip
     void notifyInsert(IntersectionItr&);
     void notifyRemove(IntersectionItr&);
 
-    private:
-    // avoid accidental (expensive) copying of Trajectory objects, by declaring private copy constructors without definitions
+  private:
+
+    // avoid accidental (expensive) copying of Trajectory objects, by declaring
+    // private copy constructors without definitions
     MTTip(const MTTip&);
     MTTip& operator=(const MTTip&);
-
 };
 
-class Segment : public DLBaseItem<Segment>
+class Segment: public DLBaseItem<Segment>
 {
-    public:
+  public:
+
     Microtubule* mt;
     Trajectory* const trajectory;
     TrjSegmentTag trajectoryTag;
@@ -746,27 +894,29 @@ class Segment : public DLBaseItem<Segment>
     IntersectionItr startItr;
     IntersectionItr endItr;
 
-    // constructs a segment as part of a microtubule at a specified vector location
+    // constructs a segment as part of a microtubule at a specified vector
+    // location
     Segment(Microtubule*, TrajectoryVector&);
 
     ~Segment();
-    double length()
-    {
-        return abs(end-start);
-    }
+
+    double length() { return abs(end - start); }
+
     bool isLastInMT();
     bool isFirstInMT();
-    bool crossesIntersection(IntersectionItr& is) ;
+    bool crossesIntersection(IntersectionItr& is);
 };
 
-class Microtubule : public DLBaseItem<Microtubule>
+class Microtubule: public DLBaseItem<Microtubule>
 {
-    public:
+  public:
+
     System* const system;
     MTTip plus;
     MTTip minus;
 
-    // event descriptor for events that are not directly associated to a single tip (only disappearance)
+    // event descriptor for events that are not directly associated to a single
+    // tip (only disappearance)
     EventDescriptor disappearEvent;
     // type of microtubule (growing, shrinking)
     MTType type;
@@ -775,7 +925,7 @@ class Microtubule : public DLBaseItem<Microtubule>
     // time tag at which the positions and lengths were last updated
     int previousUpdateTag;
 
-    DLList<Segment>	segments;
+    DLList<Segment> segments;
 
     Microtubule(System*, TrajectoryVector, bool = true);
     ~Microtubule();
@@ -799,22 +949,25 @@ class Microtubule : public DLBaseItem<Microtubule>
     // called when a microtubule retreats across an intersection
     void backtrack(MTTip*);
     void endOfSegment(MTTip*);
-    void sever(Segment*,double);
+    void sever(Segment*, double);
     void severAtCross(IntersectionItr is, Segment* cutSeg);
     void splitSegmentAtTrajPos(double cutPos, Segment* cutSeg);
 
-   // translates random position at MT to corresponding position at Segment
+    // translates random position at MT to corresponding position at Segment
     void translatePositionMT2Segment(double& cutPos, Segment*& cutSeg);
 
-    private:
-    // avoid accidental (disastrous) copying of Trajectory objects, by declaring private copy constructors without definitions
+  private:
+
+    // avoid accidental (disastrous) copying of Trajectory objects, by
+    // declaring private copy constructors without definitions
     Microtubule(const Microtubule&);
     Microtubule& operator=(const Microtubule&);
 };
 
 class Measurement
 {
-    public:
+  public:
+
     double time;
     double lengthDensity;
     double opticalDensity;
@@ -840,7 +993,8 @@ class Measurement
 
 class Parameters
 {
-    public:
+  public:
+
     System* system;
     double vPlus;
     double vMin;
@@ -865,8 +1019,8 @@ class Parameters
     double pCatRegularEdgeMax;
     int edgNumber;
     int faceNumber;
-    map<string,double> edgCatMap;
-    map<string,double> faceCatMap;
+    map<string, double> edgCatMap;
+    map<string, double> faceCatMap;
     vector<double> RegionKcatMultiplier;
     NucleationType nucleationType;
     int zipperingEnabled;
@@ -902,10 +1056,11 @@ class Parameters
     double x0calc;
     double z0calc;
 
-    public:
+  public:
+
     Parameters(System*);
-    void initialize(const char *);
-    bool reinitialize(const char *);
+    void initialize(const char*);
+    bool reinitialize(const char*);
     bool readFromFile(const char*, bool);
     bool writeToFile();
     void verifyParameters();
@@ -913,16 +1068,17 @@ class Parameters
 };
 
 class System
-//Master object defining an interacting mt system
+// Master object defining an interacting mt system
 {
-    public:
-    Geometry* geometry;
-    DLList<Microtubule,MICROTUBULE_GRANULARITY> growing_mts;
-    DLList<Microtubule,MICROTUBULE_GRANULARITY> shrinking_mts;
+  public:
 
-    #ifdef CROSS_SEV
-    CompactList<OccupiedIntersection,OCCUPIED_INTERSECTION_GRANULARITY> OccupiedIntersectionList;
-    #endif
+    Geometry* geometry;
+    DLList<Microtubule, MICROTUBULE_GRANULARITY> growing_mts;
+    DLList<Microtubule, MICROTUBULE_GRANULARITY> shrinking_mts;
+
+#ifdef CROSS_SEV
+    CompactList<OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY> OccupiedIntersectionList;
+#endif
 
     vector<int> growingTipsReg;
 
@@ -967,10 +1123,7 @@ class System
     // queue object for vPlus-defined events (regulated by tubulin pool size)
     DeterministicQueue vPlusQueue;
 
-    double identity(double i)
-    {
-        return i;
-    }
+    double identity(double i) { return i; }
 
     // distance to time conversion for growing tips
     double vPlusToTime(double);
@@ -1002,10 +1155,7 @@ class System
     EventTrackingTag eventID;
 
     // returns a new event tracking tag
-    EventTrackingTag getEventTag()
-    {
-        return eventID++;
-    }
+    EventTrackingTag getEventTag() { return eventID++; }
 
     System(char*);
     ~System();
@@ -1017,27 +1167,28 @@ class System
     void updateAll(bool forceUpdate = false);
     void emergencyBreak();
 
-    void run(double,string&,string&);
+    void run(double, string&, string&);
     void nextEvent(void);
     void handleGlobalEvent(DeterministicEvent&);
     void determineStochasticEvent();
     void handleNucleationEvent();
     void handleSeveringEvent();
 
-    #ifdef CROSS_SEV
+#ifdef CROSS_SEV
     void handleSeveringAtCrossEvent();
-    #endif
+#endif
 
     void handleRescueEvent();
     void handleCatastropheEvent();
     void randomPositionOnMicrotubule(double& cutLength, Segment*& cutSeg);
 
-    // returns the result of a collision at a specified angle, and bundle occupancies
+    // returns the result of a collision at a specified angle, and bundle
+    // occupancies
     CollisionType collisionResult(double, int, int);
 
-    // returns the probabilities for induced catastrophes and zippering, as a function of the angle
+    // returns the probabilities for induced catastrophes and zippering, as a
+    // function of the angle
     void collisionProbabilities(double, double&, double&);
-
 
     // binomial table. Necessary for bundle collision type: multi-collisions
     double binomialTable[MAXBINOM][MAXBINOM];
@@ -1058,16 +1209,19 @@ class System
     void writeMeasurementsToFile(int = 0);
     void closeFiles();
 
-    #ifdef CROSS_SEV
+#ifdef CROSS_SEV
     // removes pointers from is and its mirror
     void removeOccupiedIntersection(Intersection& is);
 
-    // creates pointers for is and its mirror [occupiedIntersection contains only one pointer: to the one "on top" (to be cut)]
+    // creates pointers for is and its mirror [occupiedIntersection contains
+    // only one pointer: to the one "on top" (to be cut)]
     void addOccupiedIntersection(IntersectionItr is);
-    #endif
+#endif
 
-    private:
-    // avoid accidental (expensive) copying of Trajectory objects, by declaring private copy constructors without definitions
+  private:
+
+    // avoid accidental (expensive) copying of Trajectory objects, by declaring
+    // private copy constructors without definitions
     System(const System&);
     System& operator=(const System&);
 };
@@ -1077,43 +1231,45 @@ void writeMeasurementDescriptors(ostream&);
 
 class TriMeshGeometry: public Geometry
 {
-    public:
+  public:
+
     TriMeshGeometry(System*);
     TrajectoryVector extendTrajectory(Trajectory*, Direction);
     void getOrderParameters(OrderParameters&);
     void outputSnapshot(ostream&);
-    void outputOrderHeatMap(ostream&,vector<double>&,vector<Vector3d>&);
+    void outputOrderHeatMap(ostream&, vector<double>&, vector<Vector3d>&);
 };
 
-class Cartesian : public Region
+class Cartesian: public Region
 {
-    public:
+  public:
+
     Cartesian(Geometry*, double);
 
     virtual SurfaceVector randomSurfaceVector() = 0;
-    virtual void getTrajectoryCoordinates(SurfaceVector&, double&,vector<PointATedge>&,TrajectoryVector&) = 0;
+    virtual void getTrajectoryCoordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
     void makeIntersectionList(Trajectory*);
     void translateVector(SurfaceVector&, const double);
     double intersectionAngle(Trajectory*, Trajectory*);
 
     void getOrderParameters(OrderParameters&);
-    void getOrderParametersRawFlat(OrderParametersRaw&,vector<Vector3d>&,double);
+    void getOrderParametersRawFlat(OrderParametersRaw&, vector<Vector3d>&, double);
     void getOrderParametersRawCylinder(OrderParametersRaw&, double, double, double);
 
     void outputSnapshot(ostream&);
-    void outputSnapshotOffset(ostream&,double,double);
+    void outputSnapshotOffset(ostream&, double, double);
 
-    void outputOrderHeatMap(ostream&,vector<double>&,vector<Vector3d>&);
+    void outputOrderHeatMap(ostream&, vector<double>&, vector<Vector3d>&);
 };
 
-class Triangle : public Cartesian
+class Triangle: public Cartesian
 {
-    public:
+  public:
+
     Triangle(double, Geometry*);
 
     SurfaceVector randomSurfaceVector();
-    void getTrajectoryCoordinates(SurfaceVector&, double&,vector<PointATedge>&,TrajectoryVector&);
-
+    void getTrajectoryCoordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&);
 };
 
 #ifndef NO_INLINE
@@ -1121,4 +1277,4 @@ class Triangle : public Cartesian
 #endif
 
 #endif
-//CORTICALSIM_H_
+// CORTICALSIM_H_
