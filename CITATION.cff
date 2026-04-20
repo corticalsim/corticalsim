@@ -1,0 +1,36 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: CorticalSim3D
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Bandan
+    family-names: Chakrabortty
+    affiliation: IISER Trivandrum
+    orcid: 'https://orcid.org/0000-0002-4797-5732'
+  - given-names: Eva
+    family-names: Deinum
+    orcid: 'https://orcid.org/0000-0001-8564-200X'
+    affiliation: Wageningen University and Research
+  - given-names: Alexander
+    family-names: Hadjiivanov
+    affiliation: Netherlands eScience Center
+    orcid: 'https://orcid.org/0000-0002-7045-1005'
+  - given-names: Jaro
+    family-names: Camphuijsen
+    email: j.camphuijsen@esciencecenter.nl
+    affiliation: Netherlands eScience Center
+    orcid: 'https://orcid.org/0000-0002-8928-7831'
+  - given-names: Simon
+    family-names: Tindemans
+    orcid: 'https://orcid.org/0000-0001-8369-7568'
+    affiliation: TU Delft
+abstract: >-
+  This is a program for simulating cortical microtubule
+  dynamics (CMT) on experimentally extracted microscopic
+  images of cells.
+license: GPL-3.0
