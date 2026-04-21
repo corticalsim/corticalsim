@@ -1,4 +1,0 @@
-Breathe stuff
--------------
-
-.. autodoxygenindex::

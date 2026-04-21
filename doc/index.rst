@@ -6,18 +6,16 @@
 CorticalSim 3D documentation
 ============================
 
-.. image:: assets/logo/logomodelCMT-4.0.png
-
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+.. image:: assets/logo/logomodelCMT-1.0.png
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
-   introduction.md
-   breathe.md
+   introduction
+   quickstart
+   development
+   technical
 
 
