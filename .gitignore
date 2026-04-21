@@ -55,6 +55,3 @@ Testing/
 
 # Output data
 **/outputData*
-
-# Sphinx Documentation files
-doc/_build
