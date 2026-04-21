@@ -2,7 +2,7 @@
 
 ![alt text](assets/logo/logomodelCMT-1.0.png)
 
-This is a program for simulating cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cell
+This is a program for simulating cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cells
 
 Application:
 
@@ -93,10 +93,3 @@ Run the `corticalsim3d` executable with the `corticalsim3D/config/parameters_ARR
 ```bash
 ./build/corticalsim3d ./corticalsim3D/config/parameters_ARRAY.txt
 ```
-
-# TODO
-
-- [ ] Reproduce the installation instructions for Windows and update them as necessary.
-- [ ] Add specific installation instructions for dependencies for different Linux distributions (Ubuntu, Debian, Arch...).
-- [ ] Add installation instructions for MacOSX.
-- [ ] Meson: Option to install the executable into a custom directory
