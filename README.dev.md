@@ -19,31 +19,22 @@ Install doxygen:
 sudo apt install doxygen
 ```
 
-Then Sphinx and the other Python dependencies.
-From the root of the repository:
+Then, from the root of the repository install Sphinx and the other Python dependencies:
 
 ```
-python -m venv ../venv-cs3d
-source ../venv-cs3d/bin/activate
+python -m venv .venv
+source .venv/bin/activate
 pip install -r doc/requirements.txt
 ```
 
-Then we first generate the doxygen technical documentation xml files:
+Then we generate the doxygen technical documentation xml files and use Sphinx to generate the html files with the full documentation:
 
 ```
-mkdir -p build/docs/doxygen
-cd doc
-doxygen
-cd ..
+doxygen doc/Doxyfile
+sphinx-build doc doc/build
 ```
 
-Finally we use Sphinx to generate the html files with the integrated documentation
-
-```
-sphinx-build doc build/docs
-```
-
-And we can view the generated documentation by opening the file in `build/docs/
+And we can view the generated documentation by opening `doc/build/index.md` in a browser.
 
 
 # TODO

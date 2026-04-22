@@ -28,5 +28,5 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 # Add breathe extension for c++ docs in sphinx with doxygen
-breathe_projects = {"myproject": "../build/docs/doxygen/xml/"}
+breathe_projects = {"myproject": "./build/doxygen_xml"}
 breathe_default_project = "myproject"

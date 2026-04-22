@@ -55,3 +55,9 @@ Testing/
 
 # Output data
 **/outputData*
+
+# Documentation build files
+doc/_build
+
+# Python virtual environment for docs building
+.venv
