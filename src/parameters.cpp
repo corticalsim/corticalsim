@@ -1,3 +1,4 @@
+#include <sstream>
 #include "corticalSimReal.h"
 
 string DirectionTypeText[] = { "forward", "backward" };
@@ -191,7 +192,7 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, map<st
         if (id == tag)
         {
             file >> target;
-            string key = boost::lexical_cast<string>(tag);
+            string key{ tag };
             edgCatMap[key] = target;
             recognized = true;
         }
@@ -202,6 +203,7 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, map<st
 template <class T>
 inline void loadParamRandom(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
 {
+    std::stringstream ss;
     if (!recognized)
     {
         if (id == tag)
@@ -210,12 +212,14 @@ inline void loadParamRandom(bool& recognized, ifstream& file, string& id, const 
             {
                 string temp;
                 file >> temp;
-                while (temp > boost::lexical_cast<string>(ULONG_MAX))
+                std::string ulong_max{ std::to_string(ULONG_MAX) };
+                while (temp > ulong_max)
                 {
-                    cout << temp << " Bigger than" << boost::lexical_cast<string>(ULONG_MAX) << endl;
+                    cout << temp << " Bigger than" << ulong_max << endl;
                     temp = temp.substr(1);
                 }
-                target = boost::lexical_cast<T>(temp);
+                ss.str(temp);
+                ss >> target;
             }
             else
             {
@@ -357,7 +361,7 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
             for (int edg = 1; edg <= edgNumber; edg++)
             {
                 double edgCatVal;
-                string edgCatType1 = "edgCat_" + boost::lexical_cast<string>(edg);
+                string edgCatType1 = "edgCat_" + std::to_string(edg);
                 char* edgCatType = new char[edgCatType1.length() + 1];
                 strcpy(edgCatType, edgCatType1.c_str());
                 loadParamMaps(recognized, parFile, id, edgCatType, edgCatVal, edgCatMap);
@@ -368,7 +372,7 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
             for (int face = 1; face <= faceNumber; face++)
             {
                 double faceCatVal;
-                string faceCatType1 = "faceCat_" + boost::lexical_cast<string>(face);
+                string faceCatType1 = "faceCat_" + std::to_string(face);
                 char* faceCatType = new char[faceCatType1.length() + 1];
                 strcpy(faceCatType, faceCatType1.c_str());
                 loadParamMaps(recognized, parFile, id, faceCatType, faceCatVal, faceCatMap);

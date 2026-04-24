@@ -619,7 +619,7 @@ void pickup_shape(Geometry* g)
     for (it = g->system->p.edgCatMap.begin(); it != g->system->p.edgCatMap.end(); it++)
     {
         vector<string> currEdg = split(it->first, '_');
-        int edgIdx = boost::lexical_cast<int>(currEdg[1]);
+        int edgIdx{ std::stoi(currEdg[1]) };
         double edgCatVal = it->second;
         pCatList[edgIdx] = edgCatVal;
     }
@@ -634,7 +634,7 @@ void pickup_shape(Geometry* g)
     for (it = g->system->p.faceCatMap.begin(); it != g->system->p.faceCatMap.end(); it++)
     {
         vector<string> currFace = split(it->first, '_');
-        int faceIdx = boost::lexical_cast<int>(currFace[1]);
+        int faceIdx{ std::stoi(currFace[1]) };
         double faceCatVal = it->second;
         g->system->p.RegionKcatMultiplier[faceIdx] = faceCatVal;
     }
