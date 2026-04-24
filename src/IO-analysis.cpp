@@ -1,3 +1,4 @@
+#include <filesystem>
 #include "corticalSimReal.h"
 
 ostream& operator<<(ostream& o, const Measurement m)
@@ -36,7 +37,7 @@ void System::initializeOutput(void)
 
         // create subdirectory with a time Tag, to isolate each data folder
         p.outputDir += "/" + p.geometry + "/outputData" + string(timeName);
-        int i = boost::filesystem::create_directories(p.outputDir.c_str());
+        int i = std::filesystem::create_directories(p.outputDir.c_str());
 
         // if the sub-directory path is invalid
         if (i)
