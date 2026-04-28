@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'CorticalSim 3D'
-copyright = '2026, Eva Deinum, Bandan Chakrabortty, Jaro Camphuijsen, Alex Hadjiivanov'
-author = 'Eva Deinum, Bandan Chakrabortty, Jaro Camphuijsen, Alex Hadjiivanov'
+project = 'CorticalSim3D'
+copyright = '2017-%Y'
+author = 'Eva Deinum, Bandan Chakrabortty, Simon Tindemans, Jaro Camphuijsen, Alex Hadjiivanov'
 release = ''
 
 # -- General configuration ---------------------------------------------------
