@@ -35,11 +35,3 @@ sphinx-build doc doc/build
 ```
 
 And we can view the generated documentation by opening `doc/build/index.md` in a browser.
-
-
-# TODO
-
-- [ ] Reproduce the installation instructions for Windows and update them as necessary.
-- [ ] Add specific installation instructions for dependencies for different Linux distributions (Ubuntu, Debian, Arch...).
-- [ ] Add installation instructions for MacOSX.
-- [ ] Meson: Option to install the executable into a custom directory
