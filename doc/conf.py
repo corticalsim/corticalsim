@@ -8,7 +8,7 @@
 
 project = 'CorticalSim3D'
 copyright = '2017-%Y'
-author = 'Eva Deinum, Bandan Chakrabortty, Simon Tindemans, Jaro Camphuijsen, Alex Hadjiivanov'
+author = 'Eva Deinum, Bandan Chakrabortty, Simon Tindemans, Jaro Camphuijsen, Alexander Hadjiivanov'
 release = ''
 
 # -- General configuration ---------------------------------------------------
