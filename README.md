@@ -86,6 +86,19 @@ sudo apt install gcc libboost-filesystem-dev libeigen3-dev meson ninja-build cma
 
     This will generate an executable file called `corticalsim3d` in the current directory (`build`).
 
+    NOTE: If you are using a very old Meson version (e.g., `<0.54.0`), you need to use `ninja` instead of `meson`, with a slightly different syntax:
+
+    ```bash
+    ninja -C build corticalsim3d
+    ```
+
+    Here, `corticalsim3d` is lowercase as it refers to the target to be built, not the `corticalsim3D` directory.
+
+
+### Known issues
+
+At present, compiling with GCC>=16 throws an error related to the allocator type in a `typedef` declaration. Please use GCC<16 or Clang until this is resolved.
+
 ## Run
 
 Run the `corticalsim3d` executable with the `corticalsim3D/config/parameters_ARRAY.txt` parameter file as the first argument:
