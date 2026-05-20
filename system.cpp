@@ -924,20 +924,20 @@ void System::handleCatastropheEvent()
       switch (p.catPattern) {
         case p_cross:
           //if (abs (xPos - p.bla*yPos) < p.blabla2 && abs(yPos - p.bla2*xPos) < p.blabla)
-                //pLoc = p.kCat[0]/p.catMax;  // band; explictly don't assume that p.kCat[gap] > p.kCat[band]
+                //pLoc = p.kCat[0]/p.catMax;  // band; explicitly don't assume that p.kCat[gap] > p.kCat[band]
         case p_bar:
           //if (abs (xPos - p.bla*yPos) < p.blabla && abs(yPos - p.bla2*xPos) < p.blabla2)
-                //pLoc = p.kCat[0]/p.catMax;  // band; explictly don't assume that p.kCat[gap] > p.kCat[band]
+                //pLoc = p.kCat[0]/p.catMax;  // band; explicitly don't assume that p.kCat[gap] > p.kCat[band]
           break;  
         case p_singleBand:
           switch (p.kCatOrient) {
             case o_x:
               if (abs(xPos) < 0.5*p.bandGapWidth[0]) {
-                pLoc = p.kCat[0]/p.catMax;  // band; explictly don't assume that p.kCat[gap] > p.kCat[band]
+                pLoc = p.kCat[0]/p.catMax;  // band; explicitly don't assume that p.kCat[gap] > p.kCat[band]
                 //cout << "x band:  " << xPos << " pLoc: " << pLoc <<"\n";
               }
               else{
-                pLoc = p.kCat[1]/p.catMax;  // gap; explictly don't assume that p.kCat[gap] > p.kCat[band]
+                pLoc = p.kCat[1]/p.catMax;  // gap; explicitly don't assume that p.kCat[gap] > p.kCat[band]
                 //cout << "x gap:  " << xPos << " pLoc: " << pLoc <<"\n";
               }
               break;
@@ -967,18 +967,18 @@ void System::handleCatastropheEvent()
           xPos = (*tipTag)->trajectory->base.x + cos((*tipTag)->trajectory->base.angle) *(*tipTag)->position();
           xPos = geometry->xPosGridToDomain(xPos, ridx);
           //if ( abs(0.5*(p.bandGapWidth[0]+p.bandGapWidth[1]) - fmod(abs(xPos+p.spiralPitch*yPos),(p.bandGapWidth[0]+p.bandGapWidth[1]))) <= 0.5*p.bandGapWidth[0]) {
-            //pLoc = p.kCat[0]/p.catMax;  // band; explictly don't assume that p.kCat[gap] > p.kCat[band]
+            //pLoc = p.kCat[0]/p.catMax;  // band; explicitly don't assume that p.kCat[gap] > p.kCat[band]
           //}
           //else{
-            //pLoc = p.kCat[1]/p.catMax;  // gap; explictly don't assume that p.kCat[gap] > p.kCat[band]
+            //pLoc = p.kCat[1]/p.catMax;  // gap; explicitly don't assume that p.kCat[gap] > p.kCat[band]
           //}
-          pLoc = p.kCat[1]/p.catMax;  // gap; explictly don't assume that p.kCat[gap] > p.kCat[band]
+          pLoc = p.kCat[1]/p.catMax;  // gap; explicitly don't assume that p.kCat[gap] > p.kCat[band]
           if ( p.nSpirals != 0 ) {
             for (int k= 0 ; k < p.nSpirals ; k++ ) {
               //if ( abs(0.5*(p.bandGapWidth[0]+p.bandGapWidth[1]) - fmod(abs(xPos+k*wrapLength/p.nSpirals+p.spiralPitch*yPos),(p.bandGapWidth[0]+p.bandGapWidth[1]))) <= 0.5*p.bandGapWidth[0]) (
               posInBand = fmod(abs(-(0.5 + k)*p.projectedPeriod + xPos - yPos*p.nSpirals*p.projectedPeriod/p.wrapLength),p.projectedPeriod) ;
               if ( posInBand <= 0.5*p.projectedBand || posInBand >= p.projectedPeriod - 0.5*p.projectedBand ) {
-                pLoc = p.kCat[0]/p.catMax;  // band; explictly don't assume that p.kCat[gap] > p.kCat[band]
+                pLoc = p.kCat[0]/p.catMax;  // band; explicitly don't assume that p.kCat[gap] > p.kCat[band]
                 //cout << "SPIRAL " << p.nSpirals << "\tx: " << xPos << "\ty: " << yPos << "\n";
               }
             }
@@ -987,7 +987,7 @@ void System::handleCatastropheEvent()
             posInBand = fmod(abs(-0.5*p.projectedPeriod + xPos - yPos*p.nSpirals*p.projectedPeriod/p.wrapLength),p.projectedPeriod) ; 
             if ( posInBand <= 0.5 * p.projectedBand || posInBand >= p.projectedPeriod - 0.5*p.projectedBand ) {
               //if ( abs(0.5*(p.bandGapWidth[0]+p.bandGapWidth[1]) - fmod(abs(xPos+p.spiralPitch*yPos),(p.bandGapWidth[0]+p.bandGapWidth[1]))) <= 0.5*p.bandGapWidth[0]) (
-              pLoc = p.kCat[0]/p.catMax;  // band; explictly don't assume that p.kCat[gap] > p.kCat[band]
+              pLoc = p.kCat[0]/p.catMax;  // band; explicitly don't assume that p.kCat[gap] > p.kCat[band]
             }
           }
           //cout << xPos << " " << pLoc << '\n' ; 
@@ -1002,12 +1002,12 @@ void System::handleCatastropheEvent()
           }
           yPos = (*tipTag)->trajectory->base.y + sin((*tipTag)->trajectory->base.angle) *(*tipTag)->position();
           yPos = geometry->yPosGridToDomain(yPos, ridx);
-          pLoc = p.kCat[1]/p.catMax;  // gap; explictly don't assume that p.kCat[gap] > p.kCat[band]
+          pLoc = p.kCat[1]/p.catMax;  // gap; explicitly don't assume that p.kCat[gap] > p.kCat[band]
           if ( p.nSpirals != 0 ) {
             for (int k= 0 ; k < p.nSpirals ; k++ ) {
               posInBand = fmod(abs(-(0.5 + k)*p.projectedPeriod + yPos - xPos*p.nSpirals*p.projectedPeriod/p.wrapLength),p.projectedPeriod); 
               if ( posInBand <= 0.5*p.projectedBand || posInBand >= p.projectedPeriod - 0.5*p.projectedBand ) {
-                pLoc = p.kCat[0]/p.catMax;  // band; explictly don't assume that p.kCat[gap] > p.kCat[band]
+                pLoc = p.kCat[0]/p.catMax;  // band; explicitly don't assume that p.kCat[gap] > p.kCat[band]
                 //cout << "SPIRAL " << p.nSpirals << "\tx: " << xPos << "\ty: " << yPos << "\n";
               }
             }
@@ -1015,7 +1015,7 @@ void System::handleCatastropheEvent()
           else {
             posInBand= fmod(abs(-0.5*p.projectedPeriod + yPos ),p.projectedPeriod);
             if ( posInBand <= 0.5*p.projectedBand || posInBand >= p.projectedPeriod - 0.5*p.projectedBand ) {
-              pLoc = p.kCat[0]/p.catMax;  // band; explictly don't assume that p.kCat[gap] > p.kCat[band]
+              pLoc = p.kCat[0]/p.catMax;  // band; explicitly don't assume that p.kCat[gap] > p.kCat[band]
             }
           }
           //if ( abs(0.5*(p.bandGapWidth[0]+p.bandGapWidth[1]) - fmod(abs(yPos+p.spiralPitch*xPos),(p.bandGapWidth[0]+p.bandGapWidth[1]))) <= 0.5*p.bandGapWidth[0]) {
@@ -1186,7 +1186,7 @@ void System::randomPositionOnMicrotubuleInRegion(int ridx, double cutLength, dou
 			if (stopFlag)
 				break;
 
-			// if we ran out of trajectories, somehing is wrong. This could happen due to numerical inaccuracies.
+			// if we ran out of trajectories, something is wrong. This could happen due to numerical inaccuracies.
 			if (trptr->next() == NULL)
 			{
 				cerr << "Rare event: cutting on the edge\n";
@@ -1957,7 +1957,7 @@ totalUnboundNucleationCount++;
 	
 	  for (int i=0; i<p.numberOfRays; ++i)
 	  {
-	  	SurfaceVector sv2 = sv;        // check if is shallow or deep copy            --------------- might be: angles internally are betwee -p/2 and p/2
+	  	SurfaceVector sv2 = sv;        // check if is shallow or deep copy            --------------- might be: angles internally are between -p/2 and p/2
 	  	sv2.angle = aster.angles.at(i);
 	  	MetaTrajectory* mTraj = geometry->metaTrajectories.create(this, p.maxMetaTrajectoryLength, sv2);
 	  	if ( mTraj->metaTrajectoryLength <= p.maxMetaTrajectoryLength )                                               // this isn't very clean

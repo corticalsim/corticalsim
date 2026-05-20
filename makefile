@@ -137,7 +137,7 @@ ifeq ($(words $(FLAG_TYPE)),1)
  ifeq ($(words $(filter $(FLAG_TYPE),$(CONFIG_LIST))),0)
   $(error Invalid flag found: '$(FLAG_NAME).$(FLAG_TYPE)'. Please remove manually)
  endif
- #set corect default ; not 100% safe when flag_type is a subset of a proper config
+ #set correct default ; not 100% safe when flag_type is a subset of a proper config
  CONFIG := $(FLAG_TYPE)
 else
  $(error Multiple build configurations flagged. Please remove '$(FLAG_NAME).*' manually.)
