@@ -1,6 +1,6 @@
 # corticalsim3D (cortical microtubule dynamics)
 
-![alt text](assets/logo/logomodelCMT-1.0.png)
+![alt text](doc/assets/logo/logomodelCMT-1.0.png)
 
 This is a program for simulating cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cells
 
