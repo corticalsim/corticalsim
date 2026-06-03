@@ -166,9 +166,9 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross) /
     }
 #endif
 
-    double Pcat;
-    double Pzip;
-    double Psum;
+    double Pcat{ 0.0 };
+    double Pzip{ 0.0 };
+    double Psum{ 0.0 };
 
     // get a random number
     double rand = randomGen.randDblExc();

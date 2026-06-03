@@ -78,9 +78,9 @@ const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAng
 
 SurfaceVector Geometry::randomSurfaceVector()
 {
-    int regionSelector = 0;
-    double rArea = 0;
-    int domainType;
+    int regionSelector{ 0 };
+    double rArea{ 0.0 };
+    int domainType{ 0 };
 
     if (regions.size() > 1)
     {

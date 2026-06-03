@@ -44,6 +44,7 @@ void deleteFirst(struct edgeRecord** head)
         return;
     }
     *head = tmp->next;
+    tmp = NULL;
     free(tmp);
 }
 
