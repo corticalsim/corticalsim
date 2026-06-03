@@ -333,8 +333,10 @@ void Microtubule::updateLength(bool forceUpdate)
 #endif
 
     // move the position of the active (first and last) segment end
-    segments.last()->end += plus.event.queue->progression(previousUpdateTag) * plus.dir * plus.velocity;
-    segments.first()->start += minus.event.queue->progression(previousUpdateTag) * minus.dir * minus.velocity;
+    segments.last()->end
+    += plus.event.queue->progression(previousUpdateTag) * static_cast<double>(plus.dir) * plus.velocity;
+    segments.first()->start
+    += minus.event.queue->progression(previousUpdateTag) * static_cast<double>(minus.dir) * minus.velocity;
 
     previousUpdateTag = system->currentTimeTag;
 

@@ -44,7 +44,7 @@ System::System(char* parFile):
     geometry = new TriMeshGeometry(this);
 
     /// initialize the random seed with the desired one
-    randomGen.seed(static_cast<int>(p.seed));
+    randomGen.seed(p.seed);
 
     /// used in multiPcross & multiPzip events
     makeBinomialTable();

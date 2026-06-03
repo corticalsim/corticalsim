@@ -239,7 +239,7 @@ void Microtubule::rescue()
 void Microtubule::sever(Segment* cutSeg, double cutPos)
 {
     // sever MT at given position
-    splitSegmentAtTrajPos(cutSeg->start + cutSeg->dir * cutPos, cutSeg);
+    splitSegmentAtTrajPos(cutSeg->start + static_cast<double>(cutSeg->dir) * cutPos, cutSeg);
     system->totalLengthSeveringCount++;
     return;
 }
@@ -383,7 +383,7 @@ void Microtubule::translatePositionMT2Segment(double& cutPos, Segment*& cutSeg)
             exit(-1);
         }
     }
-    cutPos = cutSeg->start + cutSeg->dir * cutPos;
+    cutPos = cutSeg->start + static_cast<double>(cutSeg->dir) * cutPos;
     return;
 }
 
@@ -898,7 +898,7 @@ bool Microtubule::integrityCheck()
     }
 
     // check begin and end points
-    if (plus.dir * plus.velocity > 0)
+    if (static_cast<double>(plus.dir) * plus.velocity > 0)
     {
         if (plus.nextCollision == plus.trajectory->wallEnd())
         {
@@ -946,7 +946,7 @@ bool Microtubule::integrityCheck()
 
     // minus end velocity can be zero in the absence of treadmilling, that case skip this check to avoid numerical
     // directionality problems
-    if (minus.dir * minus.velocity > ZERO_CUTOFF)
+    if (static_cast<double>(minus.dir) * minus.velocity > ZERO_CUTOFF)
     {
         if (minus.nextCollision == minus.trajectory->wallEnd())
         {
@@ -963,7 +963,7 @@ bool Microtubule::integrityCheck()
             }
         }
     }
-    else if (minus.dir * minus.velocity < -ZERO_CUTOFF)
+    else if (static_cast<double>(minus.dir) * minus.velocity < -ZERO_CUTOFF)
     {
         if (minus.nextCollision == minus.trajectory->wallBegin())
         {
@@ -1261,7 +1261,7 @@ void MTTip::locateIntersection()
     IntersectionItr temp = nextCollision;
 
     // if necessary, step down to the intersection on the other side of the tip [minus end can have velocity zero (=0)]
-    if (((dir * velocity) < 0) || ((velocity == 0) && (dir == ::forward)))
+    if (((static_cast<double>(dir) * velocity) < 0) || ((velocity == 0) && (dir == ::forward)))
     {
         nextCollision--;
     }
@@ -1290,7 +1290,7 @@ void MTTip::locateIntersection()
 void MTTip::advanceIntersection()
 {
     // next collission site in front
-    if ((dir * velocity > 0) || ((velocity == 0) && (dir == backward)))
+    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == backward)))
     {
 #ifdef DBG_ASSERT
         if (nextCollision == trajectory->wallEnd())
@@ -1426,7 +1426,7 @@ void MTTip::determineEvent()
     }
 
     // store the event with: (a) type of event and (b) distance to travel
-    event.pushOnQueue((eventPos - pos) * dir, eventType);
+    event.pushOnQueue((eventPos - pos) * static_cast<double>(dir), eventType);
 
     // transfer the value of the calculated event position to the next event position
     nextEventPos = eventPos;
@@ -1487,7 +1487,7 @@ void MTTip::notifyInsert(IntersectionItr& newIs)
     IntersectionItr temp = newIs;
 
     // next collission site in front
-    if ((dir * velocity > 0) || ((velocity == 0) && (dir == backward)))
+    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == backward)))
     {
         // if the scheduled next collision is located after the new intersection point,  then replace it by the new
         // intersection
