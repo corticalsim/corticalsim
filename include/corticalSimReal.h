@@ -51,7 +51,7 @@
 #include <iomanip>
 #include <fstream>
 #include <Eigen/Dense>
-#include "MersenneTwister.h"
+#include "randhub.hpp"
 #include "eig3.h"
 #include "DLList.h"
 #include <float.h>
@@ -1081,7 +1081,7 @@ class System
     Parameters p;
 
     // random generator
-    MTRand randomGen;
+    RandHub<> randomGen;
 
     // current system time with respect to offset
     double systemTime;
