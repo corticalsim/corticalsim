@@ -499,7 +499,7 @@ template<class T> inline void loadParamRandom(bool& recognized, ifstream& file, 
 			}
 			else
 			{
-				cout << "Using loadParamRandom for the wrong paramter: " << id << ", quitting.\n";
+				cout << "Using loadParamRandom for the wrong parameter: " << id << ", quitting.\n";
 				exit(-21254);
 			}
 			cout << "Set " << tag << " : " << target << "\n";
@@ -1227,7 +1227,7 @@ void Parameters::verifyParameters()                  //end in line 1275
     }
 
     else {
-      wrapLength = 1.; // irrelvant if nSpirals == 0
+      wrapLength = 1.; // irrelevant if nSpirals == 0
       spiralPitch = 0.;
       projectedPeriod = bandGapWidth[0]+bandGapWidth[1]; // no need to do projection in bands; use input values.
       projectedBand = bandGapWidth[0]; // no need to do projection in bands; use input values.

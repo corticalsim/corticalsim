@@ -1213,7 +1213,7 @@ public:
 	bool reinitialize(const char *);
 	bool readFromFile(const char*, bool);	// reads parameters from file and checks them
 	bool writeToFile();			// writes all parameters to file
-	void verifyParameters();	// performes a consistency check on the parameters and adjusts where necessary
+	void verifyParameters();	// performs a consistency check on the parameters and adjusts where necessary
   double calcG(double,double); // ugly: uses default parameters or alternative value of kCat / kRes. UPDATE WHEN NEEDED!
 	bool calcTheoryParameters();	
 	// path outputDir();
@@ -1280,7 +1280,7 @@ public:
 	double vPlusToTime(double);					// distance to time conversion for growing tips
 	double timeToVPlus(double);					// time to distance conversion for growing tips
 	
-	// global event occurances
+	// global event occurrences
 	double nextStatusEventTime;
 	double nextSnapshotEventTime;
 	double nextParameterEventTime;
