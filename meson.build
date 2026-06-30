@@ -1,10 +1,5 @@
 project('corticalsim', 'cpp')
 
-cc = meson.get_compiler('cpp')
-if cc.get_id() == 'gcc'
-    assert(cc.version() <= '16', 'Please use GCC<16. Support for GCC>=16 is work in progress.')
-endif
-
 # Directories containing header files
 incdir = include_directories('include')
 

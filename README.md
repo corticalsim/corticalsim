@@ -94,11 +94,6 @@ sudo apt install gcc libboost-filesystem-dev libeigen3-dev meson ninja-build cma
 
     Here, `corticalsim3d` is lowercase as it refers to the target to be built, not the `corticalsim3D` directory.
 
-
-### Known issues
-
-At present, compiling with GCC>=16 throws an error related to the allocator type in a `typedef` declaration. Please use GCC<16 or Clang until this is resolved.
-
 ## Run
 
 Run the `corticalsim3d` executable with the `corticalsim3D/config/parameters_ARRAY.txt` parameter file as the first argument:
