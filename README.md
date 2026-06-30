@@ -80,8 +80,10 @@ sudo apt install gcc libboost-filesystem-dev libeigen3-dev meson ninja-build cma
 
 1. Enter the build directory and compile the source:
 
+    NOTE: The possible options for the `--buildtype` switch are `plain`, `debug`, `debugoptimized` and `release`. Please check the [Meson documentation page](https://mesonbuild.com/Running-Meson.html#configuring-the-build-directory) on configuring the build directory for information about the meaning of these options. We default to `release` here.
+
     ```bash
-    meson compile -C build
+    meson compile -C build --buildtype release
     ```
 
     This will generate an executable file called `corticalsim3d` in the current directory (`build`).
