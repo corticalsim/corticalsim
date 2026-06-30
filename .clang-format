@@ -38,7 +38,6 @@ SpaceAfterOperatorKeyword: false
 SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: false
-# SpaceBeforeEnumUnderlyingTypeColon: false
 SpaceBeforeInheritanceColon: false
 SpaceBeforeParens: ControlStatements
 TabWidth: 4
