@@ -1,5 +1,7 @@
 #include <sstream>
-#include "corticalSimReal.h"
+
+#include "parameters.hpp"
+#include "system.hpp"
 
 string DirectionTypeText[] = { "forward", "backward" };
 string GeometryTypeText[] = { "cell" };

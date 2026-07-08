@@ -1,5 +1,5 @@
 #include <csignal>
-#include "corticalSimReal.h"
+#include "system.hpp"
 
 using namespace std;
 

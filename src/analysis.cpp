@@ -1,5 +1,8 @@
 #include <filesystem>
-#include "corticalSimReal.h"
+#include "types.hpp"
+#include "measurement.hpp"
+#include "geometry.hpp"
+#include "system.hpp"
 
 ostream& operator<<(ostream& o, const Measurement m)
 {

@@ -1,4 +1,69 @@
-#include "corticalSimReal.h"
+#include "microtubule.hpp"
+#include "region.hpp"
+#include "system.hpp"
+
+double Microtubule::length()
+{
+    double temp = 0.0;
+    Segment* seg = segments.first();
+
+    // calculate total length of a MT
+    while (seg != NULL)
+    {
+        temp += seg->length();
+        seg = seg->next();
+    }
+    return temp;
+}
+
+void Microtubule::updateLength(bool forceUpdate)
+{
+    // can go wrong on position cache refresh, so need a better solution
+    if ((previousUpdateTag == system->currentTimeTag) && (!forceUpdate))
+    {
+        return;
+    }
+
+#ifdef DBG_ACID_TEST
+    if (segments.size() == 0)
+    {
+        cerr << "ERROR: no segments left. address=" << this << "\n";
+    }
+    if (plus.event.queue->progression(previousUpdateTag) < -ZERO_CUTOFF)
+    {
+        cerr << "alarm\n";
+    }
+    if (minus.event.queue->progression(previousUpdateTag) < -ZERO_CUTOFF)
+    {
+        cerr << "alarm\n";
+    }
+#endif
+
+    // move the position of the active (first and last) segment end
+    segments.last()->end
+    += plus.event.queue->progression(previousUpdateTag) * static_cast<double>(plus.dir) * plus.velocity;
+    segments.first()->start
+    += minus.event.queue->progression(previousUpdateTag) * static_cast<double>(minus.dir) * minus.velocity;
+
+    previousUpdateTag = system->currentTimeTag;
+
+#ifdef DBG_ACID_TEST
+    if (segments.size() == 1)
+    {
+        if ((segments.first()->end - segments.first()->start) * segments.first()->dir < -ZERO_CUTOFF)
+        {
+            cerr << "ERROR: negative segment length after updating. [mt address=" << this
+                 << ", length=" << (segments.first()->end - segments.first()->start) * segments.first()->dir << "]\n";
+            cerr << "comparison value:" << -ZERO_CUTOFF << "\n";
+            cerr << "previous update " << previousUpdateTag << " current " << system->currentTimeTag
+                 << " progression=" << system->timeQueue.progression(previousUpdateTag) << "\n";
+            exit(-1);
+        }
+    }
+#endif
+
+    return;
+}
 
 Microtubule::Microtubule(System* s, TrajectoryVector tv, bool initialize):
     system(s),

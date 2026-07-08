@@ -23,6 +23,11 @@
 *.dll
 *.so.*
 
+# QtCreator files
+*.qtcreator
+
+# VSCode files
+*.vscode
 
 # Compiled Static libraries
 *.lai

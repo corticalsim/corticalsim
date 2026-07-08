@@ -1,4 +1,5 @@
-#include "corticalSimReal.h"
+#include "det_queue.hpp"
+#include "system.hpp"
 
 DeterministicQueue::DeterministicQueue(System* s, double (System::*dtFunc)(double), double (System::*tdFunc)(double)):
     system(s),

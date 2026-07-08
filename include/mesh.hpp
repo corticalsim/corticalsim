@@ -1,7 +1,7 @@
-#include "corticalSimReal.h"
-
-using namespace Eigen;
-using namespace std;
+#include "types.hpp"
+#include "geometry.hpp"
+#include "edge.hpp"
+#include "surface.hpp"
 
 class Triangle3D
 {
@@ -96,23 +96,23 @@ bool checkSurfaceOrientation(vector<Triangle3D*>&);
 
 void Image3dTo2D(vector<Region*>&, vector<Triangle3D*>&, double[]);
 
-void orientSurface(vector<Vertics*>&, vector<Triangle3D*>&, vector<Triangle3D*>&);
+void orientSurface(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&);
 
-void connectWithGlobe(vector<Vertics*>&, vector<Triangle3D*>&);
+void connectWithGlobe(vector<Vertices*>&, vector<Triangle3D*>&);
 
 void makeGraph(int, vector<elementList*>&, vector<Triangle3D*>&);
 
-void edgeDescriptors(vector<Vertics*>&, vector<elementList*>&, vector<Triangle3D*>&);
+void edgeDescriptors(vector<Vertices*>&, vector<elementList*>&, vector<Triangle3D*>&);
 
-void establishPBC(vector<Vertics*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<elementList*>&, double);
+void establishPBC(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<elementList*>&, double);
 
-void rigidBodyProperties(vector<Vertics*>&, vector<Triangle3D*>&, Vector3d&, Vector3d&, Vector3d&, Vector3d&);
+void rigidBodyProperties(vector<Vertices*>&, vector<Triangle3D*>&, Vector3d&, Vector3d&, Vector3d&, Vector3d&);
 
-void viewGraph(vector<Vertics*>&, vector<Triangle3D*>&, Vector3d&, string);
+void viewGraph(vector<Vertices*>&, vector<Triangle3D*>&, Vector3d&, string);
 
 bool linePlaneIntersect(Vector3d, Vector3d, Vector3d, Vector3d, Vector3d&);
 
-double areaPolygon3D(vector<Vertics>&, Vector3d);
+double areaPolygon3D(vector<Vertices>&, Vector3d);
 
 double intersectingPolygon(
-vector<Vertics>&, vector<Vertics>&, vector<Region*>&, vector<elementList>&, Vector3d, Vector3d, string);
+vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<elementList>&, Vector3d, Vector3d, string);

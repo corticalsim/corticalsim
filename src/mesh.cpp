@@ -1,4 +1,7 @@
-#include "meshImport.h"
+#include "mesh.hpp"
+#include "geometry.hpp"
+#include "region.hpp"
+#include "system.hpp"
 
 // initialize edge
 void iniEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
@@ -178,7 +181,7 @@ void pickup_shape(Geometry* g)
     double sizeFactor(g->system->p.geometryScaleFactor);
 
     // global vertex list
-    vector<Vertics*> Gvertex;
+    vector<Vertices*> Gvertex;
 
     // all triangle elemet list
     vector<Triangle3D*> element3D;
@@ -201,24 +204,24 @@ void pickup_shape(Geometry* g)
 
     if (inFile == "cubeReal")
     {
-        Gvertex.push_back(new Vertics(0.5 * sizeFactor, 0.5 * sizeFactor, 1.0 * sizeFactor)); // 0
-        Gvertex.push_back(new Vertics(0.5 * sizeFactor, 0.5 * sizeFactor, 0.0));              // 1
+        Gvertex.push_back(new Vertices(0.5 * sizeFactor, 0.5 * sizeFactor, 1.0 * sizeFactor)); // 0
+        Gvertex.push_back(new Vertices(0.5 * sizeFactor, 0.5 * sizeFactor, 0.0));              // 1
 
-        Gvertex.push_back(new Vertics(0.5 * sizeFactor, 0.0, 0.5 * sizeFactor));              // 2
-        Gvertex.push_back(new Vertics(0.5 * sizeFactor, 1.0 * sizeFactor, 0.5 * sizeFactor)); // 3
+        Gvertex.push_back(new Vertices(0.5 * sizeFactor, 0.0, 0.5 * sizeFactor));              // 2
+        Gvertex.push_back(new Vertices(0.5 * sizeFactor, 1.0 * sizeFactor, 0.5 * sizeFactor)); // 3
 
-        Gvertex.push_back(new Vertics(1.0 * sizeFactor, 0.5 * sizeFactor, 0.5 * sizeFactor)); // 4
-        Gvertex.push_back(new Vertics(0.0, 0.5 * sizeFactor, 0.5 * sizeFactor));              // 5
+        Gvertex.push_back(new Vertices(1.0 * sizeFactor, 0.5 * sizeFactor, 0.5 * sizeFactor)); // 4
+        Gvertex.push_back(new Vertices(0.0, 0.5 * sizeFactor, 0.5 * sizeFactor));              // 5
 
-        Gvertex.push_back(new Vertics(0.0, 0.0, 1.0 * sizeFactor));                           // 6
-        Gvertex.push_back(new Vertics(1.0 * sizeFactor, 0.0, 1.0 * sizeFactor));              // 7
-        Gvertex.push_back(new Vertics(1.0 * sizeFactor, 1.0 * sizeFactor, 1.0 * sizeFactor)); // 8
-        Gvertex.push_back(new Vertics(0.0, 1.0 * sizeFactor, 1.0 * sizeFactor));              // 9
+        Gvertex.push_back(new Vertices(0.0, 0.0, 1.0 * sizeFactor));                           // 6
+        Gvertex.push_back(new Vertices(1.0 * sizeFactor, 0.0, 1.0 * sizeFactor));              // 7
+        Gvertex.push_back(new Vertices(1.0 * sizeFactor, 1.0 * sizeFactor, 1.0 * sizeFactor)); // 8
+        Gvertex.push_back(new Vertices(0.0, 1.0 * sizeFactor, 1.0 * sizeFactor));              // 9
 
-        Gvertex.push_back(new Vertics(0.0, 0.0, 0.0));                           // 10
-        Gvertex.push_back(new Vertics(1.0 * sizeFactor, 0.0, 0.0));              // 11
-        Gvertex.push_back(new Vertics(1.0 * sizeFactor, 1.0 * sizeFactor, 0.0)); // 12
-        Gvertex.push_back(new Vertics(0.0, 1.0 * sizeFactor, 0.0));              // 13
+        Gvertex.push_back(new Vertices(0.0, 0.0, 0.0));                           // 10
+        Gvertex.push_back(new Vertices(1.0 * sizeFactor, 0.0, 0.0));              // 11
+        Gvertex.push_back(new Vertices(1.0 * sizeFactor, 1.0 * sizeFactor, 0.0)); // 12
+        Gvertex.push_back(new Vertices(0.0, 1.0 * sizeFactor, 0.0));              // 13
 
         // top-face
         /// 1st
@@ -402,12 +405,12 @@ void pickup_shape(Geometry* g)
 
     else if (inFile == "2D-plane")
     {
-        Gvertex.push_back(new Vertics(0.0, 0.0, 0.0));
-        Gvertex.push_back(new Vertics(0.0, 1.0 * sizeFactor, 0.0));
-        Gvertex.push_back(new Vertics(1.0 * sizeFactor, 1.0 * sizeFactor, 0.0));
-        Gvertex.push_back(new Vertics(1.0 * sizeFactor, 0.0, 0.0));
-        Gvertex.push_back(new Vertics(0.5 * sizeFactor, 0.5 * sizeFactor, 0.0));
-        Gvertex.push_back(new Vertics(0.5 * sizeFactor, 0.5 * sizeFactor, -1.0));
+        Gvertex.push_back(new Vertices(0.0, 0.0, 0.0));
+        Gvertex.push_back(new Vertices(0.0, 1.0 * sizeFactor, 0.0));
+        Gvertex.push_back(new Vertices(1.0 * sizeFactor, 1.0 * sizeFactor, 0.0));
+        Gvertex.push_back(new Vertices(1.0 * sizeFactor, 0.0, 0.0));
+        Gvertex.push_back(new Vertices(0.5 * sizeFactor, 0.5 * sizeFactor, 0.0));
+        Gvertex.push_back(new Vertices(0.5 * sizeFactor, 0.5 * sizeFactor, -1.0));
 
         element3D.push_back(new Triangle3D());
         element3D[0]->vertexIds[0] = 0;
@@ -465,7 +468,7 @@ void pickup_shape(Geometry* g)
         for (int i = 0; i < vmax; i++)
         {
             fp >> x >> y >> z;
-            Gvertex.push_back(new Vertics(0.0, 0.0, 0.0));
+            Gvertex.push_back(new Vertices(0.0, 0.0, 0.0));
 
             // scale the mesh, if asked
             Gvertex[i]->x = x * sizeFactor;
@@ -664,7 +667,7 @@ void pickup_shape(Geometry* g)
     // (a)  global vertex to be used to create PPB
     for (size_t i = 0; i < Gvertex.size(); i++)
     {
-        g->globalVertex.push_back(Vertics(0.0, 0.0, 0.0));
+        g->globalVertex.push_back(Vertices(0.0, 0.0, 0.0));
         g->globalVertex[i].x = Gvertex[i]->x;
         g->globalVertex[i].y = Gvertex[i]->y;
         g->globalVertex[i].z = Gvertex[i]->z;
@@ -790,10 +793,10 @@ void makeGraph(int Gvertex, vector<elementList*>& eList, vector<Triangle3D*>& el
     return;
 }
 
-void orientSurface(vector<Vertics*>& Gvertex, vector<Triangle3D*>& element3D, vector<Triangle3D*>& viewTriangle)
+void orientSurface(vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, vector<Triangle3D*>& viewTriangle)
 {
     // orient surface normals
-    void correctOrientation(vector<Vertics*>&, Triangle3D*&, Triangle3D*&, int, int, int&);
+    void correctOrientation(vector<Vertices*>&, Triangle3D*&, Triangle3D*&, int, int, int&);
 
     vector<Triangle3D*> TriangleAlive;
     TriangleAlive.push_back(element3D[0]);
@@ -831,7 +834,7 @@ void orientSurface(vector<Vertics*>& Gvertex, vector<Triangle3D*>& element3D, ve
 }
 
 void correctOrientation(
-vector<Vertics*>& Gvertex, Triangle3D*& nextTriangle, Triangle3D*& neighTriangle, int n1, int n2, int& flip)
+vector<Vertices*>& Gvertex, Triangle3D*& nextTriangle, Triangle3D*& neighTriangle, int n1, int n2, int& flip)
 {
     if (nextTriangle->side[n1].orientation == neighTriangle->side[n2].orientation)
     {
@@ -897,7 +900,7 @@ bool checkEular(int F, int V, int E)
 }
 
 void rigidBodyProperties(
-vector<Vertics*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector3d& pax, Vector3d& pbx, Vector3d& pcx)
+vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector3d& pax, Vector3d& pbx, Vector3d& pcx)
 {
     // rigidBodyProperties
     vector<Vector3d> xRow1, yRow1, zRow1, xRow2, yRow2, zRow2, xRow3, yRow3, zRow3;
@@ -1119,7 +1122,7 @@ vector<Vertics*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector3
     }
 }
 
-void edgeDescriptors(vector<Vertics*>& Gvertex, vector<elementList*>& eList, vector<Triangle3D*>& element3D)
+void edgeDescriptors(vector<Vertices*>& Gvertex, vector<elementList*>& eList, vector<Triangle3D*>& element3D)
 {
     // edge descriptors
 
@@ -1195,7 +1198,7 @@ void edgeDescriptors(vector<Vertics*>& Gvertex, vector<elementList*>& eList, vec
     }
 }
 
-void connectWithGlobe(vector<Vertics*>& Gvertex, vector<Triangle3D*>& element3D)
+void connectWithGlobe(vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D)
 {
     // link the global coordinates to the triangles
     for (size_t eno = 0; eno < element3D.size(); eno++)
@@ -1273,20 +1276,20 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
             Quaternion<double> qA(
             0, element3D[eno]->Vertex[0](0, 0), element3D[eno]->Vertex[0](1, 0), element3D[eno]->Vertex[0](2, 0));
             qr = regions[eno]->Q * qA * regions[eno]->Q.inverse();
-            regions[eno]->Vertics[0](0, 0) = qr.x();
-            regions[eno]->Vertics[0](1, 0) = qr.y();
+            regions[eno]->vertices[0](0, 0) = qr.x();
+            regions[eno]->vertices[0](1, 0) = qr.y();
 
             Quaternion<double> qB(
             0, element3D[eno]->Vertex[1](0, 0), element3D[eno]->Vertex[1](1, 0), element3D[eno]->Vertex[1](2, 0));
             qr = regions[eno]->Q * qB * regions[eno]->Q.inverse();
-            regions[eno]->Vertics[1](0, 0) = qr.x();
-            regions[eno]->Vertics[1](1, 0) = qr.y();
+            regions[eno]->vertices[1](0, 0) = qr.x();
+            regions[eno]->vertices[1](1, 0) = qr.y();
 
             Quaternion<double> qC(
             0, element3D[eno]->Vertex[2](0, 0), element3D[eno]->Vertex[2](1, 0), element3D[eno]->Vertex[2](2, 0));
             qr = regions[eno]->Q * qC * regions[eno]->Q.inverse();
-            regions[eno]->Vertics[2](0, 0) = qr.x();
-            regions[eno]->Vertics[2](1, 0) = qr.y();
+            regions[eno]->vertices[2](0, 0) = qr.x();
+            regions[eno]->vertices[2](1, 0) = qr.y();
 
             // rotate the triangle normal it self (to check the rotation accuracy: should be parallel to z-axis )
             Quaternion<double> nC(
@@ -1303,12 +1306,12 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
             regions[eno]->Q.y() = 0.0;
             regions[eno]->Q.z() = 0.0;
 
-            regions[eno]->Vertics[0](0, 0) = element3D[eno]->Vertex[0](0, 0);
-            regions[eno]->Vertics[0](1, 0) = element3D[eno]->Vertex[0](1, 0);
-            regions[eno]->Vertics[1](0, 0) = element3D[eno]->Vertex[1](0, 0);
-            regions[eno]->Vertics[1](1, 0) = element3D[eno]->Vertex[1](1, 0);
-            regions[eno]->Vertics[2](0, 0) = element3D[eno]->Vertex[2](0, 0);
-            regions[eno]->Vertics[2](1, 0) = element3D[eno]->Vertex[2](1, 0);
+            regions[eno]->vertices[0](0, 0) = element3D[eno]->Vertex[0](0, 0);
+            regions[eno]->vertices[0](1, 0) = element3D[eno]->Vertex[0](1, 0);
+            regions[eno]->vertices[1](0, 0) = element3D[eno]->Vertex[1](0, 0);
+            regions[eno]->vertices[1](1, 0) = element3D[eno]->Vertex[1](1, 0);
+            regions[eno]->vertices[2](0, 0) = element3D[eno]->Vertex[2](0, 0);
+            regions[eno]->vertices[2](1, 0) = element3D[eno]->Vertex[2](1, 0);
 
             regions[eno]->zOffset = element3D[eno]->midPoint(2, 0);
             nz = element3D[eno]->givenNormal;
@@ -1325,10 +1328,11 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
         }
 
         // change the local coordinate frame to the Center of Mass frame
-        regions[eno]->midPoint = (regions[eno]->Vertics[0] + regions[eno]->Vertics[1] + regions[eno]->Vertics[2]) / 3.0;
+        regions[eno]->midPoint
+        = (regions[eno]->vertices[0] + regions[eno]->vertices[1] + regions[eno]->vertices[2]) / 3.0;
         for (size_t i = 0; i < 3; i++)
         {
-            regions[eno]->Vertics[i] -= regions[eno]->midPoint;
+            regions[eno]->vertices[i] -= regions[eno]->midPoint;
         }
 
         // assign the necessary components from 3d-triangle to 2d-triangle
@@ -1369,18 +1373,18 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
 
             v1 = regions[eno]->side[j].dir[0];
             v2 = regions[eno]->side[j].dir[1];
-            regions[eno]->side[j].midPoint = (regions[eno]->Vertics[v1] + regions[eno]->Vertics[v2]) / 2.0;
+            regions[eno]->side[j].midPoint = (regions[eno]->vertices[v1] + regions[eno]->vertices[v2]) / 2.0;
 
             v0 = regions[eno]->side[j].excludePointMap[regions[eno]->side[j].excludePoint];
 
-            A1 << (regions[eno]->Vertics[v1](0, 0) - regions[eno]->Vertics[v0](0, 0)),
-            (regions[eno]->Vertics[v2](0, 0) - regions[eno]->Vertics[v0](0, 0)),
-            (regions[eno]->Vertics[v1](1, 0) - regions[eno]->Vertics[v0](1, 0)),
-            (regions[eno]->Vertics[v2](1, 0) - regions[eno]->Vertics[v0](1, 0));
+            A1 << (regions[eno]->vertices[v1](0, 0) - regions[eno]->vertices[v0](0, 0)),
+            (regions[eno]->vertices[v2](0, 0) - regions[eno]->vertices[v0](0, 0)),
+            (regions[eno]->vertices[v1](1, 0) - regions[eno]->vertices[v0](1, 0)),
+            (regions[eno]->vertices[v2](1, 0) - regions[eno]->vertices[v0](1, 0));
 
-            b1 << regions[eno]->Vertics[v0](0, 0), regions[eno]->Vertics[v0](1, 0);
+            b1 << regions[eno]->vertices[v0](0, 0), regions[eno]->vertices[v0](1, 0);
 
-            Vector2d AB = regions[eno]->Vertics[v1] - regions[eno]->Vertics[v2];
+            Vector2d AB = regions[eno]->vertices[v1] - regions[eno]->vertices[v2];
             AB /= AB.norm();
 
             regions[eno]->side[j].dir2D = AB;
@@ -1389,12 +1393,12 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
 
             v0 = regions[ceno]->side[cesd].excludePointMap[regions[ceno]->side[cesd].excludePoint];
 
-            A2 << (regions[ceno]->Vertics[v1](0, 0) - regions[ceno]->Vertics[v0](0, 0)),
-            (regions[ceno]->Vertics[v2](0, 0) - regions[ceno]->Vertics[v0](0, 0)),
-            (regions[ceno]->Vertics[v1](1, 0) - regions[ceno]->Vertics[v0](1, 0)),
-            (regions[ceno]->Vertics[v2](1, 0) - regions[ceno]->Vertics[v0](1, 0));
+            A2 << (regions[ceno]->vertices[v1](0, 0) - regions[ceno]->vertices[v0](0, 0)),
+            (regions[ceno]->vertices[v2](0, 0) - regions[ceno]->vertices[v0](0, 0)),
+            (regions[ceno]->vertices[v1](1, 0) - regions[ceno]->vertices[v0](1, 0)),
+            (regions[ceno]->vertices[v2](1, 0) - regions[ceno]->vertices[v0](1, 0));
 
-            b2 << regions[ceno]->Vertics[v0](0, 0), regions[ceno]->Vertics[v0](1, 0);
+            b2 << regions[ceno]->vertices[v0](0, 0), regions[ceno]->vertices[v0](1, 0);
 
             regions[eno]->side[j].A = A2 * A1.inverse();
             regions[eno]->side[j].b = b2 - regions[eno]->side[j].A * b1;
@@ -1410,7 +1414,7 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
                 exit(-1);
             }
 
-            Vector2d BA = regions[ceno]->Vertics[v1] - regions[ceno]->Vertics[v2];
+            Vector2d BA = regions[ceno]->vertices[v1] - regions[ceno]->vertices[v2];
             BA /= BA.norm();
 
             Vector3d s1(AB(0, 0), AB(1, 0), 0.0), s2(BA(0, 0), BA(1, 0), 0.0), ts(0.0, 0.0, 0.0);
@@ -1509,7 +1513,7 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
     }
 }
 
-void viewGraph(vector<Vertics*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& centroid, string outputDir)
+void viewGraph(vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& centroid, string outputDir)
 {
     string filename1(outputDir + "/ViewMeshDefault.off");
     string filename2(outputDir + "/ViewMeshFaceTag.dat");
@@ -1566,10 +1570,10 @@ bool linePlaneIntersect(Vector3d n, Vector3d p, Vector3d a, Vector3d b, Vector3d
     return (intersect);
 }
 
-double areaPolygon3D(vector<Vertics>& V, Vector3d N)
+double areaPolygon3D(vector<Vertices>& V, Vector3d N)
 {
     int n = V.size();
-    V.push_back(Vertics(V[0].x, V[0].y, V[0].z));
+    V.push_back(Vertices(V[0].x, V[0].y, V[0].z));
 
     float area = 0;
     float an, ax, ay, az;
@@ -1654,8 +1658,8 @@ double areaPolygon3D(vector<Vertics>& V, Vector3d N)
     return fabs(area);
 }
 
-double intersectingPolygon(vector<Vertics>& polygon,
-                           vector<Vertics>& Gvertex,
+double intersectingPolygon(vector<Vertices>& polygon,
+                           vector<Vertices>& Gvertex,
                            vector<Region*>& regions,
                            vector<elementList>& eList,
                            Vector3d np,
@@ -1747,7 +1751,7 @@ double intersectingPolygon(vector<Vertics>& polygon,
         {
             int edg = polygonEdg[i];
             Vector3d pv = eList[edg].intersectionByPlane;
-            polygon.push_back(Vertics(pv(0, 0), pv(1, 0), pv(2, 0)));
+            polygon.push_back(Vertices(pv(0, 0), pv(1, 0), pv(2, 0)));
         }
 
         // polygon area
@@ -1779,7 +1783,7 @@ vector<string> split(string str, char delimiter)
 }
 
 /// PBC for 2D-plane and disc
-void establishPBC(vector<Vertics*>& vertices,
+void establishPBC(vector<Vertices*>& vertices,
                   vector<Triangle3D*>& triangles,
                   vector<Triangle3D*>& viewTriangles,
                   vector<elementList*>& eList,
@@ -1844,7 +1848,7 @@ void establishPBC(vector<Vertics*>& vertices,
         = (vertices[eList[edgeInBoundary[i]]->nodes[0]]->z + vertices[eList[edgeInBoundary[i]]->nodes[1]]->z) / 2.0;
 
         Vector3d vm(xm, ym, zm);
-        vertices.push_back(new Vertics(vm(0, 0), vm(1, 0), vm(2, 0)));
+        vertices.push_back(new Vertices(vm(0, 0), vm(1, 0), vm(2, 0)));
     }
 
     vector<double> edgePositionBoundary;

@@ -1,5 +1,232 @@
-#include "corticalSimReal.h"
-#include "meshImport.h"
+#include "mesh.hpp"
+#include "geometry.hpp"
+#include "trajectory.hpp"
+#include "region.hpp"
+#include "system.hpp"
+
+void Geometry::callTranslator(SurfaceVector& sVec, int regionIndex, int regionIndexNeigh)
+{
+    int Index1(regions[regionIndex]->sideRevMap[regionIndexNeigh]);
+
+    // use affine transformation of triangle to map a point from one region to other region
+    Vector2d V1(sVec.x, sVec.y), V2;
+    V2 = regions[regionIndex]->side[Index1].A * V1 + regions[regionIndex]->side[Index1].b;
+    sVec.x = V2(0, 0);
+    sVec.y = V2(1, 0);
+
+    sVec.angle += regions[regionIndex]->side[Index1].xyRotationAngle;
+
+    return;
+}
+
+TrajectoryVector Geometry::createTrajectory(const SurfaceVector& sVec)
+{
+    // create a new trajectory with give trajectory vector
+    return sVec.region->insertTrajectory(sVec);
+}
+
+TrajectoryVector Geometry::createAndLinkTrajectory(
+const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAngle, double pCat)
+{
+    // first create a new trajectory vector (trajectory)
+    TrajectoryVector tVec = createTrajectory(newBase);
+
+    // declare a dummy trajectory vector
+    TrajectoryVector thisVec;
+
+    // copy old trajectory vector
+    thisVec.trajectory = oldtr;
+
+    // old trajectory vector has direction forward, set the new trajectory vector as next
+    if (olddir == ::forward)
+    {
+        oldtr->nextTr = tVec;
+        oldtr->nextTrCosAngle = cosAngle;
+        oldtr->nextTrpCat = pCat;
+
+        // get the direction and position of the dummy trajectory vector
+        thisVec.dir = backward;
+        thisVec.pos = oldtr->length;
+    }
+
+    // old trajectory vector has direction backward, set the new trajectory vector as previous
+    else
+    {
+        oldtr->prevTr = tVec;
+        oldtr->prevTrCosAngle = cosAngle;
+        oldtr->prevTrpCat = pCat;
+
+        // get the direction and position of the dummy trajectory vector
+        thisVec.dir = ::forward;
+        thisVec.pos = 0;
+    }
+
+    // new trajectory vector has direction forward, set the dummy trajectory vector as previous
+    if (tVec.dir == ::forward)
+    {
+        tVec.trajectory->prevTr = thisVec;
+        tVec.trajectory->prevTrCosAngle = cosAngle;
+        tVec.trajectory->prevTrpCat = pCat;
+    }
+
+    // new trajectory vector has direction backward, set the dummy trajectory vector as next
+    else
+    {
+        tVec.trajectory->nextTr = thisVec;
+        tVec.trajectory->nextTrCosAngle = cosAngle;
+        tVec.trajectory->nextTrpCat = pCat;
+    }
+
+    return tVec;
+}
+
+SurfaceVector Geometry::randomSurfaceVector()
+{
+    int regionSelector{0};
+    double rArea{0.0};
+    int domainType{0};
+
+    if (regions.size() > 1)
+    {
+        // nucleation on PPB
+        if (system->p.PPBkNucFraction > 0)
+        {
+            double randGen = system->randomGen.rand();
+            domainType = (randGen < system->p.PPBkNucFraction) ? 1 : 2;
+        }
+
+        // nucleation outside PPB
+        else
+        {
+            domainType = 0;
+        }
+
+        // select a region
+        rArea = system->randomGen.randDblExc(patchArea[domainType]);
+
+        if (rArea < 0.5 * patchArea[domainType])
+        {
+            regionSelector = 0;
+            while (rArea > regions[RegionsIndex[domainType][regionSelector]]->area)
+            {
+                rArea -= regions[RegionsIndex[domainType][regionSelector++]]->area;
+
+#ifdef DBG_ACID_TEST
+                if (regionSelector == regions.size())
+                {
+                    cerr << "DBG/ASSERT: ERROR: Ran out of surfaces for random surface vector creation.\n";
+                    exit(-1);
+                }
+#endif
+            }
+        }
+
+        else
+        {
+            regionSelector = RegionsIndex[domainType].size() - 1;
+            rArea = patchArea[domainType] - rArea;
+            while (rArea > regions[RegionsIndex[domainType][regionSelector]]->area)
+            {
+                rArea -= regions[RegionsIndex[domainType][regionSelector--]]->area;
+
+#ifdef DBG_ACID_TEST
+                if (regionSelector == -1)
+                {
+                    cerr << "DBG/ASSERT: ERROR: Ran out of surfaces for random surface vector creation.\n";
+                    exit(-1);
+                }
+#endif
+            }
+        }
+    }
+
+    return regions[RegionsIndex[domainType][regionSelector]]->randomSurfaceVector();
+}
+
+bool Geometry::integrityCheck()
+{
+    bool valid(true);
+    int plusGrowCount(0);
+    int plusShrinkCount(0);
+    int minusCount(0);
+    Trajectory* tptr(NULL);
+
+    for (size_t ridx = 0; ridx < regions.size(); ridx++)
+    {
+        plusGrowCount += regions[ridx]->growingPlusTipList.size();
+        plusShrinkCount += regions[ridx]->shrinkingPlusTipList.size();
+        minusCount += regions[ridx]->minusTipList.size();
+        tptr = regions[ridx]->trajectories.first();
+        while (tptr != NULL)
+        {
+            if (!tptr->integrityCheck())
+            {
+                valid = false;
+            }
+
+            tptr = tptr->next();
+        }
+    }
+
+    if (minusCount != plusGrowCount + plusShrinkCount)
+    {
+        cerr << "Integrity check failed: unequal number of plus and minus ends registered on regions\n";
+        valid = false;
+    }
+
+    if (plusGrowCount != system->growing_mts.size())
+    {
+        cerr << "Integrity check failed: number of registered growing tips does not equal the number of growing "
+                "microtubules.\n";
+        valid = false;
+    }
+
+    if (plusShrinkCount != system->shrinking_mts.size())
+    {
+        cerr << "Integrity check failed: number of registered shrinking tips does not equal the number of shrinking "
+                "microtubules.\n";
+        valid = false;
+    }
+
+    int totalPlusGrowCount(0);
+    for (int dTag = 0; dTag <= system->p.faceNumber; dTag++)
+    {
+        totalPlusGrowCount += system->growingTipsReg[dTag];
+    }
+
+    if (plusGrowCount != totalPlusGrowCount)
+    {
+        cerr << "Integrity check failed: number of growing tips does not equal cached values\n";
+        valid = false;
+    }
+
+    return valid;
+}
+
+double Geometry::opticalLength()
+{
+    double sum(0.0);
+
+    // calculate total optical length present in the geometry
+    for (size_t ridx = 0; ridx < regions.size(); ridx++)
+    {
+        sum += regions[ridx]->opticalLength();
+    }
+    return sum;
+}
+
+int Geometry::trajectoryCount()
+{
+    int sum(0);
+
+    // calculate total number of trajectory present in the geometry
+    for (size_t ridx = 0; ridx < regions.size(); ridx++)
+    {
+        sum += regions[ridx]->trajectories.size();
+    }
+
+    return sum;
+}
 
 TriMeshGeometry::TriMeshGeometry(System* s):
     Geometry(s, 0.0)
@@ -582,8 +809,8 @@ SurfaceVector Triangle::randomSurfaceVector()
     double sqr1 = sqrt(r1);
 
     // generate uniformly and isotropically distributed nucleation points on each triangle
-    v.x = (1 - sqr1) * Vertics[0](0, 0) + (sqr1 * (1 - r2)) * Vertics[1](0, 0) + (sqr1 * r2) * Vertics[2](0, 0);
-    v.y = (1 - sqr1) * Vertics[0](1, 0) + (sqr1 * (1 - r2)) * Vertics[1](1, 0) + (sqr1 * r2) * Vertics[2](1, 0);
+    v.x = (1 - sqr1) * vertices[0](0, 0) + (sqr1 * (1 - r2)) * vertices[1](0, 0) + (sqr1 * r2) * vertices[2](0, 0);
+    v.y = (1 - sqr1) * vertices[0](1, 0) + (sqr1 * (1 - r2)) * vertices[1](1, 0) + (sqr1 * r2) * vertices[2](1, 0);
 
     // make the unifor distribution also isotropic
     v.angle = s->randomGen.randExc(2 * PI);
@@ -650,10 +877,10 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
         }
 
         Vector2d u1;
-        u1 = Vertics[side[i].dir[0]];
+        u1 = vertices[side[i].dir[0]];
 
         Vector2d u2;
-        u2 = Vertics[side[i].dir[1]];
+        u2 = vertices[side[i].dir[1]];
 
         Vector2d u;
         u = u2 - u1;

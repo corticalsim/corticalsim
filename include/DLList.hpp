@@ -1,7 +1,9 @@
 #ifndef DLLIST_H_
 #define DLLIST_H_
+
 #include <boost/pool/singleton_pool.hpp>
 #include <new>
+#include "types.hpp"
 
 using namespace std;
 
