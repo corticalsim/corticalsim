@@ -2,6 +2,7 @@
 #define DETERMINISTIC_QUEUE
 
 #include "types.hpp"
+#include "parameters.hpp"
 
 class DeterministicQueue
 //'Smart' queue object that contains logic to transform to and from the system

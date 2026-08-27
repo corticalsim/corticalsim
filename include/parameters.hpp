@@ -3,6 +3,36 @@
 
 #include "types.hpp"
 
+// numeric parameters
+const double PI = 3.141592653589793;
+const double ZERO_CUTOFF = 1000000 * numeric_limits<double>::epsilon(); // approx 10E-10;//
+const double VERY_LARGE = 10E100;
+const int MAXBINOM = 100;
+
+// memory management
+const int MICROTUBULE_GRANULARITY = 256;
+const int SEGMENT_GRANULARITY = 1024;
+const int TRAJECTORY_GRANULARITY = 512;
+const int INTERSECTION_GRANULARITY = 4096;
+const int EVENT_GRANULARITY = 1024;
+const int OCCUPIED_INTERSECTION_GRANULARITY = 256;
+
+// maximum size of measurement cache (increase to minimize disk access)
+const int MAX_HISTORY_SIZE = 256;
+
+// minimum size of measurement cache (minimum may be needed for trending)
+const int MIN_HISTORY_SIZE = 64;
+
+const int POSITION_CACHE_SIZE = 32768;
+const int CLOCK_POLLING_INTERVAL = 10000;
+const int MEMORY_POLLING_INTERVAL = 200;
+
+// this is related to the total number of events
+const int QUEUE_FLUSH_INTERVAL = 1000000;
+
+// used to create bins for biased nucleation
+const int NUCLEATION_DISCRETIZATION_STEPS = 512;
+
 class Parameters
 {
   public:
