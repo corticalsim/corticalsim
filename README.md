@@ -2,7 +2,7 @@
 
 ![alt text](doc/assets/logo/logomodelCMT-1.0.png)
 
-This is a program for simulating cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cells
+CorticalSim is a simulator for cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cells.
 
 Application:
 
@@ -20,11 +20,29 @@ NOTE: You need a compiler that supports the C++ 14 standard as a minimum.
 
 ## Install the dependencies
 
-`corticalsim3D` depends on Eigen and Boost (however, the latter will be dropped soon). In addition, you will need [Meson](https://mesonbuild.com/index.html) to build the executables, as well as a fairly recent C++ compiler (GCC or Clang) supporting the C++ 14 standard. The following instructions outline the process of installing the dependencies on different platforms, as well as compiling and installing the `corticalsim3D` package itself.
+Currently, `corticalsim3D` depends on Eigen and Boost (the latter is going to be removed as a dependency at some point). These dependencies are managed automatically by [Meson](https://mesonbuild.com/index.html), which is also used to build the executables. You do need to install a fairly recent C++ compiler (GCC or Clang) supporting the C++ 14 standard. The following instructions outline the process of installing the core dependencies on different platforms, as well as compiling and installing `corticalsim3D` itself.
+
+### Linux
+
+The dependencies are handled by Meson, so the only packages that you need to install manually are GCC, Meson, Ninja and CMake.
+
+#### Ubuntu
+
+```bash
+sudo apt update && apt upgrade && apt install gcc meson ninja-build cmake
+```
+
+#### Arch
+
+```bash
+sudo pacman -Sy gcc meson ninja cmake
+```
 
 ### Windows
 
-Most dependencies need to be installed manually on Windows.
+1. Meson
+
+    Use the official [Meson MSI installer for Windows](https://github.com/mesonbuild/meson/releases). The installer also bundles the Ninja dependency, so you don't have to install that separately.
 
 1. GCC
 
@@ -33,73 +51,92 @@ Most dependencies need to be installed manually on Windows.
     1. Copy the `MinGw` folder to `C:\`
     1. Add `C:\MinGW` and `C:\MinGW\bin` to the system path
 
-1. Eigen
+## Compilation
 
-    1. Download [Eigen](https://libeigen.gitlab.io/)
-    1. Extract `eigen-3.4.0` folder and rename it to `Eigen`
-    1. Copy the `Eigen` folder to `C:\Program Files`
-
-1. Boost
-
-    Download and install [Boost](https://www.boost.org/releases/latest/).
-
-    <span style="color: red;">NOTE</span>: The Boost dependency will be deprecated and removed soon.
-
-1. Meson
-
-    Use the official [Meson installer for Windows](https://github.com/mesonbuild/meson/releases). The installer also bundles the Ninja dependency, so you don't have to install that separately.
-
-### Linux
-
-Please use your package manager to install all the dependencies. Most Linux distributions provide packages for GCC, Meson, Ninja, Boost and Eigen.
-
-Instructions for Ubuntu (*to be confirmed, may be incomplete*):
+First, clone the `corticalsim3D` repository:
 
 ```bash
-sudo apt update && apt upgrade
-sudo apt install gcc libboost-filesystem-dev libeigen3-dev meson ninja-build cmake
+git clone https://github.com/corticalsim/corticalsim3D
+cd corticalsim3D
 ```
 
-## Compile
+### Build script
 
-1. First, clone the `corticalsim3D` repository:
+You can use the build script located under the `scripts` directory:
 
-    ```bash
-    git clone https://github.com/NLeSC/corticalsim3D
-    ```
+```bash
+cd scripts
+./build.sh
+```
 
-    NOTE: It is recommended that you do **_not_** enter the `corticalsim3D` directory. The next steps assume an out-of-source build setup, meaning that the directory (where the package will be compiled) will be outside the source tree. This has several advantages, such as precluding the possibility of accidentally committing build artefacts to the repository.
+### Manual build
 
-1. Configure the build with `meson`:
+Alternatively, you can run all the setup and compilation steps manually by following the steps below:
 
-    ```bash
-    meson setup build corticalsim3D
-    ```
+1. From the root directory, first install the dependency wraps:
 
-    This command uses the Meson build system to bootstrap everything that we need for the compilation into a directory called `build` from the sources located in the `corticalsim3D` directory.
+```bash
+    meson wrap install eigen 5.0.1-1
+```
 
-1. Enter the build directory and compile the source:
+1. Run the setup to configure the build:
 
-    NOTE: The possible options for the `--buildtype` switch are `plain`, `debug`, `debugoptimized` and `release`. Please check the [Meson documentation page](https://mesonbuild.com/Running-Meson.html#configuring-the-build-directory) on configuring the build directory for information about the meaning of these options. We default to `release` here.
+```bash
+mkdir -p build/release
+meson setup build/release . --buildtype release"
+```
 
-    ```bash
-    meson compile -C build --buildtype release
-    ```
+This command uses the Meson build system to bootstrap everything that we need for the compilation into a directory called `build/release` from the sources located in the current directory.
 
-    This will generate an executable file called `corticalsim3d` in the current directory (`build`).
+NOTE: The possible options for the `--buildtype` switch are `plain`, `debug`, `debugoptimized` and `release`. Please check the [Meson documentation page](https://mesonbuild.com/Running-Meson.html#configuring-the-build-directory) on configuring the build directory for information about the meaning of these options. We default to `release` here.
 
-    NOTE: If you are using a very old Meson version (e.g., `<0.54.0`), you need to use `ninja` instead of `meson`, with a slightly different syntax:
+Different build types should go in their own directory, so if you would like to build corticalSim with debug symbols, first you should create a subdirectory for that build:
 
-    ```bash
-    ninja -C build corticalsim3d
-    ```
+```bash
+mkdir -p build/debug
+meson setup build/debug . --buildtype debug
+```
 
-    Here, `corticalsim3d` is lowercase as it refers to the target to be built, not the `corticalsim3D` directory.
+1. Compile the source by passing the relevant directory via the `-C` switch.
+
+```bash
+meson compile -C build/release
+```
+
+This will generate an executable file called `corticalsim3d` in the build directory (e.g., `build/release`).
+
+NOTE: If you are using a very old Meson version (e.g., `<0.54.0`), you need to use `ninja` instead of `meson`, with a slightly different syntax:
+
+```bash
+ninja -C build/release
+```
 
 ## Run
 
-Run the `corticalsim3d` executable with the `corticalsim3D/config/parameters_ARRAY.txt` parameter file as the first argument:
+Run the `corticalsim3d` executable from the build directory with the `./config/parameters_ARRAY.txt` parameter file as the first argument:
 
 ```bash
-./build/corticalsim3d ./corticalsim3D/config/parameters_ARRAY.txt
+./build/release/corticalsim3d ./config/parameters_ARRAY.txt
+```
+
+You should see the output of the run, with some statistics at the end. For instance, with a `debug` build:
+
+```bash
+...
+
+Division plane area: 72.097664
+corticalSim vBC.2018
+Total running time: 8 seconds.
+stochastic events: 1784, deterministic events: 56882.
+```
+
+Compare this with the `release` build:
+
+```bash
+...
+
+Division plane area: 72.097664
+corticalSim vBC.2018
+Total running time: 3 seconds.
+stochastic events: 1784, deterministic events: 56882.
 ```
