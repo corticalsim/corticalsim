@@ -62,7 +62,7 @@ echo ">>> Build directory: '$BUILD_DIR'"
 echo ">>> Running setup..."
 SETUP_CMD=$(echo "meson setup $BUILD_DIR $ROOT_DIR $SETUP_ARGS" | xargs)
 echo ">>> Setup command: '$SETUP_CMD'"
-# $SETUP_CMD
+$SETUP_CMD
 echo ">>> Running setup: done!"
 
 # Compilation
@@ -70,5 +70,5 @@ echo ">>> Running setup: done!"
 echo ">>> Compiling CorticalSim..."
 COMPILATION_CMD=$(echo "meson compile -C $BUILD_DIR $COMPILE_ARGS" | xargs)
 echo ">>> Compilation command: '$COMPILATION_CMD'"
-# $COMPILATION_CMD
+$COMPILATION_CMD
 echo ">>> Compiling CorticalSim: done!"
