@@ -10,10 +10,10 @@ subdir('src')
 
 # Dependencies
 # ============
-# Eigen is actually version 5, despite the name of the exposed dependency (eigen3).
+# Eigen
 eigen = dependency('eigen3')
 
-# Custom Boost dependency wraps.
+# Boost pool and its sub-dependencies.
 boost_throw_exception = dependency('boost-throw_exception')
 boost_assert = dependency('boost-assert')
 boost_integer = dependency('boost-integer')
