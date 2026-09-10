@@ -27,7 +27,7 @@ gtest = dependency('gtest')
 # Executable(s)
 # =============
 executable(
-  'corticalsim3d',
+  'corticalsim',
   sources,
   include_directories: incdir,
   dependencies: [
