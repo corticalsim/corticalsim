@@ -1,14 +1,18 @@
-# corticalsim3D (cortical microtubule dynamics)
+# CorticalSim
 
 ![alt text](doc/assets/logo/logomodelCMT-1.0.png)
 
 CorticalSim is a simulator for cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cells.
 
 Application:
-
-https://www.sciencedirect.com/science/article/pii/S0960982218309242
-
-https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005959
+If you use CorticalSim in publications, please include a citation to:
+- [for general use] http://dx.doi.org/10.3389/fphy.2014.00019 
+- [for microtubule dependent nucleation] http://dx.doi.org/10.1371/journal.pcbi.1013282 
+- [for microtubule dependent nucleation - old algorithm only (nuc_ellipse)] http://dx.doi.org/10.1088/1478-3975/8/5/056002
+- [for microtubule severing] http://dx.doi.org/10.1073/pnas.1702650114 
+- [for microtubule deflections] https://doi.org/10.1017/qpb.2024.17 
+- [] https://doi.org/10.1016/j.cub.2018.07.025
+- [] https://doi.org/10.1371/journal.pcbi.1005959
 
 ## Note
 
@@ -16,7 +20,7 @@ Testing and contributing is very welcome, especially if you can contribute with 
 
 # Installation
 
-Currently, `corticalsim3D` depends on Eigen and Boost (although the latter is planned for removal as a dependency). These dependencies are managed automatically by [Meson](https://mesonbuild.com/index.html), which is also used to build the executables. You do need a fairly recent C++ compiler (GCC or Clang) supporting the C++ 17 standard. The following instructions outline the process of installing the core dependencies on different platforms, as well as compiling and installing `corticalsim3D` itself.
+Currently, `corticalsim` depends on Eigen and Boost (although the latter is planned for removal as a dependency). These dependencies are managed automatically by [Meson](https://mesonbuild.com/index.html), which is also used to build the executables. You do need a fairly recent C++ compiler (GCC or Clang) supporting the C++ 17 standard. The following instructions outline the process of installing the core dependencies on different platforms, as well as compiling and installing `corticalsim` itself.
 
 ### Linux
 
@@ -52,11 +56,11 @@ You can now move on to the instructions on how to compile CorticalSim. Please no
 
 ## Compilation
 
-First, clone the `corticalsim3D` repository and enter the repository root:
+First, clone the `corticalsim` repository and enter the repository root:
 
 ```shell
-git clone https://github.com/corticalsim/corticalsim3D
-cd corticalsim3D
+git clone https://github.com/corticalsim/corticalsim
+cd corticalsim
 ```
 
 ### Build script
@@ -105,7 +109,7 @@ meson setup build/debug . --buildtype debug
 meson compile -C build/release
 ```
 
-This will generate an executable file called `corticalsim3d` in the build directory (e.g., `build/release`).
+This will generate an executable file called `corticalsim` in the build directory (e.g., `build/release`).
 
 NOTE: If you are using a very old Meson version (e.g., `<0.54.0`), you need to use `ninja` instead of `meson`, with a slightly different syntax:
 
@@ -115,13 +119,13 @@ ninja -C build/release
 
 ## Run
 
-Run the `corticalsim3d` executable from the build directory with the `./config/parameters_ARRAY.txt` parameter file as the first argument:
+Run the `corticalsim` executable from the build directory with the `./config/parameters_ARRAY.txt` parameter file as the first argument:
 
 ```shell
-./<path-to-build-directory>/corticalsim3d ./config/parameters_ARRAY.txt
+./<path-to-build-directory>/corticalsim ./config/parameters_ARRAY.txt
 ```
 
-NOTE: The parameter file has some hardwired path variables. As a result, currently you **must** run `corticalsim3d` from the repository root, regardless of where the build directory is located. This is relevant if you have used the [`--builddir` option](#build-script).
+NOTE: The parameter file has some hardwired path variables. As a result, currently you **must** run `corticalsim` from the repository root, regardless of where the build directory is located. This is relevant if you have used the [`--builddir` option](#build-script).
 
 If the program runs correctly, it should print some statistics about the run. For instance, with a `debug` build:
 
