@@ -4,15 +4,17 @@
 
 CorticalSim is a simulator for cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cells.
 
-Application:
-If you use CorticalSim in publications, please include a citation to:
-- [for general use] http://dx.doi.org/10.3389/fphy.2014.00019 
-- [for microtubule dependent nucleation] http://dx.doi.org/10.1371/journal.pcbi.1013282 
-- [for microtubule dependent nucleation - old algorithm only (nuc_ellipse)] http://dx.doi.org/10.1088/1478-3975/8/5/056002
-- [for microtubule severing] http://dx.doi.org/10.1073/pnas.1702650114 
-- [for microtubule deflections] https://doi.org/10.1017/qpb.2024.17 
-- [] https://doi.org/10.1016/j.cub.2018.07.025
-- [] https://doi.org/10.1371/journal.pcbi.1005959
+If you use CorticalSim please cite it as follows:
+> Chakrabortty, B., Deinum, E., Hadjiivanov, A., Camphuijsen, J., & Tindemans, S. CorticalSim [Computer software]
+
+For more information about CorticalSim and its use in various applications see the following publications:
+- for general use http://dx.doi.org/10.3389/fphy.2014.00019
+- for microtubule dependent nucleation http://dx.doi.org/10.1371/journal.pcbi.1013282
+- for microtubule dependent nucleation - old algorithm only (nuc_ellipse) http://dx.doi.org/10.1088/1478-3975/8/5/056002
+- for microtubule severing http://dx.doi.org/10.1073/pnas.1702650114
+- for microtubule deflections https://doi.org/10.1017/qpb.2024.17
+- for microtubules on triangulated geometries https://doi.org/10.1371/journal.pcbi.1005959
+- for microtubule based cell division orientation https://doi.org/10.1016/j.cub.2018.07.025
 
 ## Note
 

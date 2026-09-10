@@ -1,4 +1,4 @@
-# corticalsim3D development documentation
+# corticalsim development documentation
 
 
 ## Note

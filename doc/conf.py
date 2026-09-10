@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'CorticalSim3D'
+project = 'CorticalSim'
 copyright = '2017-%Y'
 author = 'Eva Deinum, Bandan Chakrabortty, Simon Tindemans, Jaro Camphuijsen, Alexander Hadjiivanov'
 release = ''
