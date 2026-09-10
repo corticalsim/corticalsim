@@ -3,6 +3,7 @@
 #include "trajectory.hpp"
 #include "region.hpp"
 #include "system.hpp"
+#include "mt_tip.hpp"
 
 void Geometry::callTranslator(SurfaceVector& sVec, int regionIndex, int regionIndexNeigh)
 {

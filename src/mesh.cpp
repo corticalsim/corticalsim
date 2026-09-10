@@ -2,6 +2,7 @@
 #include "geometry.hpp"
 #include "region.hpp"
 #include "system.hpp"
+#include "mt_tip.hpp"
 
 // initialize edge
 void iniEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)

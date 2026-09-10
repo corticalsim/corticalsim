@@ -9,6 +9,7 @@
 #include "measurement.hpp"
 #include "parameters.hpp"
 #include "microtubule.hpp"
+#include "mt_tip.hpp"
 
 class System
 // Master object defining an interacting mt system

@@ -1,6 +1,9 @@
 #ifndef SEGMENT_HPP
 #define SEGMENT_HPP
 
+#include "types.hpp"
+#include "trajectory.hpp"
+
 class Segment: public DLBaseItem<Segment>
 {
   public:

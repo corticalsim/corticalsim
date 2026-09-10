@@ -1,6 +1,7 @@
 #include "mesh.hpp"
 #include "region.hpp"
 #include "system.hpp"
+#include "mt_tip.hpp"
 
 void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
 {
