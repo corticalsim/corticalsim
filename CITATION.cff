@@ -2,20 +2,20 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: CorticalSim3D
+title: CorticalSim
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
 type: software
 authors:
-  - given-names: Bandan
-    family-names: Chakrabortty
-    affiliation: IISER Trivandrum
-    orcid: 'https://orcid.org/0000-0002-4797-5732'
   - given-names: Eva
     family-names: Deinum
     orcid: 'https://orcid.org/0000-0001-8564-200X'
     affiliation: Wageningen University and Research
+  - given-names: Bandan
+    family-names: Chakrabortty
+    affiliation: IISER Trivandrum
+    orcid: 'https://orcid.org/0000-0002-4797-5732'
   - given-names: Alexander
     family-names: Hadjiivanov
     affiliation: Netherlands eScience Center
