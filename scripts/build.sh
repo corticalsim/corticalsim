@@ -15,6 +15,9 @@ ROOT_DIR=$(dirname "$SCRIPT_DIR")
 # Possible values: "plain", "debug", "debugoptimized", "release"
 BUILD_TYPE="release"
 
+# Switch to clean the build.
+CLEAN_BUILD=false
+
 # Aguments passed to `meson setup`.
 SETUP_ARGS=""
 
@@ -42,15 +45,18 @@ for i in ${ARG[@]}; do
         "--buildtype")
             shift 1
             BUILD_TYPE="$1"
-            SETUP_ARGS="$SETUP_ARGS --buildtype=$BUILD_TYPE"
             ;;
 
         "--clean")
-            COMPILE_ARGS="$COMPILE_ARGS --clean"
+            CLEAN_BUILD=true
             ;;
     esac
     shift 1
 done
+
+# Set the build type
+echo ">>> Build type: '$BUILD_TYPE'"
+SETUP_ARGS="$SETUP_ARGS --buildtype=$BUILD_TYPE"
 
 # Create the build directory
 BUILD_DIR="$(readlink -m $BUILD_DIR)/$BUILD_TYPE"
@@ -68,6 +74,15 @@ echo ">>> Running setup: done!"
 # Compilation
 # ===========
 echo ">>> Compiling CorticalSim..."
+
+# Clean the build directory if requested
+if [ $CLEAN_BUILD==true ]; then
+    echo ">>> Cleaning the build directory..."
+    CLEAN_CMD="meson compile -C $BUILD_DIR --clean"
+    $CLEAN_CMD
+    echo ">>> Cleaning the build directory: done!"
+fi
+
 COMPILATION_CMD=$(echo "meson compile -C $BUILD_DIR $COMPILE_ARGS" | xargs)
 echo ">>> Compilation command: '$COMPILATION_CMD'"
 $COMPILATION_CMD
