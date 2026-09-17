@@ -11,14 +11,23 @@
 *.gch
 *.pch
 
+# Linker files
+*.ilk
+
+# Debugger Files
+*.pdb
+
 # Compiled Dynamic libraries
 *.so
 *.dylib
 *.dll
+*.so.*
 
-# Fortran module files
-*.mod
-*.smod
+# QtCreator files
+*.qtcreator
+
+# VSCode files
+*.vscode
 
 # Compiled Static libraries
 *.lai
@@ -30,3 +39,30 @@
 *.exe
 *.out
 *.app
+
+# Build directories
+build/
+Build/
+build-*/
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+*.swp
+
+# debug information files
+*.dwo
+
+# test output & cache
+Testing/
+.cache/
+
+# Output data
+**/outputData*
+
+# Documentation build files
+doc/_build
+
+# Python virtual environment for docs building
+.venv

@@ -1,0 +1,8 @@
+[wrap-git]
+url = https://github.com/boostorg/assert.git
+revision = boost-1.92.0
+depth = 1
+method = cmake
+
+[provide]
+boost-assert = boost_assert_dep

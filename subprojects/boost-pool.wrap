@@ -1,0 +1,9 @@
+[wrap-git]
+url = https://github.com/boostorg/pool.git
+revision = boost-1.92.0
+depth = 1
+clone-recursive = true
+method = cmake
+
+[provide]
+boost-pool = boost_pool_dep
