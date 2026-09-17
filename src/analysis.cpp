@@ -3,6 +3,7 @@
 #include "measurement.hpp"
 #include "geometry.hpp"
 #include "system.hpp"
+#include "linalg.hpp"
 
 ostream& operator<<(ostream& o, const Measurement m)
 {

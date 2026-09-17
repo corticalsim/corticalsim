@@ -3,6 +3,7 @@
 #include "region.hpp"
 #include "system.hpp"
 #include "mt_tip.hpp"
+#include "linalg.hpp"
 
 // initialize edge
 void iniEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
@@ -188,10 +189,10 @@ void pickup_shape(Geometry* g)
     vector<Triangle3D*> element3D;
 
     // centroid/principle-axis of the cell
-    Vector3d centroid(0.0, 0.0, 0.0);
-    Vector3d principleAxis(0.0, 0.0, 0.0);
-    Vector3d axB(0.0, 0.0, 0.0);
-    Vector3d axC(0.0, 0.0, 0.0);
+    Eigen::Vector3d centroid(0.0, 0.0, 0.0);
+    Eigen::Vector3d principleAxis(0.0, 0.0, 0.0);
+    Eigen::Vector3d axB(0.0, 0.0, 0.0);
+    Eigen::Vector3d axC(0.0, 0.0, 0.0);
 
     // list of triangle-edges to be detected
     vector<elementList*> eList;
@@ -900,11 +901,15 @@ bool checkEular(int F, int V, int E)
     return (graph);
 }
 
-void rigidBodyProperties(
-vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector3d& pax, Vector3d& pbx, Vector3d& pcx)
+void rigidBodyProperties(vector<Vertices*>& Gvertex,
+                         vector<Triangle3D*>& element3D,
+                         Eigen::Vector3d& cm,
+                         Eigen::Vector3d& pax,
+                         Eigen::Vector3d& pbx,
+                         Eigen::Vector3d& pcx)
 {
     // rigidBodyProperties
-    vector<Vector3d> xRow1, yRow1, zRow1, xRow2, yRow2, zRow2, xRow3, yRow3, zRow3;
+    vector<Eigen::Vector3d> xRow1, yRow1, zRow1, xRow2, yRow2, zRow2, xRow3, yRow3, zRow3;
     double x, y, z, x1, y1, z1, x2, y2, z2, x3, y3, z3;
     double x_2, y_2, z_2, xy, xz, yz;
     double x_3, y_3, z_3;
@@ -916,13 +921,13 @@ vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector
         x = Gvertex[element3D[eno]->side[0].orientation[1]]->x - Gvertex[element3D[eno]->side[0].orientation[0]]->x;
         y = Gvertex[element3D[eno]->side[0].orientation[1]]->y - Gvertex[element3D[eno]->side[0].orientation[0]]->y;
         z = Gvertex[element3D[eno]->side[0].orientation[1]]->z - Gvertex[element3D[eno]->side[0].orientation[0]]->z;
-        Vector3d RL(x, y, z);
+        Eigen::Vector3d RL(x, y, z);
 
         x = Gvertex[element3D[eno]->side[0].orientation[0]]->x - Gvertex[element3D[eno]->side[0].excludePoint]->x;
         y = Gvertex[element3D[eno]->side[0].orientation[0]]->y - Gvertex[element3D[eno]->side[0].excludePoint]->y;
         z = Gvertex[element3D[eno]->side[0].orientation[0]]->z - Gvertex[element3D[eno]->side[0].excludePoint]->z;
 
-        Vector3d RR(x, y, z);
+        Eigen::Vector3d RR(x, y, z);
 
         element3D[eno]->givenNormal = RR.cross(RL);
         ;
@@ -993,17 +998,17 @@ vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector
                - (y1 * z3 + y3 * z1 - 4.0 * y2 * z2) * x2 / 2.0 - (y1 * z2 + y2 * z1 - 4.0 * y3 * z3) * x3 / 2.0)
               / 60.0;
 
-        xRow1.push_back(Vector3d(x_2, 2 * xy, 2 * xz));
-        yRow1.push_back(Vector3d(2 * xy, y_2, 2 * yz));
-        zRow1.push_back(Vector3d(2 * xz, 2 * yz, z_2));
+        xRow1.push_back(Eigen::Vector3d(x_2, 2 * xy, 2 * xz));
+        yRow1.push_back(Eigen::Vector3d(2 * xy, y_2, 2 * yz));
+        zRow1.push_back(Eigen::Vector3d(2 * xz, 2 * yz, z_2));
 
-        xRow2.push_back(Vector3d(x_2y, y_2x, 2 * xyz));
-        yRow2.push_back(Vector3d(x_2z, 2 * xyz, z_2x));
-        zRow2.push_back(Vector3d(2 * xyz, y_2z, z_2y));
+        xRow2.push_back(Eigen::Vector3d(x_2y, y_2x, 2 * xyz));
+        yRow2.push_back(Eigen::Vector3d(x_2z, 2 * xyz, z_2x));
+        zRow2.push_back(Eigen::Vector3d(2 * xyz, y_2z, z_2y));
 
-        xRow3.push_back(Vector3d(x_3, 3 * x_2y, 3 * x_2z));
-        yRow3.push_back(Vector3d(3 * y_2x, y_3, 3 * y_2z));
-        zRow3.push_back(Vector3d(3 * z_2x, 3 * z_2y, z_3));
+        xRow3.push_back(Eigen::Vector3d(x_3, 3 * x_2y, 3 * x_2z));
+        yRow3.push_back(Eigen::Vector3d(3 * y_2x, y_3, 3 * y_2z));
+        zRow3.push_back(Eigen::Vector3d(3 * z_2x, 3 * z_2y, z_3));
     }
 
     double m000(0.0), m100(0.0), m010(0.0), m001(0.0);
@@ -1057,21 +1062,21 @@ vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector
     // area-weighted moment of inertia
     cm << m100 / m000, m010 / m000, m001 / m000;
 
-    double matrix[3][3] = { { Ixx, -Ixy, -Ixz }, { -Ixy, Iyy, -Iyz }, { -Ixz, -Iyz, Izz } };
-    double evecMat[3][3];
-    double eVal[3];
+    Eigen::Matrix3d matrix{ { Ixx, -Ixy, -Ixz }, { -Ixy, Iyy, -Iyz }, { -Ixz, -Iyz, Izz } };
+    Eigen::Matrix3d evecMat{ Eigen::Matrix3d::Zero() };
+    Eigen::Vector3d eVal{ Eigen::Vector3d::Zero() };
 
     eigen_decomposition(matrix, evecMat, eVal);
 
-    Vector3d radii;
-    for (int i = 0; i < 3; i++)
+    Eigen::Vector3d radii;
+    for (size_t i = 0; i < 3; ++i)
     {
         radii(i, 0) = 1.0 / sqrt(fabs(eVal[i]));
     }
 
     // sort principle axis
     vector<float> orig;
-    for (int i = 0; i < 3; i++)
+    for (size_t i = 0; i < 3; ++i)
     {
         orig.push_back(radii(i, 0));
     }
@@ -1080,7 +1085,7 @@ vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector
     vector<pair<float, size_t>> vp;
     vp.reserve(orig.size());
 
-    for (size_t i = 0; i != orig.size(); i++)
+    for (size_t i = 0; i != orig.size(); ++i)
     {
         vp.push_back(make_pair(orig[i], i));
     }
@@ -1088,15 +1093,15 @@ vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector
     // sorting will put lower values ahead of larger ones, resolving ties using the original index
     sort(vp.begin(), vp.end());
 
-    for (int i = 0; i < 3; i++)
+    for (size_t i = 0; i < 3; ++i)
     {
-        pcx(i, 0) = evecMat[i][vp[0].second];
-        pbx(i, 0) = evecMat[i][vp[1].second];
-        pax(i, 0) = evecMat[i][vp[2].second];
+        pcx(i, 0) = evecMat(i, vp[0].second);
+        pbx(i, 0) = evecMat(i, vp[1].second);
+        pax(i, 0) = evecMat(i, vp[2].second);
     }
 
     // change the global coordiantes w.r.t. centroid
-    for (size_t gno = 0; gno < Gvertex.size(); gno++)
+    for (size_t gno = 0; gno < Gvertex.size(); ++gno)
     {
         Gvertex[gno]->x -= cm(0, 0);
         Gvertex[gno]->y -= cm(1, 0);
@@ -1105,7 +1110,7 @@ vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& cm, Vector
 
     // make the surface normals (to each triangle elements) oriented outwards
     double dsum(0.0);
-    for (size_t i = 0; i < 3; i++)
+    for (size_t i = 0; i < 3; ++i)
     {
         x = Gvertex[element3D[0]->side[i].orientation[1]]->x - Gvertex[element3D[0]->side[i].orientation[0]]->x;
         y = Gvertex[element3D[0]->side[i].orientation[1]]->y + Gvertex[element3D[0]->side[i].orientation[0]]->y;
@@ -1131,7 +1136,7 @@ void edgeDescriptors(vector<Vertices*>& Gvertex, vector<elementList*>& eList, ve
     double x, y, z, signal, edgeAngle;
 
     // calculate the 3D-edge angles and angle-axis pairs
-    for (size_t i = 0; i < eList.size(); i++)
+    for (size_t i = 0; i < eList.size(); ++i)
     {
         x = Gvertex[eList[i]->nodes[0]]->x - Gvertex[eList[i]->nodes[1]]->x;
         y = Gvertex[eList[i]->nodes[0]]->y - Gvertex[eList[i]->nodes[1]]->y;
@@ -1150,7 +1155,7 @@ void edgeDescriptors(vector<Vertices*>& Gvertex, vector<elementList*>& eList, ve
         y = Gvertex[p1]->y - Gvertex[p2]->y;
         z = Gvertex[p1]->z - Gvertex[p2]->z;
 
-        Vector3d e(x, y, z);
+        Eigen::Vector3d e(x, y, z);
         e /= e.norm();
 
         // this demands the triangle normal MUST BE OUTWARD !!!
@@ -1183,7 +1188,7 @@ void edgeDescriptors(vector<Vertices*>& Gvertex, vector<elementList*>& eList, ve
     }
 
     /// Calculate perimeter for each triangle elements
-    for (size_t eno = 0; eno < element3D.size(); eno++)
+    for (size_t eno = 0; eno < element3D.size(); ++eno)
     {
         double l(0.0);
 
@@ -1220,10 +1225,10 @@ void connectWithGlobe(vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D
 void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, double pCatCurvList[])
 {
     // rotate all the 3d-triangles and put them on x-y plane (normal z-axis)
-    Vector3d z;
+    Eigen::Vector3d z;
     z << 0.0, 0.0, 1.0;
 
-    Vector3d cross;
+    Eigen::Vector3d cross;
     double cosAngle(0.0);
     double crossMagnitude(0.0);
 
@@ -1232,11 +1237,11 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
         // quarternion rotation angle (cosine)
         cosAngle = element3D[eno]->givenNormal.dot(z);
 
-        // quaternion rotation axis
+        // Eigen::Quaternion rotation axis
         cross = element3D[eno]->givenNormal.cross(z);
         crossMagnitude = cross.norm();
 
-        Vector3d nz(0.0, 0.0, 0.0);
+        Eigen::Vector3d nz(0.0, 0.0, 0.0);
 
         // assign quarternion rotation angle to this triangle region
         regions[eno]->rotAngle = acos(cosAngle);
@@ -1264,36 +1269,36 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
             regions[eno]->Q.y() = cross(1, 0);
             regions[eno]->Q.z() = cross(2, 0);
 
-            // find the necessary Quaternion for 3d -> 2d triangle rotation and rotate the 3d-triangle to 2d-triangle
-            Quaternion<double> qr(0.0, 0.0, 0.0, 0.0);
+            // find the necessary Eigen::Quaternion for 3d -> 2d triangle rotation and rotate the 3d-triangle to 2d-triangle
+            Eigen::Quaternion<double> qr(0.0, 0.0, 0.0, 0.0);
 
             // rotate the mid-point of the triangle region
-            Quaternion<double> qMp(
+            Eigen::Quaternion<double> qMp(
             0, element3D[eno]->midPoint(0, 0), element3D[eno]->midPoint(1, 0), element3D[eno]->midPoint(2, 0));
             qr = regions[eno]->Q * qMp * regions[eno]->Q.inverse();
             regions[eno]->zOffset = qr.z();
 
             // rotate all other three (=3) vertices of the triangle region
-            Quaternion<double> qA(
+            Eigen::Quaternion<double> qA(
             0, element3D[eno]->Vertex[0](0, 0), element3D[eno]->Vertex[0](1, 0), element3D[eno]->Vertex[0](2, 0));
             qr = regions[eno]->Q * qA * regions[eno]->Q.inverse();
             regions[eno]->vertices[0](0, 0) = qr.x();
             regions[eno]->vertices[0](1, 0) = qr.y();
 
-            Quaternion<double> qB(
+            Eigen::Quaternion<double> qB(
             0, element3D[eno]->Vertex[1](0, 0), element3D[eno]->Vertex[1](1, 0), element3D[eno]->Vertex[1](2, 0));
             qr = regions[eno]->Q * qB * regions[eno]->Q.inverse();
             regions[eno]->vertices[1](0, 0) = qr.x();
             regions[eno]->vertices[1](1, 0) = qr.y();
 
-            Quaternion<double> qC(
+            Eigen::Quaternion<double> qC(
             0, element3D[eno]->Vertex[2](0, 0), element3D[eno]->Vertex[2](1, 0), element3D[eno]->Vertex[2](2, 0));
             qr = regions[eno]->Q * qC * regions[eno]->Q.inverse();
             regions[eno]->vertices[2](0, 0) = qr.x();
             regions[eno]->vertices[2](1, 0) = qr.y();
 
             // rotate the triangle normal it self (to check the rotation accuracy: should be parallel to z-axis )
-            Quaternion<double> nC(
+            Eigen::Quaternion<double> nC(
             0, element3D[eno]->givenNormal(0, 0), element3D[eno]->givenNormal(1, 0), element3D[eno]->givenNormal(2, 0));
             qr = regions[eno]->Q * nC * regions[eno]->Q.inverse();
             nz << qr.x(), qr.y(), qr.z();
@@ -1318,7 +1323,7 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
             nz = element3D[eno]->givenNormal;
         }
 
-        // check the accuracy of the Quaternion rotation
+        // check the accuracy of the Eigen::Quaternion rotation
         nz /= nz.norm();
         double s = nz.dot(z);
 
@@ -1359,8 +1364,8 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
             regions[eno]->side[sid].pCat = totalPcat * element3D[eno]->side[sid].pCat;
         }
     }
-    Matrix2d A1, A2;
-    Vector2d b1, b2;
+    Eigen::Matrix2d A1, A2;
+    Eigen::Vector2d b1, b2;
     int v0, v1, v2;
     double cosTheta, sinTheta, x, y;
 
@@ -1385,7 +1390,7 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
 
             b1 << regions[eno]->vertices[v0](0, 0), regions[eno]->vertices[v0](1, 0);
 
-            Vector2d AB = regions[eno]->vertices[v1] - regions[eno]->vertices[v2];
+            Eigen::Vector2d AB = regions[eno]->vertices[v1] - regions[eno]->vertices[v2];
             AB /= AB.norm();
 
             regions[eno]->side[j].dir2D = AB;
@@ -1407,7 +1412,7 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
             regions[ceno]->side[cesd].A = A1 * A2.inverse();
             regions[ceno]->side[cesd].b = b1 - regions[ceno]->side[cesd].A * b2;
 
-            MatrixXd G = A1.inverse();
+            Eigen::MatrixXd G = A1.inverse();
 
             if (fabs(A1.determinant() * A2.determinant()) <= 0.0)
             {
@@ -1415,17 +1420,17 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
                 exit(-1);
             }
 
-            Vector2d BA = regions[ceno]->vertices[v1] - regions[ceno]->vertices[v2];
+            Eigen::Vector2d BA = regions[ceno]->vertices[v1] - regions[ceno]->vertices[v2];
             BA /= BA.norm();
 
-            Vector3d s1(AB(0, 0), AB(1, 0), 0.0), s2(BA(0, 0), BA(1, 0), 0.0), ts(0.0, 0.0, 0.0);
+            Eigen::Vector3d s1(AB(0, 0), AB(1, 0), 0.0), s2(BA(0, 0), BA(1, 0), 0.0), ts(0.0, 0.0, 0.0);
 
             ts = s1.cross(s2);
 
             cosTheta = s1.dot(s2);
             sinTheta = ts.norm();
 
-            Vector3d z(0.0, 0.0, 1.0);
+            Eigen::Vector3d z(0.0, 0.0, 1.0);
             if (ts.norm() > 0)
             {
                 int k;
@@ -1449,15 +1454,15 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
         }
 
         // get the orientation axis (required for calculating the order parameter)
-        vector<Vector3d> ends3D;
+        vector<Eigen::Vector3d> ends3D;
         for (int p = 0; p < 2; p++)
         {
-            ends3D.push_back(Vector3d(0, 0, 0));
+            ends3D.push_back(Eigen::Vector3d(0, 0, 0));
         }
 
         for (int i = 0; i < 3; i++)
         {
-            regions[eno]->orientation.push_back(Vector3d(0.0, 0.0, 0.0));
+            regions[eno]->orientation.push_back(Eigen::Vector3d(0.0, 0.0, 0.0));
         }
 
         x = 1.0;
@@ -1472,16 +1477,16 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
             // if rotation required
             if (crossMagnitude > 0.0)
             {
-                Quaternion<double> qr(0.0, 0.0, 0.0, 0.0);
+                Eigen::Quaternion<double> qr(0.0, 0.0, 0.0, 0.0);
 
                 // rotate the base vector from 2d-plane to 3d-triangle plane
-                Quaternion<double> qI0(0, 0.0, 0.0, 0.0);
+                Eigen::Quaternion<double> qI0(0, 0.0, 0.0, 0.0);
                 qr = regions[eno]->Q.inverse() * qI0 * regions[eno]->Q;
                 ends3D[0](0, 0) = qr.x();
                 ends3D[0](1, 0) = qr.y();
                 ends3D[0](2, 0) = qr.z();
 
-                Quaternion<double> qI1(0, x, y, 0.0);
+                Eigen::Quaternion<double> qI1(0, x, y, 0.0);
                 qr = regions[eno]->Q.inverse() * qI1 * regions[eno]->Q;
                 ends3D[1](0, 0) = qr.x();
                 ends3D[1](1, 0) = qr.y();
@@ -1514,7 +1519,7 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
     }
 }
 
-void viewGraph(vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vector3d& centroid, string outputDir)
+void viewGraph(vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Eigen::Vector3d& centroid, string outputDir)
 {
     string filename1(outputDir + "/ViewMeshDefault.off");
     string filename2(outputDir + "/ViewMeshFaceTag.dat");
@@ -1552,9 +1557,9 @@ void viewGraph(vector<Vertices*>& Gvertex, vector<Triangle3D*>& element3D, Vecto
     fp3.close();
 }
 
-bool linePlaneIntersect(Vector3d n, Vector3d p, Vector3d a, Vector3d b, Vector3d& I)
+bool linePlaneIntersect(Eigen::Vector3d n, Eigen::Vector3d p, Eigen::Vector3d a, Eigen::Vector3d b, Eigen::Vector3d& I)
 {
-    Vector3d ba = b - a;
+    Eigen::Vector3d ba = b - a;
     float nDotA = n.dot(a);
     float nDotBA = n.dot(ba);
     float d = n.dot(p);
@@ -1571,7 +1576,7 @@ bool linePlaneIntersect(Vector3d n, Vector3d p, Vector3d a, Vector3d b, Vector3d
     return (intersect);
 }
 
-double areaPolygon3D(vector<Vertices>& V, Vector3d N)
+double areaPolygon3D(vector<Vertices>& V, Eigen::Vector3d N)
 {
     int n = V.size();
     V.push_back(Vertices(V[0].x, V[0].y, V[0].z));
@@ -1663,8 +1668,8 @@ double intersectingPolygon(vector<Vertices>& polygon,
                            vector<Vertices>& Gvertex,
                            vector<Region*>& regions,
                            vector<elementList>& eList,
-                           Vector3d np,
-                           Vector3d cp,
+                           Eigen::Vector3d np,
+                           Eigen::Vector3d cp,
                            string shapeType)
 {
     double polyArea(0.0);
@@ -1691,14 +1696,14 @@ double intersectingPolygon(vector<Vertices>& polygon,
             x = Gvertex[eList[i].nodes[0]].x;
             y = Gvertex[eList[i].nodes[0]].y;
             z = Gvertex[eList[i].nodes[0]].z;
-            Vector3d lS(x, y, z);
+            Eigen::Vector3d lS(x, y, z);
 
             x = Gvertex[eList[i].nodes[1]].x;
             y = Gvertex[eList[i].nodes[1]].y;
             z = Gvertex[eList[i].nodes[1]].z;
-            Vector3d lE(x, y, z);
+            Eigen::Vector3d lE(x, y, z);
 
-            Vector3d I(0.0, 0.0, 0.0);
+            Eigen::Vector3d I(0.0, 0.0, 0.0);
 
             bool Intersect = linePlaneIntersect(np, cp, lS, lE, I);
 
@@ -1751,7 +1756,7 @@ double intersectingPolygon(vector<Vertices>& polygon,
         for (size_t i = 0; i < polygonEdg.size(); i++)
         {
             int edg = polygonEdg[i];
-            Vector3d pv = eList[edg].intersectionByPlane;
+            Eigen::Vector3d pv = eList[edg].intersectionByPlane;
             polygon.push_back(Vertices(pv(0, 0), pv(1, 0), pv(2, 0)));
         }
 
@@ -1848,7 +1853,7 @@ void establishPBC(vector<Vertices*>& vertices,
         double zm
         = (vertices[eList[edgeInBoundary[i]]->nodes[0]]->z + vertices[eList[edgeInBoundary[i]]->nodes[1]]->z) / 2.0;
 
-        Vector3d vm(xm, ym, zm);
+        Eigen::Vector3d vm(xm, ym, zm);
         vertices.push_back(new Vertices(vm(0, 0), vm(1, 0), vm(2, 0)));
     }
 
@@ -1856,8 +1861,8 @@ void establishPBC(vector<Vertices*>& vertices,
 
     for (size_t i = 0; i < edgeInBoundary.size(); i++)
     {
-        Vector2d radialExt(vertices[eList[edgeInBoundary[i]]->midPoint]->x,
-                           vertices[eList[edgeInBoundary[i]]->midPoint]->y);
+        Eigen::Vector2d radialExt(vertices[eList[edgeInBoundary[i]]->midPoint]->x,
+                                  vertices[eList[edgeInBoundary[i]]->midPoint]->y);
         radialExt /= radialExt.norm();
 
         double theta = atan2(radialExt(1, 0), radialExt(0, 0));

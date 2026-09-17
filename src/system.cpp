@@ -2,6 +2,8 @@
 #include "region.hpp"
 #include "system.hpp"
 #include "mt_tip.hpp"
+#include "parameters.hpp"
+
 
 void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
 {
@@ -1647,7 +1649,7 @@ void System::handleGlobalEvent(DeterministicEvent& event)
             geometry->getOrderParameters(order);
 
             // division plane: polygon edge-list & area
-            Vector3d normalPPB(order.Rdirector[0], order.Rdirector[1], order.Rdirector[2]);
+            Eigen::Vector3d normalPPB(order.Rdirector[0], order.Rdirector[1], order.Rdirector[2]);
             geometry->areaPPB = intersectingPolygon(geometry->ppb,
                                                     geometry->globalVertex,
                                                     geometry->regions,
@@ -1719,7 +1721,7 @@ void System::handleGlobalEvent(DeterministicEvent& event)
             cout << p.PPBkNucFraction << " : " << p.PPB << endl;
             OrderParameters order;
             geometry->getOrderParameters(order);
-            Vector3d normalPPB(order.Rdirector[0], order.Rdirector[1], order.Rdirector[2]);
+            Eigen::Vector3d normalPPB(order.Rdirector[0], order.Rdirector[1], order.Rdirector[2]);
             geometry->areaPPB = intersectingPolygon(geometry->ppb,
                                                     geometry->globalVertex,
                                                     geometry->regions,
