@@ -4,13 +4,15 @@
 #include "region.hpp"
 #include "system.hpp"
 #include "mt_tip.hpp"
+#include "parameters.hpp"
+#include "linalg.hpp"
 
 void Geometry::callTranslator(SurfaceVector& sVec, int regionIndex, int regionIndexNeigh)
 {
     int Index1(regions[regionIndex]->sideRevMap[regionIndexNeigh]);
 
     // use affine transformation of triangle to map a point from one region to other region
-    Vector2d V1(sVec.x, sVec.y), V2;
+    Eigen::Vector2d V1(sVec.x, sVec.y), V2;
     V2 = regions[regionIndex]->side[Index1].A * V1 + regions[regionIndex]->side[Index1].b;
     sVec.x = V2(0, 0);
     sVec.y = V2(1, 0);
@@ -83,9 +85,9 @@ const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAng
 
 SurfaceVector Geometry::randomSurfaceVector()
 {
-    int regionSelector{0};
-    double rArea{0.0};
-    int domainType{0};
+    int regionSelector{ 0 };
+    double rArea{ 0.0 };
+    int domainType{ 0 };
 
     if (regions.size() > 1)
     {
@@ -268,7 +270,7 @@ void TriMeshGeometry::getOrderParameters(OrderParameters& op)
     op.R = opRaw.extractR(op.Rdirector, system->p.geometry);
 
     // normalize the order parameter director
-    Vector3d Rvec(op.Rdirector[0], op.Rdirector[1], op.Rdirector[2]);
+    Eigen::Vector3d Rvec(op.Rdirector[0], op.Rdirector[1], op.Rdirector[2]);
     Rvec /= Rvec.norm();
 
     op.Rdirector[0] = Rvec(0, 0);
@@ -293,20 +295,20 @@ void TriMeshGeometry::outputSnapshot(ostream& out)
     return;
 }
 
-void TriMeshGeometry::outputOrderHeatMap(ostream& out, vector<double>& localOrder, vector<Vector3d>& sv)
+void TriMeshGeometry::outputOrderHeatMap(ostream& out, vector<double>& localOrder, vector<Eigen::Vector3d>& sv)
 {
     for (size_t eno = 0; eno < localOrder.size(); eno++)
     {
-        Vector3d seg3D;
+        Eigen::Vector3d seg3D;
 
         // Incircle radius of the triangle
         double svLength = (2.0 * regions[eno]->area * regions[eno]->area) / regions[eno]->periMeter;
 
         // get the region 3D rotation axis
-        Vector3d cross(regions[eno]->Q.x(), regions[eno]->Q.y(), regions[eno]->Q.z());
+        Eigen::Vector3d cross(regions[eno]->Q.x(), regions[eno]->Q.y(), regions[eno]->Q.z());
         double crossMagnitude = cross.norm();
 
-        Quaternion<double> qr(0.0, 0.0, 0.0, 0.0), QR(0.0, 0.0, 0.0, 0.0);
+        Eigen::Quaternion<double> qr(0.0, 0.0, 0.0, 0.0), QR(0.0, 0.0, 0.0, 0.0);
 
         // region (and hence all the sgments in this region) need 3D rotation + translation
         if (crossMagnitude > 0.0)
@@ -367,7 +369,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
 #endif
 
     // trajectory-director
-    Vector2d tDirector(0.0, 0.0);
+    Eigen::Vector2d tDirector(0.0, 0.0);
 
     SurfaceVector newBase(oldtr->base);
 
@@ -485,14 +487,14 @@ double Cartesian::intersectionAngle(Trajectory* t1, Trajectory* t2)
     return (angle);
 }
 
-void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR, vector<Vector3d>& orientation, double area)
+void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR, vector<Eigen::Vector3d>& orientation, double area)
 {
     double sin2(0.0), cos2(0.0);
-    Vector3d sv(0.0, 0.0, 0.0);
+    Eigen::Vector3d sv(0.0, 0.0, 0.0);
     double angle(0.0), length(0.0), localLength(0.);
     double qxx(0.0), qxy(0.0), qxz(0.0), qyy(0.0), qyz(0.0), qzz(0.0);
     double u1(0.0), u2(0.0), u3(0.0), orderLocal(0.0);
-    MatrixXd QF(3, 3), QC(3, 3), e(3, 3), O_l(2, 2);
+    Eigen::MatrixXd QF(3, 3), QC(3, 3), e(3, 3), O_l(2, 2);
 
     // get the rotation matrix
     e << orientation[0][0], orientation[1][0], orientation[2][0], orientation[0][1], orientation[1][1],
@@ -543,9 +545,10 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR, vector<Vector
         cos2 /= localLength;
 
         // local order
-        double matrix[3][3] = { { qxx, qxy, qxz }, { qxy, qyy, qyz }, { qxz, qyz, qzz } };
-        double evecMat[3][3];
-        double eVal[3];
+        Eigen::Matrix3d matrix{ { qxx, qxy, qxz }, { qxy, qyy, qyz }, { qxz, qyz, qzz } };
+        Eigen::Matrix3d evecMat{ Eigen::Matrix3d::Zero() };
+        Eigen::Vector3d eVal{ Eigen::Vector3d::Zero() };
+
         eigen_decomposition(matrix, evecMat, eVal);
 
         int maxPos(0);
@@ -559,9 +562,9 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR, vector<Vector
             maxPos = 2;
         }
 
-        for (int i = 0; i < 3; i++)
+        for (size_t i = 0; i < 3; ++i)
         {
-            sv[i] = evecMat[i][maxPos];
+            sv[i] = evecMat(i, maxPos);
         }
 
         sv /= sv.norm();
@@ -598,17 +601,17 @@ void Cartesian::outputSnapshot(ostream& out)
     return;
 }
 
-void Cartesian::outputOrderHeatMap(ostream& out, vector<double>& localOrder, vector<Vector3d>& sv) { return; }
+void Cartesian::outputOrderHeatMap(ostream& out, vector<double>& localOrder, vector<Eigen::Vector3d>& sv) { return; }
 
 void Cartesian::outputSnapshotOffset(ostream& out, double xOffset, double yOffset)
 {
-    Vector3d seg3D;
+    Eigen::Vector3d seg3D;
 
     // get the region 3D rotation axis
-    Vector3d cross(Q.x(), Q.y(), Q.z());
+    Eigen::Vector3d cross(Q.x(), Q.y(), Q.z());
     double crossMagnitude = cross.norm();
 
-    Quaternion<double> qr(0.0, 0.0, 0.0, 0.0), QR(0.0, 0.0, 0.0, 0.0);
+    Eigen::Quaternion<double> qr(0.0, 0.0, 0.0, 0.0), QR(0.0, 0.0, 0.0, 0.0);
 
     Trajectory* tr;
     SurfaceVector svec;
@@ -865,8 +868,8 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
     }
 
     // use the triangle perimeter to create a trajectory, this will to make sure to have exactly two intersections
-    Vector2d v1(sVec.x + periMeter * acos, sVec.y + periMeter * asin);
-    Vector2d v2(sVec.x - periMeter * acos, sVec.y - periMeter * asin);
+    Eigen::Vector2d v1(sVec.x + periMeter * acos, sVec.y + periMeter * asin);
+    Eigen::Vector2d v2(sVec.x - periMeter * acos, sVec.y - periMeter * asin);
 
     // intersection points of the trajectory with the triangle edges
     int encounter(0), Neno(0);
@@ -877,19 +880,19 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
             break;
         }
 
-        Vector2d u1;
+        Eigen::Vector2d u1;
         u1 = vertices[side[i].dir[0]];
 
-        Vector2d u2;
+        Eigen::Vector2d u2;
         u2 = vertices[side[i].dir[1]];
 
-        Vector2d u;
+        Eigen::Vector2d u;
         u = u2 - u1;
 
-        Vector2d v;
+        Eigen::Vector2d v;
         v = v2 - v1;
 
-        Vector2d w;
+        Eigen::Vector2d w;
         w = u1 - v1;
 
         double sval(0.0);

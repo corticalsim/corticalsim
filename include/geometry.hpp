@@ -5,6 +5,7 @@
 #include "surface.hpp"
 #include "parameters.hpp"
 #include "trajectory.hpp"
+#include "linalg.hpp"
 
 class Geometry
 // virtual base class for the various types of geometries
@@ -28,7 +29,7 @@ class Geometry
     std::vector<int> RegionsIndex[3];
 
     int elementMax;
-    Vector3d objectCM, objectPA, nucleousPosition;
+    Eigen::Vector3d objectCM, objectPA, nucleousPosition;
     std::vector<Region*> regions;
 
     Geometry(System* s, double a):
@@ -51,7 +52,7 @@ class Geometry
 
     virtual void getOrderParameters(OrderParameters&) = 0;
     virtual void outputSnapshot(ostream&) = 0;
-    virtual void outputOrderHeatMap(ostream&, vector<double>&, vector<Vector3d>&) = 0;
+    virtual void outputOrderHeatMap(ostream&, vector<double>&, vector<Eigen::Vector3d>&) = 0;
 
     SurfaceVector randomSurfaceVector();
     TrajectoryVector createTrajectory(const SurfaceVector&);
@@ -76,7 +77,7 @@ class TriMeshGeometry: public Geometry
     TrajectoryVector extendTrajectory(Trajectory*, Direction);
     void getOrderParameters(OrderParameters&);
     void outputSnapshot(ostream&);
-    void outputOrderHeatMap(ostream&, vector<double>&, vector<Vector3d>&);
+    void outputOrderHeatMap(ostream&, vector<double>&, vector<Eigen::Vector3d>&);
 };
 
 #endif // GEOMETRY_HPP

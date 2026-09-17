@@ -48,16 +48,13 @@
 #include <cmath>
 #include <iomanip>
 #include <fstream>
-#include <Eigen/Dense>
-#include "randhub.hpp"
-#include "eig3.hpp"
-#include "DLList.hpp"
 #include <float.h>
-#include "CompactList.hpp"
 #include <sys/stat.h>
 #include <cstddef>
+#include "randhub.hpp"
+#include "DLList.hpp"
+#include "CompactList.hpp"
 
-using namespace Eigen;
 using namespace std;
 
 class System;

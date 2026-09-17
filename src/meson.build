@@ -1,7 +1,7 @@
 sources = files('analysis.cpp',
     'det_queue.cpp',
-    'eig3.cpp',
     'geometry.cpp',
+    'linalg.cpp',
     'main.cpp',
     'mesh.cpp',
     'microtubule.cpp',

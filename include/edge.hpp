@@ -2,6 +2,7 @@
 #define EDGE_HPP
 
 #include "types.hpp"
+#include "linalg.hpp"
 
 class Edge
 {
@@ -15,11 +16,11 @@ class Edge
     double edgAngle;
     double edgBendAngle;
 
-    Vector2d midPoint;
-    Vector2d b;
-    Matrix2d A;
+    Eigen::Vector2d midPoint;
+    Eigen::Vector2d b;
+    Eigen::Matrix2d A;
     vector<int> dir;
-    Vector2d dir2D;
+    Eigen::Vector2d dir2D;
     vector<int> orientation;
 
     map<int, int> orientationMap;

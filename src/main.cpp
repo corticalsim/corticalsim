@@ -1,10 +1,10 @@
-#include <csignal>
+// #include <csignal>
 #include "system.hpp"
 
 using namespace std;
 
 System* s1;
-System* s2;
+// System* s2;
 
 int main(int argc, char* argv[])
 {
