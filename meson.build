@@ -1,0 +1,43 @@
+project('corticalsim', 'cpp')
+
+# Sources
+# =======
+# Directories containing header files
+incdir = include_directories('include')
+
+# Directories containing source files
+subdir('src')
+
+# Dependencies
+# ============
+# Eigen
+eigen = dependency('eigen3')
+
+# Boost pool and its sub-dependencies.
+boost_throw_exception = dependency('boost-throw_exception')
+boost_assert = dependency('boost-assert')
+boost_integer = dependency('boost-integer')
+boost_type_traits = dependency('boost-type_traits')
+boost_config = dependency('boost-config')
+boost_pool = dependency('boost-pool')
+
+# Google Test
+gtest = dependency('gtest')
+
+# Executable(s)
+# =============
+executable(
+  'corticalsim',
+  sources,
+  include_directories: incdir,
+  dependencies: [
+    eigen,
+    boost_assert,
+    boost_integer,
+    boost_throw_exception,
+    boost_type_traits,
+    boost_config,
+    boost_pool,
+    gtest,
+  ],
+)

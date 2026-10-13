@@ -1,0 +1,8 @@
+[wrap-git]
+url = https://github.com/boostorg/type_traits.git
+revision = boost-1.92.0
+depth = 1
+method = cmake
+
+[provide]
+boost-type_traits = boost_type_traits_dep
