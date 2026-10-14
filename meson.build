@@ -25,6 +25,7 @@ boost_pool = dependency('boost-pool')
 # Google Test
 gtest = dependency('gtest')
 
+
 # Executable(s)
 # =============
 executable(
@@ -40,5 +41,17 @@ executable(
     boost_config,
     boost_pool,
     gtest,
+  ],
+)
+
+
+# Eigen decomposition test
+# ========================
+executable(
+  'eigentest',
+  ['test/eigentest.cpp', 'test/eig3.cpp', 'src/linalg.cpp'],
+  include_directories: include_directories(['include', 'test']),
+  dependencies: [
+    eigen
   ],
 )
