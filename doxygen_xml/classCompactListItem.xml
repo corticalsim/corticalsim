@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classCompactListItem" kind="class" language="C++" prot="public">
+    <compoundname>CompactListItem</compoundname>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classCompactListItem_1a07bb0c23ca9b08ede21be259a80f0bfb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int CompactListItem&lt; T &gt;::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <qualifiedname>CompactListItem::index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="164" column="9" bodyfile="include/CompactList.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classCompactListItem_1abdd908e2d2c337bb15660e142f185325" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Q</type>
+          </param>
+          <param>
+            <type>int</type>
+            <declname>i</declname>
+            <defname>i</defname>
+          </param>
+        </templateparamlist>
+        <type>class</type>
+        <definition>friend class CompactList</definition>
+        <argsstring></argsstring>
+        <name>CompactList</name>
+        <qualifiedname>CompactListItem::CompactList</qualifiedname>
+        <param>
+          <type><ref refid="classCompactList" kindref="compound">CompactList</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="170" column="18" bodyfile="include/CompactList.hpp" bodystart="170" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCompactListItem_1afa7607060612810a94a2daf837001a50" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CompactListItem&lt; T &gt;::CompactListItem</definition>
+        <argsstring>()</argsstring>
+        <name>CompactListItem</name>
+        <qualifiedname>CompactListItem::CompactListItem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="162" column="5" bodyfile="include/CompactList.hpp" bodystart="162" bodyend="163"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classCompactListItem_1a95b587741e5f04c0c187d8ee9641ebe6" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual CompactListItem&lt; T &gt;::~CompactListItem</definition>
+        <argsstring>()</argsstring>
+        <name>~CompactListItem</name>
+        <qualifiedname>CompactListItem::~CompactListItem</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="168" column="13" bodyfile="include/CompactList.hpp" bodystart="168" bodyend="168"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/CompactList.hpp" line="158" column="1" bodyfile="include/CompactList.hpp" bodystart="159" bodyend="171"/>
+    <listofallmembers>
+      <member refid="classCompactListItem_1abdd908e2d2c337bb15660e142f185325" prot="protected" virt="non-virtual"><scope>CompactListItem</scope><name>CompactList</name></member>
+      <member refid="classCompactListItem_1afa7607060612810a94a2daf837001a50" prot="public" virt="non-virtual"><scope>CompactListItem</scope><name>CompactListItem</name></member>
+      <member refid="classCompactListItem_1a07bb0c23ca9b08ede21be259a80f0bfb" prot="public" virt="non-virtual"><scope>CompactListItem</scope><name>index</name></member>
+      <member refid="classCompactListItem_1a95b587741e5f04c0c187d8ee9641ebe6" prot="protected" virt="virtual"><scope>CompactListItem</scope><name>~CompactListItem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

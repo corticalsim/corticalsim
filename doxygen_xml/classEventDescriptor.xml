@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEventDescriptor" kind="class" language="C++" prot="public">
+    <compoundname>EventDescriptor</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classEventDescriptor_1a5e53a019c0d3eac230ee7c010229c56a" prot="public" static="no" mutable="no">
+        <type>EventDescriptorIndex</type>
+        <definition>EventDescriptorIndex EventDescriptor::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <qualifiedname>EventDescriptor::index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="19" column="26" bodyfile="include/event.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEventDescriptor_1a1e9f2ed4dd5d051ca003548bf8b31347" prot="public" static="no" mutable="no">
+        <type><ref refid="classMicrotubule" kindref="compound">Microtubule</ref> *const</type>
+        <definition>Microtubule* const EventDescriptor::mt</definition>
+        <argsstring></argsstring>
+        <name>mt</name>
+        <qualifiedname>EventDescriptor::mt</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="20" column="23" bodyfile="include/event.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEventDescriptor_1a2dcff2e8e303cf8bbcd0b16484bff200" prot="public" static="no" mutable="no">
+        <type>DeterministicEventType</type>
+        <definition>DeterministicEventType EventDescriptor::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>EventDescriptor::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="23" column="28" bodyfile="include/event.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEventDescriptor_1a2bc0e56fc960c51c26059e889e05a484" prot="public" static="no" mutable="no">
+        <type>EventTrackingTag</type>
+        <definition>EventTrackingTag EventDescriptor::tag</definition>
+        <argsstring></argsstring>
+        <name>tag</name>
+        <qualifiedname>EventDescriptor::tag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="26" column="22" bodyfile="include/event.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEventDescriptor_1adaba3f0703943bf12907617fb22a2ce8" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double EventDescriptor::distanceScaleFactor</definition>
+        <argsstring></argsstring>
+        <name>distanceScaleFactor</name>
+        <qualifiedname>EventDescriptor::distanceScaleFactor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="29" column="12" bodyfile="include/event.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEventDescriptor_1a4c673f60d911c84216a325ce92834f57" prot="public" static="no" mutable="no">
+        <type><ref refid="classDeterministicQueue" kindref="compound">DeterministicQueue</ref> *</type>
+        <definition>DeterministicQueue* EventDescriptor::queue</definition>
+        <argsstring></argsstring>
+        <name>queue</name>
+        <qualifiedname>EventDescriptor::queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="30" column="24" bodyfile="include/event.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEventDescriptor_1aed8015a38a862d4ba27dc2f05a48e0b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EventDescriptor::EventDescriptor</definition>
+        <argsstring>(Microtubule *, DeterministicQueue *, double)</argsstring>
+        <name>EventDescriptor</name>
+        <qualifiedname>EventDescriptor::EventDescriptor</qualifiedname>
+        <param>
+          <type><ref refid="classMicrotubule" kindref="compound">Microtubule</ref> *</type>
+          <defname>m</defname>
+        </param>
+        <param>
+          <type><ref refid="classDeterministicQueue" kindref="compound">DeterministicQueue</ref> *</type>
+          <defname>q</defname>
+        </param>
+        <param>
+          <type>double</type>
+          <defname>velocity</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="31" column="5" bodyfile="src/det_queue.cpp" bodystart="101" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="classEventDescriptor_1af63e6ba24f90f61263eacb1c82cc40d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>EventDescriptor::~EventDescriptor</definition>
+        <argsstring>()</argsstring>
+        <name>~EventDescriptor</name>
+        <qualifiedname>EventDescriptor::~EventDescriptor</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="32" column="5" bodyfile="src/det_queue.cpp" bodystart="134" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="classEventDescriptor_1a8e883f183b6ac79b5e7bd1c94f3cdd6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EventDescriptor::reinitialize</definition>
+        <argsstring>(DeterministicQueue *, double)</argsstring>
+        <name>reinitialize</name>
+        <qualifiedname>EventDescriptor::reinitialize</qualifiedname>
+        <param>
+          <type><ref refid="classDeterministicQueue" kindref="compound">DeterministicQueue</ref> *</type>
+          <defname>q</defname>
+        </param>
+        <param>
+          <type>double</type>
+          <defname>velocity</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="35" column="10" bodyfile="src/det_queue.cpp" bodystart="141" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="classEventDescriptor_1a40383b14aab3ea19d8b1b369ca0463f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EventDescriptor::pushOnQueue</definition>
+        <argsstring>(double, DeterministicEventType)</argsstring>
+        <name>pushOnQueue</name>
+        <qualifiedname>EventDescriptor::pushOnQueue</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>dist</defname>
+        </param>
+        <param>
+          <type>DeterministicEventType</type>
+          <defname>t</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="38" column="10" bodyfile="src/det_queue.cpp" bodystart="164" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classEventDescriptor_1a61a4c4d090596a7127a43db246f781b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void EventDescriptor::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <qualifiedname>EventDescriptor::clear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="41" column="10" bodyfile="src/det_queue.cpp" bodystart="182" bodyend="188"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="3">
+        <label>DLBaseItem&lt; Microtubule &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="13">
+        <label>DLBaseItem&lt; Trajectory &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="6">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="18">
+        <label>DLList&lt; Segment &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="16">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="10">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>EventDescriptor</label>
+        <link refid="classEventDescriptor"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>queue</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>MTTip</label>
+        <link refid="classMTTip"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>event</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Microtubule</label>
+        <link refid="classMicrotubule"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>minus</edgelabel>
+          <edgelabel>plus</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>disappearEvent</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>segments</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="15">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="14">
+        <label>SurfaceVector</label>
+        <link refid="structSurfaceVector"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Trajectory</label>
+        <link refid="classTrajectory"/>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>nextTr</edgelabel>
+          <edgelabel>prevTr</edgelabel>
+          <edgelabel>thisTr</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>TrajectoryVector</label>
+        <link refid="classTrajectoryVector"/>
+        <childnode refid="12" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/event.hpp" line="7" column="1" bodyfile="include/event.hpp" bodystart="8" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classEventDescriptor_1a61a4c4d090596a7127a43db246f781b7" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>clear</name></member>
+      <member refid="classEventDescriptor_1adaba3f0703943bf12907617fb22a2ce8" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>distanceScaleFactor</name></member>
+      <member refid="classEventDescriptor_1aed8015a38a862d4ba27dc2f05a48e0b9" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>EventDescriptor</name></member>
+      <member refid="classEventDescriptor_1a5e53a019c0d3eac230ee7c010229c56a" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>index</name></member>
+      <member refid="classEventDescriptor_1a1e9f2ed4dd5d051ca003548bf8b31347" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>mt</name></member>
+      <member refid="classEventDescriptor_1a40383b14aab3ea19d8b1b369ca0463f3" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>pushOnQueue</name></member>
+      <member refid="classEventDescriptor_1a4c673f60d911c84216a325ce92834f57" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>queue</name></member>
+      <member refid="classEventDescriptor_1a8e883f183b6ac79b5e7bd1c94f3cdd6b" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>reinitialize</name></member>
+      <member refid="classEventDescriptor_1a2bc0e56fc960c51c26059e889e05a484" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>tag</name></member>
+      <member refid="classEventDescriptor_1a2dcff2e8e303cf8bbcd0b16484bff200" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>type</name></member>
+      <member refid="classEventDescriptor_1af63e6ba24f90f61263eacb1c82cc40d9" prot="public" virt="non-virtual"><scope>EventDescriptor</scope><name>~EventDescriptor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

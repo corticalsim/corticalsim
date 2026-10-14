@@ -1,0 +1,242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classEdge" kind="class" language="C++" prot="public">
+    <compoundname>Edge</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classEdge_1ab8c69b737db7fc42c17752de05a55941" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Edge::excludePoint</definition>
+        <argsstring></argsstring>
+        <name>excludePoint</name>
+        <qualifiedname>Edge::excludePoint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="11" column="9" bodyfile="include/edge.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1a631b36d070c99d9d6437dc741160e2a5" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Edge::pCat</definition>
+        <argsstring></argsstring>
+        <name>pCat</name>
+        <qualifiedname>Edge::pCat</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="13" column="12" bodyfile="include/edge.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1a2128fdd4bffede437ec2743709dd55bf" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Edge::edgAngNorm</definition>
+        <argsstring></argsstring>
+        <name>edgAngNorm</name>
+        <qualifiedname>Edge::edgAngNorm</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="14" column="12" bodyfile="include/edge.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1a360ade8b72ec436f4287b111cff826fd" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Edge::xyRotationAngle</definition>
+        <argsstring></argsstring>
+        <name>xyRotationAngle</name>
+        <qualifiedname>Edge::xyRotationAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="15" column="12" bodyfile="include/edge.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1aeb84aac96ab273f2e3e9c5bbd39161ba" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Edge::edgAngle</definition>
+        <argsstring></argsstring>
+        <name>edgAngle</name>
+        <qualifiedname>Edge::edgAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="16" column="12" bodyfile="include/edge.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1a66d604e92a9e0644cb61acf3ecfa1fc0" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Edge::edgBendAngle</definition>
+        <argsstring></argsstring>
+        <name>edgBendAngle</name>
+        <qualifiedname>Edge::edgBendAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="17" column="12" bodyfile="include/edge.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1ac36a1a76edfba190c7c3668b9151174b" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector2d</type>
+        <definition>Eigen::Vector2d Edge::midPoint</definition>
+        <argsstring></argsstring>
+        <name>midPoint</name>
+        <qualifiedname>Edge::midPoint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="19" column="21" bodyfile="include/edge.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1a22222c7593990b7bc45ac395b2a577c0" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector2d</type>
+        <definition>Eigen::Vector2d Edge::b</definition>
+        <argsstring></argsstring>
+        <name>b</name>
+        <qualifiedname>Edge::b</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="20" column="21" bodyfile="include/edge.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1a416c5a9caba5169d56705c18383b4122" prot="public" static="no" mutable="no">
+        <type>Eigen::Matrix2d</type>
+        <definition>Eigen::Matrix2d Edge::A</definition>
+        <argsstring></argsstring>
+        <name>A</name>
+        <qualifiedname>Edge::A</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="21" column="21" bodyfile="include/edge.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1ad133625b0c52f468c48556783013b092" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; Edge::dir</definition>
+        <argsstring></argsstring>
+        <name>dir</name>
+        <qualifiedname>Edge::dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="22" column="12" bodyfile="include/edge.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1af90edaf91919753c080a0bccb645055d" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector2d</type>
+        <definition>Eigen::Vector2d Edge::dir2D</definition>
+        <argsstring></argsstring>
+        <name>dir2D</name>
+        <qualifiedname>Edge::dir2D</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="23" column="21" bodyfile="include/edge.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1a2089f707495d376f92b19e20953c2eff" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; Edge::orientation</definition>
+        <argsstring></argsstring>
+        <name>orientation</name>
+        <qualifiedname>Edge::orientation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="24" column="12" bodyfile="include/edge.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1ae3da8339bc1007c97d74421d27f32633" prot="public" static="no" mutable="no">
+        <type>map&lt; int, int &gt;</type>
+        <definition>map&lt;int, int&gt; Edge::orientationMap</definition>
+        <argsstring></argsstring>
+        <name>orientationMap</name>
+        <qualifiedname>Edge::orientationMap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="26" column="9" bodyfile="include/edge.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classEdge_1ae5f740d5040d1db2db770eca12f63be0" prot="public" static="no" mutable="no">
+        <type>map&lt; int, int &gt;</type>
+        <definition>map&lt;int, int&gt; Edge::excludePointMap</definition>
+        <argsstring></argsstring>
+        <name>excludePointMap</name>
+        <qualifiedname>Edge::excludePointMap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="27" column="9" bodyfile="include/edge.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classEdge_1a3106b11d60125009dbf7a738ce540fdf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Edge::Edge</definition>
+        <argsstring>()</argsstring>
+        <name>Edge</name>
+        <qualifiedname>Edge::Edge</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/edge.hpp" line="29" column="5" bodyfile="include/edge.hpp" bodystart="29" bodyend="47"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/edge.hpp" line="7" column="1" bodyfile="include/edge.hpp" bodystart="8" bodyend="48"/>
+    <listofallmembers>
+      <member refid="classEdge_1a416c5a9caba5169d56705c18383b4122" prot="public" virt="non-virtual"><scope>Edge</scope><name>A</name></member>
+      <member refid="classEdge_1a22222c7593990b7bc45ac395b2a577c0" prot="public" virt="non-virtual"><scope>Edge</scope><name>b</name></member>
+      <member refid="classEdge_1ad133625b0c52f468c48556783013b092" prot="public" virt="non-virtual"><scope>Edge</scope><name>dir</name></member>
+      <member refid="classEdge_1af90edaf91919753c080a0bccb645055d" prot="public" virt="non-virtual"><scope>Edge</scope><name>dir2D</name></member>
+      <member refid="classEdge_1aeb84aac96ab273f2e3e9c5bbd39161ba" prot="public" virt="non-virtual"><scope>Edge</scope><name>edgAngle</name></member>
+      <member refid="classEdge_1a2128fdd4bffede437ec2743709dd55bf" prot="public" virt="non-virtual"><scope>Edge</scope><name>edgAngNorm</name></member>
+      <member refid="classEdge_1a66d604e92a9e0644cb61acf3ecfa1fc0" prot="public" virt="non-virtual"><scope>Edge</scope><name>edgBendAngle</name></member>
+      <member refid="classEdge_1a3106b11d60125009dbf7a738ce540fdf" prot="public" virt="non-virtual"><scope>Edge</scope><name>Edge</name></member>
+      <member refid="classEdge_1ab8c69b737db7fc42c17752de05a55941" prot="public" virt="non-virtual"><scope>Edge</scope><name>excludePoint</name></member>
+      <member refid="classEdge_1ae5f740d5040d1db2db770eca12f63be0" prot="public" virt="non-virtual"><scope>Edge</scope><name>excludePointMap</name></member>
+      <member refid="classEdge_1ac36a1a76edfba190c7c3668b9151174b" prot="public" virt="non-virtual"><scope>Edge</scope><name>midPoint</name></member>
+      <member refid="classEdge_1a2089f707495d376f92b19e20953c2eff" prot="public" virt="non-virtual"><scope>Edge</scope><name>orientation</name></member>
+      <member refid="classEdge_1ae3da8339bc1007c97d74421d27f32633" prot="public" virt="non-virtual"><scope>Edge</scope><name>orientationMap</name></member>
+      <member refid="classEdge_1a631b36d070c99d9d6437dc741160e2a5" prot="public" virt="non-virtual"><scope>Edge</scope><name>pCat</name></member>
+      <member refid="classEdge_1a360ade8b72ec436f4287b111cff826fd" prot="public" virt="non-virtual"><scope>Edge</scope><name>xyRotationAngle</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

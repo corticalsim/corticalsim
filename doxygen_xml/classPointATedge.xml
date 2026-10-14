@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classPointATedge" kind="class" language="C++" prot="public">
+    <compoundname>PointATedge</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classPointATedge_1adfdcb6e5f22042c3c2433d7121d90e75" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double PointATedge::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>PointATedge::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/intersection.hpp" line="25" column="12" bodyfile="include/intersection.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointATedge_1a8f9a2b14d51e6ab9a02797cefc8a1038" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double PointATedge::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>PointATedge::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/intersection.hpp" line="26" column="12" bodyfile="include/intersection.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointATedge_1a71db620a99b770136657003a7cfc014d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double PointATedge::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>PointATedge::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/intersection.hpp" line="27" column="12" bodyfile="include/intersection.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classPointATedge_1ae92eb8784302a70c1f84604ad8e16a89" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int PointATedge::nextElement</definition>
+        <argsstring></argsstring>
+        <name>nextElement</name>
+        <qualifiedname>PointATedge::nextElement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/intersection.hpp" line="29" column="9" bodyfile="include/intersection.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classPointATedge_1ac3bff1f749b16936eefcc8dc012048a4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PointATedge::PointATedge</definition>
+        <argsstring>(double x1, double y1, double z1, int n1)</argsstring>
+        <name>PointATedge</name>
+        <qualifiedname>PointATedge::PointATedge</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>x1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>z1</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>n1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/intersection.hpp" line="31" column="5" bodyfile="include/intersection.hpp" bodystart="31" bodyend="37"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/intersection.hpp" line="21" column="1" bodyfile="include/intersection.hpp" bodystart="22" bodyend="38"/>
+    <listofallmembers>
+      <member refid="classPointATedge_1ae92eb8784302a70c1f84604ad8e16a89" prot="public" virt="non-virtual"><scope>PointATedge</scope><name>nextElement</name></member>
+      <member refid="classPointATedge_1ac3bff1f749b16936eefcc8dc012048a4" prot="public" virt="non-virtual"><scope>PointATedge</scope><name>PointATedge</name></member>
+      <member refid="classPointATedge_1adfdcb6e5f22042c3c2433d7121d90e75" prot="public" virt="non-virtual"><scope>PointATedge</scope><name>x</name></member>
+      <member refid="classPointATedge_1a8f9a2b14d51e6ab9a02797cefc8a1038" prot="public" virt="non-virtual"><scope>PointATedge</scope><name>y</name></member>
+      <member refid="classPointATedge_1a71db620a99b770136657003a7cfc014d" prot="public" virt="non-virtual"><scope>PointATedge</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

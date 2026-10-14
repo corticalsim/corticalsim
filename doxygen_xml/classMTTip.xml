@@ -1,0 +1,600 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classMTTip" kind="class" language="C++" prot="public">
+    <compoundname>MTTip</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMTTip_1a98e6f81a24ce0f4732792519f6c55527" prot="public" static="no" mutable="no">
+        <type><ref refid="classMicrotubule" kindref="compound">Microtubule</ref> *</type>
+        <definition>Microtubule* MTTip::mt</definition>
+        <argsstring></argsstring>
+        <name>mt</name>
+        <qualifiedname>MTTip::mt</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="11" column="17" bodyfile="include/mt_tip.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMTTip_1a808f998db2a7c620587560299141983b" prot="public" static="no" mutable="no">
+        <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+        <definition>Trajectory* MTTip::trajectory</definition>
+        <argsstring></argsstring>
+        <name>trajectory</name>
+        <qualifiedname>MTTip::trajectory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="12" column="16" bodyfile="include/mt_tip.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMTTip_1adb6c20beb8728f99b6f58d63c765f25d" prot="public" static="no" mutable="no">
+        <type>Direction</type>
+        <definition>Direction MTTip::dir</definition>
+        <argsstring></argsstring>
+        <name>dir</name>
+        <qualifiedname>MTTip::dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="14" column="15" bodyfile="include/mt_tip.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMTTip_1a46270e2f21917789c3dc1b754fb06af8" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double MTTip::velocity</definition>
+        <argsstring></argsstring>
+        <name>velocity</name>
+        <qualifiedname>MTTip::velocity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="15" column="12" bodyfile="include/mt_tip.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMTTip_1a268137270eb4763a59dffa2305e212e1" prot="public" static="no" mutable="no">
+        <type><ref refid="classEventDescriptor" kindref="compound">EventDescriptor</ref></type>
+        <definition>EventDescriptor MTTip::event</definition>
+        <argsstring></argsstring>
+        <name>event</name>
+        <qualifiedname>MTTip::event</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="16" column="21" bodyfile="include/mt_tip.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMTTip_1a1e4a70b870c71b8112f074317e14aa3d" prot="public" static="no" mutable="no">
+        <type>IntersectionItr</type>
+        <definition>IntersectionItr MTTip::nextCollision</definition>
+        <argsstring></argsstring>
+        <name>nextCollision</name>
+        <qualifiedname>MTTip::nextCollision</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="17" column="21" bodyfile="include/mt_tip.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMTTip_1a3413f77a5e7753861fb9cba764078949" prot="public" static="no" mutable="no">
+        <type>TrjMTTipTag</type>
+        <definition>TrjMTTipTag MTTip::notificationTag</definition>
+        <argsstring></argsstring>
+        <name>notificationTag</name>
+        <qualifiedname>MTTip::notificationTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="18" column="17" bodyfile="include/mt_tip.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMTTip_1aed6ab7019119e577036074de66b2f20d" prot="public" static="no" mutable="no">
+        <type>RegionMTTipTag</type>
+        <definition>RegionMTTipTag MTTip::regionTag</definition>
+        <argsstring></argsstring>
+        <name>regionTag</name>
+        <qualifiedname>MTTip::regionTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="19" column="20" bodyfile="include/mt_tip.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMTTip_1a1f6b81ef30fae7f6fd22dcfee88d22af" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double MTTip::nextEventPos</definition>
+        <argsstring></argsstring>
+        <name>nextEventPos</name>
+        <qualifiedname>MTTip::nextEventPos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="20" column="12" bodyfile="include/mt_tip.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMTTip_1aad0b3b079cff278cfd9a31eebbd6f7e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MTTip::MTTip</definition>
+        <argsstring>(Microtubule *, TrajectoryVector, double, DeterministicQueue *, double)</argsstring>
+        <name>MTTip</name>
+        <qualifiedname>MTTip::MTTip</qualifiedname>
+        <param>
+          <type><ref refid="classMicrotubule" kindref="compound">Microtubule</ref> *</type>
+          <defname>m</defname>
+        </param>
+        <param>
+          <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+          <defname>tv</defname>
+        </param>
+        <param>
+          <type>double</type>
+          <defname>v</defname>
+        </param>
+        <param>
+          <type><ref refid="classDeterministicQueue" kindref="compound">DeterministicQueue</ref> *</type>
+          <defname>q</defname>
+        </param>
+        <param>
+          <type>double</type>
+          <defname>queueV</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="21" column="5" bodyfile="src/mt_tip.cpp" bodystart="6" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a3e541722b6655f27a467fee36b2c04f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MTTip::~MTTip</definition>
+        <argsstring>()</argsstring>
+        <name>~MTTip</name>
+        <qualifiedname>MTTip::~MTTip</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="22" column="5" bodyfile="src/mt_tip.cpp" bodystart="22" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1ab4f608863c4f6c04ae682a3b1b729393" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>TipType</type>
+        <definition>TipType MTTip::type</definition>
+        <argsstring>()</argsstring>
+        <name>type</name>
+        <qualifiedname>MTTip::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="23" column="13" bodyfile="src/mt_tip.cpp" bodystart="348" bodyend="359"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a4c5f79f618e7ce636c77942be4a5f710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double MTTip::position</definition>
+        <argsstring>()</argsstring>
+        <name>position</name>
+        <qualifiedname>MTTip::position</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="24" column="12" bodyfile="src/mt_tip.cpp" bodystart="361" bodyend="372"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a6427933bbd6fd9ca0eb65e0cbd67d7e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double MTTip::otherPosition</definition>
+        <argsstring>()</argsstring>
+        <name>otherPosition</name>
+        <qualifiedname>MTTip::otherPosition</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="25" column="12" bodyfile="src/mt_tip.cpp" bodystart="374" bodyend="385"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a1fcb86e30c73ff3d0ee9b410f179b823" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classSegment" kindref="compound">Segment</ref> &amp;</type>
+        <definition>Segment &amp; MTTip::segment</definition>
+        <argsstring>()</argsstring>
+        <name>segment</name>
+        <qualifiedname>MTTip::segment</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="26" column="13" bodyfile="src/mt_tip.cpp" bodystart="387" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1aaa918a20fd1ebbb190a6e95a01e94e13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MTTip::initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <qualifiedname>MTTip::initialize</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="27" column="10" bodyfile="src/mt_tip.cpp" bodystart="31" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a89f6b75668ae860343f7c274d57d77d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MTTip::unlinkFromTrajectory</definition>
+        <argsstring>()</argsstring>
+        <name>unlinkFromTrajectory</name>
+        <qualifiedname>MTTip::unlinkFromTrajectory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="28" column="10" bodyfile="src/mt_tip.cpp" bodystart="48" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1ad38ab3613fdbfa5d1cc0279937c0d5fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MTTip::switchTrajectory</definition>
+        <argsstring>(Trajectory *, Direction, IntersectionItr, bool=true)</argsstring>
+        <name>switchTrajectory</name>
+        <qualifiedname>MTTip::switchTrajectory</qualifiedname>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+          <defname>newTr</defname>
+        </param>
+        <param>
+          <type>Direction</type>
+          <defname>d</defname>
+        </param>
+        <param>
+          <type>IntersectionItr</type>
+          <defname>intersect</defname>
+        </param>
+        <param>
+          <type>bool</type>
+          <defname>advance</defname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="29" column="10" bodyfile="src/mt_tip.cpp" bodystart="400" bodyend="438"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a37cc228f8a7e5fd04f3e6f8afcb13c1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MTTip::locateIntersection</definition>
+        <argsstring>()</argsstring>
+        <name>locateIntersection</name>
+        <qualifiedname>MTTip::locateIntersection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="30" column="10" bodyfile="src/mt_tip.cpp" bodystart="58" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a99f21ab1cec61d10a43b70587dc9426b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MTTip::advanceIntersection</definition>
+        <argsstring>()</argsstring>
+        <name>advanceIntersection</name>
+        <qualifiedname>MTTip::advanceIntersection</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="31" column="10" bodyfile="src/mt_tip.cpp" bodystart="97" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a949a800b046233aa037bfa4351df6307" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MTTip::determineEvent</definition>
+        <argsstring>()</argsstring>
+        <name>determineEvent</name>
+        <qualifiedname>MTTip::determineEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="32" column="10" bodyfile="src/mt_tip.cpp" bodystart="157" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1a4768d6ca7c641b6d83126d38d678bf81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MTTip::notifyInsert</definition>
+        <argsstring>(IntersectionItr &amp;)</argsstring>
+        <name>notifyInsert</name>
+        <qualifiedname>MTTip::notifyInsert</qualifiedname>
+        <param>
+          <type>IntersectionItr &amp;</type>
+          <defname>newIs</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="33" column="10" bodyfile="src/mt_tip.cpp" bodystart="288" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1af7e4e4c57c6577396026110ed43eb064" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void MTTip::notifyRemove</definition>
+        <argsstring>(IntersectionItr &amp;)</argsstring>
+        <name>notifyRemove</name>
+        <qualifiedname>MTTip::notifyRemove</qualifiedname>
+        <param>
+          <type>IntersectionItr &amp;</type>
+          <defname>oldIs</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="34" column="10" bodyfile="src/mt_tip.cpp" bodystart="257" bodyend="286"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMTTip_1a02fe61193dab817d412fe58fe07c2c22" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>MTTip::MTTip</definition>
+        <argsstring>(const MTTip &amp;)</argsstring>
+        <name>MTTip</name>
+        <qualifiedname>MTTip::MTTip</qualifiedname>
+        <param>
+          <type>const <ref refid="classMTTip" kindref="compound">MTTip</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="40" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classMTTip_1aa9710af7d6ea3811b54be83f398f12b9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMTTip" kindref="compound">MTTip</ref> &amp;</type>
+        <definition>MTTip &amp; MTTip::operator=</definition>
+        <argsstring>(const MTTip &amp;)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>MTTip::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classMTTip" kindref="compound">MTTip</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mt_tip.hpp" line="41" column="11"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="3">
+        <label>DLBaseItem&lt; Microtubule &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="14">
+        <label>DLBaseItem&lt; Trajectory &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="6">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="12">
+        <label>DLList&lt; Segment &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="17">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="10">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>EventDescriptor</label>
+        <link refid="classEventDescriptor"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>queue</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>MTTip</label>
+        <link refid="classMTTip"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>event</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Microtubule</label>
+        <link refid="classMicrotubule"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>minus</edgelabel>
+          <edgelabel>plus</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>disappearEvent</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>segments</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="16">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>SurfaceVector</label>
+        <link refid="structSurfaceVector"/>
+        <childnode refid="16" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Trajectory</label>
+        <link refid="classTrajectory"/>
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>nextTr</edgelabel>
+          <edgelabel>prevTr</edgelabel>
+          <edgelabel>thisTr</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>TrajectoryVector</label>
+        <link refid="classTrajectoryVector"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/mt_tip.hpp" line="7" column="1" bodyfile="include/mt_tip.hpp" bodystart="8" bodyend="42"/>
+    <listofallmembers>
+      <member refid="classMTTip_1a99f21ab1cec61d10a43b70587dc9426b" prot="public" virt="non-virtual"><scope>MTTip</scope><name>advanceIntersection</name></member>
+      <member refid="classMTTip_1a949a800b046233aa037bfa4351df6307" prot="public" virt="non-virtual"><scope>MTTip</scope><name>determineEvent</name></member>
+      <member refid="classMTTip_1adb6c20beb8728f99b6f58d63c765f25d" prot="public" virt="non-virtual"><scope>MTTip</scope><name>dir</name></member>
+      <member refid="classMTTip_1a268137270eb4763a59dffa2305e212e1" prot="public" virt="non-virtual"><scope>MTTip</scope><name>event</name></member>
+      <member refid="classMTTip_1aaa918a20fd1ebbb190a6e95a01e94e13" prot="public" virt="non-virtual"><scope>MTTip</scope><name>initialize</name></member>
+      <member refid="classMTTip_1a37cc228f8a7e5fd04f3e6f8afcb13c1f" prot="public" virt="non-virtual"><scope>MTTip</scope><name>locateIntersection</name></member>
+      <member refid="classMTTip_1a98e6f81a24ce0f4732792519f6c55527" prot="public" virt="non-virtual"><scope>MTTip</scope><name>mt</name></member>
+      <member refid="classMTTip_1aad0b3b079cff278cfd9a31eebbd6f7e7" prot="public" virt="non-virtual"><scope>MTTip</scope><name>MTTip</name></member>
+      <member refid="classMTTip_1a02fe61193dab817d412fe58fe07c2c22" prot="private" virt="non-virtual"><scope>MTTip</scope><name>MTTip</name></member>
+      <member refid="classMTTip_1a1e4a70b870c71b8112f074317e14aa3d" prot="public" virt="non-virtual"><scope>MTTip</scope><name>nextCollision</name></member>
+      <member refid="classMTTip_1a1f6b81ef30fae7f6fd22dcfee88d22af" prot="public" virt="non-virtual"><scope>MTTip</scope><name>nextEventPos</name></member>
+      <member refid="classMTTip_1a3413f77a5e7753861fb9cba764078949" prot="public" virt="non-virtual"><scope>MTTip</scope><name>notificationTag</name></member>
+      <member refid="classMTTip_1a4768d6ca7c641b6d83126d38d678bf81" prot="public" virt="non-virtual"><scope>MTTip</scope><name>notifyInsert</name></member>
+      <member refid="classMTTip_1af7e4e4c57c6577396026110ed43eb064" prot="public" virt="non-virtual"><scope>MTTip</scope><name>notifyRemove</name></member>
+      <member refid="classMTTip_1aa9710af7d6ea3811b54be83f398f12b9" prot="private" virt="non-virtual"><scope>MTTip</scope><name>operator=</name></member>
+      <member refid="classMTTip_1a6427933bbd6fd9ca0eb65e0cbd67d7e7" prot="public" virt="non-virtual"><scope>MTTip</scope><name>otherPosition</name></member>
+      <member refid="classMTTip_1a4c5f79f618e7ce636c77942be4a5f710" prot="public" virt="non-virtual"><scope>MTTip</scope><name>position</name></member>
+      <member refid="classMTTip_1aed6ab7019119e577036074de66b2f20d" prot="public" virt="non-virtual"><scope>MTTip</scope><name>regionTag</name></member>
+      <member refid="classMTTip_1a1fcb86e30c73ff3d0ee9b410f179b823" prot="public" virt="non-virtual"><scope>MTTip</scope><name>segment</name></member>
+      <member refid="classMTTip_1ad38ab3613fdbfa5d1cc0279937c0d5fc" prot="public" virt="non-virtual"><scope>MTTip</scope><name>switchTrajectory</name></member>
+      <member refid="classMTTip_1a808f998db2a7c620587560299141983b" prot="public" virt="non-virtual"><scope>MTTip</scope><name>trajectory</name></member>
+      <member refid="classMTTip_1ab4f608863c4f6c04ae682a3b1b729393" prot="public" virt="non-virtual"><scope>MTTip</scope><name>type</name></member>
+      <member refid="classMTTip_1a89f6b75668ae860343f7c274d57d77d3" prot="public" virt="non-virtual"><scope>MTTip</scope><name>unlinkFromTrajectory</name></member>
+      <member refid="classMTTip_1a46270e2f21917789c3dc1b754fb06af8" prot="public" virt="non-virtual"><scope>MTTip</scope><name>velocity</name></member>
+      <member refid="classMTTip_1a3e541722b6655f27a467fee36b2c04f2" prot="public" virt="non-virtual"><scope>MTTip</scope><name>~MTTip</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

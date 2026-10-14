@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structOrderParameters" kind="struct" language="C++" prot="public">
+    <compoundname>OrderParameters</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structOrderParameters_1a728970b579fa33c2271de30c0799ffbf" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParameters::R</definition>
+        <argsstring></argsstring>
+        <name>R</name>
+        <qualifiedname>OrderParameters::R</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="118" column="12" bodyfile="include/parameters.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOrderParameters_1a4178de12b2170f5b08b057267b349f50" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParameters::C</definition>
+        <argsstring></argsstring>
+        <name>C</name>
+        <qualifiedname>OrderParameters::C</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="118" column="14" bodyfile="include/parameters.hpp" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOrderParameters_1ab97d68ce8647259f59befbff62f30e82" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParameters::Rdirector[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>Rdirector</name>
+        <qualifiedname>OrderParameters::Rdirector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="119" column="12" bodyfile="include/parameters.hpp" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOrderParameters_1a43d6b0ef4de903540e61178687c6fe75" prot="public" static="no" mutable="no">
+        <type>vector&lt; double &gt;</type>
+        <definition>vector&lt;double&gt; OrderParameters::localOrder</definition>
+        <argsstring></argsstring>
+        <name>localOrder</name>
+        <qualifiedname>OrderParameters::localOrder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="120" column="12" bodyfile="include/parameters.hpp" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structOrderParameters_1a4243b2c5580cfec16f47a803c5eaf25d" prot="public" static="no" mutable="no">
+        <type>vector&lt; Eigen::Vector3d &gt;</type>
+        <definition>vector&lt;Eigen::Vector3d&gt; OrderParameters::Sv</definition>
+        <argsstring></argsstring>
+        <name>Sv</name>
+        <qualifiedname>OrderParameters::Sv</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="121" column="12" bodyfile="include/parameters.hpp" bodystart="121" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/parameters.hpp" line="116" column="1" bodyfile="include/parameters.hpp" bodystart="117" bodyend="122"/>
+    <listofallmembers>
+      <member refid="structOrderParameters_1a4178de12b2170f5b08b057267b349f50" prot="public" virt="non-virtual"><scope>OrderParameters</scope><name>C</name></member>
+      <member refid="structOrderParameters_1a43d6b0ef4de903540e61178687c6fe75" prot="public" virt="non-virtual"><scope>OrderParameters</scope><name>localOrder</name></member>
+      <member refid="structOrderParameters_1a728970b579fa33c2271de30c0799ffbf" prot="public" virt="non-virtual"><scope>OrderParameters</scope><name>R</name></member>
+      <member refid="structOrderParameters_1ab97d68ce8647259f59befbff62f30e82" prot="public" virt="non-virtual"><scope>OrderParameters</scope><name>Rdirector</name></member>
+      <member refid="structOrderParameters_1a4243b2c5580cfec16f47a803c5eaf25d" prot="public" virt="non-virtual"><scope>OrderParameters</scope><name>Sv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

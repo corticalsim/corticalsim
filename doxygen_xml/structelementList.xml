@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structelementList" kind="struct" language="C++" prot="public">
+    <compoundname>elementList</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structelementList_1ab5292822eea54dd4007a8a6148c5058a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int elementList::midPoint</definition>
+        <argsstring></argsstring>
+        <name>midPoint</name>
+        <qualifiedname>elementList::midPoint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="63" column="9" bodyfile="include/surface.hpp" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelementList_1a8f6a845f5684c4f5c6f94cda143136eb" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double elementList::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <qualifiedname>elementList::length</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="64" column="12" bodyfile="include/surface.hpp" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelementList_1aacf4ea0dfa307addf45815bc83969d22" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; elementList::nodes</definition>
+        <argsstring></argsstring>
+        <name>nodes</name>
+        <qualifiedname>elementList::nodes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="65" column="12" bodyfile="include/surface.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelementList_1a2576d5fdd9a600cc4824c95179e2f56e" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; elementList::sharedElement</definition>
+        <argsstring></argsstring>
+        <name>sharedElement</name>
+        <qualifiedname>elementList::sharedElement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="66" column="12" bodyfile="include/surface.hpp" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelementList_1a51e31ba2fa3555e6b70d50792ca475c5" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; elementList::sharedEdge</definition>
+        <argsstring></argsstring>
+        <name>sharedEdge</name>
+        <qualifiedname>elementList::sharedEdge</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="67" column="12" bodyfile="include/surface.hpp" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelementList_1a238735a47aabebbbd0e871626c4077b9" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double elementList::edge3DAngle</definition>
+        <argsstring></argsstring>
+        <name>edge3DAngle</name>
+        <qualifiedname>elementList::edge3DAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="68" column="12" bodyfile="include/surface.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelementList_1a0d02b98375c49c6ccf58d0d169d1eb15" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector3d</type>
+        <definition>Eigen::Vector3d elementList::intersectionByPlane</definition>
+        <argsstring></argsstring>
+        <name>intersectionByPlane</name>
+        <qualifiedname>elementList::intersectionByPlane</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="69" column="21" bodyfile="include/surface.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structelementList_1a5cc7c52c0196b81525eee8f6ae51bced" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>elementList::elementList</definition>
+        <argsstring>()</argsstring>
+        <name>elementList</name>
+        <qualifiedname>elementList::elementList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="71" column="5" bodyfile="include/surface.hpp" bodystart="71" bodyend="84"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/surface.hpp" line="60" column="1" bodyfile="include/surface.hpp" bodystart="61" bodyend="85"/>
+    <listofallmembers>
+      <member refid="structelementList_1a238735a47aabebbbd0e871626c4077b9" prot="public" virt="non-virtual"><scope>elementList</scope><name>edge3DAngle</name></member>
+      <member refid="structelementList_1a5cc7c52c0196b81525eee8f6ae51bced" prot="public" virt="non-virtual"><scope>elementList</scope><name>elementList</name></member>
+      <member refid="structelementList_1a0d02b98375c49c6ccf58d0d169d1eb15" prot="public" virt="non-virtual"><scope>elementList</scope><name>intersectionByPlane</name></member>
+      <member refid="structelementList_1a8f6a845f5684c4f5c6f94cda143136eb" prot="public" virt="non-virtual"><scope>elementList</scope><name>length</name></member>
+      <member refid="structelementList_1ab5292822eea54dd4007a8a6148c5058a" prot="public" virt="non-virtual"><scope>elementList</scope><name>midPoint</name></member>
+      <member refid="structelementList_1aacf4ea0dfa307addf45815bc83969d22" prot="public" virt="non-virtual"><scope>elementList</scope><name>nodes</name></member>
+      <member refid="structelementList_1a51e31ba2fa3555e6b70d50792ca475c5" prot="public" virt="non-virtual"><scope>elementList</scope><name>sharedEdge</name></member>
+      <member refid="structelementList_1a2576d5fdd9a600cc4824c95179e2f56e" prot="public" virt="non-virtual"><scope>elementList</scope><name>sharedElement</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

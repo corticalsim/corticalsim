@@ -1,0 +1,326 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classCompactList" kind="class" language="C++" prot="public">
+    <compoundname>CompactList</compoundname>
+    <innerclass refid="structCompactList_1_1PoolTag" prot="private">CompactList::PoolTag</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+      <param>
+        <type>int</type>
+        <declname>AllocatorGranularity</declname>
+        <defname>AllocatorGranularity</defname>
+        <defval>32</defval>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classCompactList_1aef06a605d60329b88ac61e7760b08e8b" prot="private" static="no">
+        <type>boost::singleton_pool&lt; PoolTag, sizeof(T), boost::default_user_allocator_new_delete, boost::details::pool::null_mutex, AllocatorGranularity &gt;</type>
+        <definition>typedef boost::singleton_pool&lt;PoolTag, sizeof(T), boost::default_user_allocator_new_delete, boost::details::pool::null_mutex, AllocatorGranularity&gt; CompactList&lt; T, AllocatorGranularity &gt;::MemPool</definition>
+        <argsstring></argsstring>
+        <name>MemPool</name>
+        <qualifiedname>CompactList::MemPool</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="32" column="5" bodyfile="include/CompactList.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classCompactList_1a0033b286ef623eb233cb06c872c7a18f" prot="private" static="no" mutable="no">
+        <type>vector&lt; T * &gt;</type>
+        <definition>vector&lt;T*&gt; CompactList&lt; T, AllocatorGranularity &gt;::elements</definition>
+        <argsstring></argsstring>
+        <name>elements</name>
+        <qualifiedname>CompactList::elements</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="19" column="12" bodyfile="include/CompactList.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classCompactList_1a553af6259e55ffac1fd4d068451d7fa5" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * CompactList&lt; T, i &gt;::InsertElement</definition>
+        <argsstring>(T *newElement)</argsstring>
+        <name>InsertElement</name>
+        <qualifiedname>CompactList::InsertElement</qualifiedname>
+        <param>
+          <type>T *</type>
+          <declname>newElement</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="33" column="7" bodyfile="include/CompactList.hpp" bodystart="124" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1a976f3c9d0c65d6bb1a242a51aa4d2830" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CompactList&lt; T, i &gt;::remove</definition>
+        <argsstring>(T *)</argsstring>
+        <name>remove</name>
+        <qualifiedname>CompactList::remove</qualifiedname>
+        <param>
+          <type>T *</type>
+          <defname>element</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="34" column="10" bodyfile="include/CompactList.hpp" bodystart="83" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1af78112fbc53ded6735d6e3a0f27c2cf8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CompactList&lt; T, i &gt;::removeAll</definition>
+        <argsstring>()</argsstring>
+        <name>removeAll</name>
+        <qualifiedname>CompactList::removeAll</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="35" column="10" bodyfile="include/CompactList.hpp" bodystart="72" bodyend="80"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classCompactList_1a9102adbc50f2c46f36bc4658dfbbdd77" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>CompactList&lt; T, AllocatorGranularity &gt;::CompactList</definition>
+        <argsstring>()</argsstring>
+        <name>CompactList</name>
+        <qualifiedname>CompactList::CompactList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="39" column="5" bodyfile="include/CompactList.hpp" bodystart="39" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1ac35ea977634ebc60595df00f7974f155" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CompactList&lt; T, i &gt;::~CompactList</definition>
+        <argsstring>()</argsstring>
+        <name>~CompactList</name>
+        <qualifiedname>CompactList::~CompactList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="45" column="5" bodyfile="include/CompactList.hpp" bodystart="65" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1a397ed8888660c7190195667fef90100f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * CompactList&lt; T, AllocatorGranularity &gt;::ElementAddress</definition>
+        <argsstring>(int idx)</argsstring>
+        <name>ElementAddress</name>
+        <qualifiedname>CompactList::ElementAddress</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="47" column="7" bodyfile="include/CompactList.hpp" bodystart="47" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1a4168d9059d1dbb147a0eb4229694f1e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void CompactList&lt; T, i &gt;::RemoveElement</definition>
+        <argsstring>(int idx)</argsstring>
+        <name>RemoveElement</name>
+        <qualifiedname>CompactList::RemoveElement</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="49" column="10" bodyfile="include/CompactList.hpp" bodystart="133" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1aa05bb7296bf6303961ce7c30d8a6436c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int CompactList&lt; T, AllocatorGranularity &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <qualifiedname>CompactList::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="51" column="9" bodyfile="include/CompactList.hpp" bodystart="51" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1a76104fc8e56f0c173137ec4c63b12313" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T &amp;</type>
+        <definition>T &amp; CompactList&lt; T, AllocatorGranularity &gt;::operator[]</definition>
+        <argsstring>(int idx)</argsstring>
+        <name>operator[]</name>
+        <qualifiedname>CompactList::operator[]</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>idx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="53" column="7" bodyfile="include/CompactList.hpp" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1a0d81ee1468b5a620afae0281db0329ba" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * CompactList&lt; T, i &gt;::create</definition>
+        <argsstring>()</argsstring>
+        <name>create</name>
+        <qualifiedname>CompactList::create</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="55" column="7" bodyfile="include/CompactList.hpp" bodystart="93" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1a9a9403003d66043b4fa489583966cc86" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Q</type>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T * CompactList&lt; T, i &gt;::create</definition>
+        <argsstring>(Q)</argsstring>
+        <name>create</name>
+        <qualifiedname>CompactList::create</qualifiedname>
+        <param>
+          <type>Q</type>
+          <defname>par1</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="57" column="7" bodyfile="include/CompactList.hpp" bodystart="101" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1a4649a833fb266e79b4a1720de5bf3f9e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Q</type>
+          </param>
+          <param>
+            <type>class R</type>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T * CompactList&lt; T, i &gt;::create</definition>
+        <argsstring>(Q, R)</argsstring>
+        <name>create</name>
+        <qualifiedname>CompactList::create</qualifiedname>
+        <param>
+          <type>Q</type>
+          <defname>par1</defname>
+        </param>
+        <param>
+          <type>R</type>
+          <defname>par2</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="59" column="7" bodyfile="include/CompactList.hpp" bodystart="109" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classCompactList_1afad1bd8804c7e67c842d500fdb6419c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Q</type>
+          </param>
+          <param>
+            <type>class R</type>
+          </param>
+          <param>
+            <type>class S</type>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T * CompactList&lt; T, i &gt;::create</definition>
+        <argsstring>(Q, R, S)</argsstring>
+        <name>create</name>
+        <qualifiedname>CompactList::create</qualifiedname>
+        <param>
+          <type>Q</type>
+          <defname>par1</defname>
+        </param>
+        <param>
+          <type>R</type>
+          <defname>par2</defname>
+        </param>
+        <param>
+          <type>S</type>
+          <defname>par3</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/CompactList.hpp" line="61" column="7" bodyfile="include/CompactList.hpp" bodystart="117" bodyend="121"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/CompactList.hpp" line="15" column="1" bodyfile="include/CompactList.hpp" bodystart="16" bodyend="62"/>
+    <listofallmembers>
+      <member refid="classCompactList_1a9102adbc50f2c46f36bc4658dfbbdd77" prot="public" virt="non-virtual"><scope>CompactList</scope><name>CompactList</name></member>
+      <member refid="classCompactList_1a0d81ee1468b5a620afae0281db0329ba" prot="public" virt="non-virtual"><scope>CompactList</scope><name>create</name></member>
+      <member refid="classCompactList_1a9a9403003d66043b4fa489583966cc86" prot="public" virt="non-virtual"><scope>CompactList</scope><name>create</name></member>
+      <member refid="classCompactList_1a4649a833fb266e79b4a1720de5bf3f9e" prot="public" virt="non-virtual"><scope>CompactList</scope><name>create</name></member>
+      <member refid="classCompactList_1afad1bd8804c7e67c842d500fdb6419c7" prot="public" virt="non-virtual"><scope>CompactList</scope><name>create</name></member>
+      <member refid="classCompactList_1a397ed8888660c7190195667fef90100f" prot="public" virt="non-virtual"><scope>CompactList</scope><name>ElementAddress</name></member>
+      <member refid="classCompactList_1a0033b286ef623eb233cb06c872c7a18f" prot="private" virt="non-virtual"><scope>CompactList</scope><name>elements</name></member>
+      <member refid="classCompactList_1a553af6259e55ffac1fd4d068451d7fa5" prot="private" virt="non-virtual"><scope>CompactList</scope><name>InsertElement</name></member>
+      <member refid="classCompactList_1aef06a605d60329b88ac61e7760b08e8b" prot="private" virt="non-virtual"><scope>CompactList</scope><name>MemPool</name></member>
+      <member refid="classCompactList_1a76104fc8e56f0c173137ec4c63b12313" prot="public" virt="non-virtual"><scope>CompactList</scope><name>operator[]</name></member>
+      <member refid="classCompactList_1a976f3c9d0c65d6bb1a242a51aa4d2830" prot="private" virt="non-virtual"><scope>CompactList</scope><name>remove</name></member>
+      <member refid="classCompactList_1af78112fbc53ded6735d6e3a0f27c2cf8" prot="private" virt="non-virtual"><scope>CompactList</scope><name>removeAll</name></member>
+      <member refid="classCompactList_1a4168d9059d1dbb147a0eb4229694f1e8" prot="public" virt="non-virtual"><scope>CompactList</scope><name>RemoveElement</name></member>
+      <member refid="classCompactList_1aa05bb7296bf6303961ce7c30d8a6436c" prot="public" virt="non-virtual"><scope>CompactList</scope><name>size</name></member>
+      <member refid="classCompactList_1ac35ea977634ebc60595df00f7974f155" prot="public" virt="non-virtual"><scope>CompactList</scope><name>~CompactList</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

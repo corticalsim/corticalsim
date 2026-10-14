@@ -1,0 +1,343 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classMeasurement" kind="class" language="C++" prot="public">
+    <compoundname>Measurement</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMeasurement_1afdb778561f18e42e74fed9b1494472e5" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Measurement::time</definition>
+        <argsstring></argsstring>
+        <name>time</name>
+        <qualifiedname>Measurement::time</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="11" column="12" bodyfile="include/measurement.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1ab7751a50b36d571f7d20879f20f3d994" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Measurement::lengthDensity</definition>
+        <argsstring></argsstring>
+        <name>lengthDensity</name>
+        <qualifiedname>Measurement::lengthDensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="12" column="12" bodyfile="include/measurement.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a80927da80d914bb4282ec84631fe540d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Measurement::opticalDensity</definition>
+        <argsstring></argsstring>
+        <name>opticalDensity</name>
+        <qualifiedname>Measurement::opticalDensity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="13" column="12" bodyfile="include/measurement.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1ad7e77dc0c37d9c9549d4fc14379b3c82" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Measurement::averageLength</definition>
+        <argsstring></argsstring>
+        <name>averageLength</name>
+        <qualifiedname>Measurement::averageLength</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="14" column="12" bodyfile="include/measurement.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a409ddf5759d6e7c1eef0d8becc36465d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::numberOfMTs</definition>
+        <argsstring></argsstring>
+        <name>numberOfMTs</name>
+        <qualifiedname>Measurement::numberOfMTs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="15" column="9" bodyfile="include/measurement.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a7617f27796a0526b901ccdd87e7c214d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Measurement::segmentsPerMT</definition>
+        <argsstring></argsstring>
+        <name>segmentsPerMT</name>
+        <qualifiedname>Measurement::segmentsPerMT</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="16" column="12" bodyfile="include/measurement.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a9935d8eb3dfe370b3f2506dac0bf807b" prot="public" static="no" mutable="no">
+        <type><ref refid="structOrderParameters" kindref="compound">OrderParameters</ref></type>
+        <definition>OrderParameters Measurement::order</definition>
+        <argsstring></argsstring>
+        <name>order</name>
+        <qualifiedname>Measurement::order</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="17" column="21" bodyfile="include/measurement.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a2601b11073e7e6d0d41556ffbdd86a24" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::growingNumber</definition>
+        <argsstring></argsstring>
+        <name>growingNumber</name>
+        <qualifiedname>Measurement::growingNumber</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="18" column="9" bodyfile="include/measurement.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a97f13d4e696db1d345314d4a8fcce3f0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::shrinkingNumber</definition>
+        <argsstring></argsstring>
+        <name>shrinkingNumber</name>
+        <qualifiedname>Measurement::shrinkingNumber</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="19" column="9" bodyfile="include/measurement.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a1f587fe918ad9465923dab9525c48061" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::segments</definition>
+        <argsstring></argsstring>
+        <name>segments</name>
+        <qualifiedname>Measurement::segments</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="20" column="9" bodyfile="include/measurement.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a15d4e5a8adfe1c2c722b7ff7d468f773" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::trajectories</definition>
+        <argsstring></argsstring>
+        <name>trajectories</name>
+        <qualifiedname>Measurement::trajectories</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="21" column="9" bodyfile="include/measurement.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1aa9293871d6e6e0e4358f03ffab49eb6c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::zipperCount</definition>
+        <argsstring></argsstring>
+        <name>zipperCount</name>
+        <qualifiedname>Measurement::zipperCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="22" column="9" bodyfile="include/measurement.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a3b3fc54de9f200edeca5858228f077b5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::crossoverCount</definition>
+        <argsstring></argsstring>
+        <name>crossoverCount</name>
+        <qualifiedname>Measurement::crossoverCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="23" column="9" bodyfile="include/measurement.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1aa2799f067282400496f416e221334283" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::inducedCatastropheCount</definition>
+        <argsstring></argsstring>
+        <name>inducedCatastropheCount</name>
+        <qualifiedname>Measurement::inducedCatastropheCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="24" column="9" bodyfile="include/measurement.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a12bfa2ec24a67890c72fd52db701ca50" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::validDEventCount</definition>
+        <argsstring></argsstring>
+        <name>validDEventCount</name>
+        <qualifiedname>Measurement::validDEventCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="25" column="9" bodyfile="include/measurement.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a16f27fb38fa025f8fa1eaa7b05a7ff79" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::invalidDEventCount</definition>
+        <argsstring></argsstring>
+        <name>invalidDEventCount</name>
+        <qualifiedname>Measurement::invalidDEventCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="26" column="9" bodyfile="include/measurement.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a9d8f1caf003fbfd9eb7ec6b8f17daa03" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::sEventCount</definition>
+        <argsstring></argsstring>
+        <name>sEventCount</name>
+        <qualifiedname>Measurement::sEventCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="27" column="9" bodyfile="include/measurement.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a27ee12665f41149f5f3d3906853ae39d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::lengthSeveringCount</definition>
+        <argsstring></argsstring>
+        <name>lengthSeveringCount</name>
+        <qualifiedname>Measurement::lengthSeveringCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="28" column="9" bodyfile="include/measurement.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a377abd81e918cc74d0dee19295eb18b2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::intersectionSeveringCount</definition>
+        <argsstring></argsstring>
+        <name>intersectionSeveringCount</name>
+        <qualifiedname>Measurement::intersectionSeveringCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="29" column="9" bodyfile="include/measurement.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1a40482c6d7b0259fa3ca9173c06daf683" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Measurement::occupiedIntersectionCount</definition>
+        <argsstring></argsstring>
+        <name>occupiedIntersectionCount</name>
+        <qualifiedname>Measurement::occupiedIntersectionCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="30" column="9" bodyfile="include/measurement.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMeasurement_1ad13fe52eeff80b3025c3f39c3f9746ca" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Measurement::G_effAdjust</definition>
+        <argsstring></argsstring>
+        <name>G_effAdjust</name>
+        <qualifiedname>Measurement::G_effAdjust</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/measurement.hpp" line="31" column="12" bodyfile="include/measurement.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>Measurement</label>
+        <link refid="classMeasurement"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>order</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>OrderParameters</label>
+        <link refid="structOrderParameters"/>
+      </node>
+    </collaborationgraph>
+    <location file="include/measurement.hpp" line="7" column="1" bodyfile="include/measurement.hpp" bodystart="8" bodyend="32"/>
+    <listofallmembers>
+      <member refid="classMeasurement_1ad7e77dc0c37d9c9549d4fc14379b3c82" prot="public" virt="non-virtual"><scope>Measurement</scope><name>averageLength</name></member>
+      <member refid="classMeasurement_1a3b3fc54de9f200edeca5858228f077b5" prot="public" virt="non-virtual"><scope>Measurement</scope><name>crossoverCount</name></member>
+      <member refid="classMeasurement_1ad13fe52eeff80b3025c3f39c3f9746ca" prot="public" virt="non-virtual"><scope>Measurement</scope><name>G_effAdjust</name></member>
+      <member refid="classMeasurement_1a2601b11073e7e6d0d41556ffbdd86a24" prot="public" virt="non-virtual"><scope>Measurement</scope><name>growingNumber</name></member>
+      <member refid="classMeasurement_1aa2799f067282400496f416e221334283" prot="public" virt="non-virtual"><scope>Measurement</scope><name>inducedCatastropheCount</name></member>
+      <member refid="classMeasurement_1a377abd81e918cc74d0dee19295eb18b2" prot="public" virt="non-virtual"><scope>Measurement</scope><name>intersectionSeveringCount</name></member>
+      <member refid="classMeasurement_1a16f27fb38fa025f8fa1eaa7b05a7ff79" prot="public" virt="non-virtual"><scope>Measurement</scope><name>invalidDEventCount</name></member>
+      <member refid="classMeasurement_1ab7751a50b36d571f7d20879f20f3d994" prot="public" virt="non-virtual"><scope>Measurement</scope><name>lengthDensity</name></member>
+      <member refid="classMeasurement_1a27ee12665f41149f5f3d3906853ae39d" prot="public" virt="non-virtual"><scope>Measurement</scope><name>lengthSeveringCount</name></member>
+      <member refid="classMeasurement_1a409ddf5759d6e7c1eef0d8becc36465d" prot="public" virt="non-virtual"><scope>Measurement</scope><name>numberOfMTs</name></member>
+      <member refid="classMeasurement_1a40482c6d7b0259fa3ca9173c06daf683" prot="public" virt="non-virtual"><scope>Measurement</scope><name>occupiedIntersectionCount</name></member>
+      <member refid="classMeasurement_1a80927da80d914bb4282ec84631fe540d" prot="public" virt="non-virtual"><scope>Measurement</scope><name>opticalDensity</name></member>
+      <member refid="classMeasurement_1a9935d8eb3dfe370b3f2506dac0bf807b" prot="public" virt="non-virtual"><scope>Measurement</scope><name>order</name></member>
+      <member refid="classMeasurement_1a1f587fe918ad9465923dab9525c48061" prot="public" virt="non-virtual"><scope>Measurement</scope><name>segments</name></member>
+      <member refid="classMeasurement_1a7617f27796a0526b901ccdd87e7c214d" prot="public" virt="non-virtual"><scope>Measurement</scope><name>segmentsPerMT</name></member>
+      <member refid="classMeasurement_1a9d8f1caf003fbfd9eb7ec6b8f17daa03" prot="public" virt="non-virtual"><scope>Measurement</scope><name>sEventCount</name></member>
+      <member refid="classMeasurement_1a97f13d4e696db1d345314d4a8fcce3f0" prot="public" virt="non-virtual"><scope>Measurement</scope><name>shrinkingNumber</name></member>
+      <member refid="classMeasurement_1afdb778561f18e42e74fed9b1494472e5" prot="public" virt="non-virtual"><scope>Measurement</scope><name>time</name></member>
+      <member refid="classMeasurement_1a15d4e5a8adfe1c2c722b7ff7d468f773" prot="public" virt="non-virtual"><scope>Measurement</scope><name>trajectories</name></member>
+      <member refid="classMeasurement_1a12bfa2ec24a67890c72fd52db701ca50" prot="public" virt="non-virtual"><scope>Measurement</scope><name>validDEventCount</name></member>
+      <member refid="classMeasurement_1aa9293871d6e6e0e4358f03ffab49eb6c" prot="public" virt="non-virtual"><scope>Measurement</scope><name>zipperCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

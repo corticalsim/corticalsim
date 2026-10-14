@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTrajectoryVector" kind="class" language="C++" prot="public">
+    <compoundname>TrajectoryVector</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classTrajectoryVector_1ae44e0c9f9945e3256a6c149b10c4d383" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double TrajectoryVector::pos</definition>
+        <argsstring></argsstring>
+        <name>pos</name>
+        <qualifiedname>TrajectoryVector::pos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="12" column="12" bodyfile="include/trajectory.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectoryVector_1a8176c53b61e107c37d44f2130e859a96" prot="public" static="no" mutable="no">
+        <type>Direction</type>
+        <definition>Direction TrajectoryVector::dir</definition>
+        <argsstring></argsstring>
+        <name>dir</name>
+        <qualifiedname>TrajectoryVector::dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="13" column="15" bodyfile="include/trajectory.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectoryVector_1acfa051c0d82ced1b5b5eff18d51e093b" prot="public" static="no" mutable="no">
+        <type>Direction</type>
+        <definition>Direction TrajectoryVector::Cdir</definition>
+        <argsstring></argsstring>
+        <name>Cdir</name>
+        <qualifiedname>TrajectoryVector::Cdir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="13" column="19" bodyfile="include/trajectory.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectoryVector_1aedb229e0a7fde26b226dd861f22d823c" prot="public" static="no" mutable="no">
+        <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+        <definition>Trajectory* TrajectoryVector::trajectory</definition>
+        <argsstring></argsstring>
+        <name>trajectory</name>
+        <qualifiedname>TrajectoryVector::trajectory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="14" column="16" bodyfile="include/trajectory.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTrajectoryVector_1a083e0ebf30cc347f090b0e97482fb59b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TrajectoryVector::TrajectoryVector</definition>
+        <argsstring>(double p, Direction d, Trajectory *t)</argsstring>
+        <name>TrajectoryVector</name>
+        <qualifiedname>TrajectoryVector::TrajectoryVector</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>Direction</type>
+          <declname>d</declname>
+        </param>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="16" column="5" bodyfile="include/trajectory.hpp" bodystart="16" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectoryVector_1ab2b69ad5d024b8087c04ac148556724a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>TrajectoryVector::TrajectoryVector</definition>
+        <argsstring>()</argsstring>
+        <name>TrajectoryVector</name>
+        <qualifiedname>TrajectoryVector::TrajectoryVector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="23" column="5" bodyfile="include/trajectory.hpp" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectoryVector_1a7bfee5cdc3c47992aea0d07664b6b11f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector TrajectoryVector::flipped</definition>
+        <argsstring>()</argsstring>
+        <name>flipped</name>
+        <qualifiedname>TrajectoryVector::flipped</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="25" column="22" bodyfile="include/trajectory.hpp" bodystart="25" bodyend="25"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="9">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="3">
+        <label>DLBaseItem&lt; Trajectory &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="8">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="13">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="12">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="5">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>SurfaceVector</label>
+        <link refid="structSurfaceVector"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Trajectory</label>
+        <link refid="classTrajectory"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>nextTr</edgelabel>
+          <edgelabel>prevTr</edgelabel>
+          <edgelabel>thisTr</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>TrajectoryVector</label>
+        <link refid="classTrajectoryVector"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/trajectory.hpp" line="8" column="1" bodyfile="include/trajectory.hpp" bodystart="9" bodyend="26"/>
+    <listofallmembers>
+      <member refid="classTrajectoryVector_1acfa051c0d82ced1b5b5eff18d51e093b" prot="public" virt="non-virtual"><scope>TrajectoryVector</scope><name>Cdir</name></member>
+      <member refid="classTrajectoryVector_1a8176c53b61e107c37d44f2130e859a96" prot="public" virt="non-virtual"><scope>TrajectoryVector</scope><name>dir</name></member>
+      <member refid="classTrajectoryVector_1a7bfee5cdc3c47992aea0d07664b6b11f" prot="public" virt="non-virtual"><scope>TrajectoryVector</scope><name>flipped</name></member>
+      <member refid="classTrajectoryVector_1ae44e0c9f9945e3256a6c149b10c4d383" prot="public" virt="non-virtual"><scope>TrajectoryVector</scope><name>pos</name></member>
+      <member refid="classTrajectoryVector_1aedb229e0a7fde26b226dd861f22d823c" prot="public" virt="non-virtual"><scope>TrajectoryVector</scope><name>trajectory</name></member>
+      <member refid="classTrajectoryVector_1a083e0ebf30cc347f090b0e97482fb59b" prot="public" virt="non-virtual"><scope>TrajectoryVector</scope><name>TrajectoryVector</name></member>
+      <member refid="classTrajectoryVector_1ab2b69ad5d024b8087c04ac148556724a" prot="public" virt="non-virtual"><scope>TrajectoryVector</scope><name>TrajectoryVector</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,687 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classTrajectory" kind="class" language="C++" prot="public">
+    <compoundname>Trajectory</compoundname>
+    <basecompoundref refid="classDLBaseItem" prot="public" virt="non-virtual">DLBaseItem&lt; Trajectory &gt;</basecompoundref>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classTrajectory_1aae6f9325706131f3b6fb8accb1508d76" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Region</definition>
+        <argsstring></argsstring>
+        <name>Region</name>
+        <qualifiedname>Trajectory::Region</qualifiedname>
+        <param>
+          <type><ref refid="classRegion" kindref="compound">Region</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="33" column="18" bodyfile="include/trajectory.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classTrajectory_1a1da61726b7a1709d8854cfec20dec771" prot="public" static="no" mutable="no">
+        <type>const <ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref></type>
+        <definition>const SurfaceVector Trajectory::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <qualifiedname>Trajectory::base</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="37" column="25" bodyfile="include/trajectory.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1ad2329670551e3ecf1c85a75e0e80f0ac" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double Trajectory::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <qualifiedname>Trajectory::length</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="38" column="18" bodyfile="include/trajectory.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a436b23ddadf964cbf9ab2326763d4dd4" prot="public" static="no" mutable="no">
+        <type>vector&lt; <ref refid="classPointATedge" kindref="compound">PointATedge</ref> &gt;</type>
+        <definition>vector&lt;PointATedge&gt; Trajectory::endPoint</definition>
+        <argsstring></argsstring>
+        <name>endPoint</name>
+        <qualifiedname>Trajectory::endPoint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="40" column="12" bodyfile="include/trajectory.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a46d80286ec26b645a339f61af50be1aa" prot="public" static="no" mutable="no">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector Trajectory::thisTr</definition>
+        <argsstring></argsstring>
+        <name>thisTr</name>
+        <qualifiedname>Trajectory::thisTr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="41" column="22" bodyfile="include/trajectory.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a59c491edd9e13f44112856f76ae63080" prot="public" static="no" mutable="no">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector Trajectory::prevTr</definition>
+        <argsstring></argsstring>
+        <name>prevTr</name>
+        <qualifiedname>Trajectory::prevTr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="44" column="22" bodyfile="include/trajectory.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a188a8f47e56e89068de65c9b0107acf5" prot="public" static="no" mutable="no">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector Trajectory::nextTr</definition>
+        <argsstring></argsstring>
+        <name>nextTr</name>
+        <qualifiedname>Trajectory::nextTr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="47" column="22" bodyfile="include/trajectory.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a71e798a5672c7b321d6683d7ce2682fe" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Trajectory::prevTrCosAngle</definition>
+        <argsstring></argsstring>
+        <name>prevTrCosAngle</name>
+        <qualifiedname>Trajectory::prevTrCosAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="51" column="12" bodyfile="include/trajectory.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1aee1ad713b20c0240bfe9aaec095239e2" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Trajectory::nextTrCosAngle</definition>
+        <argsstring></argsstring>
+        <name>nextTrCosAngle</name>
+        <qualifiedname>Trajectory::nextTrCosAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="54" column="12" bodyfile="include/trajectory.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a6b7a18b2ee28813d352a38bcbe6570ba" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Trajectory::prevTrpCat</definition>
+        <argsstring></argsstring>
+        <name>prevTrpCat</name>
+        <qualifiedname>Trajectory::prevTrpCat</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="57" column="12" bodyfile="include/trajectory.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a578882a5be88788f8e4538259caf2ca9" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Trajectory::nextTrpCat</definition>
+        <argsstring></argsstring>
+        <name>nextTrpCat</name>
+        <qualifiedname>Trajectory::nextTrpCat</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="60" column="12" bodyfile="include/trajectory.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a650edc0168878150ddfbf6add42dc207" prot="public" static="no" mutable="no">
+        <type>multimap&lt; double, <ref refid="classIntersection" kindref="compound">Intersection</ref> &gt;</type>
+        <definition>multimap&lt;double, Intersection&gt; Trajectory::intersections</definition>
+        <argsstring></argsstring>
+        <name>intersections</name>
+        <qualifiedname>Trajectory::intersections</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="62" column="14" bodyfile="include/trajectory.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a7be015bec278ef07ebca8a16460c7686" prot="public" static="no" mutable="no">
+        <type>list&lt; <ref refid="classSegment" kindref="compound">Segment</ref> * &gt;</type>
+        <definition>list&lt;Segment*&gt; Trajectory::segments</definition>
+        <argsstring></argsstring>
+        <name>segments</name>
+        <qualifiedname>Trajectory::segments</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="91" column="10" bodyfile="include/trajectory.hpp" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classTrajectory_1a6908ce7db9b92743bd50b1c968548196" prot="public" static="no" mutable="no">
+        <type>list&lt; <ref refid="classMTTip" kindref="compound">MTTip</ref> * &gt;</type>
+        <definition>list&lt;MTTip*&gt; Trajectory::notificationList</definition>
+        <argsstring></argsstring>
+        <name>notificationList</name>
+        <qualifiedname>Trajectory::notificationList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="100" column="10" bodyfile="include/trajectory.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTrajectory_1a614e557299cd3e7c9058c82a7212cca7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IntersectionItr</type>
+        <definition>IntersectionItr Trajectory::wallEnd</definition>
+        <argsstring>()</argsstring>
+        <name>wallEnd</name>
+        <qualifiedname>Trajectory::wallEnd</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="65" column="21" bodyfile="include/trajectory.hpp" bodystart="65" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1a1a3e3be0be2efea8c6e9e16de51d37ee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IntersectionItr</type>
+        <definition>IntersectionItr Trajectory::wallBegin</definition>
+        <argsstring>()</argsstring>
+        <name>wallBegin</name>
+        <qualifiedname>Trajectory::wallBegin</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="71" column="21" bodyfile="include/trajectory.hpp" bodystart="71" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1aae965607a4a89e059e18946fc56a8f77" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Trajectory::Trajectory</definition>
+        <argsstring>(SurfaceVector, vector&lt; PointATedge &gt;, double)</argsstring>
+        <name>Trajectory</name>
+        <qualifiedname>Trajectory::Trajectory</qualifiedname>
+        <param>
+          <type><ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref></type>
+          <defname>baseVec</defname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classPointATedge" kindref="compound">PointATedge</ref> &gt;</type>
+          <defname>endP</defname>
+        </param>
+        <param>
+          <type>double</type>
+          <defname>l</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="78" column="14" bodyfile="src/trajectory.cpp" bodystart="7" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1ac673c37025ca5353ad99ab41c936e75d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Trajectory::~Trajectory</definition>
+        <argsstring>()</argsstring>
+        <name>~Trajectory</name>
+        <qualifiedname>Trajectory::~Trajectory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="79" column="5" bodyfile="src/trajectory.cpp" bodystart="34" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1a156d304020b860a21de4826f7105d1ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Trajectory::integrityCheck</definition>
+        <argsstring>()</argsstring>
+        <name>integrityCheck</name>
+        <qualifiedname>Trajectory::integrityCheck</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="81" column="10" bodyfile="src/trajectory.cpp" bodystart="41" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1a304faca89171e1f01c7cae746bd29a63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector Trajectory::nextTrajectory</definition>
+        <argsstring>(Direction)</argsstring>
+        <name>nextTrajectory</name>
+        <qualifiedname>Trajectory::nextTrajectory</qualifiedname>
+        <param>
+          <type>Direction</type>
+          <defname>dir</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="85" column="22" bodyfile="src/trajectory.cpp" bodystart="368" bodyend="402"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1af07d6c8a8e83e2998e7d867d9fb50f53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Trajectory::conditionalRemove</definition>
+        <argsstring>()</argsstring>
+        <name>conditionalRemove</name>
+        <qualifiedname>Trajectory::conditionalRemove</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="88" column="10" bodyfile="src/trajectory.cpp" bodystart="404" bodyend="413"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1adece04a28fb4a4cbd5c00d41da72f84f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>TrjSegmentTag</type>
+        <definition>TrjSegmentTag Trajectory::insertSegment</definition>
+        <argsstring>(Segment *)</argsstring>
+        <name>insertSegment</name>
+        <qualifiedname>Trajectory::insertSegment</qualifiedname>
+        <param>
+          <type><ref refid="classSegment" kindref="compound">Segment</ref> *</type>
+          <defname>s</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="94" column="19" bodyfile="src/trajectory.cpp" bodystart="321" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1afda928cf7c717d5fd17c7f779e1b5331" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Trajectory::removeSegment</definition>
+        <argsstring>(TrjSegmentTag)</argsstring>
+        <name>removeSegment</name>
+        <qualifiedname>Trajectory::removeSegment</qualifiedname>
+        <param>
+          <type>TrjSegmentTag</type>
+          <defname>s</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="97" column="10" bodyfile="src/trajectory.cpp" bodystart="337" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1a0c2c3ab08b9d54ba32bb783481e76531" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>TrjMTTipTag</type>
+        <definition>TrjMTTipTag Trajectory::registerForNotifications</definition>
+        <argsstring>(MTTip *)</argsstring>
+        <name>registerForNotifications</name>
+        <qualifiedname>Trajectory::registerForNotifications</qualifiedname>
+        <param>
+          <type><ref refid="classMTTip" kindref="compound">MTTip</ref> *</type>
+          <defname>pTip</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="103" column="17" bodyfile="src/trajectory.cpp" bodystart="352" bodyend="356"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1a0bc9d5dc17acf35b029b55c1f1805ec1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Trajectory::unregisterForNotifications</definition>
+        <argsstring>(TrjMTTipTag)</argsstring>
+        <name>unregisterForNotifications</name>
+        <qualifiedname>Trajectory::unregisterForNotifications</qualifiedname>
+        <param>
+          <type>TrjMTTipTag</type>
+          <defname>tag</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="106" column="10" bodyfile="src/trajectory.cpp" bodystart="358" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1a9839d72320e858c801eb4b2e21a96500" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Trajectory::invalidateIntersection</definition>
+        <argsstring>(IntersectionItr &amp;)</argsstring>
+        <name>invalidateIntersection</name>
+        <qualifiedname>Trajectory::invalidateIntersection</qualifiedname>
+        <param>
+          <type>IntersectionItr &amp;</type>
+          <defname>oldIs</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="109" column="10" bodyfile="src/trajectory.cpp" bodystart="229" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1a10a0e8c953758bef48c4ff2a12e2fda9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Trajectory::newIntersection</definition>
+        <argsstring>(IntersectionItr &amp;)</argsstring>
+        <name>newIntersection</name>
+        <qualifiedname>Trajectory::newIntersection</qualifiedname>
+        <param>
+          <type>IntersectionItr &amp;</type>
+          <defname>newIs</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="112" column="10" bodyfile="src/trajectory.cpp" bodystart="243" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1ad968637ce0d59f2bc27b869efcde3e60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Trajectory::differenceSign</definition>
+        <argsstring>(IntersectionItr itr1, double pos1, IntersectionItr itr2, double pos2)</argsstring>
+        <name>differenceSign</name>
+        <qualifiedname>Trajectory::differenceSign</qualifiedname>
+        <param>
+          <type>IntersectionItr</type>
+          <declname>itr1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>pos1</declname>
+        </param>
+        <param>
+          <type>IntersectionItr</type>
+          <declname>itr2</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>pos2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="116" column="9" bodyfile="src/trajectory.cpp" bodystart="280" bodyend="319"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1aa690960267275dc493b5f396df8376b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Trajectory::coveredLength</definition>
+        <argsstring>()</argsstring>
+        <name>coveredLength</name>
+        <qualifiedname>Trajectory::coveredLength</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="119" column="12" bodyfile="src/trajectory.cpp" bodystart="171" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1a61e9ce17482f19a8a043c9500b13362a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Trajectory::segmentLength</definition>
+        <argsstring>()</argsstring>
+        <name>segmentLength</name>
+        <qualifiedname>Trajectory::segmentLength</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="122" column="12" bodyfile="src/trajectory.cpp" bodystart="157" bodyend="169"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classTrajectory_1a5ac386696a765cd0672ae840a9e9f1bc" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Trajectory::Trajectory</definition>
+        <argsstring>(const Trajectory &amp;)</argsstring>
+        <name>Trajectory</name>
+        <qualifiedname>Trajectory::Trajectory</qualifiedname>
+        <param>
+          <type>const <ref refid="classTrajectory" kindref="compound">Trajectory</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="128" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classTrajectory_1af01d550f7f938675d26176907d49c8e7" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> &amp;</type>
+        <definition>Trajectory &amp; Trajectory::operator=</definition>
+        <argsstring>(const Trajectory &amp;)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>Trajectory::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classTrajectory" kindref="compound">Trajectory</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/trajectory.hpp" line="129" column="16"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DLBaseItem&lt; Trajectory &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="1">
+        <label>Trajectory</label>
+        <link refid="classTrajectory"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="8">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="2">
+        <label>DLBaseItem&lt; Trajectory &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="7">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="12">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="11">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="4">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>SurfaceVector</label>
+        <link refid="structSurfaceVector"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Trajectory</label>
+        <link refid="classTrajectory"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>nextTr</edgelabel>
+          <edgelabel>prevTr</edgelabel>
+          <edgelabel>thisTr</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>TrajectoryVector</label>
+        <link refid="classTrajectoryVector"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/trajectory.hpp" line="28" column="1" bodyfile="include/trajectory.hpp" bodystart="32" bodyend="130"/>
+    <listofallmembers>
+      <member refid="classTrajectory_1a1da61726b7a1709d8854cfec20dec771" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>base</name></member>
+      <member refid="classTrajectory_1af07d6c8a8e83e2998e7d867d9fb50f53" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>conditionalRemove</name></member>
+      <member refid="classTrajectory_1aa690960267275dc493b5f396df8376b4" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>coveredLength</name></member>
+      <member refid="classTrajectory_1ad968637ce0d59f2bc27b869efcde3e60" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>differenceSign</name></member>
+      <member refid="classTrajectory_1a436b23ddadf964cbf9ab2326763d4dd4" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>endPoint</name></member>
+      <member refid="classTrajectory_1adece04a28fb4a4cbd5c00d41da72f84f" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>insertSegment</name></member>
+      <member refid="classTrajectory_1a156d304020b860a21de4826f7105d1ef" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>integrityCheck</name></member>
+      <member refid="classTrajectory_1a650edc0168878150ddfbf6add42dc207" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>intersections</name></member>
+      <member refid="classTrajectory_1a9839d72320e858c801eb4b2e21a96500" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>invalidateIntersection</name></member>
+      <member refid="classTrajectory_1ad2329670551e3ecf1c85a75e0e80f0ac" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>length</name></member>
+      <member refid="classTrajectory_1a10a0e8c953758bef48c4ff2a12e2fda9" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>newIntersection</name></member>
+      <member refid="classDLBaseItem_1ab8234a87e1c20633ac16292baff94dc4" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>next</name></member>
+      <member refid="classTrajectory_1a188a8f47e56e89068de65c9b0107acf5" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>nextTr</name></member>
+      <member refid="classTrajectory_1a304faca89171e1f01c7cae746bd29a63" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>nextTrajectory</name></member>
+      <member refid="classTrajectory_1aee1ad713b20c0240bfe9aaec095239e2" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>nextTrCosAngle</name></member>
+      <member refid="classTrajectory_1a578882a5be88788f8e4538259caf2ca9" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>nextTrpCat</name></member>
+      <member refid="classTrajectory_1a6908ce7db9b92743bd50b1c968548196" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>notificationList</name></member>
+      <member refid="classTrajectory_1af01d550f7f938675d26176907d49c8e7" prot="private" virt="non-virtual"><scope>Trajectory</scope><name>operator=</name></member>
+      <member refid="classDLBaseItem_1ae18a479d3f1b66db2b923c2d936e340b" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>previous</name></member>
+      <member refid="classTrajectory_1a59c491edd9e13f44112856f76ae63080" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>prevTr</name></member>
+      <member refid="classTrajectory_1a71e798a5672c7b321d6683d7ce2682fe" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>prevTrCosAngle</name></member>
+      <member refid="classTrajectory_1a6b7a18b2ee28813d352a38bcbe6570ba" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>prevTrpCat</name></member>
+      <member refid="classTrajectory_1aae6f9325706131f3b6fb8accb1508d76" prot="private" virt="non-virtual"><scope>Trajectory</scope><name>Region</name></member>
+      <member refid="classTrajectory_1a0c2c3ab08b9d54ba32bb783481e76531" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>registerForNotifications</name></member>
+      <member refid="classTrajectory_1afda928cf7c717d5fd17c7f779e1b5331" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>removeSegment</name></member>
+      <member refid="classTrajectory_1a61e9ce17482f19a8a043c9500b13362a" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>segmentLength</name></member>
+      <member refid="classTrajectory_1a7be015bec278ef07ebca8a16460c7686" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>segments</name></member>
+      <member refid="classTrajectory_1a46d80286ec26b645a339f61af50be1aa" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>thisTr</name></member>
+      <member refid="classTrajectory_1aae965607a4a89e059e18946fc56a8f77" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>Trajectory</name></member>
+      <member refid="classTrajectory_1a5ac386696a765cd0672ae840a9e9f1bc" prot="private" virt="non-virtual"><scope>Trajectory</scope><name>Trajectory</name></member>
+      <member refid="classTrajectory_1a0bc9d5dc17acf35b029b55c1f1805ec1" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>unregisterForNotifications</name></member>
+      <member refid="classTrajectory_1a1a3e3be0be2efea8c6e9e16de51d37ee" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>wallBegin</name></member>
+      <member refid="classTrajectory_1a614e557299cd3e7c9058c82a7212cca7" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>wallEnd</name></member>
+      <member refid="classDLBaseItem_1a37cc554fea30b8c59b9314b822399bb9" prot="protected" virt="virtual"><scope>Trajectory</scope><name>~DLBaseItem</name></member>
+      <member refid="classTrajectory_1ac673c37025ca5353ad99ab41c936e75d" prot="public" virt="non-virtual"><scope>Trajectory</scope><name>~Trajectory</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1032 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="types_8hpp" kind="file" language="C++">
+    <compoundname>types.hpp</compoundname>
+    <includes local="no">vector</includes>
+    <includes local="no">list</includes>
+    <includes local="no">map</includes>
+    <includes local="no">queue</includes>
+    <includes local="no">boost/pool/pool_alloc.hpp</includes>
+    <includes local="no">string</includes>
+    <includes local="no">cstring</includes>
+    <includes local="no">cmath</includes>
+    <includes local="no">iomanip</includes>
+    <includes local="no">fstream</includes>
+    <includes local="no">float.h</includes>
+    <includes local="no">sys/stat.h</includes>
+    <includes local="no">cstddef</includes>
+    <includes refid="randhub_8hpp" local="yes">randhub.hpp</includes>
+    <includes refid="DLList_8hpp" local="yes">DLList.hpp</includes>
+    <includes refid="CompactList_8hpp" local="yes">CompactList.hpp</includes>
+    <includedby refid="DLList_8hpp" local="yes">include/DLList.hpp</includedby>
+    <includedby refid="det__queue_8hpp" local="yes">include/det_queue.hpp</includedby>
+    <includedby refid="edge_8hpp" local="yes">include/edge.hpp</includedby>
+    <includedby refid="event_8hpp" local="yes">include/event.hpp</includedby>
+    <includedby refid="geometry_8hpp" local="yes">include/geometry.hpp</includedby>
+    <includedby refid="intersection_8hpp" local="yes">include/intersection.hpp</includedby>
+    <includedby refid="measurement_8hpp" local="yes">include/measurement.hpp</includedby>
+    <includedby refid="mesh_8hpp" local="yes">include/mesh.hpp</includedby>
+    <includedby refid="microtubule_8hpp" local="yes">include/microtubule.hpp</includedby>
+    <includedby refid="mt__tip_8hpp" local="yes">include/mt_tip.hpp</includedby>
+    <includedby refid="parameters_8hpp" local="yes">include/parameters.hpp</includedby>
+    <includedby refid="region_8hpp" local="yes">include/region.hpp</includedby>
+    <includedby refid="segment_8hpp" local="yes">include/segment.hpp</includedby>
+    <includedby refid="surface_8hpp" local="yes">include/surface.hpp</includedby>
+    <includedby refid="system_8hpp" local="yes">include/system.hpp</includedby>
+    <includedby refid="analysis_8cpp" local="yes">src/analysis.cpp</includedby>
+    <incdepgraph>
+      <node id="23">
+        <label>CompactList.hpp</label>
+        <link refid="CompactList_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>DLList.hpp</label>
+        <link refid="DLList_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>randhub.hpp</label>
+        <link refid="randhub_8hpp_source"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/types.hpp</label>
+        <link refid="types_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>boost/pool/pool_alloc.hpp</label>
+      </node>
+      <node id="21">
+        <label>boost/pool/singleton_pool.hpp</label>
+      </node>
+      <node id="17">
+        <label>chrono</label>
+      </node>
+      <node id="9">
+        <label>cmath</label>
+      </node>
+      <node id="14">
+        <label>cstddef</label>
+      </node>
+      <node id="8">
+        <label>cstring</label>
+      </node>
+      <node id="12">
+        <label>float.h</label>
+      </node>
+      <node id="11">
+        <label>fstream</label>
+      </node>
+      <node id="10">
+        <label>iomanip</label>
+      </node>
+      <node id="24">
+        <label>iostream</label>
+      </node>
+      <node id="16">
+        <label>limits</label>
+      </node>
+      <node id="3">
+        <label>list</label>
+      </node>
+      <node id="4">
+        <label>map</label>
+      </node>
+      <node id="22">
+        <label>new</label>
+      </node>
+      <node id="18">
+        <label>numeric</label>
+      </node>
+      <node id="5">
+        <label>queue</label>
+      </node>
+      <node id="19">
+        <label>random</label>
+      </node>
+      <node id="7">
+        <label>string</label>
+      </node>
+      <node id="13">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="2">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>include/DLList.hpp</label>
+        <link refid="DLList_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>include/det_queue.hpp</label>
+        <link refid="det__queue_8hpp_source"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>include/edge.hpp</label>
+        <link refid="edge_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>include/event.hpp</label>
+        <link refid="event_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>include/geometry.hpp</label>
+        <link refid="geometry_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>include/intersection.hpp</label>
+        <link refid="intersection_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>include/measurement.hpp</label>
+        <link refid="measurement_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>include/mesh.hpp</label>
+        <link refid="mesh_8hpp_source"/>
+      </node>
+      <node id="7">
+        <label>include/microtubule.hpp</label>
+        <link refid="microtubule_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>include/mt_tip.hpp</label>
+        <link refid="mt__tip_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>include/parameters.hpp</label>
+        <link refid="parameters_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>include/region.hpp</label>
+        <link refid="region_8hpp_source"/>
+      </node>
+      <node id="9">
+        <label>include/segment.hpp</label>
+        <link refid="segment_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>include/surface.hpp</label>
+        <link refid="surface_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>include/system.hpp</label>
+        <link refid="system_8hpp_source"/>
+      </node>
+      <node id="3">
+        <label>include/trajectory.hpp</label>
+        <link refid="trajectory_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/types.hpp</label>
+        <link refid="types_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="types_8hpp_1a2f10abd650e471fae2d7e8c63d41206a" prot="public" static="no">
+        <name>PROGRAM_VERSION</name>
+        <initializer>&quot;BC.2018&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="39" column="9" bodyfile="include/types.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8hpp_1afe4aaa073735427f62664ebad4f77d64" prot="public" static="no">
+        <name>CROSS_SEV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="40" column="9" bodyfile="include/types.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="types_8hpp_1a224b9163917ac32fc95a60d8c1eec3aa" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Direction</name>
+        <enumvalue id="types_8hpp_1a224b9163917ac32fc95a60d8c1eec3aaa726a0af5164861adac8c015a742dcf21" prot="public">
+          <name>forward</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a224b9163917ac32fc95a60d8c1eec3aaab3d7481243d86f5bf31d617c7ba70220" prot="public">
+          <name>backward</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="84" column="1" bodyfile="include/types.hpp" bodystart="85" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1afb5ebd10e4f05af7fa4c37c8068b4db4" prot="public" static="no" strong="no">
+        <type></type>
+        <name>DeterministicEventType</name>
+        <enumvalue id="types_8hpp_1afb5ebd10e4f05af7fa4c37c8068b4db4a08d605900fc4355929a694ecf24dba3d" prot="public">
+          <name>ev_none</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1afb5ebd10e4f05af7fa4c37c8068b4db4a5c06a239b2f867f378b08b3f48b45188" prot="public">
+          <name>ev_wall</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1afb5ebd10e4f05af7fa4c37c8068b4db4a2b833c614a5e7030d5cd28b49bf7e3a3" prot="public">
+          <name>ev_collision</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1afb5ebd10e4f05af7fa4c37c8068b4db4a9feac7462778c65616b7e40b8507c51c" prot="public">
+          <name>ev_backtrack</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1afb5ebd10e4f05af7fa4c37c8068b4db4af91397a4d58b120de3149fc628e80de6" prot="public">
+          <name>ev_end_of_segment</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1afb5ebd10e4f05af7fa4c37c8068b4db4a06e7fcd74319777081ddc9da23191d55" prot="public">
+          <name>ev_disappear</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="92" column="1" bodyfile="include/types.hpp" bodystart="93" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1a4a82f1fa9f4e73e3e33c31d0387b9dad" prot="public" static="no" strong="no">
+        <type></type>
+        <name>GlobalEventType</name>
+        <enumvalue id="types_8hpp_1a4a82f1fa9f4e73e3e33c31d0387b9dadaaf02733522be978db621406c33e403c9" prot="public">
+          <name>measure</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a4a82f1fa9f4e73e3e33c31d0387b9dada2daea9d69f24988be658f35bf50a4da6" prot="public">
+          <name>snapshot</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a4a82f1fa9f4e73e3e33c31d0387b9dadad82a4ca4dc1f04bf9453ad19f9341028" prot="public">
+          <name>stop</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a4a82f1fa9f4e73e3e33c31d0387b9dada9a6940c3bba41cdd6dacae1a00176a30" prot="public">
+          <name>status</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a4a82f1fa9f4e73e3e33c31d0387b9dada89829048072ae40fe8426c418e1a2497" prot="public">
+          <name>parameter_change</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a4a82f1fa9f4e73e3e33c31d0387b9dada07916749ac8a9557c6d18d37ae280f7d" prot="public">
+          <name>signalPPB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="102" column="1" bodyfile="include/types.hpp" bodystart="103" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1a6a8671197ef0d5bde0633588f5fc49db" prot="public" static="no" strong="no">
+        <type></type>
+        <name>StochasticEventType</name>
+        <enumvalue id="types_8hpp_1a6a8671197ef0d5bde0633588f5fc49dba92c8a6157eaf51a5d227eabbf497e6a9" prot="public">
+          <name>catastrophe</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a6a8671197ef0d5bde0633588f5fc49dba311cb54f8b3688c0822a20f0eee53e7a" prot="public">
+          <name>rescue</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a6a8671197ef0d5bde0633588f5fc49dbace2c67a6c9d1a475db7eac5d468dc2e2" prot="public">
+          <name>katanin</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a6a8671197ef0d5bde0633588f5fc49dba7ebd45cf29400a691f543cfcdc4c8fac" prot="public">
+          <name>severingAtCross</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a6a8671197ef0d5bde0633588f5fc49dba31903e8838b35f47b8a5baebfb021b7f" prot="public">
+          <name>nucleation</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="112" column="1" bodyfile="include/types.hpp" bodystart="113" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1aa884075f403706dceea29a61771a0d44" prot="public" static="no" strong="no">
+        <type></type>
+        <name>CollisionType</name>
+        <enumvalue id="types_8hpp_1aa884075f403706dceea29a61771a0d44a91c90dfec75082c9ea8cb99ba486881f" prot="public">
+          <name>ct_zipper</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1aa884075f403706dceea29a61771a0d44a37de10a9f8d5540c3d01622c1a858aa1" prot="public">
+          <name>ct_crossover</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1aa884075f403706dceea29a61771a0d44a6be6c256583decd01070abdddfa84075" prot="public">
+          <name>ct_inducedCatastrophe</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="121" column="1" bodyfile="include/types.hpp" bodystart="122" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1a5dd83ad937f4597c6850331d80384431" prot="public" static="no" strong="no">
+        <type></type>
+        <name>NucleationType</name>
+        <enumvalue id="types_8hpp_1a5dd83ad937f4597c6850331d80384431aaafcbd1f3934c1ef088876a9b96a1a93" prot="public">
+          <name>nuc_isotropic</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a5dd83ad937f4597c6850331d80384431ab5b4f684e2fdec0f3287dd38aa1276fb" prot="public">
+          <name>nuc_COUNT_LAST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="128" column="1" bodyfile="include/types.hpp" bodystart="129" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1a9a40fc7400eafce3fb17486772fdea35" prot="public" static="no" strong="no">
+        <type></type>
+        <name>InteractionType</name>
+        <enumvalue id="types_8hpp_1a9a40fc7400eafce3fb17486772fdea35a8185d34838e834568b67f19cf67e2f1b" prot="public">
+          <name>int_zipFirst</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a9a40fc7400eafce3fb17486772fdea35ad6db126baec10c4bd8b3b2918e3cbae4" prot="public">
+          <name>int_catFirst</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a9a40fc7400eafce3fb17486772fdea35aebc7857851ddbdc015bfc0eecafadfc7" prot="public">
+          <name>int_COUNT_LAST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="136" column="1" bodyfile="include/types.hpp" bodystart="137" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1a2e63542253aa7af1554ae01f0d80e225" prot="public" static="no" strong="no">
+        <type></type>
+        <name>BundleType</name>
+        <enumvalue id="types_8hpp_1a2e63542253aa7af1554ae01f0d80e225a042d9209cd038d301d82fe32057b5422" prot="public">
+          <name>bdl_simple</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a2e63542253aa7af1554ae01f0d80e225a0db653be80fe47f69ea730f2ace7641b" prot="public">
+          <name>bdl_sticky</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a2e63542253aa7af1554ae01f0d80e225afa5edb3bf81fdaf55a327d324deeddc7" prot="public">
+          <name>bdl_noZip</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a2e63542253aa7af1554ae01f0d80e225ac96a8354fe8ac9a0f53112d33a02a9d3" prot="public">
+          <name>bdl_multiCollision</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a2e63542253aa7af1554ae01f0d80e225a1de827d3c9b20010aa02068db45b0c2b" prot="public">
+          <name>bdl_Ncollision</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a2e63542253aa7af1554ae01f0d80e225ac7bbc854deb43e67fb7e353b9ea65376" prot="public">
+          <name>bdl_COUNT_LAST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="145" column="1" bodyfile="include/types.hpp" bodystart="146" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1a95967dee064cb1c223e052cf9e07bf44" prot="public" static="no" strong="no">
+        <type></type>
+        <name>TipType</name>
+        <enumvalue id="types_8hpp_1a95967dee064cb1c223e052cf9e07bf44a851434271653be2b1d624de645f437fb" prot="public">
+          <name>t_minus</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a95967dee064cb1c223e052cf9e07bf44ac996863dd53dff1824f37a5bc589e846" prot="public">
+          <name>t_plus</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="157" column="1" bodyfile="include/types.hpp" bodystart="158" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="enum" id="types_8hpp_1a486d20c90af1d0fafc990441f2b356cb" prot="public" static="no" strong="no">
+        <type></type>
+        <name>MTType</name>
+        <enumvalue id="types_8hpp_1a486d20c90af1d0fafc990441f2b356cba0f92f01f6697b42af63c4d64dfb91eac" prot="public">
+          <name>mt_growing</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8hpp_1a486d20c90af1d0fafc990441f2b356cba00510b5f3196ce5bc4c83a4f43ad019c" prot="public">
+          <name>mt_shrinking</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="163" column="1" bodyfile="include/types.hpp" bodystart="164" bodyend="167"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="types_8hpp_1a1ea0e312c6857af3190d3799c6bb0e84" prot="public" static="no">
+        <type>multimap&lt; double, <ref refid="classIntersection" kindref="compound">Intersection</ref> &gt;::iterator</type>
+        <definition>typedef multimap&lt;double,Intersection&gt;::iterator IntersectionItr</definition>
+        <argsstring></argsstring>
+        <name>IntersectionItr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="76" column="29" bodyfile="include/types.hpp" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8hpp_1a1a7b380630905e1bf5dc6b01d6b6b2e1" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int EventDescriptorIndex</definition>
+        <argsstring></argsstring>
+        <name>EventDescriptorIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="77" column="13" bodyfile="include/types.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8hpp_1aec5b678486640e15e60b59e0306cde63" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int EventTrackingTag</definition>
+        <argsstring></argsstring>
+        <name>EventTrackingTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="78" column="13" bodyfile="include/types.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8hpp_1a4885f12a68861aa9aa5d9a315045fc8f" prot="public" static="no">
+        <type>list&lt; <ref refid="classSegment" kindref="compound">Segment</ref> * &gt;::iterator</type>
+        <definition>typedef list&lt;Segment*&gt;::iterator TrjSegmentTag</definition>
+        <argsstring></argsstring>
+        <name>TrjSegmentTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="79" column="25" bodyfile="include/types.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8hpp_1a5de4e9ffb455d0d09d7edfea2dc99d24" prot="public" static="no">
+        <type>list&lt; <ref refid="classMTTip" kindref="compound">MTTip</ref> * &gt;::iterator</type>
+        <definition>typedef list&lt;MTTip*&gt;::iterator TrjMTTipTag</definition>
+        <argsstring></argsstring>
+        <name>TrjMTTipTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="80" column="25" bodyfile="include/types.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8hpp_1a91fd105fddf33a09ee34939dc0457a49" prot="public" static="no">
+        <type>list&lt; <ref refid="classMTTip" kindref="compound">MTTip</ref> * &gt;::iterator</type>
+        <definition>typedef list&lt;MTTip*&gt;::iterator RegionMTTipTag</definition>
+        <argsstring></argsstring>
+        <name>RegionMTTipTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="81" column="25" bodyfile="include/types.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="types_8hpp_1a94c3222239ec105761a51280ff069d9c" prot="public" static="no" extern="yes" mutable="no">
+        <type>string</type>
+        <definition>string DirectionTypeText[]</definition>
+        <argsstring>[]</argsstring>
+        <name>DirectionTypeText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="90" column="15" bodyfile="src/parameters.cpp" bodystart="6" bodyend="6" declfile="include/types.hpp" declline="90" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8hpp_1aad32828835f082e33696cb3d80f9863d" prot="public" static="no" extern="yes" mutable="no">
+        <type>string</type>
+        <definition>string NucleationTypeText[]</definition>
+        <argsstring>[]</argsstring>
+        <name>NucleationTypeText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="134" column="15" bodyfile="src/parameters.cpp" bodystart="9" bodyend="9" declfile="include/types.hpp" declline="134" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8hpp_1af4e9019266500a36932a7f426beb6a9c" prot="public" static="no" extern="yes" mutable="no">
+        <type>string</type>
+        <definition>string InteractionTypeText[]</definition>
+        <argsstring>[]</argsstring>
+        <name>InteractionTypeText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="143" column="15" bodyfile="src/parameters.cpp" bodystart="8" bodyend="8" declfile="include/types.hpp" declline="143" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="variable" id="types_8hpp_1aa39a4b808dd423dc0aec2edf2edb565c" prot="public" static="no" extern="yes" mutable="no">
+        <type>string</type>
+        <definition>string BundleTypeText[]</definition>
+        <argsstring>[]</argsstring>
+        <name>BundleTypeText</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/types.hpp" line="155" column="15" bodyfile="src/parameters.cpp" bodystart="10" bodyend="10" declfile="include/types.hpp" declline="155" declcolumn="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>TYPES_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TYPES_HPP</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">/*******************************************************************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>For<sp/>details<sp/>of<sp/>simulation<sp/>implementation:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Chakrabortty<sp/>B,<sp/>Blilou<sp/>I,<sp/>Scheres<sp/>B,<sp/>Mulder<sp/>BM<sp/>(2018)<sp/>A<sp/>computational</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>framework<sp/>for<sp/>cortical<sp/>microtubule<sp/>dynamics<sp/>in<sp/>realistically<sp/>shaped<sp/>plant</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cells.<sp/>PLoS<sp/>Comput<sp/>Biol<sp/>14(2):<sp/>e1005959.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>https://doi.org/10.1371/journal.pcbi.1005959</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">/***********************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>a<sp/>framework<sp/>to<sp/>simulate<sp/>cortical<sp/>microtubule<sp/>dynamics<sp/>in<sp/>arbitrary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Shaped<sp/>plant<sp/>cells.<sp/>The<sp/>program<sp/>is<sp/>developed<sp/>by<sp/>Bandan<sp/>Chakrabortty</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(07/03/2013)<sp/>and<sp/>some<sp/>basic<sp/>implementations<sp/>are<sp/>used<sp/>from<sp/>(cortSim:1.20)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>developed<sp/>by<sp/>Simon<sp/>Tindemans<sp/>(01/04/2008)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*********************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPORTANT:<sp/>pitfalls<sp/>to<sp/>watch<sp/>out<sp/>for<sp/>when<sp/>extending<sp/>the<sp/>code</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>*<sp/>The<sp/>microtubule<sp/>is<sp/>only<sp/>assumed<sp/>to<sp/>grow<sp/>in<sp/>length<sp/>at<sp/>the<sp/>plus<sp/>end.<sp/>This<sp/>is</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>not<sp/>an<sp/>MTTip<sp/>property,<sp/>but<sp/>a<sp/>property<sp/>of<sp/>the<sp/>Microtubule<sp/>functions.</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>Two-sided<sp/>growth<sp/>can<sp/>be<sp/>enabled,<sp/>but<sp/>needs<sp/>plus/minus<sp/>distinctions<sp/>for<sp/>the</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>events.<sp/>Also,<sp/>tips<sp/>with<sp/>velocity<sp/>zero<sp/>(usually<sp/>non-treadmilling<sp/>minus<sp/>ends)</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>are<sp/>assumed<sp/>to<sp/>be<sp/>in<sp/>a<sp/>&apos;shrinking&apos;<sp/>state.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>*<sp/>The<sp/>program<sp/>assumes<sp/>a<sp/>stable<sp/>sort<sp/>order<sp/>for<sp/>the<sp/>intersection<sp/>lists.<sp/>This</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>is<sp/>true<sp/>in<sp/>practice<sp/>(in<sp/>all<sp/>common<sp/>implementations),<sp/>but<sp/>not<sp/>mandated<sp/>by<sp/>the</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*<sp/>standard.</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/>*<sp/>If<sp/>the<sp/>tubulin<sp/>pool<sp/>size<sp/>is<sp/>decreased<sp/>on<sp/>the<sp/>fly,<sp/>care<sp/>should<sp/>be<sp/>taken</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/>that<sp/>the<sp/>actual<sp/>density<sp/>doesn&apos;t<sp/>exceed<sp/>the<sp/>pool<sp/>size.<sp/>In<sp/>this<sp/>situation,<sp/>the</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*<sp/>behaviour<sp/>is<sp/>undefined.</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"><sp/>*<sp/>*<sp/>In<sp/>microtubule.cpp<sp/>and<sp/>system.cpp,<sp/>compiler<sp/>warnings<sp/>are<sp/>(should<sp/>be)</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*<sp/>issued<sp/>for<sp/>using<sp/>the<sp/>&apos;this&apos;<sp/>pointer<sp/>within<sp/>the<sp/>initializer<sp/>list,<sp/>because<sp/>the</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*<sp/>&apos;this&apos;<sp/>pointer<sp/>cannot<sp/>be<sp/>used<sp/>until<sp/>the<sp/>initialization<sp/>has<sp/>completed.<sp/>The</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>*<sp/><sp/><sp/>current<sp/>use<sp/>is<sp/>ok,<sp/>because<sp/>the<sp/>pointer<sp/>is<sp/>only<sp/>used<sp/>to<sp/>store<sp/>the<sp/>address</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*<sp/>of<sp/>the<sp/>parent<sp/>object.<sp/>NOTE:<sp/>when<sp/>making<sp/>changes<sp/>to<sp/>the<sp/>code,<sp/>take<sp/>care<sp/>NOT</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*<sp/>to<sp/>use<sp/>this<sp/>pointer<sp/>within<sp/>the<sp/>constructors<sp/>of<sp/>other<sp/>objects!</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PROGRAM_VERSION<sp/>&quot;BC.2018&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CROSS_SEV</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;list&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;queue&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;boost/pool/pool_alloc.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstring&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iomanip&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;float.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/stat.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstddef&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;randhub.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;DLList.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;CompactList.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">std;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classSystem" kindref="compound">System</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classMicrotubule" kindref="compound">Microtubule</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classSegment" kindref="compound">Segment</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classMTTip" kindref="compound">MTTip</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classDeterministicEvent" kindref="compound">DeterministicEvent</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classParameters" kindref="compound">Parameters</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classGeometry" kindref="compound">Geometry</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classRegion" kindref="compound">Region</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classTrajectory" kindref="compound">Trajectory</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classIntersection" kindref="compound">Intersection</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>CROSS_SEV</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classOccupiedIntersection" kindref="compound">OccupiedIntersection</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>multimap&lt;double,<sp/>Intersection&gt;::iterator<sp/>IntersectionItr;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EventDescriptorIndex;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EventTrackingTag;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>list&lt;Segment*&gt;::iterator<sp/>TrjSegmentTag;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>list&lt;MTTip*&gt;::iterator<sp/>TrjMTTipTag;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>list&lt;MTTip*&gt;::iterator<sp/>RegionMTTipTag;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/>new<sp/>data<sp/>type<sp/>definition</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>forward<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>backward<sp/>=<sp/>-1</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}<sp/>Direction;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>DirectionTypeText[];</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>ev_none,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>ev_wall<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>ev_collision,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>ev_backtrack,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>ev_end_of_segment,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>ev_disappear</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}<sp/>DeterministicEventType;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>measure<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>snapshot,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>stop,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>status,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>parameter_change,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>signalPPB</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}<sp/>GlobalEventType;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>catastrophe<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>rescue,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>katanin,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>severingAtCross,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>nucleation</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">}<sp/>StochasticEventType;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>ct_zipper<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>ct_crossover,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>ct_inducedCatastrophe</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}<sp/>CollisionType;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>nuc_isotropic,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>nuc_COUNT_LAST</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">}<sp/>NucleationType;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>NucleationTypeText[];</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>int_zipFirst,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>int_catFirst,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>int_COUNT_LAST</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}<sp/>InteractionType;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>InteractionTypeText[];</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/>bdl_simple,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>bdl_sticky,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>bdl_noZip,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>bdl_multiCollision,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>bdl_Ncollision,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>bdl_COUNT_LAST</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">}<sp/>BundleType;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal"><sp/>BundleTypeText[];</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>t_minus,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>t_plus</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}<sp/>TipType;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>mt_growing,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>mt_shrinking</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}<sp/>MTType;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>TYPES_HPP</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="include/types.hpp"/>
+  </compounddef>
+</doxygen>

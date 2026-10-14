@@ -1,0 +1,804 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="mesh_8hpp" kind="file" language="C++">
+    <compoundname>mesh.hpp</compoundname>
+    <includes refid="types_8hpp" local="yes">types.hpp</includes>
+    <includes refid="geometry_8hpp" local="yes">geometry.hpp</includes>
+    <includes refid="edge_8hpp" local="yes">edge.hpp</includes>
+    <includes refid="surface_8hpp" local="yes">surface.hpp</includes>
+    <includes refid="linalg_8hpp" local="yes">linalg.hpp</includes>
+    <includedby refid="geometry_8cpp" local="yes">src/geometry.cpp</includedby>
+    <includedby refid="mesh_8cpp" local="yes">src/mesh.cpp</includedby>
+    <includedby refid="system_8cpp" local="yes">src/system.cpp</includedby>
+    <incdepgraph>
+      <node id="24">
+        <label>CompactList.hpp</label>
+        <link refid="CompactList_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>DLList.hpp</label>
+        <link refid="DLList_8hpp_source"/>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>edge.hpp</label>
+        <link refid="edge_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>geometry.hpp</label>
+        <link refid="geometry_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>intersection.hpp</label>
+        <link refid="intersection_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>linalg.hpp</label>
+        <link refid="linalg_8hpp_source"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/mesh.hpp</label>
+        <link refid="mesh_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>parameters.hpp</label>
+        <link refid="parameters_8hpp_source"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>randhub.hpp</label>
+        <link refid="randhub_8hpp_source"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>surface.hpp</label>
+        <link refid="surface_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>trajectory.hpp</label>
+        <link refid="trajectory_8hpp_source"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>types.hpp</label>
+        <link refid="types_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>Eigen/Dense</label>
+      </node>
+      <node id="7">
+        <label>boost/pool/pool_alloc.hpp</label>
+      </node>
+      <node id="22">
+        <label>boost/pool/singleton_pool.hpp</label>
+      </node>
+      <node id="18">
+        <label>chrono</label>
+      </node>
+      <node id="10">
+        <label>cmath</label>
+      </node>
+      <node id="15">
+        <label>cstddef</label>
+      </node>
+      <node id="9">
+        <label>cstring</label>
+      </node>
+      <node id="13">
+        <label>float.h</label>
+      </node>
+      <node id="12">
+        <label>fstream</label>
+      </node>
+      <node id="11">
+        <label>iomanip</label>
+      </node>
+      <node id="25">
+        <label>iostream</label>
+      </node>
+      <node id="17">
+        <label>limits</label>
+      </node>
+      <node id="4">
+        <label>list</label>
+      </node>
+      <node id="5">
+        <label>map</label>
+      </node>
+      <node id="23">
+        <label>new</label>
+      </node>
+      <node id="31">
+        <label>numbers</label>
+      </node>
+      <node id="19">
+        <label>numeric</label>
+      </node>
+      <node id="6">
+        <label>queue</label>
+      </node>
+      <node id="20">
+        <label>random</label>
+      </node>
+      <node id="8">
+        <label>string</label>
+      </node>
+      <node id="14">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="3">
+        <label>vector</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="classTriangle3D" prot="public">Triangle3D</innerclass>
+    <innerclass refid="structedgeRecord" prot="public">edgeRecord</innerclass>
+    <innerclass refid="classedgeOfficer" prot="public">edgeOfficer</innerclass>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="mesh_8hpp_1a7f310891833963722fd6e3fba6c793ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>vector&lt; string &gt;</type>
+        <definition>vector&lt; string &gt; split</definition>
+        <argsstring>(string, char)</argsstring>
+        <name>split</name>
+        <param>
+          <type>string</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>delimiter</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="88" column="8" bodyfile="src/mesh.cpp" bodystart="1777" bodyend="1789" declfile="include/mesh.hpp" declline="88" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a638cd48737ac5450c442d7513e0be013" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double findNorm</definition>
+        <argsstring>(Eigen::VectorXd &amp;)</argsstring>
+        <name>findNorm</name>
+        <param>
+          <type>Eigen::VectorXd &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="90" column="8" declfile="include/mesh.hpp" declline="90" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1ad151679054ddc42e5323f60fae6f76ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool checkEular</definition>
+        <argsstring>(int, int, int)</argsstring>
+        <name>checkEular</name>
+        <param>
+          <type>int</type>
+          <declname>F</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>V</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>E</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="92" column="6" bodyfile="src/mesh.cpp" bodystart="884" bodyend="902" declfile="include/mesh.hpp" declline="92" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a1326f92a683da2871762e5a8288de445" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void pickup_shape</definition>
+        <argsstring>(Geometry *)</argsstring>
+        <name>pickup_shape</name>
+        <param>
+          <type><ref refid="classGeometry" kindref="compound">Geometry</ref> *</type>
+          <declname>g</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>1st</para>
+<para>2nd</para>
+<para>3rd</para>
+<para>4th</para>
+<para>1st</para>
+<para>2nd</para>
+<para>3rd</para>
+<para>4th</para>
+<para>1st</para>
+<para>2nd</para>
+<para>3rd</para>
+<para>4th</para>
+<para>1st</para>
+<para>2nd</para>
+<para>3rd</para>
+<para>4th</para>
+<para>1st</para>
+<para>2nd</para>
+<para>3rd</para>
+<para>4th</para>
+<para>1st</para>
+<para>2nd</para>
+<para>3rd</para>
+<para>4th</para>
+<para>PBC for 2D-plane</para>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="94" column="6" bodyfile="src/mesh.cpp" bodystart="169" bodyend="729" declfile="include/mesh.hpp" declline="94" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1af4307d593e8a2698ac386a3ca27431bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool checkSurfaceOrientation</definition>
+        <argsstring>(vector&lt; Triangle3D * &gt; &amp;)</argsstring>
+        <name>checkSurfaceOrientation</name>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>element3D</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="96" column="6" bodyfile="src/mesh.cpp" bodystart="854" bodyend="882" declfile="include/mesh.hpp" declline="96" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1ad784de5ceb8515a668345cb8080b7366" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Image3dTo2D</definition>
+        <argsstring>(vector&lt; Region * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;, double[])</argsstring>
+        <name>Image3dTo2D</name>
+        <param>
+          <type>vector&lt; <ref refid="classRegion" kindref="compound">Region</ref> * &gt; &amp;</type>
+          <declname>regions</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>element3D</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>pCatCurvList</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="98" column="6" bodyfile="src/mesh.cpp" bodystart="1225" bodyend="1520" declfile="include/mesh.hpp" declline="98" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a65f2c6d42843446592a88d7d7d3d214e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void orientSurface</definition>
+        <argsstring>(vector&lt; Vertices * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;)</argsstring>
+        <name>orientSurface</name>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> * &gt; &amp;</type>
+          <declname>Gvertex</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>element3D</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>viewTriangle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="100" column="6" bodyfile="src/mesh.cpp" bodystart="798" bodyend="836" declfile="include/mesh.hpp" declline="100" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1ad89e9a4ec504942eca4c40f8d0a880bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void connectWithGlobe</definition>
+        <argsstring>(vector&lt; Vertices * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;)</argsstring>
+        <name>connectWithGlobe</name>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> * &gt; &amp;</type>
+          <declname>Gvertex</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>element3D</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="102" column="6" bodyfile="src/mesh.cpp" bodystart="1207" bodyend="1223" declfile="include/mesh.hpp" declline="102" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a432ff9b46c8202a69daa35d28b6af58e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void makeGraph</definition>
+        <argsstring>(int, vector&lt; elementList * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;)</argsstring>
+        <name>makeGraph</name>
+        <param>
+          <type>int</type>
+          <declname>Gvertex</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="structelementList" kindref="compound">elementList</ref> * &gt; &amp;</type>
+          <declname>eList</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>element3D</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="104" column="6" bodyfile="src/mesh.cpp" bodystart="731" bodyend="796" declfile="include/mesh.hpp" declline="104" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a708a06cb2a2067f36cef3cbfc7d1ea92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void edgeDescriptors</definition>
+        <argsstring>(vector&lt; Vertices * &gt; &amp;, vector&lt; elementList * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;)</argsstring>
+        <name>edgeDescriptors</name>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> * &gt; &amp;</type>
+          <declname>Gvertex</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="structelementList" kindref="compound">elementList</ref> * &gt; &amp;</type>
+          <declname>eList</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>element3D</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>Calculate perimeter for each triangle elements</para>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="106" column="6" bodyfile="src/mesh.cpp" bodystart="1131" bodyend="1205" declfile="include/mesh.hpp" declline="106" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1abb3069fbafc7b25e4e0f871892bab9cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void establishPBC</definition>
+        <argsstring>(vector&lt; Vertices * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;, vector&lt; elementList * &gt; &amp;, double)</argsstring>
+        <name>establishPBC</name>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> * &gt; &amp;</type>
+          <declname>vertices</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>triangles</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>viewTriangles</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="structelementList" kindref="compound">elementList</ref> * &gt; &amp;</type>
+          <declname>eList</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>sizeFactor</declname>
+        </param>
+        <briefdescription>
+<para>PBC for 2D-plane and disc. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>find the boundary edges</para>
+<para>delete PPB communicating triangles</para>
+<para>boundary edge (clock/anti-clock wise) sorting</para>
+<para>remove un-necessary vertices</para>
+<para>establish top-botton PBC connectivity</para>
+<para>establish left-right PBC connectivity</para>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="108" column="6" bodyfile="src/mesh.cpp" bodystart="1792" bodyend="1990" declfile="include/mesh.hpp" declline="108" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a6beb606bb1fc26ecf45c6dbb6e20bfe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rigidBodyProperties</definition>
+        <argsstring>(vector&lt; Vertices * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;, Eigen::Vector3d &amp;, Eigen::Vector3d &amp;, Eigen::Vector3d &amp;, Eigen::Vector3d &amp;)</argsstring>
+        <name>rigidBodyProperties</name>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> * &gt; &amp;</type>
+          <declname>Gvertex</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>element3D</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d &amp;</type>
+          <declname>cm</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d &amp;</type>
+          <declname>pax</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d &amp;</type>
+          <declname>pbx</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d &amp;</type>
+          <declname>pcx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="110" column="6" bodyfile="src/mesh.cpp" bodystart="904" bodyend="1129" declfile="include/mesh.hpp" declline="110" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a75433e3373ac00c7e92cb53869e77acb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void viewGraph</definition>
+        <argsstring>(vector&lt; Vertices * &gt; &amp;, vector&lt; Triangle3D * &gt; &amp;, Eigen::Vector3d &amp;, string)</argsstring>
+        <name>viewGraph</name>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> * &gt; &amp;</type>
+          <declname>Gvertex</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classTriangle3D" kindref="compound">Triangle3D</ref> * &gt; &amp;</type>
+          <declname>element3D</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d &amp;</type>
+          <declname>centroid</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>outputDir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="112" column="6" bodyfile="src/mesh.cpp" bodystart="1522" bodyend="1558" declfile="include/mesh.hpp" declline="112" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a6bf84dcd02e5b2fb1bb7623498ab292e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool linePlaneIntersect</definition>
+        <argsstring>(Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d &amp;)</argsstring>
+        <name>linePlaneIntersect</name>
+        <param>
+          <type>Eigen::Vector3d</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d &amp;</type>
+          <declname>I</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="114" column="6" bodyfile="src/mesh.cpp" bodystart="1560" bodyend="1577" declfile="include/mesh.hpp" declline="114" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1a564dfed2b9f9149cae4d1c9b70b1cf9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double areaPolygon3D</definition>
+        <argsstring>(vector&lt; Vertices &gt; &amp;, Eigen::Vector3d)</argsstring>
+        <name>areaPolygon3D</name>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> &gt; &amp;</type>
+          <declname>V</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d</type>
+          <declname>N</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="116" column="8" bodyfile="src/mesh.cpp" bodystart="1579" bodyend="1665" declfile="include/mesh.hpp" declline="116" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="mesh_8hpp_1ab844281319b5addffef7263b9fb44cbc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double intersectingPolygon</definition>
+        <argsstring>(vector&lt; Vertices &gt; &amp;, vector&lt; Vertices &gt; &amp;, vector&lt; Region * &gt; &amp;, vector&lt; elementList &gt; &amp;, Eigen::Vector3d, Eigen::Vector3d, string)</argsstring>
+        <name>intersectingPolygon</name>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> &gt; &amp;</type>
+          <declname>polygon</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> &gt; &amp;</type>
+          <declname>Gvertex</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classRegion" kindref="compound">Region</ref> * &gt; &amp;</type>
+          <declname>regions</declname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="structelementList" kindref="compound">elementList</ref> &gt; &amp;</type>
+          <declname>eList</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d</type>
+          <declname>np</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d</type>
+          <declname>cp</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>shapeType</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="118" column="8" bodyfile="src/mesh.cpp" bodystart="1667" bodyend="1775" declfile="include/mesh.hpp" declline="118" declcolumn="8"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;types.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;geometry.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;edge.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;surface.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;linalg.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="classTriangle3D" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classTriangle3D" kindref="compound">Triangle3D</ref></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>elementId;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>edgeTag;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>faceTag;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>polyIntersectMark;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>periodicTag;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>area;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>periMeter;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>edgAngNorm;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>pcatEdgeWeight;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Vector3d<sp/>midPoint;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Vector3d<sp/>givenNormal;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;Edge&gt;<sp/>side;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;int&gt;<sp/>vertexIds;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;int&gt;<sp/>intersectEdg;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;Eigen::Vector3d&gt;<sp/>Vertex;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>map&lt;int,<sp/>int&gt;<sp/>sideMap;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>map&lt;int,<sp/>int&gt;<sp/>sideRevMap;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>map&lt;int,<sp/>int&gt;<sp/>vertexIdsMap;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>map&lt;int,<sp/>int&gt;<sp/>sideToEdge;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classTriangle3D" kindref="compound">Triangle3D</ref>()</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>elementId<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>edgeTag<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>faceTag<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>polyIntersectMark<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>periodicTag<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>area<sp/>=<sp/>0.000001;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>periMeter<sp/>=<sp/>0.000001;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>edgAngNorm<sp/>=<sp/>0.000001;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pcatEdgeWeight<sp/>=<sp/>0.000001;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>midPoint<sp/>&lt;&lt;<sp/>0.0,<sp/>0.0,<sp/>0.0;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>givenNormal<sp/>&lt;&lt;<sp/>0.0,<sp/>0.0,<sp/>0.0;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>3;<sp/>i++)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>side.push_back(<ref refid="classEdge" kindref="compound">Edge</ref>());</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vertexIds.push_back(0);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vertex.push_back(Eigen::Vector3d(0,<sp/>0,<sp/>0));</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="structedgeRecord" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structedgeRecord" kindref="compound">edgeRecord</ref></highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;int&gt;<sp/>key;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cell_id;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>edge_index;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structedgeRecord" kindref="compound">edgeRecord</ref>*<sp/>next;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="classedgeOfficer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classedgeOfficer" kindref="compound">edgeOfficer</ref></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cur;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>meanEdgAngle;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;int&gt;<sp/>elements;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;int&gt;<sp/>edgeSpStore;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>vector&lt;vector&lt;int&gt;&gt;<sp/>edgefaceStore;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classedgeOfficer" kindref="compound">edgeOfficer</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cur<sp/>=<sp/>c;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>meanEdgAngle<sp/>=<sp/>0.0;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>2;<sp/>i++)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>edgefaceStore.push_back(vector&lt;int&gt;());</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">vector&lt;string&gt;<sp/>split(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>findNorm(Eigen::VectorXd&amp;);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkEular(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>pickup_shape(<ref refid="classGeometry" kindref="compound">Geometry</ref>*);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>checkSurfaceOrientation(vector&lt;Triangle3D*&gt;&amp;);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Image3dTo2D(vector&lt;Region*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">[]);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>orientSurface(vector&lt;Vertices*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>connectWithGlobe(vector&lt;Vertices*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>makeGraph(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/>vector&lt;elementList*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>edgeDescriptors(vector&lt;Vertices*&gt;&amp;,<sp/>vector&lt;elementList*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>establishPBC(vector&lt;Vertices*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;,<sp/>vector&lt;elementList*&gt;&amp;,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>rigidBodyProperties(vector&lt;Vertices*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;,<sp/>Eigen::Vector3d&amp;,<sp/>Eigen::Vector3d&amp;,<sp/>Eigen::Vector3d&amp;,<sp/>Eigen::Vector3d&amp;);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>viewGraph(vector&lt;Vertices*&gt;&amp;,<sp/>vector&lt;Triangle3D*&gt;&amp;,<sp/>Eigen::Vector3d&amp;,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>linePlaneIntersect(Eigen::Vector3d,<sp/>Eigen::Vector3d,<sp/>Eigen::Vector3d,<sp/>Eigen::Vector3d,<sp/>Eigen::Vector3d&amp;);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>areaPolygon3D(vector&lt;Vertices&gt;&amp;,<sp/>Eigen::Vector3d);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>intersectingPolygon(</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">vector&lt;Vertices&gt;&amp;,<sp/>vector&lt;Vertices&gt;&amp;,<sp/>vector&lt;Region*&gt;&amp;,<sp/>vector&lt;elementList&gt;&amp;,<sp/>Eigen::Vector3d,<sp/>Eigen::Vector3d,<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+    </programlisting>
+    <location file="include/mesh.hpp"/>
+  </compounddef>
+</doxygen>

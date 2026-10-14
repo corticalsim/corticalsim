@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structVertices" kind="struct" language="C++" prot="public">
+    <compoundname>Vertices</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structVertices_1a785c3516a6fe1d947dfa9d0b4d13d326" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vertices::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>Vertices::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="10" column="12" bodyfile="include/surface.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVertices_1a513bef5f5c41fbc2212f0c8716ec56bc" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vertices::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>Vertices::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="11" column="12" bodyfile="include/surface.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structVertices_1aff91bde6c340b1f96fdf7fb8d3f81a50" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Vertices::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>Vertices::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="12" column="12" bodyfile="include/surface.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structVertices_1a27a47676b5a8e0b4becd064791efdcac" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Vertices::Vertices</definition>
+        <argsstring>(double x1, double y1, double z1)</argsstring>
+        <name>Vertices</name>
+        <qualifiedname>Vertices::Vertices</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>x1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>y1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>z1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="14" column="5" bodyfile="include/surface.hpp" bodystart="14" bodyend="19"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/surface.hpp" line="7" column="1" bodyfile="include/surface.hpp" bodystart="8" bodyend="20"/>
+    <listofallmembers>
+      <member refid="structVertices_1a27a47676b5a8e0b4becd064791efdcac" prot="public" virt="non-virtual"><scope>Vertices</scope><name>Vertices</name></member>
+      <member refid="structVertices_1a785c3516a6fe1d947dfa9d0b4d13d326" prot="public" virt="non-virtual"><scope>Vertices</scope><name>x</name></member>
+      <member refid="structVertices_1a513bef5f5c41fbc2212f0c8716ec56bc" prot="public" virt="non-virtual"><scope>Vertices</scope><name>y</name></member>
+      <member refid="structVertices_1aff91bde6c340b1f96fdf7fb8d3f81a50" prot="public" virt="non-virtual"><scope>Vertices</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

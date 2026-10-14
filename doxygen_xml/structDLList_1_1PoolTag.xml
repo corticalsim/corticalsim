@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="structDLList_1_1PoolTag" kind="struct" language="C++" prot="private">
+    <compoundname>DLList::PoolTag</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/DLList.hpp" line="51" column="5" bodyfile="include/DLList.hpp" bodystart="52" bodyend="53"/>
+    <listofallmembers>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

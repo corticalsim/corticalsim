@@ -1,0 +1,432 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classDLList" kind="class" language="C++" prot="public">
+    <compoundname>DLList</compoundname>
+    <innerclass refid="structDLList_1_1PoolTag" prot="private">DLList::PoolTag</innerclass>
+    <templateparamlist>
+      <param>
+        <type>class T</type>
+      </param>
+      <param>
+        <type>int</type>
+        <declname>AllocatorGranularity</declname>
+        <defname>AllocatorGranularity</defname>
+        <defval>32</defval>
+      </param>
+    </templateparamlist>
+    <sectiondef kind="private-type">
+      <memberdef kind="typedef" id="classDLList_1afad8e1cb8e1f1b4d24d6725e39d2df9e" prot="private" static="no">
+        <type>boost::singleton_pool&lt; PoolTag, sizeof(T), boost::default_user_allocator_new_delete, boost::details::pool::null_mutex, AllocatorGranularity &gt;</type>
+        <definition>typedef boost::singleton_pool&lt;PoolTag, sizeof(T), boost::default_user_allocator_new_delete, boost::details::pool::null_mutex, AllocatorGranularity&gt; DLList&lt; T, AllocatorGranularity &gt;::MemPool</definition>
+        <argsstring></argsstring>
+        <name>MemPool</name>
+        <qualifiedname>DLList::MemPool</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="60" column="5" bodyfile="include/DLList.hpp" bodystart="60" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classDLList_1acc217195b86decbd9ba00045f9fef255" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int DLList&lt; T, AllocatorGranularity &gt;::numElements</definition>
+        <argsstring></argsstring>
+        <name>numElements</name>
+        <qualifiedname>DLList::numElements</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="40" column="9" bodyfile="include/DLList.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDLList_1a52434bb14d975f0f0581020c9cb517b8" prot="private" static="no" mutable="no">
+        <type>T *</type>
+        <definition>T* DLList&lt; T, AllocatorGranularity &gt;::firstElement</definition>
+        <argsstring></argsstring>
+        <name>firstElement</name>
+        <qualifiedname>DLList::firstElement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="46" column="7" bodyfile="include/DLList.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDLList_1ab46c71480013c4080448b9ec9c81288b" prot="private" static="no" mutable="no">
+        <type>T *</type>
+        <definition>T* DLList&lt; T, AllocatorGranularity &gt;::lastElement</definition>
+        <argsstring></argsstring>
+        <name>lastElement</name>
+        <qualifiedname>DLList::lastElement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="47" column="7" bodyfile="include/DLList.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classDLList_1ab060635af734dfe3a4137bbfb0d67536" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DLList&lt; T, i &gt;::unlinkElement</definition>
+        <argsstring>(T *)</argsstring>
+        <name>unlinkElement</name>
+        <qualifiedname>DLList::unlinkElement</qualifiedname>
+        <param>
+          <type>T *</type>
+          <defname>element</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="61" column="10" bodyfile="include/DLList.hpp" bodystart="132" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a303c6a6011c56d81dbc92dcaccb2d1fb" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DLList&lt; T, i &gt;::linkElement</definition>
+        <argsstring>(T *)</argsstring>
+        <name>linkElement</name>
+        <qualifiedname>DLList::linkElement</qualifiedname>
+        <param>
+          <type>T *</type>
+          <defname>newElement</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="62" column="7" bodyfile="include/DLList.hpp" bodystart="112" bodyend="129"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDLList_1a8675690761e5e17c4b96b3c76af9a36f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>DLList&lt; T, AllocatorGranularity &gt;::DLList</definition>
+        <argsstring>()</argsstring>
+        <name>DLList</name>
+        <qualifiedname>DLList::DLList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="66" column="5" bodyfile="include/DLList.hpp" bodystart="66" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a1f52e3e1058b81c3c27615830c7f11fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DLList&lt; T, i &gt;::~DLList</definition>
+        <argsstring>()</argsstring>
+        <name>~DLList</name>
+        <qualifiedname>DLList::~DLList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="70" column="5" bodyfile="include/DLList.hpp" bodystart="96" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1aee1afb13a89d773c700597cad91ddc23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>int DLList&lt; T, AllocatorGranularity &gt;::size</definition>
+        <argsstring>()</argsstring>
+        <name>size</name>
+        <qualifiedname>DLList::size</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="72" column="16" bodyfile="include/DLList.hpp" bodystart="72" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a964a7d33a790dd3fb23a42d1f5d7ee1d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DLList&lt; T, AllocatorGranularity &gt;::first</definition>
+        <argsstring>()</argsstring>
+        <name>first</name>
+        <qualifiedname>DLList::first</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="74" column="14" bodyfile="include/DLList.hpp" bodystart="74" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a15db4f2cc2a1c30f830646d097eea041" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DLList&lt; T, AllocatorGranularity &gt;::last</definition>
+        <argsstring>()</argsstring>
+        <name>last</name>
+        <qualifiedname>DLList::last</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="76" column="14" bodyfile="include/DLList.hpp" bodystart="76" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1ade8677fd59b94dc4b3e251bd170b42ef" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DLList&lt; T, AllocatorGranularity &gt;::next</definition>
+        <argsstring>(T *el)</argsstring>
+        <name>next</name>
+        <qualifiedname>DLList::next</qualifiedname>
+        <param>
+          <type>T *</type>
+          <declname>el</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="78" column="14" bodyfile="include/DLList.hpp" bodystart="78" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1ad3da642f073801d0302fc13343126bf7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DLList&lt; T, AllocatorGranularity &gt;::previous</definition>
+        <argsstring>(T *el)</argsstring>
+        <name>previous</name>
+        <qualifiedname>DLList::previous</qualifiedname>
+        <param>
+          <type>T *</type>
+          <declname>el</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="80" column="14" bodyfile="include/DLList.hpp" bodystart="80" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a14bc6e145da2e9cd636491c1c3ba16d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>T *</type>
+        <definition>T * DLList&lt; T, i &gt;::create</definition>
+        <argsstring>()</argsstring>
+        <name>create</name>
+        <qualifiedname>DLList::create</qualifiedname>
+        <briefdescription>
+<para>The following functions create a new element from the heap and insert it into the linked list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="82" column="7" bodyfile="include/DLList.hpp" bodystart="168" bodyend="172"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a81ff8bec2beae5c47f0282be9c7ec78b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Q</type>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T * DLList&lt; T, i &gt;::create</definition>
+        <argsstring>(Q)</argsstring>
+        <name>create</name>
+        <qualifiedname>DLList::create</qualifiedname>
+        <param>
+          <type>Q</type>
+          <defname>par1</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="84" column="7" bodyfile="include/DLList.hpp" bodystart="176" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a6235e456e7d8502d57a0e2547d9fe663" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Q</type>
+          </param>
+          <param>
+            <type>class R</type>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T * DLList&lt; T, i &gt;::create</definition>
+        <argsstring>(Q, R)</argsstring>
+        <name>create</name>
+        <qualifiedname>DLList::create</qualifiedname>
+        <param>
+          <type>Q</type>
+          <defname>par1</defname>
+        </param>
+        <param>
+          <type>R</type>
+          <defname>par2</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="86" column="7" bodyfile="include/DLList.hpp" bodystart="184" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1afc5e644acdc0e153e505135775db3a41" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>class Q</type>
+          </param>
+          <param>
+            <type>class R</type>
+          </param>
+          <param>
+            <type>class S</type>
+          </param>
+        </templateparamlist>
+        <type>T *</type>
+        <definition>T * DLList&lt; T, i &gt;::create</definition>
+        <argsstring>(Q, R, S)</argsstring>
+        <name>create</name>
+        <qualifiedname>DLList::create</qualifiedname>
+        <param>
+          <type>Q</type>
+          <defname>par1</defname>
+        </param>
+        <param>
+          <type>R</type>
+          <defname>par2</defname>
+        </param>
+        <param>
+          <type>S</type>
+          <defname>par3</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="88" column="7" bodyfile="include/DLList.hpp" bodystart="192" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a5d757073158298ad896135bb125dfa43" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DLList&lt; T, i &gt;::remove</definition>
+        <argsstring>(T *)</argsstring>
+        <name>remove</name>
+        <qualifiedname>DLList::remove</qualifiedname>
+        <param>
+          <type>T *</type>
+          <defname>element</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="89" column="10" bodyfile="include/DLList.hpp" bodystart="156" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1a62e1c8f6a199b993c6fbeb6b22ee3d05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DLList&lt; T, i &gt;::removeAll</definition>
+        <argsstring>()</argsstring>
+        <name>removeAll</name>
+        <qualifiedname>DLList::removeAll</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="90" column="10" bodyfile="include/DLList.hpp" bodystart="103" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1afd28d34f9a890f23c930ae93beebbbdc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DLList&lt; T, i &gt;::import</definition>
+        <argsstring>(DLList&lt; T, AllocatorGranularity &gt; &amp;, T *)</argsstring>
+        <name>import</name>
+        <qualifiedname>DLList::import</qualifiedname>
+        <param>
+          <type><ref refid="classDLList" kindref="compound">DLList</ref>&lt; T, AllocatorGranularity &gt; &amp;</type>
+        </param>
+        <param>
+          <type>T *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="91" column="10" bodyfile="include/DLList.hpp" bodystart="200" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="classDLList_1af6b67504d51dc8ff11745073756e347f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void DLList&lt; T, i &gt;::importSet</definition>
+        <argsstring>(DLList&lt; T, AllocatorGranularity &gt; &amp;, T *, T *)</argsstring>
+        <name>importSet</name>
+        <qualifiedname>DLList::importSet</qualifiedname>
+        <param>
+          <type><ref refid="classDLList" kindref="compound">DLList</ref>&lt; T, AllocatorGranularity &gt; &amp;</type>
+        </param>
+        <param>
+          <type>T *</type>
+        </param>
+        <param>
+          <type>T *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/DLList.hpp" line="92" column="10" bodyfile="include/DLList.hpp" bodystart="208" bodyend="225"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/DLList.hpp" line="36" column="1" bodyfile="include/DLList.hpp" bodystart="37" bodyend="93"/>
+    <listofallmembers>
+      <member refid="classDLList_1a14bc6e145da2e9cd636491c1c3ba16d0" prot="public" virt="non-virtual"><scope>DLList</scope><name>create</name></member>
+      <member refid="classDLList_1a81ff8bec2beae5c47f0282be9c7ec78b" prot="public" virt="non-virtual"><scope>DLList</scope><name>create</name></member>
+      <member refid="classDLList_1a6235e456e7d8502d57a0e2547d9fe663" prot="public" virt="non-virtual"><scope>DLList</scope><name>create</name></member>
+      <member refid="classDLList_1afc5e644acdc0e153e505135775db3a41" prot="public" virt="non-virtual"><scope>DLList</scope><name>create</name></member>
+      <member refid="classDLList_1a8675690761e5e17c4b96b3c76af9a36f" prot="public" virt="non-virtual"><scope>DLList</scope><name>DLList</name></member>
+      <member refid="classDLList_1a964a7d33a790dd3fb23a42d1f5d7ee1d" prot="public" virt="non-virtual"><scope>DLList</scope><name>first</name></member>
+      <member refid="classDLList_1a52434bb14d975f0f0581020c9cb517b8" prot="private" virt="non-virtual"><scope>DLList</scope><name>firstElement</name></member>
+      <member refid="classDLList_1afd28d34f9a890f23c930ae93beebbbdc" prot="public" virt="non-virtual"><scope>DLList</scope><name>import</name></member>
+      <member refid="classDLList_1af6b67504d51dc8ff11745073756e347f" prot="public" virt="non-virtual"><scope>DLList</scope><name>importSet</name></member>
+      <member refid="classDLList_1a15db4f2cc2a1c30f830646d097eea041" prot="public" virt="non-virtual"><scope>DLList</scope><name>last</name></member>
+      <member refid="classDLList_1ab46c71480013c4080448b9ec9c81288b" prot="private" virt="non-virtual"><scope>DLList</scope><name>lastElement</name></member>
+      <member refid="classDLList_1a303c6a6011c56d81dbc92dcaccb2d1fb" prot="private" virt="non-virtual"><scope>DLList</scope><name>linkElement</name></member>
+      <member refid="classDLList_1afad8e1cb8e1f1b4d24d6725e39d2df9e" prot="private" virt="non-virtual"><scope>DLList</scope><name>MemPool</name></member>
+      <member refid="classDLList_1ade8677fd59b94dc4b3e251bd170b42ef" prot="public" virt="non-virtual"><scope>DLList</scope><name>next</name></member>
+      <member refid="classDLList_1acc217195b86decbd9ba00045f9fef255" prot="private" virt="non-virtual"><scope>DLList</scope><name>numElements</name></member>
+      <member refid="classDLList_1ad3da642f073801d0302fc13343126bf7" prot="public" virt="non-virtual"><scope>DLList</scope><name>previous</name></member>
+      <member refid="classDLList_1a5d757073158298ad896135bb125dfa43" prot="public" virt="non-virtual"><scope>DLList</scope><name>remove</name></member>
+      <member refid="classDLList_1a62e1c8f6a199b993c6fbeb6b22ee3d05" prot="public" virt="non-virtual"><scope>DLList</scope><name>removeAll</name></member>
+      <member refid="classDLList_1aee1afb13a89d773c700597cad91ddc23" prot="public" virt="non-virtual"><scope>DLList</scope><name>size</name></member>
+      <member refid="classDLList_1ab060635af734dfe3a4137bbfb0d67536" prot="private" virt="non-virtual"><scope>DLList</scope><name>unlinkElement</name></member>
+      <member refid="classDLList_1a1f52e3e1058b81c3c27615830c7f11fe" prot="public" virt="non-virtual"><scope>DLList</scope><name>~DLList</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

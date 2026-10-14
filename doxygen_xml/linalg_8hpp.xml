@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="linalg_8hpp" kind="file" language="C++">
+    <compoundname>linalg.hpp</compoundname>
+    <includes local="no">Eigen/Dense</includes>
+    <includedby refid="edge_8hpp" local="yes">include/edge.hpp</includedby>
+    <includedby refid="geometry_8hpp" local="yes">include/geometry.hpp</includedby>
+    <includedby refid="mesh_8hpp" local="yes">include/mesh.hpp</includedby>
+    <includedby refid="parameters_8hpp" local="yes">include/parameters.hpp</includedby>
+    <includedby refid="region_8hpp" local="yes">include/region.hpp</includedby>
+    <includedby refid="surface_8hpp" local="yes">include/surface.hpp</includedby>
+    <includedby refid="analysis_8cpp" local="yes">src/analysis.cpp</includedby>
+    <includedby refid="geometry_8cpp" local="yes">src/geometry.cpp</includedby>
+    <includedby refid="linalg_8cpp" local="yes">src/linalg.cpp</includedby>
+    <includedby refid="mesh_8cpp" local="yes">src/mesh.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/linalg.hpp</label>
+        <link refid="linalg_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Eigen/Dense</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7">
+        <label>include/det_queue.hpp</label>
+        <link refid="det__queue_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>include/edge.hpp</label>
+        <link refid="edge_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>include/event.hpp</label>
+        <link refid="event_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>include/geometry.hpp</label>
+        <link refid="geometry_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>include/linalg.hpp</label>
+        <link refid="linalg_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>include/measurement.hpp</label>
+        <link refid="measurement_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>include/mesh.hpp</label>
+        <link refid="mesh_8hpp_source"/>
+      </node>
+      <node id="9">
+        <label>include/microtubule.hpp</label>
+        <link refid="microtubule_8hpp_source"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>include/mt_tip.hpp</label>
+        <link refid="mt__tip_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>include/parameters.hpp</label>
+        <link refid="parameters_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>include/region.hpp</label>
+        <link refid="region_8hpp_source"/>
+      </node>
+      <node id="15">
+        <label>include/segment.hpp</label>
+        <link refid="segment_8hpp_source"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>include/surface.hpp</label>
+        <link refid="surface_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>include/system.hpp</label>
+        <link refid="system_8hpp_source"/>
+      </node>
+      <node id="14">
+        <label>include/trajectory.hpp</label>
+        <link refid="trajectory_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="linalg_8hpp_1a759681be82eb302ec20eefb8dcffb58d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void eigen_decomposition</definition>
+        <argsstring>(Eigen::Matrix3d &amp;A, Eigen::Matrix3d &amp;V, Eigen::Vector3d &amp;d)</argsstring>
+        <name>eigen_decomposition</name>
+        <param>
+          <type>Eigen::Matrix3d &amp;</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>Eigen::Matrix3d &amp;</type>
+          <declname>V</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d &amp;</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/linalg.hpp" line="7" column="6" bodyfile="src/linalg.cpp" bodystart="3" bodyend="8" declfile="include/linalg.hpp" declline="7" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>CSIM_LINALG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSIM_LINALG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Eigen/Dense&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Symmetric<sp/>matrix<sp/>A<sp/>=&gt;<sp/>eigenvectors<sp/>in<sp/>columns<sp/>of<sp/>V,<sp/>corresponding<sp/>eigenvalues<sp/>in<sp/>d</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>eigen_decomposition(Eigen::Matrix3d&amp;<sp/>A,<sp/>Eigen::Matrix3d&amp;<sp/>V,<sp/>Eigen::Vector3d&amp;<sp/>d);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>CSIM_LINALG</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="include/linalg.hpp"/>
+  </compounddef>
+</doxygen>

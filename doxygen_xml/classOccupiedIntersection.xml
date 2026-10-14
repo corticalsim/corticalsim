@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classOccupiedIntersection" kind="class" language="C++" prot="public">
+    <compoundname>OccupiedIntersection</compoundname>
+    <basecompoundref refid="classCompactListItem" prot="public" virt="non-virtual">CompactListItem&lt; OccupiedIntersection &gt;</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classOccupiedIntersection_1a0fc78dd742749f0ed01cf8b60e600e8e" prot="public" static="no" mutable="no">
+        <type>IntersectionItr</type>
+        <definition>IntersectionItr OccupiedIntersection::intersectionToCut</definition>
+        <argsstring></argsstring>
+        <name>intersectionToCut</name>
+        <qualifiedname>OccupiedIntersection::intersectionToCut</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/intersection.hpp" line="47" column="21" bodyfile="include/intersection.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classOccupiedIntersection_1ab190ecedd8d95710208c4b78a60e1719" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OccupiedIntersection::OccupiedIntersection</definition>
+        <argsstring>(IntersectionItr is)</argsstring>
+        <name>OccupiedIntersection</name>
+        <qualifiedname>OccupiedIntersection::OccupiedIntersection</qualifiedname>
+        <param>
+          <type>IntersectionItr</type>
+          <declname>is</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/intersection.hpp" line="45" column="5" bodyfile="include/intersection.hpp" bodystart="45" bodyend="46"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>CompactListItem&lt; OccupiedIntersection &gt;</label>
+        <link refid="classCompactListItem"/>
+      </node>
+      <node id="1">
+        <label>OccupiedIntersection</label>
+        <link refid="classOccupiedIntersection"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>CompactListItem&lt; OccupiedIntersection &gt;</label>
+        <link refid="classCompactListItem"/>
+      </node>
+      <node id="1">
+        <label>OccupiedIntersection</label>
+        <link refid="classOccupiedIntersection"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/intersection.hpp" line="41" column="1" bodyfile="include/intersection.hpp" bodystart="42" bodyend="48"/>
+    <listofallmembers>
+      <member refid="classCompactListItem_1afa7607060612810a94a2daf837001a50" prot="public" virt="non-virtual"><scope>OccupiedIntersection</scope><name>CompactListItem</name></member>
+      <member refid="classCompactListItem_1a07bb0c23ca9b08ede21be259a80f0bfb" prot="public" virt="non-virtual"><scope>OccupiedIntersection</scope><name>index</name></member>
+      <member refid="classOccupiedIntersection_1a0fc78dd742749f0ed01cf8b60e600e8e" prot="public" virt="non-virtual"><scope>OccupiedIntersection</scope><name>intersectionToCut</name></member>
+      <member refid="classOccupiedIntersection_1ab190ecedd8d95710208c4b78a60e1719" prot="public" virt="non-virtual"><scope>OccupiedIntersection</scope><name>OccupiedIntersection</name></member>
+      <member refid="classCompactListItem_1a95b587741e5f04c0c187d8ee9641ebe6" prot="protected" virt="virtual"><scope>OccupiedIntersection</scope><name>~CompactListItem</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

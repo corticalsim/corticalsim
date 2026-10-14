@@ -1,0 +1,393 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classDeterministicQueue" kind="class" language="C++" prot="public">
+    <compoundname>DeterministicQueue</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classDeterministicQueue_1a2c1ccf8ffd03de26b1ca541b3be65215" prot="public" static="no" mutable="no">
+        <type><ref refid="classSystem" kindref="compound">System</ref> *const</type>
+        <definition>System* const DeterministicQueue::system</definition>
+        <argsstring></argsstring>
+        <name>system</name>
+        <qualifiedname>DeterministicQueue::system</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="14" column="18" bodyfile="include/det_queue.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classDeterministicQueue_1af18a9ee98e70982bfe2975391d7221a5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class System</definition>
+        <argsstring></argsstring>
+        <name>System</name>
+        <qualifiedname>DeterministicQueue::System</qualifiedname>
+        <param>
+          <type><ref refid="classSystem" kindref="compound">System</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="45" column="18" bodyfile="include/det_queue.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="classDeterministicQueue_1aad6934806f9deecedf9d00124b197bba" prot="private" static="no" mutable="no">
+        <type>priority_queue&lt; <ref refid="classDeterministicEvent" kindref="compound">DeterministicEvent</ref> &gt;</type>
+        <definition>priority_queue&lt;DeterministicEvent&gt; DeterministicQueue::queue</definition>
+        <argsstring></argsstring>
+        <name>queue</name>
+        <qualifiedname>DeterministicQueue::queue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="46" column="20" bodyfile="include/det_queue.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeterministicQueue_1a78d443fb8550d5ed529ca679cff255f6" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DeterministicQueue::currentBase</definition>
+        <argsstring></argsstring>
+        <name>currentBase</name>
+        <qualifiedname>DeterministicQueue::currentBase</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="47" column="12" bodyfile="include/det_queue.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeterministicQueue_1a22a6617d021e9ce2a497d294e5d8cdb1" prot="private" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DeterministicQueue::valueCache[POSITION_CACHE_SIZE]</definition>
+        <argsstring>[POSITION_CACHE_SIZE]</argsstring>
+        <name>valueCache</name>
+        <qualifiedname>DeterministicQueue::valueCache</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="48" column="12" bodyfile="include/det_queue.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeterministicQueue_1a793e1d31a6df72ec0111f6237e57cfd2" prot="private" static="no" mutable="no">
+        <type>double(System::*const</type>
+        <definition>double(System::*const DeterministicQueue::distanceTimeConversionFunction) (double)</definition>
+        <argsstring>)(double)</argsstring>
+        <name>distanceTimeConversionFunction</name>
+        <qualifiedname>DeterministicQueue::distanceTimeConversionFunction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="49" column="5" bodyfile="include/det_queue.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeterministicQueue_1a4acffad6fbe62e5228b4d4696e38e802" prot="private" static="no" mutable="no">
+        <type>double(System::*const</type>
+        <definition>double(System::*const DeterministicQueue::timeDistanceConversionFunction) (double)</definition>
+        <argsstring>)(double)</argsstring>
+        <name>timeDistanceConversionFunction</name>
+        <qualifiedname>DeterministicQueue::timeDistanceConversionFunction</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="51" column="5" bodyfile="include/det_queue.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDeterministicQueue_1adddb77508731678c8290a82d50d0038c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>DeterministicQueue::DeterministicQueue</definition>
+        <argsstring>(System *, double(System::*dtFunc)(double), double(System::*tdFunc)(double))</argsstring>
+        <name>DeterministicQueue</name>
+        <qualifiedname>DeterministicQueue::DeterministicQueue</qualifiedname>
+        <param>
+          <type><ref refid="classSystem" kindref="compound">System</ref> *</type>
+          <defname>s</defname>
+        </param>
+        <param>
+          <type>double(System::*)(double)</type>
+          <declname>dtFunc</declname>
+        </param>
+        <param>
+          <type>double(System::*)(double)</type>
+          <declname>tdFunc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="15" column="5" bodyfile="src/det_queue.cpp" bodystart="4" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1a377d96f7a45cb06006086c8cd166eca8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double DeterministicQueue::currentPos</definition>
+        <argsstring>()</argsstring>
+        <name>currentPos</name>
+        <qualifiedname>DeterministicQueue::currentPos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="17" column="12" bodyfile="include/det_queue.hpp" bodystart="17" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1a0092bc987922883bc272a2561fb24186" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeterministicQueue::advanceTime</definition>
+        <argsstring>(double)</argsstring>
+        <name>advanceTime</name>
+        <qualifiedname>DeterministicQueue::advanceTime</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>t</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="22" column="10" bodyfile="src/det_queue.cpp" bodystart="63" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1a20909886655f440f1c2966005b0529d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeterministicQueue::storeTime</definition>
+        <argsstring>(int)</argsstring>
+        <name>storeTime</name>
+        <qualifiedname>DeterministicQueue::storeTime</qualifiedname>
+        <param>
+          <type>int</type>
+          <defname>tag</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="23" column="10" bodyfile="src/det_queue.cpp" bodystart="70" bodyend="75"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1a7c098b2527e857082ed512213edc847b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double DeterministicQueue::progression</definition>
+        <argsstring>(int cachePos)</argsstring>
+        <name>progression</name>
+        <qualifiedname>DeterministicQueue::progression</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>cachePos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="25" column="12" bodyfile="include/det_queue.hpp" bodystart="25" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1ac9eb0695d881cd2cd18d7ed58848c77b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double DeterministicQueue::firstEventTime</definition>
+        <argsstring>()</argsstring>
+        <name>firstEventTime</name>
+        <qualifiedname>DeterministicQueue::firstEventTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="28" column="12" bodyfile="src/det_queue.cpp" bodystart="14" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1a82c37a75babaa862779ea10beb28e772" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classDeterministicEvent" kindref="compound">DeterministicEvent</ref></type>
+        <definition>DeterministicEvent DeterministicQueue::pop</definition>
+        <argsstring>()</argsstring>
+        <name>pop</name>
+        <qualifiedname>DeterministicQueue::pop</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="30" column="24" bodyfile="src/det_queue.cpp" bodystart="54" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1a863e6c35c04d198f1d99539aaa05de1a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DeterministicQueue::empty</definition>
+        <argsstring>()</argsstring>
+        <name>empty</name>
+        <qualifiedname>DeterministicQueue::empty</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="32" column="10" bodyfile="include/det_queue.hpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1a807809811343ba876cc6a7b281803010" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeterministicQueue::flush</definition>
+        <argsstring>()</argsstring>
+        <name>flush</name>
+        <qualifiedname>DeterministicQueue::flush</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="37" column="10" bodyfile="src/det_queue.cpp" bodystart="40" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1ac1129649049307ffc9b1d4c1518fda5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DeterministicQueue::pushGlobal</definition>
+        <argsstring>(double, GlobalEventType)</argsstring>
+        <name>pushGlobal</name>
+        <qualifiedname>DeterministicQueue::pushGlobal</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>timedist</defname>
+        </param>
+        <param>
+          <type>GlobalEventType</type>
+          <defname>type</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="38" column="10" bodyfile="src/det_queue.cpp" bodystart="77" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="classDeterministicQueue_1a5ec66d59970e89262b5f651d356c53c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>EventTrackingTag</type>
+        <definition>EventTrackingTag DeterministicQueue::pushDeterministic</definition>
+        <argsstring>(double, EventDescriptorIndex)</argsstring>
+        <name>pushDeterministic</name>
+        <qualifiedname>DeterministicQueue::pushDeterministic</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>timedist</defname>
+        </param>
+        <param>
+          <type>EventDescriptorIndex</type>
+          <defname>idx</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/det_queue.hpp" line="40" column="22" bodyfile="src/det_queue.cpp" bodystart="89" bodyend="99"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="4">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="1">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="2">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/det_queue.hpp" line="7" column="1" bodyfile="include/det_queue.hpp" bodystart="10" bodyend="53"/>
+    <listofallmembers>
+      <member refid="classDeterministicQueue_1a0092bc987922883bc272a2561fb24186" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>advanceTime</name></member>
+      <member refid="classDeterministicQueue_1a78d443fb8550d5ed529ca679cff255f6" prot="private" virt="non-virtual"><scope>DeterministicQueue</scope><name>currentBase</name></member>
+      <member refid="classDeterministicQueue_1a377d96f7a45cb06006086c8cd166eca8" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>currentPos</name></member>
+      <member refid="classDeterministicQueue_1adddb77508731678c8290a82d50d0038c" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>DeterministicQueue</name></member>
+      <member refid="classDeterministicQueue_1a793e1d31a6df72ec0111f6237e57cfd2" prot="private" virt="non-virtual"><scope>DeterministicQueue</scope><name>distanceTimeConversionFunction</name></member>
+      <member refid="classDeterministicQueue_1a863e6c35c04d198f1d99539aaa05de1a" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>empty</name></member>
+      <member refid="classDeterministicQueue_1ac9eb0695d881cd2cd18d7ed58848c77b" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>firstEventTime</name></member>
+      <member refid="classDeterministicQueue_1a807809811343ba876cc6a7b281803010" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>flush</name></member>
+      <member refid="classDeterministicQueue_1a82c37a75babaa862779ea10beb28e772" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>pop</name></member>
+      <member refid="classDeterministicQueue_1a7c098b2527e857082ed512213edc847b" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>progression</name></member>
+      <member refid="classDeterministicQueue_1a5ec66d59970e89262b5f651d356c53c5" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>pushDeterministic</name></member>
+      <member refid="classDeterministicQueue_1ac1129649049307ffc9b1d4c1518fda5f" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>pushGlobal</name></member>
+      <member refid="classDeterministicQueue_1aad6934806f9deecedf9d00124b197bba" prot="private" virt="non-virtual"><scope>DeterministicQueue</scope><name>queue</name></member>
+      <member refid="classDeterministicQueue_1a20909886655f440f1c2966005b0529d5" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>storeTime</name></member>
+      <member refid="classDeterministicQueue_1af18a9ee98e70982bfe2975391d7221a5" prot="private" virt="non-virtual"><scope>DeterministicQueue</scope><name>System</name></member>
+      <member refid="classDeterministicQueue_1a2c1ccf8ffd03de26b1ca541b3be65215" prot="public" virt="non-virtual"><scope>DeterministicQueue</scope><name>system</name></member>
+      <member refid="classDeterministicQueue_1a4acffad6fbe62e5228b4d4696e38e802" prot="private" virt="non-virtual"><scope>DeterministicQueue</scope><name>timeDistanceConversionFunction</name></member>
+      <member refid="classDeterministicQueue_1a22a6617d021e9ce2a497d294e5d8cdb1" prot="private" virt="non-virtual"><scope>DeterministicQueue</scope><name>valueCache</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

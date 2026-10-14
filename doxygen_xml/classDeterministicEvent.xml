@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classDeterministicEvent" kind="class" language="C++" prot="public">
+    <compoundname>DeterministicEvent</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classDeterministicEvent_1a025bd1fa1e9584ec101dbb29baf88ca6" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double DeterministicEvent::eventTimeDist</definition>
+        <argsstring></argsstring>
+        <name>eventTimeDist</name>
+        <qualifiedname>DeterministicEvent::eventTimeDist</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="48" column="12" bodyfile="include/event.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeterministicEvent_1a8ede0e07af00d784fb188ee5cc6b34ae" prot="public" static="no" mutable="no">
+        <type>EventDescriptorIndex</type>
+        <definition>EventDescriptorIndex DeterministicEvent::infoIdx</definition>
+        <argsstring></argsstring>
+        <name>infoIdx</name>
+        <qualifiedname>DeterministicEvent::infoIdx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="51" column="26" bodyfile="include/event.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeterministicEvent_1afd1fb30939ea7f44c7d6f3ecabae2563" prot="public" static="no" mutable="no">
+        <type>EventTrackingTag</type>
+        <definition>EventTrackingTag DeterministicEvent::tag</definition>
+        <argsstring></argsstring>
+        <name>tag</name>
+        <qualifiedname>DeterministicEvent::tag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="55" column="26" bodyfile="include/event.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeterministicEvent_1ae7c0276311bda5cd0fc998e5e6eb28ab" prot="public" static="no" mutable="no">
+        <type>GlobalEventType</type>
+        <definition>GlobalEventType DeterministicEvent::global_type</definition>
+        <argsstring></argsstring>
+        <name>global_type</name>
+        <qualifiedname>DeterministicEvent::global_type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="56" column="25" bodyfile="include/event.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classDeterministicEvent_1a0a4d735e8710804787771340725ecfde" prot="public" static="no" mutable="no">
+        <type>union <ref refid="classDeterministicEvent" kindref="compound">DeterministicEvent</ref></type>
+        <definition>union DeterministicEvent DeterministicEvent</definition>
+        <argsstring></argsstring>
+        <name></name>
+        <qualifiedname>DeterministicEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="57" column="5"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classDeterministicEvent_1ae735b12d653aae927b91abc9bcf848f8" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool DeterministicEvent::operator&lt;</definition>
+        <argsstring>(const DeterministicEvent &amp;ev2) const</argsstring>
+        <name>operator&lt;</name>
+        <qualifiedname>DeterministicEvent::operator&lt;</qualifiedname>
+        <param>
+          <type>const <ref refid="classDeterministicEvent" kindref="compound">DeterministicEvent</ref> &amp;</type>
+          <declname>ev2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/event.hpp" line="61" column="5" bodyfile="include/event.hpp" bodystart="61" bodyend="61"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/event.hpp" line="44" column="1" bodyfile="include/event.hpp" bodystart="45" bodyend="62"/>
+    <listofallmembers>
+      <member refid="classDeterministicEvent_1a025bd1fa1e9584ec101dbb29baf88ca6" prot="public" virt="non-virtual"><scope>DeterministicEvent</scope><name>eventTimeDist</name></member>
+      <member refid="classDeterministicEvent_1ae7c0276311bda5cd0fc998e5e6eb28ab" prot="public" virt="non-virtual"><scope>DeterministicEvent</scope><name>global_type</name></member>
+      <member refid="classDeterministicEvent_1a8ede0e07af00d784fb188ee5cc6b34ae" prot="public" virt="non-virtual"><scope>DeterministicEvent</scope><name>infoIdx</name></member>
+      <member refid="classDeterministicEvent_1ae735b12d653aae927b91abc9bcf848f8" prot="public" virt="non-virtual"><scope>DeterministicEvent</scope><name>operator&lt;</name></member>
+      <member refid="classDeterministicEvent_1afd1fb30939ea7f44c7d6f3ecabae2563" prot="public" virt="non-virtual"><scope>DeterministicEvent</scope><name>tag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

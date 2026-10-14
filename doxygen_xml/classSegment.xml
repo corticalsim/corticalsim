@@ -1,0 +1,441 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classSegment" kind="class" language="C++" prot="public">
+    <compoundname>Segment</compoundname>
+    <basecompoundref refid="classDLBaseItem" prot="public" virt="non-virtual">DLBaseItem&lt; Segment &gt;</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classSegment_1a2d994b66ffab87ac53c65916f07f3c27" prot="public" static="no" mutable="no">
+        <type><ref refid="classMicrotubule" kindref="compound">Microtubule</ref> *</type>
+        <definition>Microtubule* Segment::mt</definition>
+        <argsstring></argsstring>
+        <name>mt</name>
+        <qualifiedname>Segment::mt</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="11" column="17" bodyfile="include/segment.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSegment_1a20a40644ae7b3942b6754634499f883e" prot="public" static="no" mutable="no">
+        <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *const</type>
+        <definition>Trajectory* const Segment::trajectory</definition>
+        <argsstring></argsstring>
+        <name>trajectory</name>
+        <qualifiedname>Segment::trajectory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="12" column="22" bodyfile="include/segment.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSegment_1ae0087f9107b2351317e9c7184fc0ea6c" prot="public" static="no" mutable="no">
+        <type>TrjSegmentTag</type>
+        <definition>TrjSegmentTag Segment::trajectoryTag</definition>
+        <argsstring></argsstring>
+        <name>trajectoryTag</name>
+        <qualifiedname>Segment::trajectoryTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="13" column="19" bodyfile="include/segment.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSegment_1a9d085ed8706a2c590587ca1d7ce8fb11" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Segment::nucleationTime</definition>
+        <argsstring></argsstring>
+        <name>nucleationTime</name>
+        <qualifiedname>Segment::nucleationTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="14" column="12" bodyfile="include/segment.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSegment_1aded7d0610a635158535e1428a925316c" prot="public" static="no" mutable="no">
+        <type>Direction</type>
+        <definition>Direction Segment::dir</definition>
+        <argsstring></argsstring>
+        <name>dir</name>
+        <qualifiedname>Segment::dir</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="17" column="15" bodyfile="include/segment.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSegment_1adc806f58e0e25668594c3c0082d71073" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Segment::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <qualifiedname>Segment::start</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="18" column="12" bodyfile="include/segment.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSegment_1ae7d229cae725c0b34ae10bc20a1d644e" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Segment::end</definition>
+        <argsstring></argsstring>
+        <name>end</name>
+        <qualifiedname>Segment::end</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="19" column="12" bodyfile="include/segment.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSegment_1a00bf3d9e7d06659b5ce7edcb8cd2bf20" prot="public" static="no" mutable="no">
+        <type>IntersectionItr</type>
+        <definition>IntersectionItr Segment::startItr</definition>
+        <argsstring></argsstring>
+        <name>startItr</name>
+        <qualifiedname>Segment::startItr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="20" column="21" bodyfile="include/segment.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSegment_1ac7a6b283831e4e2d4c64fe4c2eeb3198" prot="public" static="no" mutable="no">
+        <type>IntersectionItr</type>
+        <definition>IntersectionItr Segment::endItr</definition>
+        <argsstring></argsstring>
+        <name>endItr</name>
+        <qualifiedname>Segment::endItr</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="21" column="21" bodyfile="include/segment.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSegment_1aa6879e047f62dded5cc4258c4ef2f84c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Segment::Segment</definition>
+        <argsstring>(Microtubule *, TrajectoryVector &amp;)</argsstring>
+        <name>Segment</name>
+        <qualifiedname>Segment::Segment</qualifiedname>
+        <param>
+          <type><ref refid="classMicrotubule" kindref="compound">Microtubule</ref> *</type>
+          <defname>m</defname>
+        </param>
+        <param>
+          <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref> &amp;</type>
+          <defname>tv</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="25" column="5" bodyfile="src/segment.cpp" bodystart="5" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="classSegment_1a76b45a453304f1f485e3bc2fcad58b59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Segment::~Segment</definition>
+        <argsstring>()</argsstring>
+        <name>~Segment</name>
+        <qualifiedname>Segment::~Segment</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="27" column="5" bodyfile="src/segment.cpp" bodystart="29" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="function" id="classSegment_1ac936642414ed0baafaa3f2b46dc2e359" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Segment::length</definition>
+        <argsstring>()</argsstring>
+        <name>length</name>
+        <qualifiedname>Segment::length</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="29" column="12" bodyfile="include/segment.hpp" bodystart="29" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classSegment_1af85092a90c62da2d53eba9ea2a771c5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Segment::isLastInMT</definition>
+        <argsstring>()</argsstring>
+        <name>isLastInMT</name>
+        <qualifiedname>Segment::isLastInMT</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="31" column="10" bodyfile="src/segment.cpp" bodystart="43" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="classSegment_1a8c8d8affb2b8468bf013b399ab13c126" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Segment::isFirstInMT</definition>
+        <argsstring>()</argsstring>
+        <name>isFirstInMT</name>
+        <qualifiedname>Segment::isFirstInMT</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="32" column="10" bodyfile="src/segment.cpp" bodystart="49" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="classSegment_1a2609af7cfd7e8bd11f76388c81f19e7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Segment::crossesIntersection</definition>
+        <argsstring>(IntersectionItr &amp;is)</argsstring>
+        <name>crossesIntersection</name>
+        <qualifiedname>Segment::crossesIntersection</qualifiedname>
+        <param>
+          <type>IntersectionItr &amp;</type>
+          <declname>is</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/segment.hpp" line="33" column="10" bodyfile="src/segment.cpp" bodystart="55" bodyend="80"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DLBaseItem&lt; Segment &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="1">
+        <label>Segment</label>
+        <link refid="classSegment"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="8">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="4">
+        <label>DLBaseItem&lt; Microtubule &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="2">
+        <label>DLBaseItem&lt; Segment &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="14">
+        <label>DLBaseItem&lt; Trajectory &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="7">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="20">
+        <label>DLList&lt; Segment &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="17">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="11">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>EventDescriptor</label>
+        <link refid="classEventDescriptor"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>queue</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>MTTip</label>
+        <link refid="classMTTip"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>event</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Microtubule</label>
+        <link refid="classMicrotubule"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>minus</edgelabel>
+          <edgelabel>plus</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>disappearEvent</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>segments</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="16">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Segment</label>
+        <link refid="classSegment"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+      </node>
+      <node id="15">
+        <label>SurfaceVector</label>
+        <link refid="structSurfaceVector"/>
+        <childnode refid="16" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Trajectory</label>
+        <link refid="classTrajectory"/>
+        <childnode refid="14" relation="public-inheritance">
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>nextTr</edgelabel>
+          <edgelabel>prevTr</edgelabel>
+          <edgelabel>thisTr</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>TrajectoryVector</label>
+        <link refid="classTrajectoryVector"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/segment.hpp" line="7" column="1" bodyfile="include/segment.hpp" bodystart="8" bodyend="34"/>
+    <listofallmembers>
+      <member refid="classSegment_1a2609af7cfd7e8bd11f76388c81f19e7a" prot="public" virt="non-virtual"><scope>Segment</scope><name>crossesIntersection</name></member>
+      <member refid="classSegment_1aded7d0610a635158535e1428a925316c" prot="public" virt="non-virtual"><scope>Segment</scope><name>dir</name></member>
+      <member refid="classSegment_1ae7d229cae725c0b34ae10bc20a1d644e" prot="public" virt="non-virtual"><scope>Segment</scope><name>end</name></member>
+      <member refid="classSegment_1ac7a6b283831e4e2d4c64fe4c2eeb3198" prot="public" virt="non-virtual"><scope>Segment</scope><name>endItr</name></member>
+      <member refid="classSegment_1a8c8d8affb2b8468bf013b399ab13c126" prot="public" virt="non-virtual"><scope>Segment</scope><name>isFirstInMT</name></member>
+      <member refid="classSegment_1af85092a90c62da2d53eba9ea2a771c5b" prot="public" virt="non-virtual"><scope>Segment</scope><name>isLastInMT</name></member>
+      <member refid="classSegment_1ac936642414ed0baafaa3f2b46dc2e359" prot="public" virt="non-virtual"><scope>Segment</scope><name>length</name></member>
+      <member refid="classSegment_1a2d994b66ffab87ac53c65916f07f3c27" prot="public" virt="non-virtual"><scope>Segment</scope><name>mt</name></member>
+      <member refid="classDLBaseItem_1ab8234a87e1c20633ac16292baff94dc4" prot="public" virt="non-virtual"><scope>Segment</scope><name>next</name></member>
+      <member refid="classSegment_1a9d085ed8706a2c590587ca1d7ce8fb11" prot="public" virt="non-virtual"><scope>Segment</scope><name>nucleationTime</name></member>
+      <member refid="classDLBaseItem_1ae18a479d3f1b66db2b923c2d936e340b" prot="public" virt="non-virtual"><scope>Segment</scope><name>previous</name></member>
+      <member refid="classSegment_1aa6879e047f62dded5cc4258c4ef2f84c" prot="public" virt="non-virtual"><scope>Segment</scope><name>Segment</name></member>
+      <member refid="classSegment_1adc806f58e0e25668594c3c0082d71073" prot="public" virt="non-virtual"><scope>Segment</scope><name>start</name></member>
+      <member refid="classSegment_1a00bf3d9e7d06659b5ce7edcb8cd2bf20" prot="public" virt="non-virtual"><scope>Segment</scope><name>startItr</name></member>
+      <member refid="classSegment_1a20a40644ae7b3942b6754634499f883e" prot="public" virt="non-virtual"><scope>Segment</scope><name>trajectory</name></member>
+      <member refid="classSegment_1ae0087f9107b2351317e9c7184fc0ea6c" prot="public" virt="non-virtual"><scope>Segment</scope><name>trajectoryTag</name></member>
+      <member refid="classDLBaseItem_1a37cc554fea30b8c59b9314b822399bb9" prot="protected" virt="virtual"><scope>Segment</scope><name>~DLBaseItem</name></member>
+      <member refid="classSegment_1a76b45a453304f1f485e3bc2fcad58b59" prot="public" virt="non-virtual"><scope>Segment</scope><name>~Segment</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

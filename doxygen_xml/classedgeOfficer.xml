@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classedgeOfficer" kind="class" language="C++" prot="public">
+    <compoundname>edgeOfficer</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classedgeOfficer_1ae0ad7bad12d2f99c8926e97bdb7f1d75" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int edgeOfficer::cur</definition>
+        <argsstring></argsstring>
+        <name>cur</name>
+        <qualifiedname>edgeOfficer::cur</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="71" column="9" bodyfile="include/mesh.hpp" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classedgeOfficer_1a5fe20b2574847e720fe3f6aab095b64d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double edgeOfficer::meanEdgAngle</definition>
+        <argsstring></argsstring>
+        <name>meanEdgAngle</name>
+        <qualifiedname>edgeOfficer::meanEdgAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="72" column="12" bodyfile="include/mesh.hpp" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classedgeOfficer_1ab67db418e7456f4c601c8f226a46d98f" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; edgeOfficer::elements</definition>
+        <argsstring></argsstring>
+        <name>elements</name>
+        <qualifiedname>edgeOfficer::elements</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="73" column="12" bodyfile="include/mesh.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classedgeOfficer_1a45e76828e2dd435390deeb62c16c2bcb" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; edgeOfficer::edgeSpStore</definition>
+        <argsstring></argsstring>
+        <name>edgeSpStore</name>
+        <qualifiedname>edgeOfficer::edgeSpStore</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="74" column="12" bodyfile="include/mesh.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classedgeOfficer_1ad63ef9f0e6a3af74042160acd717990a" prot="public" static="no" mutable="no">
+        <type>vector&lt; vector&lt; int &gt; &gt;</type>
+        <definition>vector&lt;vector&lt;int&gt; &gt; edgeOfficer::edgefaceStore</definition>
+        <argsstring></argsstring>
+        <name>edgefaceStore</name>
+        <qualifiedname>edgeOfficer::edgefaceStore</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="75" column="12" bodyfile="include/mesh.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classedgeOfficer_1adf3118f9d0b4fca7b242c6329719bb18" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>edgeOfficer::edgeOfficer</definition>
+        <argsstring>(int c)</argsstring>
+        <name>edgeOfficer</name>
+        <qualifiedname>edgeOfficer::edgeOfficer</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/mesh.hpp" line="77" column="5" bodyfile="include/mesh.hpp" bodystart="77" bodyend="85"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/mesh.hpp" line="67" column="1" bodyfile="include/mesh.hpp" bodystart="68" bodyend="86"/>
+    <listofallmembers>
+      <member refid="classedgeOfficer_1ae0ad7bad12d2f99c8926e97bdb7f1d75" prot="public" virt="non-virtual"><scope>edgeOfficer</scope><name>cur</name></member>
+      <member refid="classedgeOfficer_1ad63ef9f0e6a3af74042160acd717990a" prot="public" virt="non-virtual"><scope>edgeOfficer</scope><name>edgefaceStore</name></member>
+      <member refid="classedgeOfficer_1adf3118f9d0b4fca7b242c6329719bb18" prot="public" virt="non-virtual"><scope>edgeOfficer</scope><name>edgeOfficer</name></member>
+      <member refid="classedgeOfficer_1a45e76828e2dd435390deeb62c16c2bcb" prot="public" virt="non-virtual"><scope>edgeOfficer</scope><name>edgeSpStore</name></member>
+      <member refid="classedgeOfficer_1ab67db418e7456f4c601c8f226a46d98f" prot="public" virt="non-virtual"><scope>edgeOfficer</scope><name>elements</name></member>
+      <member refid="classedgeOfficer_1a5fe20b2574847e720fe3f6aab095b64d" prot="public" virt="non-virtual"><scope>edgeOfficer</scope><name>meanEdgAngle</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

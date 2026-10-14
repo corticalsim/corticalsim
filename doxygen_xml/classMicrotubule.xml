@@ -1,0 +1,712 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.8" xml:lang="en-US">
+  <compounddef id="classMicrotubule" kind="class" language="C++" prot="public">
+    <compoundname>Microtubule</compoundname>
+    <basecompoundref refid="classDLBaseItem" prot="public" virt="non-virtual">DLBaseItem&lt; Microtubule &gt;</basecompoundref>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classMicrotubule_1a4bcd1fccbe276bba4016ac5444609fb9" prot="public" static="no" mutable="no">
+        <type><ref refid="classSystem" kindref="compound">System</ref> *const</type>
+        <definition>System* const Microtubule::system</definition>
+        <argsstring></argsstring>
+        <name>system</name>
+        <qualifiedname>Microtubule::system</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="14" column="18" bodyfile="include/microtubule.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMicrotubule_1ae911743717613e421261560c1e4f011f" prot="public" static="no" mutable="no">
+        <type><ref refid="classMTTip" kindref="compound">MTTip</ref></type>
+        <definition>MTTip Microtubule::plus</definition>
+        <argsstring></argsstring>
+        <name>plus</name>
+        <qualifiedname>Microtubule::plus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="15" column="11" bodyfile="include/microtubule.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMicrotubule_1adc0ae95942f08b2fa69dd2aa02e602ae" prot="public" static="no" mutable="no">
+        <type><ref refid="classMTTip" kindref="compound">MTTip</ref></type>
+        <definition>MTTip Microtubule::minus</definition>
+        <argsstring></argsstring>
+        <name>minus</name>
+        <qualifiedname>Microtubule::minus</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="16" column="11" bodyfile="include/microtubule.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMicrotubule_1a7a790078fb7b979d73a18ed1d7e3dda7" prot="public" static="no" mutable="no">
+        <type><ref refid="classEventDescriptor" kindref="compound">EventDescriptor</ref></type>
+        <definition>EventDescriptor Microtubule::disappearEvent</definition>
+        <argsstring></argsstring>
+        <name>disappearEvent</name>
+        <qualifiedname>Microtubule::disappearEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="20" column="21" bodyfile="include/microtubule.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMicrotubule_1ad08f386b1c8d1f0790f04525620098e6" prot="public" static="no" mutable="no">
+        <type>MTType</type>
+        <definition>MTType Microtubule::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>Microtubule::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="22" column="12" bodyfile="include/microtubule.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMicrotubule_1a0e77f8c30de9c8bf8d059f8c7326b10e" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Microtubule::nucleationTime</definition>
+        <argsstring></argsstring>
+        <name>nucleationTime</name>
+        <qualifiedname>Microtubule::nucleationTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="23" column="12" bodyfile="include/microtubule.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMicrotubule_1adaf32e9d63a4064a37dd930524adad0e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Microtubule::previousUpdateTag</definition>
+        <argsstring></argsstring>
+        <name>previousUpdateTag</name>
+        <qualifiedname>Microtubule::previousUpdateTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="26" column="9" bodyfile="include/microtubule.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classMicrotubule_1abd02aa0b1248b009ac8c97db093ed727" prot="public" static="no" mutable="no">
+        <type><ref refid="classDLList" kindref="compound">DLList</ref>&lt; <ref refid="classSegment" kindref="compound">Segment</ref> &gt;</type>
+        <definition>DLList&lt;Segment&gt; Microtubule::segments</definition>
+        <argsstring></argsstring>
+        <name>segments</name>
+        <qualifiedname>Microtubule::segments</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="28" column="12" bodyfile="include/microtubule.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classMicrotubule_1a797655fb1f255fcaf2afad26b4b78c6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Microtubule::Microtubule</definition>
+        <argsstring>(System *, TrajectoryVector, bool=true)</argsstring>
+        <name>Microtubule</name>
+        <qualifiedname>Microtubule::Microtubule</qualifiedname>
+        <param>
+          <type><ref refid="classSystem" kindref="compound">System</ref> *</type>
+          <defname>s</defname>
+        </param>
+        <param>
+          <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+          <defname>tv</defname>
+        </param>
+        <param>
+          <type>bool</type>
+          <defname>initialize</defname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="30" column="5" bodyfile="src/microtubule.cpp" bodystart="68" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1ac5d10ad00069845b6f4493ef14196e53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Microtubule::~Microtubule</definition>
+        <argsstring>()</argsstring>
+        <name>~Microtubule</name>
+        <qualifiedname>Microtubule::~Microtubule</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="31" column="5" bodyfile="src/microtubule.cpp" bodystart="100" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1adc1a40ff55fec25a366ad36c74de1a40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Microtubule::integrityCheck</definition>
+        <argsstring>()</argsstring>
+        <name>integrityCheck</name>
+        <qualifiedname>Microtubule::integrityCheck</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="32" column="10" bodyfile="src/microtubule.cpp" bodystart="845" bodyend="1185"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a16b7551c1619664f2be1ecf43b44e14d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Microtubule::length</definition>
+        <argsstring>()</argsstring>
+        <name>length</name>
+        <qualifiedname>Microtubule::length</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="34" column="12" bodyfile="src/microtubule.cpp" bodystart="5" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a29e49e0842e62a643002183191a6e2d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::updateLength</definition>
+        <argsstring>(bool forceUpdate=false)</argsstring>
+        <name>updateLength</name>
+        <qualifiedname>Microtubule::updateLength</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>forceUpdate</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="35" column="10" bodyfile="src/microtubule.cpp" bodystart="19" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a22892e3c89743da00da3664e5bdc3e68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::setDisappearEvent</definition>
+        <argsstring>()</argsstring>
+        <name>setDisappearEvent</name>
+        <qualifiedname>Microtubule::setDisappearEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="37" column="10" bodyfile="src/microtubule.cpp" bodystart="121" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a47bed1d99d7d6a4340a87c06a93031a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::handleEvent</definition>
+        <argsstring>(const EventDescriptor *)</argsstring>
+        <name>handleEvent</name>
+        <qualifiedname>Microtubule::handleEvent</qualifiedname>
+        <param>
+          <type>const <ref refid="classEventDescriptor" kindref="compound">EventDescriptor</ref> *</type>
+          <defname>ei</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="38" column="10" bodyfile="src/microtubule.cpp" bodystart="137" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a40f1f178ca447fe8b44fd395e4e4f7d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::catastrophe</definition>
+        <argsstring>()</argsstring>
+        <name>catastrophe</name>
+        <qualifiedname>Microtubule::catastrophe</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="39" column="10" bodyfile="src/microtubule.cpp" bodystart="206" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a618161c383ec4d0053bff1a580cfcb31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::rescue</definition>
+        <argsstring>()</argsstring>
+        <name>rescue</name>
+        <qualifiedname>Microtubule::rescue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="40" column="10" bodyfile="src/microtubule.cpp" bodystart="256" bodyend="302"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1add365fe1c8e0afc8b4de91e155808a26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::harakiri</definition>
+        <argsstring>()</argsstring>
+        <name>harakiri</name>
+        <qualifiedname>Microtubule::harakiri</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="43" column="10" bodyfile="src/microtubule.cpp" bodystart="830" bodyend="843"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1af9623dbf29bc3cb5f630cbf838dad64d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::wall</definition>
+        <argsstring>()</argsstring>
+        <name>wall</name>
+        <qualifiedname>Microtubule::wall</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="44" column="10" bodyfile="src/microtubule.cpp" bodystart="455" bodyend="555"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1ac3c0520e6619d3c9dfcfc56387e2b422" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::collision</definition>
+        <argsstring>()</argsstring>
+        <name>collision</name>
+        <qualifiedname>Microtubule::collision</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="45" column="10" bodyfile="src/microtubule.cpp" bodystart="557" bodyend="619"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a3f6f5977fbdc131341602d3b21b11060" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::zipper</definition>
+        <argsstring>(Direction dir)</argsstring>
+        <name>zipper</name>
+        <qualifiedname>Microtubule::zipper</qualifiedname>
+        <param>
+          <type>Direction</type>
+          <declname>dir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="46" column="10" bodyfile="src/microtubule.cpp" bodystart="621" bodyend="655"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a7ff6207f0519f09c2b28622b60ec49e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::crossover</definition>
+        <argsstring>()</argsstring>
+        <name>crossover</name>
+        <qualifiedname>Microtubule::crossover</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="47" column="10" bodyfile="src/microtubule.cpp" bodystart="805" bodyend="828"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a92cc001fb8ae23832185f05bebcad0e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::backtrack</definition>
+        <argsstring>(MTTip *)</argsstring>
+        <name>backtrack</name>
+        <qualifiedname>Microtubule::backtrack</qualifiedname>
+        <param>
+          <type><ref refid="classMTTip" kindref="compound">MTTip</ref> *</type>
+          <defname>tip</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="50" column="10" bodyfile="src/microtubule.cpp" bodystart="742" bodyend="803"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a256e3b7b021487c54a4e20d4620e6123" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::endOfSegment</definition>
+        <argsstring>(MTTip *)</argsstring>
+        <name>endOfSegment</name>
+        <qualifiedname>Microtubule::endOfSegment</qualifiedname>
+        <param>
+          <type><ref refid="classMTTip" kindref="compound">MTTip</ref> *</type>
+          <defname>tip</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="51" column="10" bodyfile="src/microtubule.cpp" bodystart="657" bodyend="740"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1ae6bd6c864198c68fd59b710179371fee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::sever</definition>
+        <argsstring>(Segment *, double)</argsstring>
+        <name>sever</name>
+        <qualifiedname>Microtubule::sever</qualifiedname>
+        <param>
+          <type><ref refid="classSegment" kindref="compound">Segment</ref> *</type>
+          <defname>cutSeg</defname>
+        </param>
+        <param>
+          <type>double</type>
+          <defname>cutPos</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="52" column="10" bodyfile="src/microtubule.cpp" bodystart="304" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a20d59e1e3fd7c62d9d2b66aeff9f2daa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::severAtCross</definition>
+        <argsstring>(IntersectionItr is, Segment *cutSeg)</argsstring>
+        <name>severAtCross</name>
+        <qualifiedname>Microtubule::severAtCross</qualifiedname>
+        <param>
+          <type>IntersectionItr</type>
+          <declname>is</declname>
+        </param>
+        <param>
+          <type><ref refid="classSegment" kindref="compound">Segment</ref> *</type>
+          <declname>cutSeg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="53" column="10" bodyfile="src/microtubule.cpp" bodystart="312" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a24a2db8b6f435fdefc5d41a045259908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::splitSegmentAtTrajPos</definition>
+        <argsstring>(double cutPos, Segment *cutSeg)</argsstring>
+        <name>splitSegmentAtTrajPos</name>
+        <qualifiedname>Microtubule::splitSegmentAtTrajPos</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>cutPos</declname>
+        </param>
+        <param>
+          <type><ref refid="classSegment" kindref="compound">Segment</ref> *</type>
+          <declname>cutSeg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="54" column="10" bodyfile="src/microtubule.cpp" bodystart="339" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a9c6037e591cfcc70c69d1e8ae589c0b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Microtubule::translatePositionMT2Segment</definition>
+        <argsstring>(double &amp;cutPos, Segment *&amp;cutSeg)</argsstring>
+        <name>translatePositionMT2Segment</name>
+        <qualifiedname>Microtubule::translatePositionMT2Segment</qualifiedname>
+        <param>
+          <type>double &amp;</type>
+          <declname>cutPos</declname>
+        </param>
+        <param>
+          <type><ref refid="classSegment" kindref="compound">Segment</ref> *&amp;</type>
+          <declname>cutSeg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="57" column="10" bodyfile="src/microtubule.cpp" bodystart="431" bodyend="453"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classMicrotubule_1aac09db7443436ee07671c3c560b99676" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Microtubule::Microtubule</definition>
+        <argsstring>(const Microtubule &amp;)</argsstring>
+        <name>Microtubule</name>
+        <qualifiedname>Microtubule::Microtubule</qualifiedname>
+        <param>
+          <type>const <ref refid="classMicrotubule" kindref="compound">Microtubule</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="63" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classMicrotubule_1a149eafdf1a647e9c70ce14233699ef93" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classMicrotubule" kindref="compound">Microtubule</ref> &amp;</type>
+        <definition>Microtubule &amp; Microtubule::operator=</definition>
+        <argsstring>(const Microtubule &amp;)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>Microtubule::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classMicrotubule" kindref="compound">Microtubule</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/microtubule.hpp" line="64" column="17"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>DLBaseItem&lt; Microtubule &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="1">
+        <label>Microtubule</label>
+        <link refid="classMicrotubule"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="6">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="2">
+        <label>DLBaseItem&lt; Microtubule &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="12">
+        <label>DLBaseItem&lt; Trajectory &gt;</label>
+        <link refid="classDLBaseItem"/>
+      </node>
+      <node id="5">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="18">
+        <label>DLList&lt; Segment &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="15">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="9">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>EventDescriptor</label>
+        <link refid="classEventDescriptor"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>queue</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>MTTip</label>
+        <link refid="classMTTip"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>mt</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>event</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Microtubule</label>
+        <link refid="classMicrotubule"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>minus</edgelabel>
+          <edgelabel>plus</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>disappearEvent</edgelabel>
+        </childnode>
+        <childnode refid="18" relation="usage">
+          <edgelabel>segments</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="14">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>SurfaceVector</label>
+        <link refid="structSurfaceVector"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Trajectory</label>
+        <link refid="classTrajectory"/>
+        <childnode refid="12" relation="public-inheritance">
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>nextTr</edgelabel>
+          <edgelabel>prevTr</edgelabel>
+          <edgelabel>thisTr</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>TrajectoryVector</label>
+        <link refid="classTrajectoryVector"/>
+        <childnode refid="11" relation="usage">
+          <edgelabel>trajectory</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/microtubule.hpp" line="10" column="1" bodyfile="include/microtubule.hpp" bodystart="11" bodyend="65"/>
+    <listofallmembers>
+      <member refid="classMicrotubule_1a92cc001fb8ae23832185f05bebcad0e3" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>backtrack</name></member>
+      <member refid="classMicrotubule_1a40f1f178ca447fe8b44fd395e4e4f7d8" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>catastrophe</name></member>
+      <member refid="classMicrotubule_1ac3c0520e6619d3c9dfcfc56387e2b422" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>collision</name></member>
+      <member refid="classMicrotubule_1a7ff6207f0519f09c2b28622b60ec49e7" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>crossover</name></member>
+      <member refid="classMicrotubule_1a7a790078fb7b979d73a18ed1d7e3dda7" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>disappearEvent</name></member>
+      <member refid="classMicrotubule_1a256e3b7b021487c54a4e20d4620e6123" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>endOfSegment</name></member>
+      <member refid="classMicrotubule_1a47bed1d99d7d6a4340a87c06a93031a1" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>handleEvent</name></member>
+      <member refid="classMicrotubule_1add365fe1c8e0afc8b4de91e155808a26" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>harakiri</name></member>
+      <member refid="classMicrotubule_1adc1a40ff55fec25a366ad36c74de1a40" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>integrityCheck</name></member>
+      <member refid="classMicrotubule_1a16b7551c1619664f2be1ecf43b44e14d" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>length</name></member>
+      <member refid="classMicrotubule_1a797655fb1f255fcaf2afad26b4b78c6f" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>Microtubule</name></member>
+      <member refid="classMicrotubule_1aac09db7443436ee07671c3c560b99676" prot="private" virt="non-virtual"><scope>Microtubule</scope><name>Microtubule</name></member>
+      <member refid="classMicrotubule_1adc0ae95942f08b2fa69dd2aa02e602ae" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>minus</name></member>
+      <member refid="classDLBaseItem_1ab8234a87e1c20633ac16292baff94dc4" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>next</name></member>
+      <member refid="classMicrotubule_1a0e77f8c30de9c8bf8d059f8c7326b10e" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>nucleationTime</name></member>
+      <member refid="classMicrotubule_1a149eafdf1a647e9c70ce14233699ef93" prot="private" virt="non-virtual"><scope>Microtubule</scope><name>operator=</name></member>
+      <member refid="classMicrotubule_1ae911743717613e421261560c1e4f011f" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>plus</name></member>
+      <member refid="classDLBaseItem_1ae18a479d3f1b66db2b923c2d936e340b" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>previous</name></member>
+      <member refid="classMicrotubule_1adaf32e9d63a4064a37dd930524adad0e" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>previousUpdateTag</name></member>
+      <member refid="classMicrotubule_1a618161c383ec4d0053bff1a580cfcb31" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>rescue</name></member>
+      <member refid="classMicrotubule_1abd02aa0b1248b009ac8c97db093ed727" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>segments</name></member>
+      <member refid="classMicrotubule_1a22892e3c89743da00da3664e5bdc3e68" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>setDisappearEvent</name></member>
+      <member refid="classMicrotubule_1ae6bd6c864198c68fd59b710179371fee" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>sever</name></member>
+      <member refid="classMicrotubule_1a20d59e1e3fd7c62d9d2b66aeff9f2daa" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>severAtCross</name></member>
+      <member refid="classMicrotubule_1a24a2db8b6f435fdefc5d41a045259908" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>splitSegmentAtTrajPos</name></member>
+      <member refid="classMicrotubule_1a4bcd1fccbe276bba4016ac5444609fb9" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>system</name></member>
+      <member refid="classMicrotubule_1a9c6037e591cfcc70c69d1e8ae589c0b5" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>translatePositionMT2Segment</name></member>
+      <member refid="classMicrotubule_1ad08f386b1c8d1f0790f04525620098e6" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>type</name></member>
+      <member refid="classMicrotubule_1a29e49e0842e62a643002183191a6e2d0" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>updateLength</name></member>
+      <member refid="classMicrotubule_1af9623dbf29bc3cb5f630cbf838dad64d" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>wall</name></member>
+      <member refid="classMicrotubule_1a3f6f5977fbdc131341602d3b21b11060" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>zipper</name></member>
+      <member refid="classDLBaseItem_1a37cc554fea30b8c59b9314b822399bb9" prot="protected" virt="virtual"><scope>Microtubule</scope><name>~DLBaseItem</name></member>
+      <member refid="classMicrotubule_1ac5d10ad00069845b6f4493ef14196e53" prot="public" virt="non-virtual"><scope>Microtubule</scope><name>~Microtubule</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
