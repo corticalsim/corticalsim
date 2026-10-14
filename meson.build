@@ -1,4 +1,5 @@
 project('corticalsim', 'cpp')
+add_project_arguments('-std=c++20', language : 'cpp')
 
 # Sources
 # =======

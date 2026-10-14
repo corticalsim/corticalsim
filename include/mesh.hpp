@@ -2,6 +2,7 @@
 #include "geometry.hpp"
 #include "edge.hpp"
 #include "surface.hpp"
+#include "linalg.hpp"
 
 class Triangle3D
 {
@@ -18,13 +19,13 @@ class Triangle3D
     double edgAngNorm;
     double pcatEdgeWeight;
 
-    Vector3d midPoint;
-    Vector3d givenNormal;
+    Eigen::Vector3d midPoint;
+    Eigen::Vector3d givenNormal;
 
     vector<Edge> side;
     vector<int> vertexIds;
     vector<int> intersectEdg;
-    vector<Vector3d> Vertex;
+    vector<Eigen::Vector3d> Vertex;
 
     map<int, int> sideMap;
     map<int, int> sideRevMap;
@@ -50,7 +51,7 @@ class Triangle3D
         {
             side.push_back(Edge());
             vertexIds.push_back(0);
-            Vertex.push_back(Vector3d(0, 0, 0));
+            Vertex.push_back(Eigen::Vector3d(0, 0, 0));
         }
     }
 };
@@ -86,7 +87,7 @@ class edgeOfficer
 
 vector<string> split(string, char);
 
-double findNorm(VectorXd&);
+double findNorm(Eigen::VectorXd&);
 
 bool checkEular(int, int, int);
 
@@ -106,13 +107,13 @@ void edgeDescriptors(vector<Vertices*>&, vector<elementList*>&, vector<Triangle3
 
 void establishPBC(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<elementList*>&, double);
 
-void rigidBodyProperties(vector<Vertices*>&, vector<Triangle3D*>&, Vector3d&, Vector3d&, Vector3d&, Vector3d&);
+void rigidBodyProperties(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&);
 
-void viewGraph(vector<Vertices*>&, vector<Triangle3D*>&, Vector3d&, string);
+void viewGraph(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, string);
 
-bool linePlaneIntersect(Vector3d, Vector3d, Vector3d, Vector3d, Vector3d&);
+bool linePlaneIntersect(Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d&);
 
-double areaPolygon3D(vector<Vertices>&, Vector3d);
+double areaPolygon3D(vector<Vertices>&, Eigen::Vector3d);
 
 double intersectingPolygon(
-vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<elementList>&, Vector3d, Vector3d, string);
+vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<elementList>&, Eigen::Vector3d, Eigen::Vector3d, string);

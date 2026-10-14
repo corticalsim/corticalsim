@@ -2,6 +2,7 @@
 #define SURFACE_HPP
 
 #include "types.hpp"
+#include "linalg.hpp"
 
 struct Vertices
 {
@@ -24,7 +25,7 @@ struct bendingOperator
     double cosTheta;
     double sinTheta;
 
-    Vector3d axis;
+    Eigen::Vector3d axis;
 
     bendingOperator()
     {
@@ -65,7 +66,7 @@ struct elementList
     vector<int> sharedElement;
     vector<int> sharedEdge;
     double edge3DAngle;
-    Vector3d intersectionByPlane;
+    Eigen::Vector3d intersectionByPlane;
 
     elementList()
     {

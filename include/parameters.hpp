@@ -1,10 +1,14 @@
 #ifndef PARAMETERS_HPP
 #define PARAMETERS_HPP
 
+#include <cstddef>
+#include <numbers>
 #include "types.hpp"
+#include "linalg.hpp"
 
 // numeric parameters
-const double PI = 3.141592653589793;
+// const double PI = 3.141592653589793;
+const double PI = std::numbers::pi_v<double>;
 const double ZERO_CUTOFF = 1000000 * numeric_limits<double>::epsilon(); // approx 10E-10;//
 const double VERY_LARGE = 10E100;
 const int MAXBINOM = 100;
@@ -114,7 +118,7 @@ struct OrderParameters
     double R, C;
     double Rdirector[3];
     vector<double> localOrder;
-    vector<Vector3d> Sv;
+    vector<Eigen::Vector3d> Sv;
 };
 
 class OrderParametersRaw
@@ -130,7 +134,7 @@ class OrderParametersRaw
     double Qyz;
     double Qzz;
     double localOrder;
-    Vector3d Sv;
+    Eigen::Vector3d Sv;
 
     OrderParametersRaw(void)
     {
@@ -150,9 +154,11 @@ class OrderParametersRaw
 
     double extractR(double director[3], string geometry)
     {
-        double matrix[3][3] = { { Qxx, Qxy, Qxz }, { Qxy, Qyy, Qyz }, { Qxz, Qyz, Qzz } };
-        double evecMat[3][3];
-        double selEigenVal, eVal[3];
+        Eigen::Matrix3d matrix{ { Qxx, Qxy, Qxz }, { Qxy, Qyy, Qyz }, { Qxz, Qyz, Qzz } };
+        Eigen::Matrix3d evecMat{ Eigen::Matrix3d::Zero() };
+        Eigen::Vector3d eVal{ Eigen::Vector3d::Zero() };
+        double selEigenVal{ 0.0 };
+
         eigen_decomposition(matrix, evecMat, eVal);
 
         if (geometry == "2D-plane_1_0_0")
@@ -167,9 +173,9 @@ class OrderParametersRaw
                 maxPos = 2;
             }
             selEigenVal = fabs(eVal[maxPos]);
-            for (int i = 0; i < 3; i++)
+            for (size_t i = 0; i < 3; ++i)
             {
-                director[i] = evecMat[i][maxPos];
+                director[i] = evecMat(i, maxPos);
             }
         }
         else
@@ -184,9 +190,9 @@ class OrderParametersRaw
                 minPos = 2;
             }
             selEigenVal = fabs(eVal[minPos]);
-            for (int i = 0; i < 3; i++)
+            for (size_t i = 0; i < 3; ++i)
             {
-                director[i] = evecMat[i][minPos];
+                director[i] = evecMat(i, minPos);
             }
         }
 

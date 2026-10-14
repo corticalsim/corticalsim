@@ -4,6 +4,7 @@
 #include "types.hpp"
 #include "edge.hpp"
 #include "geometry.hpp"
+#include "linalg.hpp"
 
 class Region
 // virtual base class for a geometry patch with a 2D coordinate system. Within
@@ -27,13 +28,13 @@ class Region
     double zOffset;
     double rotAngle;
     double periMeter;
-    Vector2d midPoint;
+    Eigen::Vector2d midPoint;
     vector<Edge> side;
     map<int, int> sideMap;
     map<int, int> sideRevMap;
-    Quaternion<double> Q;
-    vector<Vector2d> vertices;
-    vector<Vector3d> orientation;
+    Eigen::Quaternion<double> Q;
+    vector<Eigen::Vector2d> vertices;
+    vector<Eigen::Vector3d> orientation;
     int faceTag;
     int polyIntersectMark;
     vector<int> intersectEdg;
@@ -64,7 +65,7 @@ class Region
         midPoint << 0.0, 0.0;
         for (int i = 0; i < 3; i++)
         {
-            vertices.push_back(Vector2d(0, 0));
+            vertices.push_back(Eigen::Vector2d(0, 0));
             side.push_back(Edge());
         }
     }
@@ -78,7 +79,7 @@ class Region
     virtual void getTrajectoryCoordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
     virtual double intersectionAngle(Trajectory*, Trajectory*) = 0;
     virtual void outputSnapshot(ostream&) = 0;
-    virtual void outputOrderHeatMap(ostream&, vector<double>&, vector<Vector3d>&) = 0;
+    virtual void outputOrderHeatMap(ostream&, vector<double>&, vector<Eigen::Vector3d>&) = 0;
 
   protected:
 
@@ -109,13 +110,13 @@ class Cartesian: public Region
     double intersectionAngle(Trajectory*, Trajectory*);
 
     void getOrderParameters(OrderParameters&);
-    void getOrderParametersRawFlat(OrderParametersRaw&, vector<Vector3d>&, double);
+    void getOrderParametersRawFlat(OrderParametersRaw&, vector<Eigen::Vector3d>&, double);
     void getOrderParametersRawCylinder(OrderParametersRaw&, double, double, double);
 
     void outputSnapshot(ostream&);
     void outputSnapshotOffset(ostream&, double, double);
 
-    void outputOrderHeatMap(ostream&, vector<double>&, vector<Vector3d>&);
+    void outputOrderHeatMap(ostream&, vector<double>&, vector<Eigen::Vector3d>&);
 };
 
 class Triangle: public Cartesian

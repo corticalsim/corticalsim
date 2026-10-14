@@ -34,7 +34,7 @@ for i in ${ARG[@]}; do
     case "$i" in
 
         "--reconfigure")
-            SETUP_ARGS="$SETUP_ARGS --reconfigure"
+            SETUP_ARGS="$SETUP_ARGS --reconfigure --wipe --clearcache"
             ;;
 
         "--builddir")
