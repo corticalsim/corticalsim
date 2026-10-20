@@ -16,9 +16,8 @@ For more information about CorticalSim and its use in various applications see t
 - for microtubules on triangulated geometries [https://doi.org/10.1371/journal.pcbi.1005959](https://doi.org/10.1371/journal.pcbi.1005959)
 - for microtubule based cell division orientation [https://doi.org/10.1016/j.cub.2018.07.025](https://doi.org/10.1016/j.cub.2018.07.025)
 
-## Note
-
-Testing and contributing is very welcome, especially if you can contribute with new algorithms and features.
+> [!NOTE]
+>Testing and contributing is very welcome, especially if you can contribute with new algorithms and features.
 
 # Installation
 
@@ -96,7 +95,8 @@ meson setup build/release . --buildtype release"
 
 This command uses the Meson build system to bootstrap everything that we need for the compilation into a directory called `build/release` from the sources located in the current directory.
 
-NOTE: The possible options for the `--buildtype` switch are `plain`, `debug`, `debugoptimized` and `release`. Please check the [Meson documentation page](https://mesonbuild.com/Running-Meson.html#configuring-the-build-directory) on configuring the build directory for information about the meaning of each of these options. We default to `release` here.
+> [!NOTE]
+> The possible options for the `--buildtype` switch are `plain`, `debug`, `debugoptimized` and `release`. Please check the [Meson documentation page](https://mesonbuild.com/Running-Meson.html#configuring-the-build-directory) on configuring the build directory for information about the meaning of each of these options. We default to `release` here.
 
 Different build types should go in their own directory, so if you would like to build corticalSim with debug symbols, first you should create a subdirectory for that build:
 
@@ -113,7 +113,8 @@ meson compile -C build/release
 
 This will generate an executable file called `corticalsim` in the build directory (e.g., `build/release`).
 
-NOTE: If you are using a very old Meson version (e.g., `<0.54.0`), you need to use `ninja` instead of `meson`, with a slightly different syntax:
+> [!NOTE]
+> If you are using a very old Meson version (e.g., `<0.54.0`), you need to use `ninja` instead of `meson`, with a slightly different syntax:
 
 ```shell
 ninja -C build/release
@@ -127,7 +128,8 @@ Run the `corticalsim` executable from the build directory with the `./config/par
 ./<path-to-build-directory>/corticalsim ./config/parameters_ARRAY.txt
 ```
 
-NOTE: The parameter file has some hardwired path variables. As a result, currently you **must** run `corticalsim` from the repository root, regardless of where the build directory is located. This is relevant if you have used the [`--builddir` option](#build-script).
+> [!NOTE]
+> The parameter file has some hardwired path variables. As a result, currently you **must** run `corticalsim` from the repository root, regardless of where the build directory is located. This is relevant if you have used the [`--builddir` option](#build-script).
 
 If the program runs correctly, it should print some statistics about the run. For instance, with a `debug` build:
 
