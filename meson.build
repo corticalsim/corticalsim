@@ -1,5 +1,12 @@
 project('corticalsim', 'cpp')
-add_project_arguments('-std=c++20', language : 'cpp')
+add_project_arguments(
+  '-std=c++20',
+  '-Wall',
+  '-Wpedantic',
+  '-Wextra',
+  '-Wconversion',
+  language: 'cpp',
+)
 
 # Sources
 # =======
