@@ -19,7 +19,7 @@ For more information about CorticalSim and its use in various applications see t
 > [!NOTE]
 >Testing and contributing is very welcome, especially if you can contribute with new algorithms and features.
 
-# Installation
+## Installation of core dependencies
 
 Currently, `corticalsim` depends on Eigen and Boost (although the latter is planned for removal as a dependency). These dependencies are managed automatically by [Meson](https://mesonbuild.com/index.html), which is also used to build the executables. You do need a fairly recent C++ compiler (GCC or Clang) supporting the C++20 standard. The following instructions outline the process of installing the core dependencies on different platforms, as well as compiling and installing `corticalsim` itself.
 
@@ -90,7 +90,7 @@ Alternatively, you can run all the setup and compilation steps manually by follo
 
 ```shell
 mkdir -p build/release
-meson setup build/release . --buildtype release"
+meson setup build/release . --buildtype release
 ```
 
 This command uses the Meson build system to bootstrap everything that we need for the compilation into a directory called `build/release` from the sources located in the current directory.
