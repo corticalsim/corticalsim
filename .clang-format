@@ -1,6 +1,12 @@
+---
 BasedOnStyle: GNU
-Standard: c++17
+ColumnLimit: 120
+IndentWidth: 4
+TabWidth: 4
+InsertNewlineAtEOF: true
+---
 Language: Cpp
+Standard: c++20
 AlignConsecutiveMacros:
   Enabled: true
   AcrossEmptyLines: true
@@ -12,14 +18,12 @@ BreakAfterReturnType: Automatic
 BreakBeforeBraces: Allman
 BreakConstructorInitializers: AfterColon
 BreakTemplateDeclarations: Yes
-ColumnLimit: 120
 ContinuationIndentWidth: 0
 EmptyLineAfterAccessModifier: Always
 EmptyLineBeforeAccessModifier: Always
 FixNamespaceComments: true
 IncludeBlocks: Preserve
 IndentCaseLabels: true
-IndentWidth: 4
 IndentWrappedFunctionNames: false
 InsertBraces: true
 NamespaceIndentation: All
@@ -28,6 +32,7 @@ PenaltyBreakBeforeMemberAccess: 1000000
 PenaltyBreakScopeResolution: 1000000
 PenaltyBreakString: 1000000
 PenaltyReturnTypeOnItsOwnLine: 1000000
+DerivePointerAlignment: false
 PointerAlignment: Left
 QualifierAlignment: Leave
 ReferenceAlignment: Left
@@ -40,4 +45,3 @@ SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: false
 SpaceBeforeInheritanceColon: false
 SpaceBeforeParens: ControlStatements
-TabWidth: 4
