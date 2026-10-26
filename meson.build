@@ -29,12 +29,9 @@ boost_type_traits = dependency('boost-type_traits')
 boost_config = dependency('boost-config')
 boost_pool = dependency('boost-pool')
 
-# Google Test
-gtest = dependency('gtest')
-
 # Executable(s)
 # =============
-executable(
+corticalsim = executable(
   'corticalsim',
   sources,
   include_directories: incdir,
@@ -46,6 +43,5 @@ executable(
     boost_type_traits,
     boost_config,
     boost_pool,
-    gtest,
   ],
 )
