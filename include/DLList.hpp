@@ -1,312 +1,184 @@
-#ifndef DLLIST_H_
-#define DLLIST_H_
+#ifndef DLLIST_HPP
+#define DLLIST_HPP
+#include <iostream>
+#include <cstddef>
+#include <iterator>
+#include <list>
+#include <array>
+#include <memory>
+#include <memory_resource>
+#include <type_traits>
+#include <vector>
 
-#include <boost/pool/singleton_pool.hpp>
-#include <new>
-#include "types.hpp"
+template <class T>
+using DLIter = typename std::pmr::list<T>::iterator;
 
-using namespace std;
+template <class T>
+using DLConstIter = typename std::pmr::list<T>::const_iterator;
 
-// DLList Class v1.0
-// Simon Tindemans, 1/4/2008
-// The DLList class provides a doubly-linked list that gets around a number of problems
-// with the STL list class:
-// 1) The STL class always copies the elements on insertion. DLList initializes them 'on the spot',
-// making it suitable for non-copyable classes.
-// 2) The STL class does not allow for conversion from data pointers to list element iterators. The
-// DLList class makes this possible, leading to easier deletion (no need to store/retrieve iterators) and
-// list traversal from within objects.
-// 3) When transferring elements (single-element splice), the STL list invalidates iterators. DLList
-// allows one to transfer elements without invalidating pointers.
+// An auxiliary class that makes any derived class
+// become self-aware of its location in a list.
+template <class T>
+class DLItem
+{
+    // This is a thin shim over an iterator that makes any instance
+    // of a class deriving from this one *self-aware*, meaning that
+    // it can erase itself from the list in O(1) time without having
+    // to iterate over the list.
+    // It also provides some convenience methods, such as prev() and next()
+    // to extract the preceding and following elements from the list.
 
-// The DLList list can be constructed using two types of list elements.
-// First, the DLBaseItem class should be used as a base class for the individual list
-// items. This has the advantage that the pointers to the list container elements and
-// the individual objects are the same.
+    DLIter<T> self;
 
-// The second method is using DLContainerItem objects. These objects contain an object
-// of the type that is to be stored. This has the advantage that the objects don't need
-// to be compiled for list use.
+  public:
 
-// Lists of objects of type T are declared as follows:
-// DLList<T> name;  					[for DLBaseItem-derived classes]
-// DLList<DLContainerItem<T> > name;	[for other classes]
+    DLIter<T> prev()
+    {
+        // Return the previous element in the list.
+        return std::prev(self);
+    }
 
-template <class T, int AllocatorGranularity = 32>
+    DLIter<T> next()
+    {
+        // Return the next element in the list.
+        return std::next(self);
+    }
+
+    DLIter<T> get_self()
+    {
+        // Return an iterator.
+        return self;
+    }
+
+    void set_self(const DLIter<T>& s)
+    {
+        // Store a new iterator.
+        self = s;
+    }
+};
+
+template <class T, size_t granularity = 256>
 class DLList
 {
-  private:
+    // Restrict this class to classes derived from DLItem<T>.
+    static_assert(std::is_base_of_v<DLItem<T>, T>, "This class can be used only with classes that derive from DLItem.");
 
-    int numElements;
-    // This class keeps a pointer to both the first and the last element.
-    // This is not strictly necessary (first is enough), but this has the advantage
-    // that elements can be inserted in the back and iterated over from the front of
-    // the set. In the absence of deletions, this leads to a traversal of the elements
-    // in the order of creation - and hopefully in the order of memory allocation.
-    T* firstElement;
-    T* lastElement;
-
-    // definitions for the Boost memory pool
-    // Currently, it uses a *non*-thread safe allocation mechanism (for speed) and a user-defined granularity
-    struct PoolTag
-    {
-    };
-
-    typedef boost::singleton_pool<PoolTag,
-                                  sizeof(T),
-                                  boost::default_user_allocator_new_delete,
-                                  boost::details::pool::null_mutex,
-                                  AllocatorGranularity>
-    MemPool;
-    void unlinkElement(T*);
-    T* linkElement(T*);
+    std::array<T, granularity> buffer;
+    std::pmr::monotonic_buffer_resource mbr{ buffer.data(), buffer.size() };
+    std::pmr::synchronized_pool_resource pool{ &mbr };
+    std::pmr::list<T> list_{ &pool };
 
   public:
 
-    DLList():
-        numElements(0),
-        firstElement(NULL),
-        lastElement(NULL) {};
-    ~DLList();
+    ~DLList() { removeAll(); }
 
-    inline int size() { return numElements; }
+    inline size_t size() { return list_.size(); }
 
-    inline T* first() { return firstElement; }
+    inline DLIter<T> begin() { return list_.begin(); }
 
-    inline T* last() { return lastElement; }
+    inline DLIter<T> cbegin() { return list_.cbegin(); }
 
-    inline T* next(T* el) { return el->nextElement; }
+    inline DLIter<T> end() { return list_.end(); }
 
-    inline T* previous(T* el) { return el->previousElement; }
+    inline DLIter<T> cend() { return list_.cend(); }
 
-    T* create();
-    template <class Q>
-    T* create(Q);
-    template <class Q, class R>
-    T* create(Q, R);
-    template <class Q, class R, class S>
-    T* create(Q, R, S);
-    void remove(T*);
-    void removeAll();
-    void import(DLList<T, AllocatorGranularity>&, T*);
-    void importSet(DLList<T, AllocatorGranularity>&, T*, T*);
-};
+    inline DLIter<T> next(DLIter<T> elem) { return std::next(elem); }
 
-template <class T, int i>
-DLList<T, i>::~DLList()
-{
-    removeAll();
-    return;
-}
+    inline DLIter<T> next(T* elem) { return std::next(elem->get_self()); }
 
-template <class T, int i>
-void DLList<T, i>::removeAll()
-{
-    while (firstElement != NULL)
+    inline DLIter<T> prev(DLIter<T> elem) { return std::prev(elem); }
+
+    inline DLIter<T> prev(T* elem) { return std::prev(elem->get_self()); }
+
+    inline T* first() { return list_.empty() ? nullptr : std::addressof(*begin()); }
+
+    inline T* last() { return list_.empty() ? nullptr : std::addressof(*prev(end())); }
+
+    template <class... Params>
+    T* create(Params&&... params)
     {
-        remove(firstElement);
+        // Pass any parameters that T's constructors accept.
+        const auto it{ list_.emplace(list_.end(), std::forward<Params>(params)...) };
+        it->set_self(it);
+        return std::addressof(*it);
     }
-}
 
-template <class T, int i>
-inline T* DLList<T, i>::linkElement(T* newElement)
-// Inserts a new element into the linked list.
-// Insertion takes place at the back of the list for memory-traversal speed considerations.
-{
-    numElements++;
-    newElement->previousElement = lastElement;
-    newElement->nextElement = NULL;
-    if (lastElement != NULL)
+    void remove(T* element)
     {
-        lastElement->nextElement = newElement;
-    }
-    else // if list was empty
-    {
-        firstElement = newElement;
-    }
-    lastElement = newElement;
-    return newElement;
-}
-
-template <class T, int i>
-inline void DLList<T, i>::unlinkElement(T* element)
-// Removes an element from the linked list.
-{
-    numElements--;
-    if (element == firstElement)
-    {
-        firstElement = element->nextElement;
-    }
-    if (element == lastElement)
-    {
-        lastElement = element->previousElement;
-    }
-    if (element->nextElement != NULL)
-    {
-        element->nextElement->previousElement = element->previousElement;
-    }
-    if (element->previousElement != NULL)
-    {
-        element->previousElement->nextElement = element->nextElement;
-    }
-    return;
-}
-
-template <class T, int i>
-inline void DLList<T, i>::remove(T* element)
-// Removes a single element. No checking is performed on the pointer.
-{
-    unlinkElement(element);
-    element->~T();
-    MemPool::free(element);
-    return;
-}
-
-/// The following functions create a new element from the heap and insert it into the linked list.
-// These differ only in the number of arguments that is passed to the constructor.
-template <class T, int i>
-inline T* DLList<T, i>::create()
-{
-    T* newElement = new (MemPool::malloc()) T();
-    return linkElement(newElement);
-}
-
-template <class T, int i>
-template <class Q>
-inline T* DLList<T, i>::create(Q par1)
-{
-    T* newElement = new (MemPool::malloc()) T(par1);
-    return linkElement(newElement);
-}
-
-template <class T, int i>
-template <class Q, class R>
-inline T* DLList<T, i>::create(Q par1, R par2)
-{
-    T* newElement = new (MemPool::malloc()) T(par1, par2);
-    return linkElement(newElement);
-}
-
-template <class T, int i>
-template <class Q, class R, class S>
-inline T* DLList<T, i>::create(Q par1, R par2, S par3)
-{
-    T* newElement = new (MemPool::malloc()) T(par1, par2, par3);
-    return linkElement(newElement);
-}
-
-template <class T, int i>
-// This functions transfers 'element' from 'oldList' to this list.
-inline void DLList<T, i>::import(DLList<T, i>& oldList, T* element)
-{
-    oldList.unlinkElement(element);
-    linkElement(element);
-    return;
-}
-
-template <class T, int i>
-inline void DLList<T, i>::importSet(DLList<T, i>& oldList, T* firstElement, T* lastElement)
-// This functions transfers a number of elements from 'oldList' to this list.
-// WARNING: not efficient at all!
-{
-    T* current = firstElement;
-    T* temp;
-    while (current != NULL)
-    {
-        temp = current;
-        current = current->next();
-        import(oldList, temp);
-        if (temp == lastElement)
+        // Removes a single element.
+        // A check is performed to see if there are any elements in the list.
+        // Returns the end iterator if the removed element was the last one,
+        // otherwise it returns the element *after* the one that was removed.
+        if (element == nullptr)
         {
-            break;
+            return;
+        }
+
+        DLIter<T> it{ element->get_self() };
+        if (it != end())
+        {
+            list_.erase(it);
         }
     }
-    return;
-}
 
-template <class T>
-// this list item should be used as a base class [type 1 - see above]
-class DLBaseItem
-{
-  public:
-
-    template <class X, int i>
-    friend class DLList;
-
-  private:
-
-    T* nextElement;
-    T* previousElement;
-
-  protected:
-
-    // make sure that this cannot be deleted...
-    virtual ~DLBaseItem() {};
-
-  public:
-
-    inline T* next() { return nextElement; }
-
-    inline T* previous() { return previousElement; }
-};
-
-template <class T>
-// This is a stand-alone version of the list item. It contains a data object of type T
-// and functions to convert between the pointers to the data and pointers to the element
-// itself
-class DLContainerItem
-{
-    friend class DLList<DLContainerItem<T>>;
-
-  private:
-
-    DLContainerItem<T>* nextElement;
-    DLContainerItem<T>* previousElement;
-
-  protected:
-
-    // make sure that items can only be deleted by DLList<DLContainerItem<T> > objects
-    virtual ~DLContainerItem() {};
-
-  public:
-
-    T data;
-
-    inline DLContainerItem<T>* next() { return nextElement; }
-
-    inline DLContainerItem<T>* previous() { return previousElement; }
-
-    inline T* dataPtr() { return &data; }
-
-    // very ugly hack, but it works [tested with G++ & icc]. For a data object with an unknown location in a known list,
-    // call list->first()->containerPtr(data*); for some reason, I need to convert to void* and char*... This should
-    // have been done in a better way...
-    inline DLContainerItem<T>* containerPtr(T* dPtr)
+    void removeAll()
     {
-        return static_cast<DLContainerItem<T>*>(static_cast<void*>(
-        static_cast<short*>(static_cast<void*>(dPtr))
-        - (static_cast<short*>(static_cast<void*>(&data)) - static_cast<short*>(static_cast<void*>(this)))));
+        // TODO: Work out if it's necessary to clean up the `self` attributes.
+        list_.clear();
+        pool.release();
     }
 
-    DLContainerItem() {}
-
-    template <class Q>
-    inline DLContainerItem(Q par1):
-        data(par1)
+    T* import(DLList<T>& other, T* element)
     {
+        // Import an element from another list at the end of this list.
+        if (element == nullptr)
+        {
+            return element;
+        }
+        return import(other, element, list_.end());
     }
 
-    template <class Q, class R>
-    inline DLContainerItem(Q par1, R par2):
-        data(par1, par2)
+    T* import(DLList<T>& other, T* element, DLIter<T> pos)
     {
+        if (element == nullptr)
+        {
+            return element;
+        }
+
+        // Import an element from another list at the specified position.
+        // It must be copied because we are using custom memory pools,
+        // so the allocators don't compare as equal.
+        // Returns a pointer to the inserted element.
+        const auto it{ list_.insert(pos, *element) };
+        other.list_.erase(element->get_self());
+        it->set_self(it);
+
+        return std::addressof(*it);
     }
 
-    template <class Q, class R, class S>
-    inline DLContainerItem(Q par1, R par2, S par3):
-        data(par1, par2, par3)
+    void importSet(DLList<T>& other, T* first, T* last)
     {
+        // Import a sequence of elements from another list at the end of this list.
+        return importSet(other, first, last, list_.end());
+    }
+
+    void importSet(DLList<T>& other, T* first, T* last, DLIter<T> pos)
+    {
+        // Import a sequence of elements from another list at the specified position.
+        const auto _first{ first->get_self() };
+        const auto _last{ last->next() };
+        size_t dist{ std::distance(_first, _last) };
+        
+        auto it{ list_.insert(pos, _first, _last) };
+        other.list_.erase(_first, _last);
+
+        // Update the selfies :).
+        for (size_t i{ 0 }; i < dist; ++i)
+        {
+            it->set_self(it);
+            it = it->next();
+        }
     }
 };
 
-#endif // DLLIST_H_
+#endif // DLLIST_HPP
