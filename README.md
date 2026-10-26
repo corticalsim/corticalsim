@@ -8,19 +8,18 @@ If you use CorticalSim please cite it as follows:
 > Chakrabortty, B., Deinum, E., Hadjiivanov, A., Camphuijsen, J., & Tindemans, S. CorticalSim [Computer software]
 
 For more information about CorticalSim and its use in various applications see the following publications:
-- for general use http://dx.doi.org/10.3389/fphy.2014.00019
-- for microtubule dependent nucleation http://dx.doi.org/10.1371/journal.pcbi.1013282
-- for microtubule dependent nucleation - old algorithm only (nuc_ellipse) http://dx.doi.org/10.1088/1478-3975/8/5/056002
-- for microtubule severing http://dx.doi.org/10.1073/pnas.1702650114
-- for microtubule deflections https://doi.org/10.1017/qpb.2024.17
-- for microtubules on triangulated geometries https://doi.org/10.1371/journal.pcbi.1005959
-- for microtubule based cell division orientation https://doi.org/10.1016/j.cub.2018.07.025
+- for general use [http://dx.doi.org/10.3389/fphy.2014.00019](http://dx.doi.org/10.3389/fphy.2014.00019)
+- for microtubule dependent nucleation [http://dx.doi.org/10.1371/journal.pcbi.1013282](http://dx.doi.org/10.1371/journal.pcbi.1013282)
+- for microtubule dependent nucleation - old algorithm only (nuc_ellipse) [http://dx.doi.org/10.1088/1478-3975/8/5/056002](http://dx.doi.org/10.1088/1478-3975/8/5/056002)
+- for microtubule severing [http://dx.doi.org/10.1073/pnas.1702650114](http://dx.doi.org/10.1073/pnas.1702650114)
+- for microtubule deflections [https://doi.org/10.1017/qpb.2024.17](https://doi.org/10.1017/qpb.2024.17)
+- for microtubules on triangulated geometries [https://doi.org/10.1371/journal.pcbi.1005959](https://doi.org/10.1371/journal.pcbi.1005959)
+- for microtubule based cell division orientation [https://doi.org/10.1016/j.cub.2018.07.025](https://doi.org/10.1016/j.cub.2018.07.025)
 
-## Note
+> [!NOTE]
+>Testing and contributing is very welcome, especially if you can contribute with new algorithms and features.
 
-Testing and contributing is very welcome, especially if you can contribute with new algorithms and features.
-
-# Installation
+## Installation of core dependencies
 
 Currently, `corticalsim` depends on Eigen and Boost (although the latter is planned for removal as a dependency). These dependencies are managed automatically by [Meson](https://mesonbuild.com/index.html), which is also used to build the executables. You do need a fairly recent C++ compiler (GCC or Clang) supporting the C++20 standard. The following instructions outline the process of installing the core dependencies on different platforms, as well as compiling and installing `corticalsim` itself.
 
@@ -91,12 +90,13 @@ Alternatively, you can run all the setup and compilation steps manually by follo
 
 ```shell
 mkdir -p build/release
-meson setup build/release . --buildtype release"
+meson setup build/release . --buildtype release
 ```
 
 This command uses the Meson build system to bootstrap everything that we need for the compilation into a directory called `build/release` from the sources located in the current directory.
 
-NOTE: The possible options for the `--buildtype` switch are `plain`, `debug`, `debugoptimized` and `release`. Please check the [Meson documentation page](https://mesonbuild.com/Running-Meson.html#configuring-the-build-directory) on configuring the build directory for information about the meaning of each of these options. We default to `release` here.
+> [!NOTE]
+> The possible options for the `--buildtype` switch are `plain`, `debug`, `debugoptimized` and `release`. Please check the [Meson documentation page](https://mesonbuild.com/Running-Meson.html#configuring-the-build-directory) on configuring the build directory for information about the meaning of each of these options. We default to `release` here.
 
 Different build types should go in their own directory, so if you would like to build corticalSim with debug symbols, first you should create a subdirectory for that build:
 
@@ -113,7 +113,8 @@ meson compile -C build/release
 
 This will generate an executable file called `corticalsim` in the build directory (e.g., `build/release`).
 
-NOTE: If you are using a very old Meson version (e.g., `<0.54.0`), you need to use `ninja` instead of `meson`, with a slightly different syntax:
+> [!NOTE]
+> If you are using a very old Meson version (e.g., `<0.54.0`), you need to use `ninja` instead of `meson`, with a slightly different syntax:
 
 ```shell
 ninja -C build/release
@@ -127,7 +128,8 @@ Run the `corticalsim` executable from the build directory with the `./config/par
 ./<path-to-build-directory>/corticalsim ./config/parameters_ARRAY.txt
 ```
 
-NOTE: The parameter file has some hardwired path variables. As a result, currently you **must** run `corticalsim` from the repository root, regardless of where the build directory is located. This is relevant if you have used the [`--builddir` option](#build-script).
+> [!NOTE]
+> The parameter file has some hardwired path variables. As a result, currently you **must** run `corticalsim` from the repository root, regardless of where the build directory is located. This is relevant if you have used the [`--builddir` option](#build-script).
 
 If the program runs correctly, it should print some statistics about the run. For instance, with a `debug` build:
 

@@ -16,11 +16,11 @@ Overview of the CorticalSim software, from https://doi.org/10.1371/journal.pcbi.
 ```
 
 For more information about CorticalSim and its use in various applications see the following publications:
-- for general use http://dx.doi.org/10.3389/fphy.2014.00019
-- for microtubule dependent nucleation http://dx.doi.org/10.1371/journal.pcbi.1013282
-- for microtubule dependent nucleation - old algorithm only (nuc_ellipse) http://dx.doi.org/10.1088/1478-3975/8/5/056002
-- for microtubule severing http://dx.doi.org/10.1073/pnas.1702650114
-- for microtubule deflections https://doi.org/10.1017/qpb.2024.17
-- for microtubules on triangulated geometries https://doi.org/10.1371/journal.pcbi.1005959
-- for microtubule based cell division orientation https://doi.org/10.1016/j.cub.2018.07.025
+- for general use [http://dx.doi.org/10.3389/fphy.2014.00019](http://dx.doi.org/10.3389/fphy.2014.00019)
+- for microtubule dependent nucleation [http://dx.doi.org/10.1371/journal.pcbi.1013282](http://dx.doi.org/10.1371/journal.pcbi.1013282)
+- for microtubule dependent nucleation - old algorithm only (nuc_ellipse) [http://dx.doi.org/10.1088/1478-3975/8/5/056002](http://dx.doi.org/10.1088/1478-3975/8/5/056002)
+- for microtubule severing [http://dx.doi.org/10.1073/pnas.1702650114](http://dx.doi.org/10.1073/pnas.1702650114)
+- for microtubule deflections [https://doi.org/10.1017/qpb.2024.17](https://doi.org/10.1017/qpb.2024.17)
+- for microtubules on triangulated geometries [https://doi.org/10.1371/journal.pcbi.1005959](https://doi.org/10.1371/journal.pcbi.1005959)
+- for microtubule based cell division orientation [https://doi.org/10.1016/j.cub.2018.07.025](https://doi.org/10.1016/j.cub.2018.07.025)
 
