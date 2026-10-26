@@ -17,5 +17,6 @@ CorticalSim documentation
    quickstart
    development
    technical
+   dashboard
 
 
