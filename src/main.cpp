@@ -4,6 +4,7 @@
 using namespace std;
 
 System* s1;
+
 // System* s2;
 
 int main(int argc, char* argv[])

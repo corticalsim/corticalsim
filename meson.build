@@ -1,5 +1,12 @@
-project('corticalsim', 'cpp')
-add_project_arguments('-std=c++20', language : 'cpp')
+project('corticalsim', 'cpp', meson_version: '>=1.3.0')
+add_project_arguments(
+  '-std=c++20',
+  '-Wall',
+  '-Wpedantic',
+  '-Wextra',
+  '-Wconversion',
+  language: 'cpp',
+)
 
 # Sources
 # =======
@@ -22,12 +29,9 @@ boost_type_traits = dependency('boost-type_traits')
 boost_config = dependency('boost-config')
 boost_pool = dependency('boost-pool')
 
-# Google Test
-gtest = dependency('gtest')
-
 # Executable(s)
 # =============
-executable(
+corticalsim = executable(
   'corticalsim',
   sources,
   include_directories: incdir,
@@ -39,6 +43,48 @@ executable(
     boost_type_traits,
     boost_config,
     boost_pool,
-    gtest,
   ],
+)
+
+# Tooling
+# link compile_commands.json to the projec root
+meson.add_postconf_script(
+  find_program('python3'),
+  meson.current_source_dir() / 'scripts/link_files.py',
+  meson.current_build_dir() / 'compile_commands.json',
+  meson.current_source_dir() / 'compile_commands.json',
+)
+
+# Clang-format
+
+# copy .clang-format file to the build directory
+configure_file(input: '.clang-format', output: '.clang-format', copy: true)
+
+run_target(
+  'format',
+  command: [
+    'clang-format',
+    '-i',
+    '-style=file',
+    sources,
+  ],
+)
+
+absolute_paths_to_sources = []
+
+clang_tidy_config_file = get_option('config-file')
+warnings_as_errors = get_option('warnings-as-errors')
+
+run_target(
+  'tidy',
+  command: [
+    find_program('python3'),
+    meson.current_source_dir() / 'scripts/run_tidy.py',
+    meson.current_build_dir(),
+    meson.current_source_dir(),
+    clang_tidy_config_file,
+    warnings_as_errors,
+    sources,
+  ],
+  depends: [corticalsim],
 )

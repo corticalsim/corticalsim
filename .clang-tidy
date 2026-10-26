@@ -1,0 +1,52 @@
+# first disable everything wiht -* then enable the check groups that are needed, and finally fintune the individual
+# groups by disabling individual checks
+#
+# e.g. bugprone-*, enables all check sof the group bugpone,
+# however,
+# -bugprone-easily-swappable-parameters
+# is disabled, individually, because we consider it overly zealous
+
+# warning: do not comment out individual lines since > folds all following lines together. Thus commendting out one
+# line will disable all following lines.
+# warning: do not forget a comma at the end of each line. Ommiting it will dissable all the following lines
+#
+# The documentation of the clang-tidy checks is at https://clang.llvm.org/extra/clang-tidy/checks/list.html
+
+# ToDo: to enforce later (issue https://github.com/corticalsim/corticalsim/issues/55):
+# cppcoreguidelines-pro-bounds-avoid-unchecked-container-access
+# currently this is disabled because we have a lot of direct access and it needs to be evaluated if replacing these
+# with .at() will lead to significant performance penalties
+# thus we need a perf suite first
+
+Checks: >
+  -*,
+  clang-analyzer-*,
+  cert-*,
+  cppcoreguidelines-*,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-avoid-non-const-global-variables,
+  -cppcoreguidelines-pro-type-vararg,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  -cppcoreguidelines-pro-bounds-avoid-unchecked-container-access,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  misc-*,
+  -misc-non-private-member-variables-in-classes,
+  -misc-use-anonymous-namespace,
+  performance-*,
+  -performance-avoid-endl,
+  readability-*,
+  -readability-magic-numbers,
+  -readability-math-missing-parentheses,
+  -readability-uppercase-literal-suffix,
+  -readability-identifier-length,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  -readability-identifier-length,
+
+
+HeaderFilterRegex: '^(?!(third_party|external)/).*'
+
+FormatStyle: file
+
