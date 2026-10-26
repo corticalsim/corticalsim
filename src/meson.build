@@ -1,4 +1,5 @@
-sources = files('analysis.cpp',
+sources = files(
+    'analysis.cpp',
     'det_queue.cpp',
     'geometry.cpp',
     'linalg.cpp',

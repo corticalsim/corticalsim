@@ -4,7 +4,6 @@
 #include "mt_tip.hpp"
 #include "parameters.hpp"
 
-
 void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
 {
     switch (p.interactionType)
