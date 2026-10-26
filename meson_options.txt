@@ -1,0 +1,13 @@
+option(
+  'config-file',
+  type: 'string',
+  value: '.clang-tidy',
+  description: 'Path (relative to source dir) to the clang-tidy config file.',
+)
+
+option(
+  'warnings-as-errors',
+  type: 'string',
+  value: '',
+  description: 'Comma-separated list of clang-tidy checks to treat as errors (e.g. "*", or "clang-analyzer-*,"); empty disables the flag',
+)

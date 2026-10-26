@@ -1,5 +1,4 @@
-project('corticalsim', 'cpp')
-add_project_arguments('-std=c++20', language : 'cpp')
+project('corticalsim', 'cpp', meson_version: '>=1.3.0')
 
 # Sources
 # =======
@@ -38,6 +37,8 @@ corticalsim = executable(
     boost_pool,
   ],
 )
+
+# Tooling
 # link compile_commands.json to the projec root
 meson.add_postconf_script(
   find_program('python3'),
@@ -61,3 +62,21 @@ run_target(
   ],
 )
 
+absolute_paths_to_sources = []
+
+clang_tidy_config_file = get_option('config-file')
+warnings_as_errors = get_option('warnings-as-errors')
+
+run_target(
+  'tidy',
+  command: [
+    find_program('python3'),
+    meson.current_source_dir() / 'scripts/run_tidy.py',
+    meson.current_build_dir(),
+    meson.current_source_dir(),
+    clang_tidy_config_file,
+    warnings_as_errors,
+    sources,
+  ],
+  depends: [corticalsim],
+)
