@@ -66,3 +66,7 @@ doc/_build
 
 # Python virtual environment for docs building
 .venv
+
+# support files for c++ lsp
+compile_commands.json
+
