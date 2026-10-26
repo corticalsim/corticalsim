@@ -53,3 +53,18 @@ meson.add_postconf_script(
   meson.current_source_dir() / 'compile_commands.json',
 )
 
+# Clang-format
+
+# copy .clang-format file to the build directory
+configure_file(input: '.clang-format', output: '.clang-format', copy: true)
+
+run_target(
+  'format',
+  command: [
+    'clang-format',
+    '-i',
+    '-style=file',
+    sources,
+  ],
+)
+
