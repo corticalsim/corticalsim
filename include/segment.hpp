@@ -4,7 +4,7 @@
 #include "types.hpp"
 #include "trajectory.hpp"
 
-class Segment: public DLBaseItem<Segment>
+class Segment: public DLItem<Segment>
 {
   public:
 

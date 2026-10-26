@@ -7,7 +7,7 @@
 #include "segment.hpp"
 #include "mt_tip.hpp"
 
-class Microtubule: public DLBaseItem<Microtubule>
+class Microtubule: public DLItem<Microtubule>
 {
   public:
 

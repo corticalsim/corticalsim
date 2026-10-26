@@ -149,18 +149,18 @@ SurfaceVector Geometry::randomSurfaceVector()
 bool Geometry::integrityCheck()
 {
     bool valid(true);
-    int plusGrowCount(0);
-    int plusShrinkCount(0);
-    int minusCount(0);
-    Trajectory* tptr(NULL);
+    size_t plusGrowCount(0);
+    size_t plusShrinkCount(0);
+    size_t minusCount(0);
+    // Trajectory* tptr(NULL);
 
-    for (size_t ridx = 0; ridx < regions.size(); ridx++)
+    for (size_t ridx{ 0 }; ridx < regions.size(); ridx++)
     {
         plusGrowCount += regions[ridx]->growingPlusTipList.size();
         plusShrinkCount += regions[ridx]->shrinkingPlusTipList.size();
         minusCount += regions[ridx]->minusTipList.size();
-        tptr = regions[ridx]->trajectories.first();
-        while (tptr != NULL)
+        auto tptr{ regions[ridx]->trajectories.begin() };
+        while (tptr != regions[ridx]->trajectories.end())
         {
             if (!tptr->integrityCheck())
             {
@@ -191,8 +191,8 @@ bool Geometry::integrityCheck()
         valid = false;
     }
 
-    int totalPlusGrowCount(0);
-    for (int dTag = 0; dTag <= system->p.faceNumber; dTag++)
+    size_t totalPlusGrowCount(0);
+    for (int dTag{ 0 }; dTag <= system->p.faceNumber; dTag++)
     {
         totalPlusGrowCount += system->growingTipsReg[dTag];
     }
@@ -500,9 +500,9 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR, vector<Eigen:
     e << orientation[0][0], orientation[1][0], orientation[2][0], orientation[0][1], orientation[1][1],
     orientation[2][1], orientation[0][2], orientation[1][2], orientation[2][2];
 
-    Trajectory* tr(trajectories.first());
+    auto tr{ trajectories.begin() };
 
-    while (tr != NULL)
+    while (tr != trajectories.end())
     {
         length = tr->segmentLength();
 
@@ -613,13 +613,13 @@ void Cartesian::outputSnapshotOffset(ostream& out, double xOffset, double yOffse
 
     Eigen::Quaternion<double> qr(0.0, 0.0, 0.0, 0.0), QR(0.0, 0.0, 0.0, 0.0);
 
-    Trajectory* tr;
+    // Trajectory* tr;
     SurfaceVector svec;
     list<Segment*>::iterator seg;
 
-    tr = trajectories.first();
+    auto tr{ trajectories.begin() };
 
-    while (tr != NULL)
+    while (tr != trajectories.end())
     {
         svec = tr->base;
 
@@ -726,13 +726,13 @@ void Cartesian::makeIntersectionList(Trajectory* tr1)
     isThat.occupancy = 0;
     isThat.otherTrajectory = tr1;
 
-    Trajectory* tr2(trajectories.first());
+    auto tr2{ trajectories.begin() };
 
-    while (tr2 != NULL)
+    while (tr2 != trajectories.end())
     {
         // imagine a triangle with vertices sitting at: (a) one at the trajectory intersection point and (b) other two
         // at the base of the two trajectories
-        if (tr1 != tr2)
+        if (tr1->get_self() != tr2)
         {
             // take cos/sin of first trajectory base angle
             cos2 = cos(tr2->base.angle);
@@ -769,7 +769,7 @@ void Cartesian::makeIntersectionList(Trajectory* tr1)
                     // first insert 'isThat': occupancy and other are still incorrect
                     thatItr = tr2->intersections.insert(pair<double, Intersection>(bp2, isThat));
                     isThis.mirror = thatItr;
-                    isThis.otherTrajectory = tr2;
+                    isThis.otherTrajectory = &(*tr2);
                     thisItr = tr1->intersections.insert(pair<double, Intersection>(bp1, isThis));
 
                     // update the reference in the other half of the intersection

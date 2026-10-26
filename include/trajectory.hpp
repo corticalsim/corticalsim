@@ -25,7 +25,7 @@ class TrajectoryVector
     TrajectoryVector flipped() { return TrajectoryVector(pos, dir == ::forward ? backward : ::forward, trajectory); }
 };
 
-class Trajectory: public DLBaseItem<Trajectory>
+class Trajectory: public DLItem<Trajectory>
 // the trajectory is the basic geometrical object. Tips and segments associate
 // with a trajectory and move/lie alongside it. Trajectory intersections
 // determine the collision points
