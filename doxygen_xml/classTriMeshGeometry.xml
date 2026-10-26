@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="classTriMeshGeometry" kind="class" language="C++" prot="public">
+    <compoundname>TriMeshGeometry</compoundname>
+    <basecompoundref refid="classGeometry" prot="public" virt="non-virtual">Geometry</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTriMeshGeometry_1a40963b47b6cfd7ffc48cc1ff98a9e168" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>TriMeshGeometry::TriMeshGeometry</definition>
+        <argsstring>(System *)</argsstring>
+        <name>TriMeshGeometry</name>
+        <qualifiedname>TriMeshGeometry::TriMeshGeometry</qualifiedname>
+        <param>
+          <type><ref refid="classSystem" kindref="compound">System</ref> *</type>
+          <defname>s</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="76" column="5" bodyfile="src/geometry.cpp" bodystart="234" bodyend="241"/>
+      </memberdef>
+      <memberdef kind="function" id="classTriMeshGeometry_1aba4524a2764aae7a052dac4c5548d008" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector TriMeshGeometry::extendTrajectory</definition>
+        <argsstring>(Trajectory *, Direction)</argsstring>
+        <name>extendTrajectory</name>
+        <qualifiedname>TriMeshGeometry::extendTrajectory</qualifiedname>
+        <reimplements refid="classGeometry_1a148491c5e05394ce68af3036432a372e">extendTrajectory</reimplements>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+          <defname>oldtr</defname>
+        </param>
+        <param>
+          <type>Direction</type>
+          <defname>dir</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="77" column="22" bodyfile="src/geometry.cpp" bodystart="365" bodyend="449"/>
+      </memberdef>
+      <memberdef kind="function" id="classTriMeshGeometry_1a8a701f8326d66273f8a2a350acb1a795" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void TriMeshGeometry::getOrderParameters</definition>
+        <argsstring>(OrderParameters &amp;)</argsstring>
+        <name>getOrderParameters</name>
+        <qualifiedname>TriMeshGeometry::getOrderParameters</qualifiedname>
+        <reimplements refid="classGeometry_1a8281b8d31909b4a234666ea47e9652bb">getOrderParameters</reimplements>
+        <param>
+          <type><ref refid="structOrderParameters" kindref="compound">OrderParameters</ref> &amp;</type>
+          <defname>op</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>calculate Q(2) tensor order parameter</para>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="78" column="10" bodyfile="src/geometry.cpp" bodystart="243" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="classTriMeshGeometry_1a44fef68409c1b3dfe418354be4b52de8" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void TriMeshGeometry::outputSnapshot</definition>
+        <argsstring>(ostream &amp;)</argsstring>
+        <name>outputSnapshot</name>
+        <qualifiedname>TriMeshGeometry::outputSnapshot</qualifiedname>
+        <reimplements refid="classGeometry_1aa47c677ccbc36c3a258631694fd66daf">outputSnapshot</reimplements>
+        <param>
+          <type>ostream &amp;</type>
+          <defname>out</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="79" column="10" bodyfile="src/geometry.cpp" bodystart="285" bodyend="296"/>
+      </memberdef>
+      <memberdef kind="function" id="classTriMeshGeometry_1a1988554dc4e5055e23ca22a83cd11511" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void TriMeshGeometry::outputOrderHeatMap</definition>
+        <argsstring>(ostream &amp;, vector&lt; double &gt; &amp;, vector&lt; Eigen::Vector3d &gt; &amp;)</argsstring>
+        <name>outputOrderHeatMap</name>
+        <qualifiedname>TriMeshGeometry::outputOrderHeatMap</qualifiedname>
+        <reimplements refid="classGeometry_1a12db4b3bd392cd5d2ea1f757e09dc771">outputOrderHeatMap</reimplements>
+        <param>
+          <type>ostream &amp;</type>
+          <defname>out</defname>
+        </param>
+        <param>
+          <type>vector&lt; double &gt; &amp;</type>
+          <defname>localOrder</defname>
+        </param>
+        <param>
+          <type>vector&lt; Eigen::Vector3d &gt; &amp;</type>
+          <defname>sv</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="80" column="10" bodyfile="src/geometry.cpp" bodystart="298" bodyend="363"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+      </node>
+      <node id="1">
+        <label>TriMeshGeometry</label>
+        <link refid="classTriMeshGeometry"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="5">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="4">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="8">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="3">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>TriMeshGeometry</label>
+        <link refid="classTriMeshGeometry"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/geometry.hpp" line="72" column="1" bodyfile="include/geometry.hpp" bodystart="73" bodyend="81"/>
+    <listofallmembers>
+      <member refid="classGeometry_1ae69ec17b78b5ebd7e6fe8b7a9a2b6880" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>area</name></member>
+      <member refid="classGeometry_1acc03335b967aa363aeb29d733865f178" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>areainMesh</name></member>
+      <member refid="classGeometry_1afa70197e4e39149e4846f9406aa32226" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>areaPPB</name></member>
+      <member refid="classGeometry_1ac9bd5585786f60e5e789934dec5a12e8" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>callTranslator</name></member>
+      <member refid="classGeometry_1a12a2478209318c9cf0fe8b7edd265edc" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>createAndLinkTrajectory</name></member>
+      <member refid="classGeometry_1a95ab428052a6702f4644725ac7316c7f" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>createTrajectory</name></member>
+      <member refid="classGeometry_1aa1ecc56f9e5b0009c39df6629e626d59" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>elementMax</name></member>
+      <member refid="classTriMeshGeometry_1aba4524a2764aae7a052dac4c5548d008" prot="public" virt="virtual"><scope>TriMeshGeometry</scope><name>extendTrajectory</name></member>
+      <member refid="classGeometry_1aa41031126654cb848d6e45bc360bf4ad" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>Geometry</name></member>
+      <member refid="classTriMeshGeometry_1a8a701f8326d66273f8a2a350acb1a795" prot="public" virt="virtual"><scope>TriMeshGeometry</scope><name>getOrderParameters</name></member>
+      <member refid="classGeometry_1a4d28208013dd7e94ec5a7ad96c16b139" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>globalVertex</name></member>
+      <member refid="classGeometry_1a86de3f97366ebe35c26013bb85a308a3" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>integrityCheck</name></member>
+      <member refid="classGeometry_1ab1ff1c5f78e56e8927739a31b8490b11" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>nucleousPosition</name></member>
+      <member refid="classGeometry_1a3655c00302757f69976f53d65e630943" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>objectCM</name></member>
+      <member refid="classGeometry_1a16357a1f24020b78791d1bcd81188e57" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>objectPA</name></member>
+      <member refid="classGeometry_1a4bcece5b50ad20ca479b032cc9a501f6" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>opticalLength</name></member>
+      <member refid="classTriMeshGeometry_1a1988554dc4e5055e23ca22a83cd11511" prot="public" virt="virtual"><scope>TriMeshGeometry</scope><name>outputOrderHeatMap</name></member>
+      <member refid="classTriMeshGeometry_1a44fef68409c1b3dfe418354be4b52de8" prot="public" virt="virtual"><scope>TriMeshGeometry</scope><name>outputSnapshot</name></member>
+      <member refid="classGeometry_1a160cec45a60f4954def1e3a3f58914f5" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>patchArea</name></member>
+      <member refid="classGeometry_1a9f6665a48ecd81a531df2e84b0876a40" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>ppb</name></member>
+      <member refid="classGeometry_1aa09fe3caf771914ec9365807357cd568" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>ppbEdgeList</name></member>
+      <member refid="classGeometry_1a03762f434d2e54954020062ab4e7a7c9" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>randomSurfaceVector</name></member>
+      <member refid="classGeometry_1aa189b01be4de8952768af81695ef4532" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>regions</name></member>
+      <member refid="classGeometry_1a65cbab526e9b03ea7cce2bc8ccce782b" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>RegionsIndex</name></member>
+      <member refid="classGeometry_1aba93a84c623c4ee62db697573a422bb0" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>system</name></member>
+      <member refid="classGeometry_1af9c2590c59e0aa11cd253ce293b0d307" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>trajectoryCount</name></member>
+      <member refid="classTriMeshGeometry_1a40963b47b6cfd7ffc48cc1ff98a9e168" prot="public" virt="non-virtual"><scope>TriMeshGeometry</scope><name>TriMeshGeometry</name></member>
+      <member refid="classGeometry_1aedd2e92f79197c6f0671c5d14cf72578" prot="public" virt="virtual"><scope>TriMeshGeometry</scope><name>~Geometry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

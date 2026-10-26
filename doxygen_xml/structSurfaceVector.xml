@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="structSurfaceVector" kind="struct" language="C++" prot="public">
+    <compoundname>SurfaceVector</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structSurfaceVector_1ac187bab6ee1e6dc87227e2763e043417" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double SurfaceVector::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <qualifiedname>SurfaceVector::x</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="41" column="12" bodyfile="include/surface.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSurfaceVector_1a0ad10d798699471021165c3bdcab2d3a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double SurfaceVector::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <qualifiedname>SurfaceVector::y</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="42" column="12" bodyfile="include/surface.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSurfaceVector_1aad01c78482a0ccbd83ec2f250b023f21" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double SurfaceVector::z</definition>
+        <argsstring></argsstring>
+        <name>z</name>
+        <qualifiedname>SurfaceVector::z</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="43" column="12" bodyfile="include/surface.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSurfaceVector_1ad788ab3f9c40e6040dd5f54981d14f96" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double SurfaceVector::angle</definition>
+        <argsstring></argsstring>
+        <name>angle</name>
+        <qualifiedname>SurfaceVector::angle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="44" column="12" bodyfile="include/surface.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSurfaceVector_1abb649c8e17af13a2793e7ba3477797a1" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double SurfaceVector::tvPos</definition>
+        <argsstring></argsstring>
+        <name>tvPos</name>
+        <qualifiedname>SurfaceVector::tvPos</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="45" column="12" bodyfile="include/surface.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structSurfaceVector_1a17ef3a136b27edcc884a375e35660fe4" prot="public" static="no" mutable="no">
+        <type><ref refid="classRegion" kindref="compound">Region</ref> *</type>
+        <definition>Region* SurfaceVector::region</definition>
+        <argsstring></argsstring>
+        <name>region</name>
+        <qualifiedname>SurfaceVector::region</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="47" column="12" bodyfile="include/surface.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="structSurfaceVector_1a2a2540954edc738c384c798454d2869b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>SurfaceVector::SurfaceVector</definition>
+        <argsstring>()</argsstring>
+        <name>SurfaceVector</name>
+        <qualifiedname>SurfaceVector::SurfaceVector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/surface.hpp" line="49" column="5" bodyfile="include/surface.hpp" bodystart="49" bodyend="57"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="5">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="10">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="9">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="2">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>SurfaceVector</label>
+        <link refid="structSurfaceVector"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>region</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/surface.hpp" line="39" column="1" bodyfile="include/surface.hpp" bodystart="40" bodyend="58"/>
+    <listofallmembers>
+      <member refid="structSurfaceVector_1ad788ab3f9c40e6040dd5f54981d14f96" prot="public" virt="non-virtual"><scope>SurfaceVector</scope><name>angle</name></member>
+      <member refid="structSurfaceVector_1a17ef3a136b27edcc884a375e35660fe4" prot="public" virt="non-virtual"><scope>SurfaceVector</scope><name>region</name></member>
+      <member refid="structSurfaceVector_1a2a2540954edc738c384c798454d2869b" prot="public" virt="non-virtual"><scope>SurfaceVector</scope><name>SurfaceVector</name></member>
+      <member refid="structSurfaceVector_1abb649c8e17af13a2793e7ba3477797a1" prot="public" virt="non-virtual"><scope>SurfaceVector</scope><name>tvPos</name></member>
+      <member refid="structSurfaceVector_1ac187bab6ee1e6dc87227e2763e043417" prot="public" virt="non-virtual"><scope>SurfaceVector</scope><name>x</name></member>
+      <member refid="structSurfaceVector_1a0ad10d798699471021165c3bdcab2d3a" prot="public" virt="non-virtual"><scope>SurfaceVector</scope><name>y</name></member>
+      <member refid="structSurfaceVector_1aad01c78482a0ccbd83ec2f250b023f21" prot="public" virt="non-virtual"><scope>SurfaceVector</scope><name>z</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

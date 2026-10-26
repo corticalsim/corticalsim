@@ -1,0 +1,603 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="classGeometry" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Geometry</compoundname>
+    <derivedcompoundref refid="classTriMeshGeometry" prot="public" virt="non-virtual">TriMeshGeometry</derivedcompoundref>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classGeometry_1af18a9ee98e70982bfe2975391d7221a5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class System</definition>
+        <argsstring></argsstring>
+        <name>System</name>
+        <qualifiedname>Geometry::System</qualifiedname>
+        <param>
+          <type><ref refid="classSystem" kindref="compound">System</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="13" column="18" bodyfile="include/geometry.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classGeometry_1a3956afd50438afd5675291d329b1e303" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector Trajectory::nextTrajectory</definition>
+        <argsstring>(Direction)</argsstring>
+        <name>Trajectory::nextTrajectory</name>
+        <qualifiedname>Geometry::nextTrajectory</qualifiedname>
+        <param>
+          <type>Direction</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="68" column="29"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classGeometry_1ae69ec17b78b5ebd7e6fe8b7a9a2b6880" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Geometry::area</definition>
+        <argsstring></argsstring>
+        <name>area</name>
+        <qualifiedname>Geometry::area</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="18" column="12" bodyfile="include/geometry.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1acc03335b967aa363aeb29d733865f178" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Geometry::areainMesh</definition>
+        <argsstring></argsstring>
+        <name>areainMesh</name>
+        <qualifiedname>Geometry::areainMesh</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="19" column="12" bodyfile="include/geometry.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1aba93a84c623c4ee62db697573a422bb0" prot="public" static="no" mutable="no">
+        <type><ref refid="classSystem" kindref="compound">System</ref> *const</type>
+        <definition>System* const Geometry::system</definition>
+        <argsstring></argsstring>
+        <name>system</name>
+        <qualifiedname>Geometry::system</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="20" column="18" bodyfile="include/geometry.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1aa09fe3caf771914ec9365807357cd568" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structelementList" kindref="compound">elementList</ref> &gt;</type>
+        <definition>std::vector&lt;elementList&gt; Geometry::ppbEdgeList</definition>
+        <argsstring></argsstring>
+        <name>ppbEdgeList</name>
+        <qualifiedname>Geometry::ppbEdgeList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="22" column="17" bodyfile="include/geometry.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1a4d28208013dd7e94ec5a7ad96c16b139" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> &gt;</type>
+        <definition>std::vector&lt;Vertices&gt; Geometry::globalVertex</definition>
+        <argsstring></argsstring>
+        <name>globalVertex</name>
+        <qualifiedname>Geometry::globalVertex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="23" column="17" bodyfile="include/geometry.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1afa70197e4e39149e4846f9406aa32226" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Geometry::areaPPB</definition>
+        <argsstring></argsstring>
+        <name>areaPPB</name>
+        <qualifiedname>Geometry::areaPPB</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="25" column="12" bodyfile="include/geometry.hpp" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1a9f6665a48ecd81a531df2e84b0876a40" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="structVertices" kindref="compound">Vertices</ref> &gt;</type>
+        <definition>std::vector&lt;Vertices&gt; Geometry::ppb</definition>
+        <argsstring></argsstring>
+        <name>ppb</name>
+        <qualifiedname>Geometry::ppb</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="26" column="17" bodyfile="include/geometry.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1a160cec45a60f4954def1e3a3f58914f5" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Geometry::patchArea[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>patchArea</name>
+        <qualifiedname>Geometry::patchArea</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="28" column="12" bodyfile="include/geometry.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1a65cbab526e9b03ea7cce2bc8ccce782b" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; int &gt;</type>
+        <definition>std::vector&lt;int&gt; Geometry::RegionsIndex[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>RegionsIndex</name>
+        <qualifiedname>Geometry::RegionsIndex</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="29" column="17" bodyfile="include/geometry.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1aa1ecc56f9e5b0009c39df6629e626d59" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Geometry::elementMax</definition>
+        <argsstring></argsstring>
+        <name>elementMax</name>
+        <qualifiedname>Geometry::elementMax</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="31" column="9" bodyfile="include/geometry.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1a3655c00302757f69976f53d65e630943" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector3d</type>
+        <definition>Eigen::Vector3d Geometry::objectCM</definition>
+        <argsstring></argsstring>
+        <name>objectCM</name>
+        <qualifiedname>Geometry::objectCM</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="32" column="21" bodyfile="include/geometry.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1a16357a1f24020b78791d1bcd81188e57" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector3d</type>
+        <definition>Eigen::Vector3d Geometry::objectPA</definition>
+        <argsstring></argsstring>
+        <name>objectPA</name>
+        <qualifiedname>Geometry::objectPA</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="32" column="30" bodyfile="include/geometry.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1ab1ff1c5f78e56e8927739a31b8490b11" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector3d</type>
+        <definition>Eigen::Vector3d Geometry::nucleousPosition</definition>
+        <argsstring></argsstring>
+        <name>nucleousPosition</name>
+        <qualifiedname>Geometry::nucleousPosition</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="32" column="39" bodyfile="include/geometry.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classGeometry_1aa189b01be4de8952768af81695ef4532" prot="public" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="classRegion" kindref="compound">Region</ref> * &gt;</type>
+        <definition>std::vector&lt;Region*&gt; Geometry::regions</definition>
+        <argsstring></argsstring>
+        <name>regions</name>
+        <qualifiedname>Geometry::regions</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="33" column="17" bodyfile="include/geometry.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classGeometry_1aa41031126654cb848d6e45bc360bf4ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Geometry::Geometry</definition>
+        <argsstring>(System *s, double a)</argsstring>
+        <name>Geometry</name>
+        <qualifiedname>Geometry::Geometry</qualifiedname>
+        <param>
+          <type><ref refid="classSystem" kindref="compound">System</ref> *</type>
+          <declname>s</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="35" column="5" bodyfile="include/geometry.hpp" bodystart="35" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1aedd2e92f79197c6f0671c5d14cf72578" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual Geometry::~Geometry</definition>
+        <argsstring>()</argsstring>
+        <name>~Geometry</name>
+        <qualifiedname>Geometry::~Geometry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="46" column="13" bodyfile="include/geometry.hpp" bodystart="46" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1a86de3f97366ebe35c26013bb85a308a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Geometry::integrityCheck</definition>
+        <argsstring>()</argsstring>
+        <name>integrityCheck</name>
+        <qualifiedname>Geometry::integrityCheck</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="48" column="10" bodyfile="src/geometry.cpp" bodystart="149" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1a4bcece5b50ad20ca479b032cc9a501f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Geometry::opticalLength</definition>
+        <argsstring>()</argsstring>
+        <name>opticalLength</name>
+        <qualifiedname>Geometry::opticalLength</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="49" column="12" bodyfile="src/geometry.cpp" bodystart="209" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1af9c2590c59e0aa11cd253ce293b0d307" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Geometry::trajectoryCount</definition>
+        <argsstring>()</argsstring>
+        <name>trajectoryCount</name>
+        <qualifiedname>Geometry::trajectoryCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="50" column="9" bodyfile="src/geometry.cpp" bodystart="221" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1ac9bd5585786f60e5e789934dec5a12e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Geometry::callTranslator</definition>
+        <argsstring>(SurfaceVector &amp;, int, int)</argsstring>
+        <name>callTranslator</name>
+        <qualifiedname>Geometry::callTranslator</qualifiedname>
+        <param>
+          <type><ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref> &amp;</type>
+          <defname>sVec</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <defname>regionIndex</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <defname>regionIndexNeigh</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="51" column="10" bodyfile="src/geometry.cpp" bodystart="10" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1a8281b8d31909b4a234666ea47e9652bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Geometry::getOrderParameters</definition>
+        <argsstring>(OrderParameters &amp;)=0</argsstring>
+        <name>getOrderParameters</name>
+        <qualifiedname>Geometry::getOrderParameters</qualifiedname>
+        <reimplementedby refid="classTriMeshGeometry_1a8a701f8326d66273f8a2a350acb1a795">getOrderParameters</reimplementedby>
+        <param>
+          <type><ref refid="structOrderParameters" kindref="compound">OrderParameters</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="53" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1aa47c677ccbc36c3a258631694fd66daf" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Geometry::outputSnapshot</definition>
+        <argsstring>(ostream &amp;)=0</argsstring>
+        <name>outputSnapshot</name>
+        <qualifiedname>Geometry::outputSnapshot</qualifiedname>
+        <reimplementedby refid="classTriMeshGeometry_1a44fef68409c1b3dfe418354be4b52de8">outputSnapshot</reimplementedby>
+        <param>
+          <type>ostream &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="54" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1a12db4b3bd392cd5d2ea1f757e09dc771" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Geometry::outputOrderHeatMap</definition>
+        <argsstring>(ostream &amp;, vector&lt; double &gt; &amp;, vector&lt; Eigen::Vector3d &gt; &amp;)=0</argsstring>
+        <name>outputOrderHeatMap</name>
+        <qualifiedname>Geometry::outputOrderHeatMap</qualifiedname>
+        <reimplementedby refid="classTriMeshGeometry_1a1988554dc4e5055e23ca22a83cd11511">outputOrderHeatMap</reimplementedby>
+        <param>
+          <type>ostream &amp;</type>
+        </param>
+        <param>
+          <type>vector&lt; double &gt; &amp;</type>
+        </param>
+        <param>
+          <type>vector&lt; Eigen::Vector3d &gt; &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="55" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1a03762f434d2e54954020062ab4e7a7c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref></type>
+        <definition>SurfaceVector Geometry::randomSurfaceVector</definition>
+        <argsstring>()</argsstring>
+        <name>randomSurfaceVector</name>
+        <qualifiedname>Geometry::randomSurfaceVector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="57" column="19" bodyfile="src/geometry.cpp" bodystart="86" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1a95ab428052a6702f4644725ac7316c7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector Geometry::createTrajectory</definition>
+        <argsstring>(const SurfaceVector &amp;)</argsstring>
+        <name>createTrajectory</name>
+        <qualifiedname>Geometry::createTrajectory</qualifiedname>
+        <param>
+          <type>const <ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref> &amp;</type>
+          <defname>sVec</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="58" column="22" bodyfile="src/geometry.cpp" bodystart="25" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="classGeometry_1a12a2478209318c9cf0fe8b7edd265edc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector Geometry::createAndLinkTrajectory</definition>
+        <argsstring>(const SurfaceVector &amp;, Trajectory *, Direction, double, double)</argsstring>
+        <name>createAndLinkTrajectory</name>
+        <qualifiedname>Geometry::createAndLinkTrajectory</qualifiedname>
+        <param>
+          <type>const <ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref> &amp;</type>
+          <defname>newBase</defname>
+        </param>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+          <defname>oldtr</defname>
+        </param>
+        <param>
+          <type>Direction</type>
+          <defname>olddir</defname>
+        </param>
+        <param>
+          <type>double</type>
+          <defname>cosAngle</defname>
+        </param>
+        <param>
+          <type>double</type>
+          <defname>pCat</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="62" column="22" bodyfile="src/geometry.cpp" bodystart="31" bodyend="84"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classGeometry_1a148491c5e05394ce68af3036432a372e" prot="private" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>virtual TrajectoryVector Geometry::extendTrajectory</definition>
+        <argsstring>(Trajectory *, Direction)=0</argsstring>
+        <name>extendTrajectory</name>
+        <qualifiedname>Geometry::extendTrajectory</qualifiedname>
+        <reimplementedby refid="classTriMeshGeometry_1aba4524a2764aae7a052dac4c5548d008">extendTrajectory</reimplementedby>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+        </param>
+        <param>
+          <type>Direction</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/geometry.hpp" line="69" column="30"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+      </node>
+      <node id="2">
+        <label>TriMeshGeometry</label>
+        <link refid="classTriMeshGeometry"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="3">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="7">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="2">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/geometry.hpp" line="10" column="1" bodyfile="include/geometry.hpp" bodystart="12" bodyend="70"/>
+    <listofallmembers>
+      <member refid="classGeometry_1ae69ec17b78b5ebd7e6fe8b7a9a2b6880" prot="public" virt="non-virtual"><scope>Geometry</scope><name>area</name></member>
+      <member refid="classGeometry_1acc03335b967aa363aeb29d733865f178" prot="public" virt="non-virtual"><scope>Geometry</scope><name>areainMesh</name></member>
+      <member refid="classGeometry_1afa70197e4e39149e4846f9406aa32226" prot="public" virt="non-virtual"><scope>Geometry</scope><name>areaPPB</name></member>
+      <member refid="classGeometry_1ac9bd5585786f60e5e789934dec5a12e8" prot="public" virt="non-virtual"><scope>Geometry</scope><name>callTranslator</name></member>
+      <member refid="classGeometry_1a12a2478209318c9cf0fe8b7edd265edc" prot="public" virt="non-virtual"><scope>Geometry</scope><name>createAndLinkTrajectory</name></member>
+      <member refid="classGeometry_1a95ab428052a6702f4644725ac7316c7f" prot="public" virt="non-virtual"><scope>Geometry</scope><name>createTrajectory</name></member>
+      <member refid="classGeometry_1aa1ecc56f9e5b0009c39df6629e626d59" prot="public" virt="non-virtual"><scope>Geometry</scope><name>elementMax</name></member>
+      <member refid="classGeometry_1a148491c5e05394ce68af3036432a372e" prot="private" virt="pure-virtual"><scope>Geometry</scope><name>extendTrajectory</name></member>
+      <member refid="classGeometry_1aa41031126654cb848d6e45bc360bf4ad" prot="public" virt="non-virtual"><scope>Geometry</scope><name>Geometry</name></member>
+      <member refid="classGeometry_1a8281b8d31909b4a234666ea47e9652bb" prot="public" virt="pure-virtual"><scope>Geometry</scope><name>getOrderParameters</name></member>
+      <member refid="classGeometry_1a4d28208013dd7e94ec5a7ad96c16b139" prot="public" virt="non-virtual"><scope>Geometry</scope><name>globalVertex</name></member>
+      <member refid="classGeometry_1a86de3f97366ebe35c26013bb85a308a3" prot="public" virt="non-virtual"><scope>Geometry</scope><name>integrityCheck</name></member>
+      <member refid="classGeometry_1ab1ff1c5f78e56e8927739a31b8490b11" prot="public" virt="non-virtual"><scope>Geometry</scope><name>nucleousPosition</name></member>
+      <member refid="classGeometry_1a3655c00302757f69976f53d65e630943" prot="public" virt="non-virtual"><scope>Geometry</scope><name>objectCM</name></member>
+      <member refid="classGeometry_1a16357a1f24020b78791d1bcd81188e57" prot="public" virt="non-virtual"><scope>Geometry</scope><name>objectPA</name></member>
+      <member refid="classGeometry_1a4bcece5b50ad20ca479b032cc9a501f6" prot="public" virt="non-virtual"><scope>Geometry</scope><name>opticalLength</name></member>
+      <member refid="classGeometry_1a12db4b3bd392cd5d2ea1f757e09dc771" prot="public" virt="pure-virtual"><scope>Geometry</scope><name>outputOrderHeatMap</name></member>
+      <member refid="classGeometry_1aa47c677ccbc36c3a258631694fd66daf" prot="public" virt="pure-virtual"><scope>Geometry</scope><name>outputSnapshot</name></member>
+      <member refid="classGeometry_1a160cec45a60f4954def1e3a3f58914f5" prot="public" virt="non-virtual"><scope>Geometry</scope><name>patchArea</name></member>
+      <member refid="classGeometry_1a9f6665a48ecd81a531df2e84b0876a40" prot="public" virt="non-virtual"><scope>Geometry</scope><name>ppb</name></member>
+      <member refid="classGeometry_1aa09fe3caf771914ec9365807357cd568" prot="public" virt="non-virtual"><scope>Geometry</scope><name>ppbEdgeList</name></member>
+      <member refid="classGeometry_1a03762f434d2e54954020062ab4e7a7c9" prot="public" virt="non-virtual"><scope>Geometry</scope><name>randomSurfaceVector</name></member>
+      <member refid="classGeometry_1aa189b01be4de8952768af81695ef4532" prot="public" virt="non-virtual"><scope>Geometry</scope><name>regions</name></member>
+      <member refid="classGeometry_1a65cbab526e9b03ea7cce2bc8ccce782b" prot="public" virt="non-virtual"><scope>Geometry</scope><name>RegionsIndex</name></member>
+      <member refid="classGeometry_1af18a9ee98e70982bfe2975391d7221a5" prot="private" virt="non-virtual"><scope>Geometry</scope><name>System</name></member>
+      <member refid="classGeometry_1aba93a84c623c4ee62db697573a422bb0" prot="public" virt="non-virtual"><scope>Geometry</scope><name>system</name></member>
+      <member refid="classGeometry_1a3956afd50438afd5675291d329b1e303" prot="private" virt="non-virtual"><scope>Geometry</scope><name>Trajectory::nextTrajectory</name></member>
+      <member refid="classGeometry_1af9c2590c59e0aa11cd253ce293b0d307" prot="public" virt="non-virtual"><scope>Geometry</scope><name>trajectoryCount</name></member>
+      <member refid="classGeometry_1aedd2e92f79197c6f0671c5d14cf72578" prot="public" virt="virtual"><scope>Geometry</scope><name>~Geometry</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="linalg_8cpp" kind="file" language="C++">
+    <compoundname>linalg.cpp</compoundname>
+    <includes refid="linalg_8hpp" local="yes">linalg.hpp</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>linalg.hpp</label>
+        <link refid="linalg_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/linalg.cpp</label>
+        <link refid="linalg_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Eigen/Dense</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="linalg_8cpp_1a759681be82eb302ec20eefb8dcffb58d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void eigen_decomposition</definition>
+        <argsstring>(Eigen::Matrix3d &amp;A, Eigen::Matrix3d &amp;V, Eigen::Vector3d &amp;d)</argsstring>
+        <name>eigen_decomposition</name>
+        <param>
+          <type>Eigen::Matrix3d &amp;</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>Eigen::Matrix3d &amp;</type>
+          <declname>V</declname>
+        </param>
+        <param>
+          <type>Eigen::Vector3d &amp;</type>
+          <declname>d</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/linalg.cpp" line="3" column="6" bodyfile="src/linalg.cpp" bodystart="3" bodyend="8"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;linalg.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>eigen_decomposition(Eigen::Matrix3d&amp;<sp/>A,<sp/>Eigen::Matrix3d&amp;<sp/>V,<sp/>Eigen::Vector3d&amp;<sp/>d)</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::SelfAdjointEigenSolver&lt;Eigen::Matrix3d&gt;<sp/>solver(A);</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/>d<sp/>&lt;&lt;<sp/>solver.eigenvalues();</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>V<sp/>&lt;&lt;<sp/>solver.eigenvectors();</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/linalg.cpp"/>
+  </compounddef>
+</doxygen>

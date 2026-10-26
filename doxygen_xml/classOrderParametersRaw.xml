@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="classOrderParametersRaw" kind="class" language="C++" prot="public">
+    <compoundname>OrderParametersRaw</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classOrderParametersRaw_1abe6efb4a64c2809a5b32f06d2b555d60" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::localL</definition>
+        <argsstring></argsstring>
+        <name>localL</name>
+        <qualifiedname>OrderParametersRaw::localL</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="128" column="12" bodyfile="include/parameters.hpp" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1a3763efcafc64664713d4007df101d42f" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::localLOpt</definition>
+        <argsstring></argsstring>
+        <name>localLOpt</name>
+        <qualifiedname>OrderParametersRaw::localLOpt</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="129" column="12" bodyfile="include/parameters.hpp" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1a6c92d952558a53e1fbb70a6dc213e433" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::Qxx</definition>
+        <argsstring></argsstring>
+        <name>Qxx</name>
+        <qualifiedname>OrderParametersRaw::Qxx</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="130" column="12" bodyfile="include/parameters.hpp" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1acee32515626994a7c195b4e0ebfa5ee3" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::Qxy</definition>
+        <argsstring></argsstring>
+        <name>Qxy</name>
+        <qualifiedname>OrderParametersRaw::Qxy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="131" column="12" bodyfile="include/parameters.hpp" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1a55ea4f15e9511e68dac6101056e42109" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::Qxz</definition>
+        <argsstring></argsstring>
+        <name>Qxz</name>
+        <qualifiedname>OrderParametersRaw::Qxz</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="132" column="12" bodyfile="include/parameters.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1a0d1b1b5b1b1e38f473492ab047403d15" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::Qyy</definition>
+        <argsstring></argsstring>
+        <name>Qyy</name>
+        <qualifiedname>OrderParametersRaw::Qyy</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="133" column="12" bodyfile="include/parameters.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1a8ed99dad99e5fe2cf8d10d5e298b995d" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::Qyz</definition>
+        <argsstring></argsstring>
+        <name>Qyz</name>
+        <qualifiedname>OrderParametersRaw::Qyz</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="134" column="12" bodyfile="include/parameters.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1a88c05e0cad7b825c2b12ad98939b4eba" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::Qzz</definition>
+        <argsstring></argsstring>
+        <name>Qzz</name>
+        <qualifiedname>OrderParametersRaw::Qzz</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="135" column="12" bodyfile="include/parameters.hpp" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1a42897c1734eb9a9f4f81e00abc3b2c0b" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double OrderParametersRaw::localOrder</definition>
+        <argsstring></argsstring>
+        <name>localOrder</name>
+        <qualifiedname>OrderParametersRaw::localOrder</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="136" column="12" bodyfile="include/parameters.hpp" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classOrderParametersRaw_1a7a9f02160ee8c2a5b14ce4a428231d93" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector3d</type>
+        <definition>Eigen::Vector3d OrderParametersRaw::Sv</definition>
+        <argsstring></argsstring>
+        <name>Sv</name>
+        <qualifiedname>OrderParametersRaw::Sv</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="137" column="21" bodyfile="include/parameters.hpp" bodystart="137" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classOrderParametersRaw_1ad31851846086a9f41ad4e7a3550a092e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>OrderParametersRaw::OrderParametersRaw</definition>
+        <argsstring>(void)</argsstring>
+        <name>OrderParametersRaw</name>
+        <qualifiedname>OrderParametersRaw::OrderParametersRaw</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="139" column="5" bodyfile="include/parameters.hpp" bodystart="139" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="classOrderParametersRaw_1a5c839c903027fa4d286f88d1b31d5f69" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double OrderParametersRaw::extractR</definition>
+        <argsstring>(double director[3], string geometry)</argsstring>
+        <name>extractR</name>
+        <qualifiedname>OrderParametersRaw::extractR</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>director</declname>
+          <array>[3]</array>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>geometry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/parameters.hpp" line="155" column="12" bodyfile="include/parameters.hpp" bodystart="155" bodyend="200"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/parameters.hpp" line="124" column="1" bodyfile="include/parameters.hpp" bodystart="125" bodyend="201"/>
+    <listofallmembers>
+      <member refid="classOrderParametersRaw_1a5c839c903027fa4d286f88d1b31d5f69" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>extractR</name></member>
+      <member refid="classOrderParametersRaw_1abe6efb4a64c2809a5b32f06d2b555d60" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>localL</name></member>
+      <member refid="classOrderParametersRaw_1a3763efcafc64664713d4007df101d42f" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>localLOpt</name></member>
+      <member refid="classOrderParametersRaw_1a42897c1734eb9a9f4f81e00abc3b2c0b" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>localOrder</name></member>
+      <member refid="classOrderParametersRaw_1ad31851846086a9f41ad4e7a3550a092e" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>OrderParametersRaw</name></member>
+      <member refid="classOrderParametersRaw_1a6c92d952558a53e1fbb70a6dc213e433" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>Qxx</name></member>
+      <member refid="classOrderParametersRaw_1acee32515626994a7c195b4e0ebfa5ee3" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>Qxy</name></member>
+      <member refid="classOrderParametersRaw_1a55ea4f15e9511e68dac6101056e42109" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>Qxz</name></member>
+      <member refid="classOrderParametersRaw_1a0d1b1b5b1b1e38f473492ab047403d15" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>Qyy</name></member>
+      <member refid="classOrderParametersRaw_1a8ed99dad99e5fe2cf8d10d5e298b995d" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>Qyz</name></member>
+      <member refid="classOrderParametersRaw_1a88c05e0cad7b825c2b12ad98939b4eba" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>Qzz</name></member>
+      <member refid="classOrderParametersRaw_1a7a9f02160ee8c2a5b14ce4a428231d93" prot="public" virt="non-virtual"><scope>OrderParametersRaw</scope><name>Sv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

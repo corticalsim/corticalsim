@@ -1,0 +1,1479 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="classSystem" kind="class" language="C++" prot="public">
+    <compoundname>System</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classSystem_1a42934aedd38a6668b119014b28a2171c" prot="public" static="no" mutable="no">
+        <type><ref refid="classGeometry" kindref="compound">Geometry</ref> *</type>
+        <definition>Geometry* System::geometry</definition>
+        <argsstring></argsstring>
+        <name>geometry</name>
+        <qualifiedname>System::geometry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="19" column="14" bodyfile="include/system.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a1001124788e4cdda546446130bc909d7" prot="public" static="no" mutable="no">
+        <type><ref refid="classDLList" kindref="compound">DLList</ref>&lt; <ref refid="classMicrotubule" kindref="compound">Microtubule</ref>, MICROTUBULE_GRANULARITY &gt;</type>
+        <definition>DLList&lt;Microtubule, MICROTUBULE_GRANULARITY&gt; System::growing_mts</definition>
+        <argsstring></argsstring>
+        <name>growing_mts</name>
+        <qualifiedname>System::growing_mts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="20" column="12" bodyfile="include/system.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a27eaf0767cea27d986a9ebb2bee49b42" prot="public" static="no" mutable="no">
+        <type><ref refid="classDLList" kindref="compound">DLList</ref>&lt; <ref refid="classMicrotubule" kindref="compound">Microtubule</ref>, MICROTUBULE_GRANULARITY &gt;</type>
+        <definition>DLList&lt;Microtubule, MICROTUBULE_GRANULARITY&gt; System::shrinking_mts</definition>
+        <argsstring></argsstring>
+        <name>shrinking_mts</name>
+        <qualifiedname>System::shrinking_mts</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="21" column="12" bodyfile="include/system.hpp" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1ae16335f22f19dd6a948932af54478045" prot="public" static="no" mutable="no">
+        <type><ref refid="classCompactList" kindref="compound">CompactList</ref>&lt; <ref refid="classOccupiedIntersection" kindref="compound">OccupiedIntersection</ref>, OCCUPIED_INTERSECTION_GRANULARITY &gt;</type>
+        <definition>CompactList&lt;OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY&gt; System::OccupiedIntersectionList</definition>
+        <argsstring></argsstring>
+        <name>OccupiedIntersectionList</name>
+        <qualifiedname>System::OccupiedIntersectionList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="24" column="17" bodyfile="include/system.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1acf37b0c0fd3e94cd621aba4096de9b51" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; System::growingTipsReg</definition>
+        <argsstring></argsstring>
+        <name>growingTipsReg</name>
+        <qualifiedname>System::growingTipsReg</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="27" column="12" bodyfile="include/system.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a7c4454eb1437b06739d02edeebf599e9" prot="public" static="no" mutable="no">
+        <type><ref refid="classParameters" kindref="compound">Parameters</ref></type>
+        <definition>Parameters System::p</definition>
+        <argsstring></argsstring>
+        <name>p</name>
+        <qualifiedname>System::p</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="29" column="16" bodyfile="include/system.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1abcd03058c827493f14deccfa464ffab4" prot="public" static="no" mutable="no">
+        <type><ref refid="classRandHub" kindref="compound">RandHub</ref></type>
+        <definition>RandHub System::randomGen</definition>
+        <argsstring></argsstring>
+        <name>randomGen</name>
+        <qualifiedname>System::randomGen</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="32" column="6" bodyfile="include/system.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a7ef8ef1e719328b0d51eed2fc669f799" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::systemTime</definition>
+        <argsstring></argsstring>
+        <name>systemTime</name>
+        <qualifiedname>System::systemTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="35" column="12" bodyfile="include/system.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1abf85957f6adabf897a911bfd24e038b2" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::systemTimeOffset</definition>
+        <argsstring></argsstring>
+        <name>systemTimeOffset</name>
+        <qualifiedname>System::systemTimeOffset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="38" column="12" bodyfile="include/system.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1ac6f43cdc15243c2eb0eddc8120a686ed" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::currentTimeTag</definition>
+        <argsstring></argsstring>
+        <name>currentTimeTag</name>
+        <qualifiedname>System::currentTimeTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="40" column="9" bodyfile="include/system.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a6b2dc9d4acd5f32bf3db17a92d9708a0" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::totalLength</definition>
+        <argsstring></argsstring>
+        <name>totalLength</name>
+        <qualifiedname>System::totalLength</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="41" column="12" bodyfile="include/system.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1af953e8abc510ecfceffab72144683a74" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::memUsage</definition>
+        <argsstring></argsstring>
+        <name>memUsage</name>
+        <qualifiedname>System::memUsage</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="42" column="9" bodyfile="include/system.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a3d2d60911b49602d8e82450756b58270" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool System::stopSignal</definition>
+        <argsstring></argsstring>
+        <name>stopSignal</name>
+        <qualifiedname>System::stopSignal</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="43" column="10" bodyfile="include/system.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a10ea0759338205c8d585655d7fd3522c" prot="public" static="no" mutable="no">
+        <type>time_t</type>
+        <definition>time_t System::wallClockStartTime</definition>
+        <argsstring></argsstring>
+        <name>wallClockStartTime</name>
+        <qualifiedname>System::wallClockStartTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="45" column="12" bodyfile="include/system.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a0d06831c9d91bb7666e8478af74cd638" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::totalSEventCount</definition>
+        <argsstring></argsstring>
+        <name>totalSEventCount</name>
+        <qualifiedname>System::totalSEventCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="46" column="9" bodyfile="include/system.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a95077af78f071a0987e3874f2e169ef1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::totalValidDEventCount</definition>
+        <argsstring></argsstring>
+        <name>totalValidDEventCount</name>
+        <qualifiedname>System::totalValidDEventCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="47" column="9" bodyfile="include/system.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1afd0f7b67da4a70be3a38274203f8376b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::totalInvalidDEventCount</definition>
+        <argsstring></argsstring>
+        <name>totalInvalidDEventCount</name>
+        <qualifiedname>System::totalInvalidDEventCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="48" column="9" bodyfile="include/system.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a106cfae82a76e7811cdebd917114f2d8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::totalLengthSeveringCount</definition>
+        <argsstring></argsstring>
+        <name>totalLengthSeveringCount</name>
+        <qualifiedname>System::totalLengthSeveringCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="49" column="9" bodyfile="include/system.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a0cde8070df856cd629c664ad68144d29" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::totalIntersectionSeveringCount</definition>
+        <argsstring></argsstring>
+        <name>totalIntersectionSeveringCount</name>
+        <qualifiedname>System::totalIntersectionSeveringCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="50" column="9" bodyfile="include/system.hpp" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a7ad19436c58cd5731f538edb072a00de" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::boundaryCrossingCount</definition>
+        <argsstring></argsstring>
+        <name>boundaryCrossingCount</name>
+        <qualifiedname>System::boundaryCrossingCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="51" column="9" bodyfile="include/system.hpp" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a3e9cf256543a55462ccaecd9c05adfca" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::totalZipperCount</definition>
+        <argsstring></argsstring>
+        <name>totalZipperCount</name>
+        <qualifiedname>System::totalZipperCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="52" column="9" bodyfile="include/system.hpp" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a8facb24f5d54adb559c6060962a69f69" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::totalCrossoverCount</definition>
+        <argsstring></argsstring>
+        <name>totalCrossoverCount</name>
+        <qualifiedname>System::totalCrossoverCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="53" column="9" bodyfile="include/system.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a5728ff99abac64b6bdf7703f04d47ae0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::totalInducedCatastropheCount</definition>
+        <argsstring></argsstring>
+        <name>totalInducedCatastropheCount</name>
+        <qualifiedname>System::totalInducedCatastropheCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="54" column="9" bodyfile="include/system.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1af7e66fb815af369e80dff5ec9d84aa31" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::countSegments</definition>
+        <argsstring></argsstring>
+        <name>countSegments</name>
+        <qualifiedname>System::countSegments</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="56" column="9" bodyfile="include/system.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a03e469eefad21d22ab5f3f1587530f5f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::countTrajectories</definition>
+        <argsstring></argsstring>
+        <name>countTrajectories</name>
+        <qualifiedname>System::countTrajectories</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="57" column="9" bodyfile="include/system.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1ac81a20477f3d95a9fba5d862380a080e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int System::countIntersections</definition>
+        <argsstring></argsstring>
+        <name>countIntersections</name>
+        <qualifiedname>System::countIntersections</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="58" column="9" bodyfile="include/system.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1aca1fa52bec56fb79e009f8689d56a5dc" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::nextStochasticEventTime</definition>
+        <argsstring></argsstring>
+        <name>nextStochasticEventTime</name>
+        <qualifiedname>System::nextStochasticEventTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="61" column="12" bodyfile="include/system.hpp" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a30662f297a4e740d940f1cb08cf8a4a4" prot="public" static="no" mutable="no">
+        <type>StochasticEventType</type>
+        <definition>StochasticEventType System::nextStochasticEventType</definition>
+        <argsstring></argsstring>
+        <name>nextStochasticEventType</name>
+        <qualifiedname>System::nextStochasticEventType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="62" column="25" bodyfile="include/system.hpp" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1ad038f9cc42706d448e8f9b661476fc99" prot="public" static="no" mutable="no">
+        <type><ref refid="classDeterministicQueue" kindref="compound">DeterministicQueue</ref></type>
+        <definition>DeterministicQueue System::timeQueue</definition>
+        <argsstring></argsstring>
+        <name>timeQueue</name>
+        <qualifiedname>System::timeQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="65" column="24" bodyfile="include/system.hpp" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1ac5cb07594c8fd81153093015cff20993" prot="public" static="no" mutable="no">
+        <type><ref refid="classDeterministicQueue" kindref="compound">DeterministicQueue</ref></type>
+        <definition>DeterministicQueue System::vPlusQueue</definition>
+        <argsstring></argsstring>
+        <name>vPlusQueue</name>
+        <qualifiedname>System::vPlusQueue</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="68" column="24" bodyfile="include/system.hpp" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1ab1b51abb8dedfee7847eb7b7b3ecb53a" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::nextStatusEventTime</definition>
+        <argsstring></argsstring>
+        <name>nextStatusEventTime</name>
+        <qualifiedname>System::nextStatusEventTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="78" column="12" bodyfile="include/system.hpp" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a839f9a67c3a846fa2df2aca25aefa5b7" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::nextSnapshotEventTime</definition>
+        <argsstring></argsstring>
+        <name>nextSnapshotEventTime</name>
+        <qualifiedname>System::nextSnapshotEventTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="79" column="12" bodyfile="include/system.hpp" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1aae35e5753dfbd2cf81baad71659d3d2f" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::nextParameterEventTime</definition>
+        <argsstring></argsstring>
+        <name>nextParameterEventTime</name>
+        <qualifiedname>System::nextParameterEventTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="80" column="12" bodyfile="include/system.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a42c17f0cb4eec66c8ebdb02e49cca802" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::nextPPBEventTime</definition>
+        <argsstring></argsstring>
+        <name>nextPPBEventTime</name>
+        <qualifiedname>System::nextPPBEventTime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="81" column="12" bodyfile="include/system.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1abf5914c33d3711da749da14189dda597" prot="public" static="no" mutable="no">
+        <type>EventDescriptorIndex</type>
+        <definition>EventDescriptorIndex System::EventDescriptorID</definition>
+        <argsstring></argsstring>
+        <name>EventDescriptorID</name>
+        <qualifiedname>System::EventDescriptorID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="84" column="26" bodyfile="include/system.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a7916e27f0f716f94de2c6a57c3375419" prot="public" static="no" mutable="no">
+        <type>map&lt; EventDescriptorIndex, <ref refid="classEventDescriptor" kindref="compound">EventDescriptor</ref> * &gt;</type>
+        <definition>map&lt;EventDescriptorIndex, EventDescriptor*&gt; System::EventDescriptorMap</definition>
+        <argsstring></argsstring>
+        <name>EventDescriptorMap</name>
+        <qualifiedname>System::EventDescriptorMap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="87" column="9" bodyfile="include/system.hpp" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a0aa7ca718ded8a96b7dd12641a618bca" prot="public" static="no" mutable="no">
+        <type>EventTrackingTag</type>
+        <definition>EventTrackingTag System::eventID</definition>
+        <argsstring></argsstring>
+        <name>eventID</name>
+        <qualifiedname>System::eventID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="99" column="22" bodyfile="include/system.hpp" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a447a4f2a98d6552cb45539d0fa3c7269" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double System::binomialTable[MAXBINOM][MAXBINOM]</definition>
+        <argsstring>[MAXBINOM][MAXBINOM]</argsstring>
+        <name>binomialTable</name>
+        <qualifiedname>System::binomialTable</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="138" column="12" bodyfile="include/system.hpp" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1afb2d33b07c61c270b368b921cac540f2" prot="public" static="no" mutable="no">
+        <type>ofstream</type>
+        <definition>ofstream System::parameterFile</definition>
+        <argsstring></argsstring>
+        <name>parameterFile</name>
+        <qualifiedname>System::parameterFile</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="144" column="14" bodyfile="include/system.hpp" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a5065dcdea593dbdda927b45982d68bee" prot="public" static="no" mutable="no">
+        <type>ofstream</type>
+        <definition>ofstream System::movieFile</definition>
+        <argsstring></argsstring>
+        <name>movieFile</name>
+        <qualifiedname>System::movieFile</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="145" column="14" bodyfile="include/system.hpp" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a78f3c47f655ff267f27ae4ab916350de" prot="public" static="no" mutable="no">
+        <type>ofstream</type>
+        <definition>ofstream System::heatMapFile</definition>
+        <argsstring></argsstring>
+        <name>heatMapFile</name>
+        <qualifiedname>System::heatMapFile</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="146" column="14" bodyfile="include/system.hpp" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1afb5e0b876e90ec47451115c6be2f407a" prot="public" static="no" mutable="no">
+        <type>ofstream</type>
+        <definition>ofstream System::measurementFile</definition>
+        <argsstring></argsstring>
+        <name>measurementFile</name>
+        <qualifiedname>System::measurementFile</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="147" column="14" bodyfile="include/system.hpp" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a8ae2ad1343c311511fdba2a1fa1e761f" prot="public" static="no" mutable="no">
+        <type>ofstream</type>
+        <definition>ofstream System::orderDirectorFile</definition>
+        <argsstring></argsstring>
+        <name>orderDirectorFile</name>
+        <qualifiedname>System::orderDirectorFile</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="148" column="14" bodyfile="include/system.hpp" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a25c83a0b06fd391e4ff4e00de7daea05" prot="public" static="no" mutable="no">
+        <type>deque&lt; <ref refid="classMeasurement" kindref="compound">Measurement</ref> &gt;</type>
+        <definition>deque&lt;Measurement&gt; System::measurementHistory</definition>
+        <argsstring></argsstring>
+        <name>measurementHistory</name>
+        <qualifiedname>System::measurementHistory</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="149" column="11" bodyfile="include/system.hpp" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classSystem_1a55907bd36977a6c6a7b478c5a490db58" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool System::dataSaved</definition>
+        <argsstring></argsstring>
+        <name>dataSaved</name>
+        <qualifiedname>System::dataSaved</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="150" column="10" bodyfile="include/system.hpp" bodystart="150" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSystem_1a34980331d2e84422e3112edc8f4c03e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int System::estimateMemoryFootprint</definition>
+        <argsstring>()</argsstring>
+        <name>estimateMemoryFootprint</name>
+        <qualifiedname>System::estimateMemoryFootprint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="59" column="9" bodyfile="src/system.cpp" bodystart="462" bodyend="475"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a65f2a629ae5b50c23c98575cd3c0141b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double System::identity</definition>
+        <argsstring>(double i)</argsstring>
+        <name>identity</name>
+        <qualifiedname>System::identity</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>i</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="70" column="12" bodyfile="include/system.hpp" bodystart="70" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a3dd53c0c3fcf72f8cb4ebd03b9edaee4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double System::vPlusToTime</definition>
+        <argsstring>(double)</argsstring>
+        <name>vPlusToTime</name>
+        <qualifiedname>System::vPlusToTime</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>dist</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="73" column="12" bodyfile="src/system.cpp" bodystart="707" bodyend="756"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1adb97499fdfe2fd4d3a1a67bd304a56a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double System::timeToVPlus</definition>
+        <argsstring>(double)</argsstring>
+        <name>timeToVPlus</name>
+        <qualifiedname>System::timeToVPlus</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>time</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="76" column="12" bodyfile="src/system.cpp" bodystart="758" bodyend="780"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a0d5a23d4b34809a38605f488aaeb35e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>EventDescriptorIndex</type>
+        <definition>EventDescriptorIndex System::registerEventDescriptor</definition>
+        <argsstring>(EventDescriptor *)</argsstring>
+        <name>registerEventDescriptor</name>
+        <qualifiedname>System::registerEventDescriptor</qualifiedname>
+        <param>
+          <type><ref refid="classEventDescriptor" kindref="compound">EventDescriptor</ref> *</type>
+          <defname>ei</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="90" column="26" bodyfile="src/system.cpp" bodystart="1775" bodyend="1787"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1afcff4ab67e3d8158dc024f3f9b6d1d93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::unregisterEventDescriptor</definition>
+        <argsstring>(EventDescriptorIndex)</argsstring>
+        <name>unregisterEventDescriptor</name>
+        <qualifiedname>System::unregisterEventDescriptor</qualifiedname>
+        <param>
+          <type>EventDescriptorIndex</type>
+          <defname>ei</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="93" column="10" bodyfile="src/system.cpp" bodystart="1789" bodyend="1793"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a0f8d0cb06bf905c1528c7506fc9fe5b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classEventDescriptor" kindref="compound">EventDescriptor</ref> *</type>
+        <definition>EventDescriptor * System::getEventDescriptor</definition>
+        <argsstring>(EventDescriptorIndex)</argsstring>
+        <name>getEventDescriptor</name>
+        <qualifiedname>System::getEventDescriptor</qualifiedname>
+        <param>
+          <type>EventDescriptorIndex</type>
+          <defname>idx</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="96" column="21" bodyfile="src/system.cpp" bodystart="1795" bodyend="1806"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1acb045a939163edd93160ecac81109478" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>EventTrackingTag</type>
+        <definition>EventTrackingTag System::getEventTag</definition>
+        <argsstring>()</argsstring>
+        <name>getEventTag</name>
+        <qualifiedname>System::getEventTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="102" column="22" bodyfile="include/system.hpp" bodystart="102" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a1965d74514313436f8fd90772a2f40bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>System::System</definition>
+        <argsstring>(char *)</argsstring>
+        <name>System</name>
+        <qualifiedname>System::System</qualifiedname>
+        <param>
+          <type>char *</type>
+          <defname>parFile</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>read parameters</para>
+<para>initialize the random seed with the desired one</para>
+<para>used in multiPcross &amp; multiPzip events</para>
+<para>perform further initialization</para>
+<para>start creating MT events</para>
+<para>if snapShot events are requested</para>
+<para>if parameter file is updated on run</para>
+<para>if parameter file is updated on run</para>
+        </inbodydescription>
+        <location file="include/system.hpp" line="104" column="5" bodyfile="src/system.cpp" bodystart="279" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a3be70bb338e3f062f821173fd15680d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>System::~System</definition>
+        <argsstring>()</argsstring>
+        <name>~System</name>
+        <qualifiedname>System::~System</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="105" column="5" bodyfile="src/system.cpp" bodystart="360" bodyend="367"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a13f70d1eef90333287700bafda9234c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool System::integrityCheck</definition>
+        <argsstring>()</argsstring>
+        <name>integrityCheck</name>
+        <qualifiedname>System::integrityCheck</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="106" column="10" bodyfile="src/system.cpp" bodystart="477" bodyend="512"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1aa9f77a8719eb8649c32e3fcaa190bf43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::flushAndReload</definition>
+        <argsstring>(bool=true)</argsstring>
+        <name>flushAndReload</name>
+        <qualifiedname>System::flushAndReload</qualifiedname>
+        <param>
+          <type>bool</type>
+          <defname>refreshParameterEvent</defname>
+          <defval>true</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="107" column="10" bodyfile="src/system.cpp" bodystart="514" bodyend="641"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1accc42c625a7bacd5731171b0e427b126" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::advanceTime</definition>
+        <argsstring>(double nextTime)</argsstring>
+        <name>advanceTime</name>
+        <qualifiedname>System::advanceTime</qualifiedname>
+        <param>
+          <type>double</type>
+          <declname>nextTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="108" column="10" bodyfile="src/system.cpp" bodystart="782" bodyend="807"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1aeb7ace2114e9837e453509d88191d035" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::updateAll</definition>
+        <argsstring>(bool forceUpdate=false)</argsstring>
+        <name>updateAll</name>
+        <qualifiedname>System::updateAll</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>forceUpdate</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="111" column="10" bodyfile="src/system.cpp" bodystart="809" bodyend="857"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a4ec7dcfb90848b24d4b4561eb43ff9dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::emergencyBreak</definition>
+        <argsstring>()</argsstring>
+        <name>emergencyBreak</name>
+        <qualifiedname>System::emergencyBreak</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="112" column="10" bodyfile="src/system.cpp" bodystart="453" bodyend="460"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1adf548bdf3f18767b3551df8ecf5ad720" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::run</definition>
+        <argsstring>(double, string &amp;, string &amp;)</argsstring>
+        <name>run</name>
+        <qualifiedname>System::run</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>simTime</defname>
+        </param>
+        <param>
+          <type>string &amp;</type>
+          <defname>cS</defname>
+        </param>
+        <param>
+          <type>string &amp;</type>
+          <defname>mS</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="114" column="10" bodyfile="src/system.cpp" bodystart="369" bodyend="451"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a8ab1670ceaf64c1ba49902e991e1c40f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::nextEvent</definition>
+        <argsstring>(void)</argsstring>
+        <name>nextEvent</name>
+        <qualifiedname>System::nextEvent</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="115" column="10" bodyfile="src/system.cpp" bodystart="859" bodyend="969"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a3695af2cd7537a3be99a4f126d132465" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::handleGlobalEvent</definition>
+        <argsstring>(DeterministicEvent &amp;)</argsstring>
+        <name>handleGlobalEvent</name>
+        <qualifiedname>System::handleGlobalEvent</qualifiedname>
+        <param>
+          <type><ref refid="classDeterministicEvent" kindref="compound">DeterministicEvent</ref> &amp;</type>
+          <defname>event</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="116" column="10" bodyfile="src/system.cpp" bodystart="1600" bodyend="1773"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1ae299d44e462d70a807f3f5a16157f444" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::determineStochasticEvent</definition>
+        <argsstring>()</argsstring>
+        <name>determineStochasticEvent</name>
+        <qualifiedname>System::determineStochasticEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="117" column="10" bodyfile="src/system.cpp" bodystart="1459" bodyend="1598"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1aef66dff634011900cf39b86f21e5c5e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::handleNucleationEvent</definition>
+        <argsstring>()</argsstring>
+        <name>handleNucleationEvent</name>
+        <qualifiedname>System::handleNucleationEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="118" column="10" bodyfile="src/system.cpp" bodystart="1419" bodyend="1457"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a373f01b0d5f890c65d6dd7100aa6ce8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::handleSeveringEvent</definition>
+        <argsstring>()</argsstring>
+        <name>handleSeveringEvent</name>
+        <qualifiedname>System::handleSeveringEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="119" column="10" bodyfile="src/system.cpp" bodystart="1129" bodyend="1146"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1aa03033f6d747f4ffdb9358f5d00e30ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::handleSeveringAtCrossEvent</definition>
+        <argsstring>()</argsstring>
+        <name>handleSeveringAtCrossEvent</name>
+        <qualifiedname>System::handleSeveringAtCrossEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="122" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1ae8d7e4a6b60bf6bf43698697eb83098a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::handleRescueEvent</definition>
+        <argsstring>()</argsstring>
+        <name>handleRescueEvent</name>
+        <qualifiedname>System::handleRescueEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="125" column="10" bodyfile="src/system.cpp" bodystart="1066" bodyend="1127"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1af7c57183786753cbc50ba8a8f3d18261" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::handleCatastropheEvent</definition>
+        <argsstring>()</argsstring>
+        <name>handleCatastropheEvent</name>
+        <qualifiedname>System::handleCatastropheEvent</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="126" column="10" bodyfile="src/system.cpp" bodystart="971" bodyend="1064"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a7f80e44f623b4c8f52797daebdda0f9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::randomPositionOnMicrotubule</definition>
+        <argsstring>(double &amp;cutLength, Segment *&amp;cutSeg)</argsstring>
+        <name>randomPositionOnMicrotubule</name>
+        <qualifiedname>System::randomPositionOnMicrotubule</qualifiedname>
+        <param>
+          <type>double &amp;</type>
+          <declname>cutLength</declname>
+        </param>
+        <param>
+          <type><ref refid="classSegment" kindref="compound">Segment</ref> *&amp;</type>
+          <declname>cutSeg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="127" column="10" bodyfile="src/system.cpp" bodystart="1148" bodyend="1311"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a43721a1d0a79614936dd5af9d947f5b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>CollisionType</type>
+        <definition>CollisionType System::collisionResult</definition>
+        <argsstring>(double, int, int)</argsstring>
+        <name>collisionResult</name>
+        <qualifiedname>System::collisionResult</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>angle</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <defname>nParallel</defname>
+        </param>
+        <param>
+          <type>int</type>
+          <defname>nCross</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="131" column="19" bodyfile="src/system.cpp" bodystart="138" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a1ce3f4306b78a2749684b8cda5b1bafa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::collisionProbabilities</definition>
+        <argsstring>(double, double &amp;, double &amp;)</argsstring>
+        <name>collisionProbabilities</name>
+        <qualifiedname>System::collisionProbabilities</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>angle</defname>
+        </param>
+        <param>
+          <type>double &amp;</type>
+          <defname>Pcat</defname>
+        </param>
+        <param>
+          <type>double &amp;</type>
+          <defname>Pzip</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="135" column="10" bodyfile="src/system.cpp" bodystart="8" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1afd8c66234dac5b6cf0371b6a6f5e2477" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::makeBinomialTable</definition>
+        <argsstring>(void)</argsstring>
+        <name>makeBinomialTable</name>
+        <qualifiedname>System::makeBinomialTable</qualifiedname>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="139" column="10" bodyfile="src/system.cpp" bodystart="1825" bodyend="1845"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a41469cbef45ed5b66ebe6c916950006c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double System::multiPcross</definition>
+        <argsstring>(int Npar, int Ncoll, double xSingle, double zSingle)</argsstring>
+        <name>multiPcross</name>
+        <qualifiedname>System::multiPcross</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>Npar</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Ncoll</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>xSingle</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>zSingle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="141" column="12" bodyfile="src/system.cpp" bodystart="101" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1abd606cdb3fb063a18f7ebfd55ad5c198" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double System::multiPzip</definition>
+        <argsstring>(int Npar, int Ncoll, double xSingle, double zSingle)</argsstring>
+        <name>multiPzip</name>
+        <qualifiedname>System::multiPzip</qualifiedname>
+        <param>
+          <type>int</type>
+          <declname>Npar</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Ncoll</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>xSingle</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>zSingle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="142" column="12" bodyfile="src/system.cpp" bodystart="118" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1af54cb6d740defce02f327f1caa3120be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::initializeOutput</definition>
+        <argsstring>()</argsstring>
+        <name>initializeOutput</name>
+        <qualifiedname>System::initializeOutput</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="151" column="10" bodyfile="src/analysis.cpp" bodystart="27" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1aafe3413d91192727635cd6a94b1abbbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::performMeasurement</definition>
+        <argsstring>()</argsstring>
+        <name>performMeasurement</name>
+        <qualifiedname>System::performMeasurement</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="152" column="10" bodyfile="src/analysis.cpp" bodystart="106" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a33bf7197060dec9a23f167eb82e8f10f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::writeMeasurementsToFile</definition>
+        <argsstring>(int=0)</argsstring>
+        <name>writeMeasurementsToFile</name>
+        <qualifiedname>System::writeMeasurementsToFile</qualifiedname>
+        <param>
+          <type>int</type>
+          <defname>numberToKeep</defname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="153" column="10" bodyfile="src/analysis.cpp" bodystart="218" bodyend="232"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a88a0ca92ba8abac4ec6ceb1c435dd654" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::closeFiles</definition>
+        <argsstring>()</argsstring>
+        <name>closeFiles</name>
+        <qualifiedname>System::closeFiles</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>close the output files before the program terminates</para>
+        </inbodydescription>
+        <location file="include/system.hpp" line="154" column="10" bodyfile="src/analysis.cpp" bodystart="96" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a44b868cc9af3bd094e70ec6042001269" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::removeOccupiedIntersection</definition>
+        <argsstring>(Intersection &amp;is)</argsstring>
+        <name>removeOccupiedIntersection</name>
+        <qualifiedname>System::removeOccupiedIntersection</qualifiedname>
+        <param>
+          <type><ref refid="classIntersection" kindref="compound">Intersection</ref> &amp;</type>
+          <declname>is</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="158" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1a98787847b716ff2cf0887ff8d776d631" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void System::addOccupiedIntersection</definition>
+        <argsstring>(IntersectionItr is)</argsstring>
+        <name>addOccupiedIntersection</name>
+        <qualifiedname>System::addOccupiedIntersection</qualifiedname>
+        <param>
+          <type>IntersectionItr</type>
+          <declname>is</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="162" column="10"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classSystem_1ac888972ef9b5778076b1cb552320ae52" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>System::System</definition>
+        <argsstring>(const System &amp;)</argsstring>
+        <name>System</name>
+        <qualifiedname>System::System</qualifiedname>
+        <param>
+          <type>const <ref refid="classSystem" kindref="compound">System</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="169" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classSystem_1ab96adee223ec4fd0da0edeff35ec3599" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classSystem" kindref="compound">System</ref> &amp;</type>
+        <definition>System &amp; System::operator=</definition>
+        <argsstring>(const System &amp;)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>System::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classSystem" kindref="compound">System</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/system.hpp" line="170" column="12"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="3">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="7">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="1">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/system.hpp" line="14" column="1" bodyfile="include/system.hpp" bodystart="16" bodyend="171"/>
+    <listofallmembers>
+      <member refid="classSystem_1a98787847b716ff2cf0887ff8d776d631" prot="public" virt="non-virtual"><scope>System</scope><name>addOccupiedIntersection</name></member>
+      <member refid="classSystem_1accc42c625a7bacd5731171b0e427b126" prot="public" virt="non-virtual"><scope>System</scope><name>advanceTime</name></member>
+      <member refid="classSystem_1a447a4f2a98d6552cb45539d0fa3c7269" prot="public" virt="non-virtual"><scope>System</scope><name>binomialTable</name></member>
+      <member refid="classSystem_1a7ad19436c58cd5731f538edb072a00de" prot="public" virt="non-virtual"><scope>System</scope><name>boundaryCrossingCount</name></member>
+      <member refid="classSystem_1a88a0ca92ba8abac4ec6ceb1c435dd654" prot="public" virt="non-virtual"><scope>System</scope><name>closeFiles</name></member>
+      <member refid="classSystem_1a1ce3f4306b78a2749684b8cda5b1bafa" prot="public" virt="non-virtual"><scope>System</scope><name>collisionProbabilities</name></member>
+      <member refid="classSystem_1a43721a1d0a79614936dd5af9d947f5b6" prot="public" virt="non-virtual"><scope>System</scope><name>collisionResult</name></member>
+      <member refid="classSystem_1ac81a20477f3d95a9fba5d862380a080e" prot="public" virt="non-virtual"><scope>System</scope><name>countIntersections</name></member>
+      <member refid="classSystem_1af7e66fb815af369e80dff5ec9d84aa31" prot="public" virt="non-virtual"><scope>System</scope><name>countSegments</name></member>
+      <member refid="classSystem_1a03e469eefad21d22ab5f3f1587530f5f" prot="public" virt="non-virtual"><scope>System</scope><name>countTrajectories</name></member>
+      <member refid="classSystem_1ac6f43cdc15243c2eb0eddc8120a686ed" prot="public" virt="non-virtual"><scope>System</scope><name>currentTimeTag</name></member>
+      <member refid="classSystem_1a55907bd36977a6c6a7b478c5a490db58" prot="public" virt="non-virtual"><scope>System</scope><name>dataSaved</name></member>
+      <member refid="classSystem_1ae299d44e462d70a807f3f5a16157f444" prot="public" virt="non-virtual"><scope>System</scope><name>determineStochasticEvent</name></member>
+      <member refid="classSystem_1a4ec7dcfb90848b24d4b4561eb43ff9dd" prot="public" virt="non-virtual"><scope>System</scope><name>emergencyBreak</name></member>
+      <member refid="classSystem_1a34980331d2e84422e3112edc8f4c03e5" prot="public" virt="non-virtual"><scope>System</scope><name>estimateMemoryFootprint</name></member>
+      <member refid="classSystem_1abf5914c33d3711da749da14189dda597" prot="public" virt="non-virtual"><scope>System</scope><name>EventDescriptorID</name></member>
+      <member refid="classSystem_1a7916e27f0f716f94de2c6a57c3375419" prot="public" virt="non-virtual"><scope>System</scope><name>EventDescriptorMap</name></member>
+      <member refid="classSystem_1a0aa7ca718ded8a96b7dd12641a618bca" prot="public" virt="non-virtual"><scope>System</scope><name>eventID</name></member>
+      <member refid="classSystem_1aa9f77a8719eb8649c32e3fcaa190bf43" prot="public" virt="non-virtual"><scope>System</scope><name>flushAndReload</name></member>
+      <member refid="classSystem_1a42934aedd38a6668b119014b28a2171c" prot="public" virt="non-virtual"><scope>System</scope><name>geometry</name></member>
+      <member refid="classSystem_1a0f8d0cb06bf905c1528c7506fc9fe5b5" prot="public" virt="non-virtual"><scope>System</scope><name>getEventDescriptor</name></member>
+      <member refid="classSystem_1acb045a939163edd93160ecac81109478" prot="public" virt="non-virtual"><scope>System</scope><name>getEventTag</name></member>
+      <member refid="classSystem_1a1001124788e4cdda546446130bc909d7" prot="public" virt="non-virtual"><scope>System</scope><name>growing_mts</name></member>
+      <member refid="classSystem_1acf37b0c0fd3e94cd621aba4096de9b51" prot="public" virt="non-virtual"><scope>System</scope><name>growingTipsReg</name></member>
+      <member refid="classSystem_1af7c57183786753cbc50ba8a8f3d18261" prot="public" virt="non-virtual"><scope>System</scope><name>handleCatastropheEvent</name></member>
+      <member refid="classSystem_1a3695af2cd7537a3be99a4f126d132465" prot="public" virt="non-virtual"><scope>System</scope><name>handleGlobalEvent</name></member>
+      <member refid="classSystem_1aef66dff634011900cf39b86f21e5c5e8" prot="public" virt="non-virtual"><scope>System</scope><name>handleNucleationEvent</name></member>
+      <member refid="classSystem_1ae8d7e4a6b60bf6bf43698697eb83098a" prot="public" virt="non-virtual"><scope>System</scope><name>handleRescueEvent</name></member>
+      <member refid="classSystem_1aa03033f6d747f4ffdb9358f5d00e30ff" prot="public" virt="non-virtual"><scope>System</scope><name>handleSeveringAtCrossEvent</name></member>
+      <member refid="classSystem_1a373f01b0d5f890c65d6dd7100aa6ce8a" prot="public" virt="non-virtual"><scope>System</scope><name>handleSeveringEvent</name></member>
+      <member refid="classSystem_1a78f3c47f655ff267f27ae4ab916350de" prot="public" virt="non-virtual"><scope>System</scope><name>heatMapFile</name></member>
+      <member refid="classSystem_1a65f2a629ae5b50c23c98575cd3c0141b" prot="public" virt="non-virtual"><scope>System</scope><name>identity</name></member>
+      <member refid="classSystem_1af54cb6d740defce02f327f1caa3120be" prot="public" virt="non-virtual"><scope>System</scope><name>initializeOutput</name></member>
+      <member refid="classSystem_1a13f70d1eef90333287700bafda9234c0" prot="public" virt="non-virtual"><scope>System</scope><name>integrityCheck</name></member>
+      <member refid="classSystem_1afd8c66234dac5b6cf0371b6a6f5e2477" prot="public" virt="non-virtual"><scope>System</scope><name>makeBinomialTable</name></member>
+      <member refid="classSystem_1afb5e0b876e90ec47451115c6be2f407a" prot="public" virt="non-virtual"><scope>System</scope><name>measurementFile</name></member>
+      <member refid="classSystem_1a25c83a0b06fd391e4ff4e00de7daea05" prot="public" virt="non-virtual"><scope>System</scope><name>measurementHistory</name></member>
+      <member refid="classSystem_1af953e8abc510ecfceffab72144683a74" prot="public" virt="non-virtual"><scope>System</scope><name>memUsage</name></member>
+      <member refid="classSystem_1a5065dcdea593dbdda927b45982d68bee" prot="public" virt="non-virtual"><scope>System</scope><name>movieFile</name></member>
+      <member refid="classSystem_1a41469cbef45ed5b66ebe6c916950006c" prot="public" virt="non-virtual"><scope>System</scope><name>multiPcross</name></member>
+      <member refid="classSystem_1abd606cdb3fb063a18f7ebfd55ad5c198" prot="public" virt="non-virtual"><scope>System</scope><name>multiPzip</name></member>
+      <member refid="classSystem_1a8ab1670ceaf64c1ba49902e991e1c40f" prot="public" virt="non-virtual"><scope>System</scope><name>nextEvent</name></member>
+      <member refid="classSystem_1aae35e5753dfbd2cf81baad71659d3d2f" prot="public" virt="non-virtual"><scope>System</scope><name>nextParameterEventTime</name></member>
+      <member refid="classSystem_1a42c17f0cb4eec66c8ebdb02e49cca802" prot="public" virt="non-virtual"><scope>System</scope><name>nextPPBEventTime</name></member>
+      <member refid="classSystem_1a839f9a67c3a846fa2df2aca25aefa5b7" prot="public" virt="non-virtual"><scope>System</scope><name>nextSnapshotEventTime</name></member>
+      <member refid="classSystem_1ab1b51abb8dedfee7847eb7b7b3ecb53a" prot="public" virt="non-virtual"><scope>System</scope><name>nextStatusEventTime</name></member>
+      <member refid="classSystem_1aca1fa52bec56fb79e009f8689d56a5dc" prot="public" virt="non-virtual"><scope>System</scope><name>nextStochasticEventTime</name></member>
+      <member refid="classSystem_1a30662f297a4e740d940f1cb08cf8a4a4" prot="public" virt="non-virtual"><scope>System</scope><name>nextStochasticEventType</name></member>
+      <member refid="classSystem_1ae16335f22f19dd6a948932af54478045" prot="public" virt="non-virtual"><scope>System</scope><name>OccupiedIntersectionList</name></member>
+      <member refid="classSystem_1ab96adee223ec4fd0da0edeff35ec3599" prot="private" virt="non-virtual"><scope>System</scope><name>operator=</name></member>
+      <member refid="classSystem_1a8ae2ad1343c311511fdba2a1fa1e761f" prot="public" virt="non-virtual"><scope>System</scope><name>orderDirectorFile</name></member>
+      <member refid="classSystem_1a7c4454eb1437b06739d02edeebf599e9" prot="public" virt="non-virtual"><scope>System</scope><name>p</name></member>
+      <member refid="classSystem_1afb2d33b07c61c270b368b921cac540f2" prot="public" virt="non-virtual"><scope>System</scope><name>parameterFile</name></member>
+      <member refid="classSystem_1aafe3413d91192727635cd6a94b1abbbb" prot="public" virt="non-virtual"><scope>System</scope><name>performMeasurement</name></member>
+      <member refid="classSystem_1abcd03058c827493f14deccfa464ffab4" prot="public" virt="non-virtual"><scope>System</scope><name>randomGen</name></member>
+      <member refid="classSystem_1a7f80e44f623b4c8f52797daebdda0f9a" prot="public" virt="non-virtual"><scope>System</scope><name>randomPositionOnMicrotubule</name></member>
+      <member refid="classSystem_1a0d5a23d4b34809a38605f488aaeb35e7" prot="public" virt="non-virtual"><scope>System</scope><name>registerEventDescriptor</name></member>
+      <member refid="classSystem_1a44b868cc9af3bd094e70ec6042001269" prot="public" virt="non-virtual"><scope>System</scope><name>removeOccupiedIntersection</name></member>
+      <member refid="classSystem_1adf548bdf3f18767b3551df8ecf5ad720" prot="public" virt="non-virtual"><scope>System</scope><name>run</name></member>
+      <member refid="classSystem_1a27eaf0767cea27d986a9ebb2bee49b42" prot="public" virt="non-virtual"><scope>System</scope><name>shrinking_mts</name></member>
+      <member refid="classSystem_1a3d2d60911b49602d8e82450756b58270" prot="public" virt="non-virtual"><scope>System</scope><name>stopSignal</name></member>
+      <member refid="classSystem_1a1965d74514313436f8fd90772a2f40bf" prot="public" virt="non-virtual"><scope>System</scope><name>System</name></member>
+      <member refid="classSystem_1ac888972ef9b5778076b1cb552320ae52" prot="private" virt="non-virtual"><scope>System</scope><name>System</name></member>
+      <member refid="classSystem_1a7ef8ef1e719328b0d51eed2fc669f799" prot="public" virt="non-virtual"><scope>System</scope><name>systemTime</name></member>
+      <member refid="classSystem_1abf85957f6adabf897a911bfd24e038b2" prot="public" virt="non-virtual"><scope>System</scope><name>systemTimeOffset</name></member>
+      <member refid="classSystem_1ad038f9cc42706d448e8f9b661476fc99" prot="public" virt="non-virtual"><scope>System</scope><name>timeQueue</name></member>
+      <member refid="classSystem_1adb97499fdfe2fd4d3a1a67bd304a56a5" prot="public" virt="non-virtual"><scope>System</scope><name>timeToVPlus</name></member>
+      <member refid="classSystem_1a8facb24f5d54adb559c6060962a69f69" prot="public" virt="non-virtual"><scope>System</scope><name>totalCrossoverCount</name></member>
+      <member refid="classSystem_1a5728ff99abac64b6bdf7703f04d47ae0" prot="public" virt="non-virtual"><scope>System</scope><name>totalInducedCatastropheCount</name></member>
+      <member refid="classSystem_1a0cde8070df856cd629c664ad68144d29" prot="public" virt="non-virtual"><scope>System</scope><name>totalIntersectionSeveringCount</name></member>
+      <member refid="classSystem_1afd0f7b67da4a70be3a38274203f8376b" prot="public" virt="non-virtual"><scope>System</scope><name>totalInvalidDEventCount</name></member>
+      <member refid="classSystem_1a6b2dc9d4acd5f32bf3db17a92d9708a0" prot="public" virt="non-virtual"><scope>System</scope><name>totalLength</name></member>
+      <member refid="classSystem_1a106cfae82a76e7811cdebd917114f2d8" prot="public" virt="non-virtual"><scope>System</scope><name>totalLengthSeveringCount</name></member>
+      <member refid="classSystem_1a0d06831c9d91bb7666e8478af74cd638" prot="public" virt="non-virtual"><scope>System</scope><name>totalSEventCount</name></member>
+      <member refid="classSystem_1a95077af78f071a0987e3874f2e169ef1" prot="public" virt="non-virtual"><scope>System</scope><name>totalValidDEventCount</name></member>
+      <member refid="classSystem_1a3e9cf256543a55462ccaecd9c05adfca" prot="public" virt="non-virtual"><scope>System</scope><name>totalZipperCount</name></member>
+      <member refid="classSystem_1afcff4ab67e3d8158dc024f3f9b6d1d93" prot="public" virt="non-virtual"><scope>System</scope><name>unregisterEventDescriptor</name></member>
+      <member refid="classSystem_1aeb7ace2114e9837e453509d88191d035" prot="public" virt="non-virtual"><scope>System</scope><name>updateAll</name></member>
+      <member refid="classSystem_1ac5cb07594c8fd81153093015cff20993" prot="public" virt="non-virtual"><scope>System</scope><name>vPlusQueue</name></member>
+      <member refid="classSystem_1a3dd53c0c3fcf72f8cb4ebd03b9edaee4" prot="public" virt="non-virtual"><scope>System</scope><name>vPlusToTime</name></member>
+      <member refid="classSystem_1a10ea0759338205c8d585655d7fd3522c" prot="public" virt="non-virtual"><scope>System</scope><name>wallClockStartTime</name></member>
+      <member refid="classSystem_1a33bf7197060dec9a23f167eb82e8f10f" prot="public" virt="non-virtual"><scope>System</scope><name>writeMeasurementsToFile</name></member>
+      <member refid="classSystem_1a3be70bb338e3f062f821173fd15680d0" prot="public" virt="non-virtual"><scope>System</scope><name>~System</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

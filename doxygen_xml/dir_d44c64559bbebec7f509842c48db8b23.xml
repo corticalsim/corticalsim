@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_d44c64559bbebec7f509842c48db8b23" kind="dir">
+    <compoundname>include</compoundname>
+    <innerfile refid="CompactList_8hpp">CompactList.hpp</innerfile>
+    <innerfile refid="det__queue_8hpp">det_queue.hpp</innerfile>
+    <innerfile refid="DLList_8hpp">DLList.hpp</innerfile>
+    <innerfile refid="edge_8hpp">edge.hpp</innerfile>
+    <innerfile refid="event_8hpp">event.hpp</innerfile>
+    <innerfile refid="geometry_8hpp">geometry.hpp</innerfile>
+    <innerfile refid="intersection_8hpp">intersection.hpp</innerfile>
+    <innerfile refid="linalg_8hpp">linalg.hpp</innerfile>
+    <innerfile refid="measurement_8hpp">measurement.hpp</innerfile>
+    <innerfile refid="mesh_8hpp">mesh.hpp</innerfile>
+    <innerfile refid="microtubule_8hpp">microtubule.hpp</innerfile>
+    <innerfile refid="mt__tip_8hpp">mt_tip.hpp</innerfile>
+    <innerfile refid="parameters_8hpp">parameters.hpp</innerfile>
+    <innerfile refid="randhub_8hpp">randhub.hpp</innerfile>
+    <innerfile refid="region_8hpp">region.hpp</innerfile>
+    <innerfile refid="segment_8hpp">segment.hpp</innerfile>
+    <innerfile refid="surface_8hpp">surface.hpp</innerfile>
+    <innerfile refid="system_8hpp">system.hpp</innerfile>
+    <innerfile refid="trajectory_8hpp">trajectory.hpp</innerfile>
+    <innerfile refid="types_8hpp">types.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="include/"/>
+  </compounddef>
+</doxygen>

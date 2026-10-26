@@ -1,0 +1,835 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="classRegion" kind="class" language="C++" prot="public" abstract="yes">
+    <compoundname>Region</compoundname>
+    <derivedcompoundref refid="classCartesian" prot="public" virt="non-virtual">Cartesian</derivedcompoundref>
+    <sectiondef kind="friend">
+      <memberdef kind="friend" id="classRegion_1a9aca7b7350e6ffa0e2d6320834ad1857" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Geometry</definition>
+        <argsstring></argsstring>
+        <name>Geometry</name>
+        <qualifiedname>Region::Geometry</qualifiedname>
+        <param>
+          <type><ref refid="classGeometry" kindref="compound">Geometry</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="14" column="18" bodyfile="include/region.hpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="classRegion_1ab3a5a13fe0f3e14e0ac76088579a0969" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Trajectory</definition>
+        <argsstring></argsstring>
+        <name>Trajectory</name>
+        <qualifiedname>Region::Trajectory</qualifiedname>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="15" column="18" bodyfile="include/region.hpp" bodystart="15" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classRegion_1ab5ddb4312be595dd478f9220c6968e3e" prot="public" static="no" mutable="no">
+        <type><ref refid="classGeometry" kindref="compound">Geometry</ref> *const</type>
+        <definition>Geometry* const Region::geometry</definition>
+        <argsstring></argsstring>
+        <name>geometry</name>
+        <qualifiedname>Region::geometry</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="20" column="20" bodyfile="include/region.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a6d602d271a6213383e2c0003ea1862bf" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Region::area</definition>
+        <argsstring></argsstring>
+        <name>area</name>
+        <qualifiedname>Region::area</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="23" column="12" bodyfile="include/region.hpp" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a88c14e8a41e3f7662175d292c6a9b68f" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Region::totalLength</definition>
+        <argsstring></argsstring>
+        <name>totalLength</name>
+        <qualifiedname>Region::totalLength</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="24" column="12" bodyfile="include/region.hpp" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a6b3a6817a4f0843869130713b67ab2c8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Region::previousUpdateTag</definition>
+        <argsstring></argsstring>
+        <name>previousUpdateTag</name>
+        <qualifiedname>Region::previousUpdateTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="26" column="9" bodyfile="include/region.hpp" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a8c843be2648b55593fd1aabf8226644e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Region::regionId</definition>
+        <argsstring></argsstring>
+        <name>regionId</name>
+        <qualifiedname>Region::regionId</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="27" column="9" bodyfile="include/region.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a07876e1b896ba877c7d8e11d725e1ea3" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Region::zOffset</definition>
+        <argsstring></argsstring>
+        <name>zOffset</name>
+        <qualifiedname>Region::zOffset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="28" column="12" bodyfile="include/region.hpp" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a41b00885288ad8eb9eabe221d56c458c" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Region::rotAngle</definition>
+        <argsstring></argsstring>
+        <name>rotAngle</name>
+        <qualifiedname>Region::rotAngle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="29" column="12" bodyfile="include/region.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1ac799d8c5da9d48fe03dcc005311458d5" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double Region::periMeter</definition>
+        <argsstring></argsstring>
+        <name>periMeter</name>
+        <qualifiedname>Region::periMeter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="30" column="12" bodyfile="include/region.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1adea0206904ea5bfa4ecb1c14ddbd7fbe" prot="public" static="no" mutable="no">
+        <type>Eigen::Vector2d</type>
+        <definition>Eigen::Vector2d Region::midPoint</definition>
+        <argsstring></argsstring>
+        <name>midPoint</name>
+        <qualifiedname>Region::midPoint</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="31" column="21" bodyfile="include/region.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1af90f5862364afb187889caa5346be3fc" prot="public" static="no" mutable="no">
+        <type>vector&lt; <ref refid="classEdge" kindref="compound">Edge</ref> &gt;</type>
+        <definition>vector&lt;Edge&gt; Region::side</definition>
+        <argsstring></argsstring>
+        <name>side</name>
+        <qualifiedname>Region::side</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="32" column="12" bodyfile="include/region.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1accade8e490bb8188d4a12c8e37793a29" prot="public" static="no" mutable="no">
+        <type>map&lt; int, int &gt;</type>
+        <definition>map&lt;int, int&gt; Region::sideMap</definition>
+        <argsstring></argsstring>
+        <name>sideMap</name>
+        <qualifiedname>Region::sideMap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="33" column="9" bodyfile="include/region.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1ab3136d389c3a175ac5258c7bda24f154" prot="public" static="no" mutable="no">
+        <type>map&lt; int, int &gt;</type>
+        <definition>map&lt;int, int&gt; Region::sideRevMap</definition>
+        <argsstring></argsstring>
+        <name>sideRevMap</name>
+        <qualifiedname>Region::sideRevMap</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="34" column="9" bodyfile="include/region.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a612d557a1e9f77fe7100ca65a32b8522" prot="public" static="no" mutable="no">
+        <type>Eigen::Quaternion&lt; double &gt;</type>
+        <definition>Eigen::Quaternion&lt;double&gt; Region::Q</definition>
+        <argsstring></argsstring>
+        <name>Q</name>
+        <qualifiedname>Region::Q</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="35" column="23" bodyfile="include/region.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1aa238f9c1db38d15601c857743b6ca8a8" prot="public" static="no" mutable="no">
+        <type>vector&lt; Eigen::Vector2d &gt;</type>
+        <definition>vector&lt;Eigen::Vector2d&gt; Region::vertices</definition>
+        <argsstring></argsstring>
+        <name>vertices</name>
+        <qualifiedname>Region::vertices</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="36" column="12" bodyfile="include/region.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1af215e837759468d11386e76e48354331" prot="public" static="no" mutable="no">
+        <type>vector&lt; Eigen::Vector3d &gt;</type>
+        <definition>vector&lt;Eigen::Vector3d&gt; Region::orientation</definition>
+        <argsstring></argsstring>
+        <name>orientation</name>
+        <qualifiedname>Region::orientation</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="37" column="12" bodyfile="include/region.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1afeec9434af6cacf1efd67ebfd22cdcf7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Region::faceTag</definition>
+        <argsstring></argsstring>
+        <name>faceTag</name>
+        <qualifiedname>Region::faceTag</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="38" column="9" bodyfile="include/region.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1ad69d4ac456ff64af7d66813aa1ede645" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Region::polyIntersectMark</definition>
+        <argsstring></argsstring>
+        <name>polyIntersectMark</name>
+        <qualifiedname>Region::polyIntersectMark</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="39" column="9" bodyfile="include/region.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1af8f1fbf29d5d60f25076e6b9ca953e1f" prot="public" static="no" mutable="no">
+        <type>vector&lt; int &gt;</type>
+        <definition>vector&lt;int&gt; Region::intersectEdg</definition>
+        <argsstring></argsstring>
+        <name>intersectEdg</name>
+        <qualifiedname>Region::intersectEdg</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="40" column="12" bodyfile="include/region.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a06f294c65dcae017b7c963b33b6d5d25" prot="public" static="no" mutable="no">
+        <type><ref refid="classDLList" kindref="compound">DLList</ref>&lt; <ref refid="classTrajectory" kindref="compound">Trajectory</ref>, TRAJECTORY_GRANULARITY &gt;</type>
+        <definition>DLList&lt;Trajectory, TRAJECTORY_GRANULARITY&gt; Region::trajectories</definition>
+        <argsstring></argsstring>
+        <name>trajectories</name>
+        <qualifiedname>Region::trajectories</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="43" column="12" bodyfile="include/region.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1a2ffeb442cc90e0d5122cd801f0dea32f" prot="public" static="no" mutable="no">
+        <type>list&lt; <ref refid="classMTTip" kindref="compound">MTTip</ref> * &gt;</type>
+        <definition>list&lt;MTTip*&gt; Region::growingPlusTipList</definition>
+        <argsstring></argsstring>
+        <name>growingPlusTipList</name>
+        <qualifiedname>Region::growingPlusTipList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="46" column="10" bodyfile="include/region.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1ab1796bed5fe2db4be5160b63693f2ef7" prot="public" static="no" mutable="no">
+        <type>list&lt; <ref refid="classMTTip" kindref="compound">MTTip</ref> * &gt;</type>
+        <definition>list&lt;MTTip*&gt; Region::shrinkingPlusTipList</definition>
+        <argsstring></argsstring>
+        <name>shrinkingPlusTipList</name>
+        <qualifiedname>Region::shrinkingPlusTipList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="47" column="10" bodyfile="include/region.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classRegion_1aba69ff700bfd172f884fa1c1d1d9c99b" prot="public" static="no" mutable="no">
+        <type>list&lt; <ref refid="classMTTip" kindref="compound">MTTip</ref> * &gt;</type>
+        <definition>list&lt;MTTip*&gt; Region::minusTipList</definition>
+        <argsstring></argsstring>
+        <name>minusTipList</name>
+        <qualifiedname>Region::minusTipList</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="48" column="10" bodyfile="include/region.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classRegion_1a0835c24302df0b71da2913a3b5bb0974" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RegionMTTipTag</type>
+        <definition>RegionMTTipTag Region::registerOnRegion</definition>
+        <argsstring>(MTTip *, TipType, MTType)</argsstring>
+        <name>registerOnRegion</name>
+        <qualifiedname>Region::registerOnRegion</qualifiedname>
+        <param>
+          <type><ref refid="classMTTip" kindref="compound">MTTip</ref> *</type>
+          <defname>pTip</defname>
+        </param>
+        <param>
+          <type>TipType</type>
+          <defname>tiptype</defname>
+        </param>
+        <param>
+          <type>MTType</type>
+          <defname>mttype</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="49" column="20" bodyfile="src/region.cpp" bodystart="122" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a65003c4162412a133bc887b2fd3d1660" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Region::unregisterFromRegion</definition>
+        <argsstring>(RegionMTTipTag, TipType, MTType)</argsstring>
+        <name>unregisterFromRegion</name>
+        <qualifiedname>Region::unregisterFromRegion</qualifiedname>
+        <param>
+          <type>RegionMTTipTag</type>
+          <defname>tag</defname>
+        </param>
+        <param>
+          <type>TipType</type>
+          <defname>tiptype</defname>
+        </param>
+        <param>
+          <type>MTType</type>
+          <defname>mttype</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="50" column="10" bodyfile="src/region.cpp" bodystart="151" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1adfe31774d50a22721dadc42cbba05172" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Region::updateRegionLength</definition>
+        <argsstring>(bool forceUpdate=false)</argsstring>
+        <name>updateRegionLength</name>
+        <qualifiedname>Region::updateRegionLength</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>forceUpdate</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="53" column="10" bodyfile="src/region.cpp" bodystart="181" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a0dfd4cd2e0de7877f923abc4d75fb87e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Region::Region</definition>
+        <argsstring>(Geometry *g, double a)</argsstring>
+        <name>Region</name>
+        <qualifiedname>Region::Region</qualifiedname>
+        <param>
+          <type><ref refid="classGeometry" kindref="compound">Geometry</ref> *</type>
+          <declname>g</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>a</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="55" column="5" bodyfile="include/region.hpp" bodystart="55" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a5cde30b344e3a24d9782fe03ffe8dea8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="virtual">
+        <type></type>
+        <definition>virtual Region::~Region</definition>
+        <argsstring>()</argsstring>
+        <name>~Region</name>
+        <qualifiedname>Region::~Region</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="73" column="13" bodyfile="include/region.hpp" bodystart="73" bodyend="73"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a95af054eb2a1da532560a3aadce4a480" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Region::opticalLength</definition>
+        <argsstring>()</argsstring>
+        <name>opticalLength</name>
+        <qualifiedname>Region::opticalLength</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="75" column="12" bodyfile="src/region.cpp" bodystart="108" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a696bc775d810ee75580051ec08c2b0dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Region::translateVector</definition>
+        <argsstring>(SurfaceVector &amp;, const double)=0</argsstring>
+        <name>translateVector</name>
+        <qualifiedname>Region::translateVector</qualifiedname>
+        <reimplementedby refid="classCartesian_1a8021c97d2f6a4378b508c910b6b226ef">translateVector</reimplementedby>
+        <param>
+          <type><ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref> &amp;</type>
+        </param>
+        <param>
+          <type>const double</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="78" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1aad37e52e7b6c86c14a0269937491cbaa" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Region::getTrajectoryCoordinates</definition>
+        <argsstring>(SurfaceVector &amp;, double &amp;, vector&lt; PointATedge &gt; &amp;, TrajectoryVector &amp;)=0</argsstring>
+        <name>getTrajectoryCoordinates</name>
+        <qualifiedname>Region::getTrajectoryCoordinates</qualifiedname>
+        <reimplementedby refid="classCartesian_1a3d741a83ac4291cda77c0124707b05f2">getTrajectoryCoordinates</reimplementedby>
+        <reimplementedby refid="classTriangle_1ab59fa6797ce368b7e40fb40f33aaa623">getTrajectoryCoordinates</reimplementedby>
+        <param>
+          <type><ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref> &amp;</type>
+        </param>
+        <param>
+          <type>double &amp;</type>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classPointATedge" kindref="compound">PointATedge</ref> &gt; &amp;</type>
+        </param>
+        <param>
+          <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="79" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1ae409e83fe0aeadd50fa7017b1af12a8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>double</type>
+        <definition>virtual double Region::intersectionAngle</definition>
+        <argsstring>(Trajectory *, Trajectory *)=0</argsstring>
+        <name>intersectionAngle</name>
+        <qualifiedname>Region::intersectionAngle</qualifiedname>
+        <reimplementedby refid="classCartesian_1adcb1af496d86d3b9c9d0a2a5b8f106a8">intersectionAngle</reimplementedby>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+        </param>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="80" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a060691ea0cbbb66cdd670bcb3b2e21a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Region::outputSnapshot</definition>
+        <argsstring>(ostream &amp;)=0</argsstring>
+        <name>outputSnapshot</name>
+        <qualifiedname>Region::outputSnapshot</qualifiedname>
+        <reimplementedby refid="classCartesian_1a46fb7a47c50acb8abf7269cdecc1422b">outputSnapshot</reimplementedby>
+        <param>
+          <type>ostream &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="81" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1aa6f9c98383e9a4bf4a6dbe42aeb465c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Region::outputOrderHeatMap</definition>
+        <argsstring>(ostream &amp;, vector&lt; double &gt; &amp;, vector&lt; Eigen::Vector3d &gt; &amp;)=0</argsstring>
+        <name>outputOrderHeatMap</name>
+        <qualifiedname>Region::outputOrderHeatMap</qualifiedname>
+        <reimplementedby refid="classCartesian_1a5e3fc5d3f697783f82d8f25662715eca">outputOrderHeatMap</reimplementedby>
+        <param>
+          <type>ostream &amp;</type>
+        </param>
+        <param>
+          <type>vector&lt; double &gt; &amp;</type>
+        </param>
+        <param>
+          <type>vector&lt; Eigen::Vector3d &gt; &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="82" column="18"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classRegion_1ac426b185696dbae0376e8c291e0b59ad" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref></type>
+        <definition>TrajectoryVector Region::insertTrajectory</definition>
+        <argsstring>(const SurfaceVector &amp;)</argsstring>
+        <name>insertTrajectory</name>
+        <qualifiedname>Region::insertTrajectory</qualifiedname>
+        <param>
+          <type>const <ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref> &amp;</type>
+          <defname>sVec</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="87" column="22" bodyfile="src/region.cpp" bodystart="5" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a1dd9376c0d021e44821b33a4ed9077b2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Region::removeTrajectory</definition>
+        <argsstring>(Trajectory *)</argsstring>
+        <name>removeTrajectory</name>
+        <qualifiedname>Region::removeTrajectory</qualifiedname>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+          <defname>tr</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="88" column="10" bodyfile="src/region.cpp" bodystart="32" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a13f46d7b64a9074305dea0b7e041a5f2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void Region::makeIntersectionList</definition>
+        <argsstring>(Trajectory *)=0</argsstring>
+        <name>makeIntersectionList</name>
+        <qualifiedname>Region::makeIntersectionList</qualifiedname>
+        <reimplementedby refid="classCartesian_1af721279494d8b4aa0aacf5e0b2c23512">makeIntersectionList</reimplementedby>
+        <param>
+          <type><ref refid="classTrajectory" kindref="compound">Trajectory</ref> *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="89" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a36f06d80851f531fe5961f972b9f0af1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type><ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref></type>
+        <definition>virtual SurfaceVector Region::randomSurfaceVector</definition>
+        <argsstring>()=0</argsstring>
+        <name>randomSurfaceVector</name>
+        <qualifiedname>Region::randomSurfaceVector</qualifiedname>
+        <reimplementedby refid="classCartesian_1a2cec442b32f692b59b9a592363c5e4a5">randomSurfaceVector</reimplementedby>
+        <reimplementedby refid="classTriangle_1a92be29264d58b6f8fdf9d8b3d010c046">randomSurfaceVector</reimplementedby>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="90" column="27"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="private-func">
+      <memberdef kind="function" id="classRegion_1a7060b8f8d41d4ff48bb8e75e6859ae45" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Region::Region</definition>
+        <argsstring>(const Region &amp;)</argsstring>
+        <name>Region</name>
+        <qualifiedname>Region::Region</qualifiedname>
+        <param>
+          <type>const <ref refid="classRegion" kindref="compound">Region</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="96" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="classRegion_1a5e7f17c0a57c17896818c71694ddc59f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="classRegion" kindref="compound">Region</ref> &amp;</type>
+        <definition>Region &amp; Region::operator=</definition>
+        <argsstring>(const Region &amp;)</argsstring>
+        <name>operator=</name>
+        <qualifiedname>Region::operator=</qualifiedname>
+        <param>
+          <type>const <ref refid="classRegion" kindref="compound">Region</ref> &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="97" column="12"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Cartesian</label>
+        <link refid="classCartesian"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Region</label>
+        <link refid="classRegion"/>
+      </node>
+      <node id="3">
+        <label>Triangle</label>
+        <link refid="classTriangle"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="5">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="4">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="9">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="8">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="1">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/region.hpp" line="9" column="1" bodyfile="include/region.hpp" bodystart="13" bodyend="98"/>
+    <listofallmembers>
+      <member refid="classRegion_1a6d602d271a6213383e2c0003ea1862bf" prot="public" virt="non-virtual"><scope>Region</scope><name>area</name></member>
+      <member refid="classRegion_1afeec9434af6cacf1efd67ebfd22cdcf7" prot="public" virt="non-virtual"><scope>Region</scope><name>faceTag</name></member>
+      <member refid="classRegion_1a9aca7b7350e6ffa0e2d6320834ad1857" prot="private" virt="non-virtual"><scope>Region</scope><name>Geometry</name></member>
+      <member refid="classRegion_1ab5ddb4312be595dd478f9220c6968e3e" prot="public" virt="non-virtual"><scope>Region</scope><name>geometry</name></member>
+      <member refid="classRegion_1aad37e52e7b6c86c14a0269937491cbaa" prot="public" virt="pure-virtual"><scope>Region</scope><name>getTrajectoryCoordinates</name></member>
+      <member refid="classRegion_1a2ffeb442cc90e0d5122cd801f0dea32f" prot="public" virt="non-virtual"><scope>Region</scope><name>growingPlusTipList</name></member>
+      <member refid="classRegion_1ac426b185696dbae0376e8c291e0b59ad" prot="protected" virt="non-virtual"><scope>Region</scope><name>insertTrajectory</name></member>
+      <member refid="classRegion_1af8f1fbf29d5d60f25076e6b9ca953e1f" prot="public" virt="non-virtual"><scope>Region</scope><name>intersectEdg</name></member>
+      <member refid="classRegion_1ae409e83fe0aeadd50fa7017b1af12a8d" prot="public" virt="pure-virtual"><scope>Region</scope><name>intersectionAngle</name></member>
+      <member refid="classRegion_1a13f46d7b64a9074305dea0b7e041a5f2" prot="protected" virt="pure-virtual"><scope>Region</scope><name>makeIntersectionList</name></member>
+      <member refid="classRegion_1adea0206904ea5bfa4ecb1c14ddbd7fbe" prot="public" virt="non-virtual"><scope>Region</scope><name>midPoint</name></member>
+      <member refid="classRegion_1aba69ff700bfd172f884fa1c1d1d9c99b" prot="public" virt="non-virtual"><scope>Region</scope><name>minusTipList</name></member>
+      <member refid="classRegion_1a5e7f17c0a57c17896818c71694ddc59f" prot="private" virt="non-virtual"><scope>Region</scope><name>operator=</name></member>
+      <member refid="classRegion_1a95af054eb2a1da532560a3aadce4a480" prot="public" virt="non-virtual"><scope>Region</scope><name>opticalLength</name></member>
+      <member refid="classRegion_1af215e837759468d11386e76e48354331" prot="public" virt="non-virtual"><scope>Region</scope><name>orientation</name></member>
+      <member refid="classRegion_1aa6f9c98383e9a4bf4a6dbe42aeb465c0" prot="public" virt="pure-virtual"><scope>Region</scope><name>outputOrderHeatMap</name></member>
+      <member refid="classRegion_1a060691ea0cbbb66cdd670bcb3b2e21a2" prot="public" virt="pure-virtual"><scope>Region</scope><name>outputSnapshot</name></member>
+      <member refid="classRegion_1ac799d8c5da9d48fe03dcc005311458d5" prot="public" virt="non-virtual"><scope>Region</scope><name>periMeter</name></member>
+      <member refid="classRegion_1ad69d4ac456ff64af7d66813aa1ede645" prot="public" virt="non-virtual"><scope>Region</scope><name>polyIntersectMark</name></member>
+      <member refid="classRegion_1a6b3a6817a4f0843869130713b67ab2c8" prot="public" virt="non-virtual"><scope>Region</scope><name>previousUpdateTag</name></member>
+      <member refid="classRegion_1a612d557a1e9f77fe7100ca65a32b8522" prot="public" virt="non-virtual"><scope>Region</scope><name>Q</name></member>
+      <member refid="classRegion_1a36f06d80851f531fe5961f972b9f0af1" prot="protected" virt="pure-virtual"><scope>Region</scope><name>randomSurfaceVector</name></member>
+      <member refid="classRegion_1a0dfd4cd2e0de7877f923abc4d75fb87e" prot="public" virt="non-virtual"><scope>Region</scope><name>Region</name></member>
+      <member refid="classRegion_1a7060b8f8d41d4ff48bb8e75e6859ae45" prot="private" virt="non-virtual"><scope>Region</scope><name>Region</name></member>
+      <member refid="classRegion_1a8c843be2648b55593fd1aabf8226644e" prot="public" virt="non-virtual"><scope>Region</scope><name>regionId</name></member>
+      <member refid="classRegion_1a0835c24302df0b71da2913a3b5bb0974" prot="public" virt="non-virtual"><scope>Region</scope><name>registerOnRegion</name></member>
+      <member refid="classRegion_1a1dd9376c0d021e44821b33a4ed9077b2" prot="protected" virt="non-virtual"><scope>Region</scope><name>removeTrajectory</name></member>
+      <member refid="classRegion_1a41b00885288ad8eb9eabe221d56c458c" prot="public" virt="non-virtual"><scope>Region</scope><name>rotAngle</name></member>
+      <member refid="classRegion_1ab1796bed5fe2db4be5160b63693f2ef7" prot="public" virt="non-virtual"><scope>Region</scope><name>shrinkingPlusTipList</name></member>
+      <member refid="classRegion_1af90f5862364afb187889caa5346be3fc" prot="public" virt="non-virtual"><scope>Region</scope><name>side</name></member>
+      <member refid="classRegion_1accade8e490bb8188d4a12c8e37793a29" prot="public" virt="non-virtual"><scope>Region</scope><name>sideMap</name></member>
+      <member refid="classRegion_1ab3136d389c3a175ac5258c7bda24f154" prot="public" virt="non-virtual"><scope>Region</scope><name>sideRevMap</name></member>
+      <member refid="classRegion_1a88c14e8a41e3f7662175d292c6a9b68f" prot="public" virt="non-virtual"><scope>Region</scope><name>totalLength</name></member>
+      <member refid="classRegion_1a06f294c65dcae017b7c963b33b6d5d25" prot="public" virt="non-virtual"><scope>Region</scope><name>trajectories</name></member>
+      <member refid="classRegion_1ab3a5a13fe0f3e14e0ac76088579a0969" prot="private" virt="non-virtual"><scope>Region</scope><name>Trajectory</name></member>
+      <member refid="classRegion_1a696bc775d810ee75580051ec08c2b0dd" prot="public" virt="pure-virtual"><scope>Region</scope><name>translateVector</name></member>
+      <member refid="classRegion_1a65003c4162412a133bc887b2fd3d1660" prot="public" virt="non-virtual"><scope>Region</scope><name>unregisterFromRegion</name></member>
+      <member refid="classRegion_1adfe31774d50a22721dadc42cbba05172" prot="public" virt="non-virtual"><scope>Region</scope><name>updateRegionLength</name></member>
+      <member refid="classRegion_1aa238f9c1db38d15601c857743b6ca8a8" prot="public" virt="non-virtual"><scope>Region</scope><name>vertices</name></member>
+      <member refid="classRegion_1a07876e1b896ba877c7d8e11d725e1ea3" prot="public" virt="non-virtual"><scope>Region</scope><name>zOffset</name></member>
+      <member refid="classRegion_1a5cde30b344e3a24d9782fe03ffe8dea8" prot="public" virt="virtual"><scope>Region</scope><name>~Region</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="classTriangle" kind="class" language="C++" prot="public">
+    <compoundname>Triangle</compoundname>
+    <basecompoundref refid="classCartesian" prot="public" virt="non-virtual">Cartesian</basecompoundref>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="classTriangle_1a0a8441f71c4e819f56f923ba589c329d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Triangle::Triangle</definition>
+        <argsstring>(double, Geometry *)</argsstring>
+        <name>Triangle</name>
+        <qualifiedname>Triangle::Triangle</qualifiedname>
+        <param>
+          <type>double</type>
+          <defname>elementArea</defname>
+        </param>
+        <param>
+          <type><ref refid="classGeometry" kindref="compound">Geometry</ref> *</type>
+          <defname>g</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="126" column="5" bodyfile="src/geometry.cpp" bodystart="793" bodyend="798"/>
+      </memberdef>
+      <memberdef kind="function" id="classTriangle_1a92be29264d58b6f8fdf9d8b3d010c046" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref></type>
+        <definition>SurfaceVector Triangle::randomSurfaceVector</definition>
+        <argsstring>()</argsstring>
+        <name>randomSurfaceVector</name>
+        <qualifiedname>Triangle::randomSurfaceVector</qualifiedname>
+        <reimplements refid="classCartesian_1a2cec442b32f692b59b9a592363c5e4a5">randomSurfaceVector</reimplements>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="128" column="19" bodyfile="src/geometry.cpp" bodystart="800" bodyend="825"/>
+      </memberdef>
+      <memberdef kind="function" id="classTriangle_1ab59fa6797ce368b7e40fb40f33aaa623" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Triangle::getTrajectoryCoordinates</definition>
+        <argsstring>(SurfaceVector &amp;, double &amp;, vector&lt; PointATedge &gt; &amp;, TrajectoryVector &amp;)</argsstring>
+        <name>getTrajectoryCoordinates</name>
+        <qualifiedname>Triangle::getTrajectoryCoordinates</qualifiedname>
+        <reimplements refid="classCartesian_1a3d741a83ac4291cda77c0124707b05f2">getTrajectoryCoordinates</reimplements>
+        <param>
+          <type><ref refid="structSurfaceVector" kindref="compound">SurfaceVector</ref> &amp;</type>
+          <defname>sVec</defname>
+        </param>
+        <param>
+          <type>double &amp;</type>
+          <defname>totalLength</defname>
+        </param>
+        <param>
+          <type>vector&lt; <ref refid="classPointATedge" kindref="compound">PointATedge</ref> &gt; &amp;</type>
+          <defname>endPoint</defname>
+        </param>
+        <param>
+          <type><ref refid="classTrajectoryVector" kindref="compound">TrajectoryVector</ref> &amp;</type>
+          <defname>tVec</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="include/region.hpp" line="129" column="10" bodyfile="src/geometry.cpp" bodystart="827" bodyend="939"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Cartesian</label>
+        <link refid="classCartesian"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Region</label>
+        <link refid="classRegion"/>
+      </node>
+      <node id="1">
+        <label>Triangle</label>
+        <link refid="classTriangle"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Cartesian</label>
+        <link refid="classCartesian"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>CompactList&lt; OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY &gt;</label>
+        <link refid="classCompactList"/>
+      </node>
+      <node id="6">
+        <label>DLList&lt; Microtubule, MICROTUBULE_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="11">
+        <label>DLList&lt; Trajectory, TRAJECTORY_GRANULARITY &gt;</label>
+        <link refid="classDLList"/>
+      </node>
+      <node id="10">
+        <label>DeterministicQueue</label>
+        <link refid="classDeterministicQueue"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Geometry</label>
+        <link refid="classGeometry"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Parameters</label>
+        <link refid="classParameters"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>system</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>RandHub&lt; real_t, int_t &gt;</label>
+        <link refid="classRandHub"/>
+      </node>
+      <node id="3">
+        <label>Region</label>
+        <link refid="classRegion"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>trajectories</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>System</label>
+        <link refid="classSystem"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>geometry</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>growing_mts</edgelabel>
+          <edgelabel>shrinking_mts</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>OccupiedIntersectionList</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>p</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>randomGen</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>timeQueue</edgelabel>
+          <edgelabel>vPlusQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Triangle</label>
+        <link refid="classTriangle"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="include/region.hpp" line="122" column="1" bodyfile="include/region.hpp" bodystart="123" bodyend="130"/>
+    <listofallmembers>
+      <member refid="classRegion_1a6d602d271a6213383e2c0003ea1862bf" prot="public" virt="non-virtual"><scope>Triangle</scope><name>area</name></member>
+      <member refid="classCartesian_1a9a0acc14f473de432cfc277e703c2de1" prot="public" virt="non-virtual"><scope>Triangle</scope><name>Cartesian</name></member>
+      <member refid="classRegion_1afeec9434af6cacf1efd67ebfd22cdcf7" prot="public" virt="non-virtual"><scope>Triangle</scope><name>faceTag</name></member>
+      <member refid="classRegion_1ab5ddb4312be595dd478f9220c6968e3e" prot="public" virt="non-virtual"><scope>Triangle</scope><name>geometry</name></member>
+      <member refid="classCartesian_1a5d7df0bf71f6a6a451928015ec70f386" prot="public" virt="non-virtual"><scope>Triangle</scope><name>getOrderParameters</name></member>
+      <member refid="classCartesian_1a2caaab1af1683bf2563254497a5ff513" prot="public" virt="non-virtual"><scope>Triangle</scope><name>getOrderParametersRawCylinder</name></member>
+      <member refid="classCartesian_1af7dc882318876afcc6a191c3c2667227" prot="public" virt="non-virtual"><scope>Triangle</scope><name>getOrderParametersRawFlat</name></member>
+      <member refid="classTriangle_1ab59fa6797ce368b7e40fb40f33aaa623" prot="public" virt="virtual"><scope>Triangle</scope><name>getTrajectoryCoordinates</name></member>
+      <member refid="classRegion_1a2ffeb442cc90e0d5122cd801f0dea32f" prot="public" virt="non-virtual"><scope>Triangle</scope><name>growingPlusTipList</name></member>
+      <member refid="classRegion_1ac426b185696dbae0376e8c291e0b59ad" prot="protected" virt="non-virtual"><scope>Triangle</scope><name>insertTrajectory</name></member>
+      <member refid="classRegion_1af8f1fbf29d5d60f25076e6b9ca953e1f" prot="public" virt="non-virtual"><scope>Triangle</scope><name>intersectEdg</name></member>
+      <member refid="classCartesian_1adcb1af496d86d3b9c9d0a2a5b8f106a8" prot="public" virt="virtual"><scope>Triangle</scope><name>intersectionAngle</name></member>
+      <member refid="classCartesian_1af721279494d8b4aa0aacf5e0b2c23512" prot="public" virt="virtual"><scope>Triangle</scope><name>makeIntersectionList</name></member>
+      <member refid="classRegion_1adea0206904ea5bfa4ecb1c14ddbd7fbe" prot="public" virt="non-virtual"><scope>Triangle</scope><name>midPoint</name></member>
+      <member refid="classRegion_1aba69ff700bfd172f884fa1c1d1d9c99b" prot="public" virt="non-virtual"><scope>Triangle</scope><name>minusTipList</name></member>
+      <member refid="classRegion_1a95af054eb2a1da532560a3aadce4a480" prot="public" virt="non-virtual"><scope>Triangle</scope><name>opticalLength</name></member>
+      <member refid="classRegion_1af215e837759468d11386e76e48354331" prot="public" virt="non-virtual"><scope>Triangle</scope><name>orientation</name></member>
+      <member refid="classCartesian_1a5e3fc5d3f697783f82d8f25662715eca" prot="public" virt="virtual"><scope>Triangle</scope><name>outputOrderHeatMap</name></member>
+      <member refid="classCartesian_1a46fb7a47c50acb8abf7269cdecc1422b" prot="public" virt="virtual"><scope>Triangle</scope><name>outputSnapshot</name></member>
+      <member refid="classCartesian_1ab843aacef01316e351111a22a3ac24bb" prot="public" virt="non-virtual"><scope>Triangle</scope><name>outputSnapshotOffset</name></member>
+      <member refid="classRegion_1ac799d8c5da9d48fe03dcc005311458d5" prot="public" virt="non-virtual"><scope>Triangle</scope><name>periMeter</name></member>
+      <member refid="classRegion_1ad69d4ac456ff64af7d66813aa1ede645" prot="public" virt="non-virtual"><scope>Triangle</scope><name>polyIntersectMark</name></member>
+      <member refid="classRegion_1a6b3a6817a4f0843869130713b67ab2c8" prot="public" virt="non-virtual"><scope>Triangle</scope><name>previousUpdateTag</name></member>
+      <member refid="classRegion_1a612d557a1e9f77fe7100ca65a32b8522" prot="public" virt="non-virtual"><scope>Triangle</scope><name>Q</name></member>
+      <member refid="classTriangle_1a92be29264d58b6f8fdf9d8b3d010c046" prot="public" virt="virtual"><scope>Triangle</scope><name>randomSurfaceVector</name></member>
+      <member refid="classRegion_1a0dfd4cd2e0de7877f923abc4d75fb87e" prot="public" virt="non-virtual"><scope>Triangle</scope><name>Region</name></member>
+      <member refid="classRegion_1a8c843be2648b55593fd1aabf8226644e" prot="public" virt="non-virtual"><scope>Triangle</scope><name>regionId</name></member>
+      <member refid="classRegion_1a0835c24302df0b71da2913a3b5bb0974" prot="public" virt="non-virtual"><scope>Triangle</scope><name>registerOnRegion</name></member>
+      <member refid="classRegion_1a1dd9376c0d021e44821b33a4ed9077b2" prot="protected" virt="non-virtual"><scope>Triangle</scope><name>removeTrajectory</name></member>
+      <member refid="classRegion_1a41b00885288ad8eb9eabe221d56c458c" prot="public" virt="non-virtual"><scope>Triangle</scope><name>rotAngle</name></member>
+      <member refid="classRegion_1ab1796bed5fe2db4be5160b63693f2ef7" prot="public" virt="non-virtual"><scope>Triangle</scope><name>shrinkingPlusTipList</name></member>
+      <member refid="classRegion_1af90f5862364afb187889caa5346be3fc" prot="public" virt="non-virtual"><scope>Triangle</scope><name>side</name></member>
+      <member refid="classRegion_1accade8e490bb8188d4a12c8e37793a29" prot="public" virt="non-virtual"><scope>Triangle</scope><name>sideMap</name></member>
+      <member refid="classRegion_1ab3136d389c3a175ac5258c7bda24f154" prot="public" virt="non-virtual"><scope>Triangle</scope><name>sideRevMap</name></member>
+      <member refid="classRegion_1a88c14e8a41e3f7662175d292c6a9b68f" prot="public" virt="non-virtual"><scope>Triangle</scope><name>totalLength</name></member>
+      <member refid="classRegion_1a06f294c65dcae017b7c963b33b6d5d25" prot="public" virt="non-virtual"><scope>Triangle</scope><name>trajectories</name></member>
+      <member refid="classCartesian_1a8021c97d2f6a4378b508c910b6b226ef" prot="public" virt="virtual"><scope>Triangle</scope><name>translateVector</name></member>
+      <member refid="classTriangle_1a0a8441f71c4e819f56f923ba589c329d" prot="public" virt="non-virtual"><scope>Triangle</scope><name>Triangle</name></member>
+      <member refid="classRegion_1a65003c4162412a133bc887b2fd3d1660" prot="public" virt="non-virtual"><scope>Triangle</scope><name>unregisterFromRegion</name></member>
+      <member refid="classRegion_1adfe31774d50a22721dadc42cbba05172" prot="public" virt="non-virtual"><scope>Triangle</scope><name>updateRegionLength</name></member>
+      <member refid="classRegion_1aa238f9c1db38d15601c857743b6ca8a8" prot="public" virt="non-virtual"><scope>Triangle</scope><name>vertices</name></member>
+      <member refid="classRegion_1a07876e1b896ba877c7d8e11d725e1ea3" prot="public" virt="non-virtual"><scope>Triangle</scope><name>zOffset</name></member>
+      <member refid="classRegion_1a5cde30b344e3a24d9782fe03ffe8dea8" prot="public" virt="virtual"><scope>Triangle</scope><name>~Region</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
