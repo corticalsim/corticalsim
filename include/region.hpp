@@ -63,14 +63,14 @@ class Region
         periMeter(0.0)
     {
         midPoint << 0.0, 0.0;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; ++i)
         {
-            vertices.push_back(Eigen::Vector2d(0, 0));
-            side.push_back(Edge());
+            vertices.emplace_back(0, 0);
+            side.emplace_back();
         }
     }
 
-    virtual ~Region() { return; };
+    virtual ~Region() { }
 
     double opticalLength();
 
