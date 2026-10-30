@@ -42,7 +42,6 @@
 #include <list>
 #include <map>
 #include <queue>
-#include <boost/pool/pool_alloc.hpp>
 #include <string>
 #include <cstring>
 #include <cmath>
