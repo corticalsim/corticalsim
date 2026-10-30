@@ -1,14 +1,23 @@
 name: documentation
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  docs:
+  documentation:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for clang-tidy to finish
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ArcticLampyrid/action-wait-for-workflow@v1
+        with:
+          workflow: clang-tidy.yml
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
       - name: Install dependencies
@@ -18,12 +27,18 @@ jobs:
       - name: Doxygen generate xml
         run: |
           doxygen doc/Doxyfile
+      - name: Download the latest clang-tidy findings artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          run_id=$(gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts?name=clang-tidy-log" --jq '[.artifacts[] | select(.expired == false)] | .[0].workflow_run.id')
+          gh run download "$run_id" --dir doc/ --name clang-tidy-log
       - name: Sphinx build
         run: |
           sphinx-build doc doc/build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        if: ${{ github.event_name != 'pull_request' }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,53 @@
+name: clang-tidy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: benchmarks-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  clang-tidy:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: clang-tidy-findings
+      errors: ${{ steps.findings.outputs.errors }}
+      warnings: ${{ steps.findings.outputs.warnings }}
+      conclusion: ${{ steps.set-conclusion.outputs.conclusion }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+      - name: Set up Python
+        uses: actions/setup-python@v5
+      - name: Setup LLVM
+        uses: ZhongRuoyu/setup-llvm@v0.2.0
+        with:
+          llvm-version: 22
+      - name: Set up Meson Ninja and Clang
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y meson ninja-build gcc cmake
+
+      - name: Run clang-tidy target
+        run: |
+          meson setup build/release . --buildtype release --reconfigure
+          ninja -C build/release tidy
+          echo $(date) >> clang-tidy.log
+          echo "git-sha: ${{ github.sha }}" >> clang-tidy.log
+
+      - name: Upload clang-tidy artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: clang-tidy-log
+          path: clang-tidy.log
+          retention-days: 90
+          if-no-files-found: error
+

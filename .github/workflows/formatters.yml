@@ -1,0 +1,41 @@
+name: formatters-check
+
+on: [pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  formatters-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+      - name: Set up Python
+        uses: actions/setup-python@v5
+      - name: Set up Meson Ninja and clang-format
+        run: |
+          sudo apt-get install -y meson ninja-build
+          sudo apt install clang-format
+
+      - name: Run clang-tidy target
+        run: |
+          meson setup build/release . --buildtype release --reconfigure
+          ninja -C build/release format
+      - name: Fail if formatting changed anything
+        run: |
+          git diff --exit-code
+
+      - name: Comment on PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr comment ${{ github.event.pull_request.number }} \
+            --edit-last --create-if-none \
+            --body "Formatting check failed. Please run \`ninja -C <path to build folder> format\` and commit the changes. Example for resease builds: \`ninja -C build/release format\` "
+
+
+

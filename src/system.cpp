@@ -4,7 +4,6 @@
 #include "mt_tip.hpp"
 #include "parameters.hpp"
 
-
 void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
 {
     switch (p.interactionType)
@@ -366,6 +365,9 @@ System::~System()
     return;
 }
 
+// gToDo: this is a latent bug cS and mS are never used, instead the outputDir (cS) is directly accessed through
+// p.outputDir and movieDir (mS) is never accessed at all. The bug had not manifested yet because there was only one
+// call site of run where p.outputDir was provided as input
 void System::run(double simTime, string& cS, string& mS)
 {
     int wallTimePollingCounter(0);

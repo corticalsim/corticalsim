@@ -63,6 +63,11 @@ Testing/
 
 # Documentation build files
 doc/_build
+meson-native.toml
 
 # Python virtual environment for docs building
 .venv
+
+# support files for c++ lsp
+compile_commands.json
+
