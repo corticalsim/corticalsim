@@ -58,6 +58,12 @@ class Microtubule: public DLBaseItem<Microtubule>
 
   private:
 
+    // gToDo: this is premodern cpp. Should be replaced with explicitely deleted special member functions
+    // Microtubule(const Microtubule&) = delete;
+    // Microtubule& operator=(const Microtubule&) = delete;
+    // Microtubule(Microtubule&&) = delete;
+    // Microtubule& operator=(Microtubule&&) = delete;
+    //
     // avoid accidental (disastrous) copying of Trajectory objects, by
     // declaring private copy constructors without definitions
     Microtubule(const Microtubule&);
