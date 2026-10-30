@@ -13,15 +13,22 @@ int main(int argc, char* argv[])
     cout << setprecision(3);
     time_t startTime = time(0);
 
+    // gToDo: heap allocation here is completely unnecessary. Initialization of this class on the stack like this:
+    // auto s1 = System(argv[1]);
+    // is much preferable
     s1 = new System(argv[1]);
 
     // run the simulation (else show the mesh statistics)
     s1->run(s1->p.stopTime, s1->p.outputDir, s1->p.movieDir);
+    // s1.run(s1.p.stopTime, s1.p.outputDir, s1.p.movieDir);
 
+    // if (s1.p.showOutput == 1)
     if (s1->p.showOutput == 1)
     {
         cout << "corticalSim v" << PROGRAM_VERSION << endl;
-        cout << "Total running time: " << static_cast<int>(time(0)) - startTime << " seconds.\n";
+        cout << "Total running time: " << static_cast<int>(time(nullptr)) - startTime << " seconds.\n";
+        // cout << "stochastic events: " << s1.totalSEventCount << ", deterministic events: " <<
+        // s1.totalValidDEventCount
         cout << "stochastic events: " << s1->totalSEventCount << ", deterministic events: " << s1->totalValidDEventCount
              << ".\n";
 #ifndef CROSS_SEV
@@ -29,6 +36,6 @@ int main(int argc, char* argv[])
 #endif
     }
 
-    delete s1;
+    // delete s1;
     return 0;
 }
