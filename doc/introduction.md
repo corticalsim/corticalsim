@@ -6,7 +6,7 @@ A number of analytical and computational approaches to studying the dynamics of 
 To date, however, these models have been restricted to two-dimensional planes or geometrically simple surfaces in three dimensions, which strongly limits their applicability as plant cells display a wide variety of shapes.
 This limitation is even more acute, as both local as well as global geometrical features of cells are expected to influence the overall organization of the array.
 CorticalSim is a framework for efficiently simulating microtubule dynamics on triangulated approximations of arbitrary three-dimensional surfaces.
-This allows the study of microtubule array organization on realistic cell surfaces obtained by segmentation of microscopic images.
+This allows for the study of microtubule array organization on realistic cell surfaces obtained by segmentation of microscopic images.
 
 
 ```{figure} assets/cs-overview.png
