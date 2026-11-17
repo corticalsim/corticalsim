@@ -20,10 +20,10 @@ jobs:
           sudo apt-get install -y meson ninja-build
           sudo apt install clang-format
 
-      - name: Run clang-tidy target
+      - name: Run clang-format target
         run: |
           meson setup build/release . --buildtype release --reconfigure
-          ninja -C build/release format
+          ninja -C build/release clang-format
       - name: Fail if formatting changed anything
         run: |
           git diff --exit-code

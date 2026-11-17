@@ -31,7 +31,7 @@ jobs:
         uses: ZhongRuoyu/setup-llvm@v0.2.0
         with:
           llvm-version: 22
-      - name: Set up Meson Ninja and Clang
+      - name: Set up Meson Ninja, GCC and CMake
         run: |
           sudo apt-get update
           sudo apt-get install -y meson ninja-build gcc cmake
