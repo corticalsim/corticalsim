@@ -41,10 +41,10 @@ corticalsim = executable(
 # Tooling
 # link compile_commands.json to the projec root
 meson.add_postconf_script(
-  find_program('python3'),
-  meson.current_source_dir() / 'scripts/link_files.py',
-  meson.current_build_dir() / 'compile_commands.json',
-  meson.current_source_dir() / 'compile_commands.json',
+    python3,
+    meson.current_source_dir() / 'scripts/link_file.py',
+    meson.current_build_dir() / 'compile_commands.json',
+    meson.current_source_dir() / 'compile_commands.json',
 )
 
 # Clang-format

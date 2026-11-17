@@ -16,12 +16,16 @@ def link(source, destination):
     os.symlink(source, destination)
 
 
-if __name__ == "__main__":
+def main():
     sys.argv.pop(0)
     if len(sys.argv) != 2:
-        print("Usage: link_files.py <source> <destination>")
+        print("Usage: link_file.py <source> <destination>")
         sys.exit(1)
     source = sys.argv[0]
     destination = sys.argv[1]
 
     link(source, destination)
+
+
+if __name__ == "__main__":
+    main()
