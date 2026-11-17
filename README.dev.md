@@ -1,6 +1,5 @@
 # corticalsim development documentation
 
-
 > [!NOTE]
 > Testing and contributing is very welcome, especially if you can contribute new algorithms and features.
 
@@ -10,6 +9,15 @@
 
 
 # Development
+
+## Core dependencies
+
+In order to be able to build the main dependencies of the project you will require:
+ - c++ compiler (preferably GCC or clang)
+ - python (this is a dependency of meson)
+ - meson (build system)
+ - ninja (this is the build system backend, other backends work with meson as well, but we do not test them)
+ - CMake (`corticalsim` still depends on third party libraries like `boost` and `Eigen`. Meson may need `CMake` to search if they are already installed on the system. Dependencies that can not be found will then be installed by meson).
 
 ## Building the documentation locally
 
@@ -53,20 +61,46 @@ source .venv/bin/activate
 pip install -r doc/requirements.txt
 ```
 
-Then generate the Doxygen technical documentation XML files and use Sphinx to generate the HTML files with the full documentation:
+In the active virtual environment (i.e. once `source .venv/bin/activate` has been run) you will have access to
+additional meson targets. Which build the documentation.
+In order to simply build the documentation run
 
 ```
-doxygen doc/Doxyfile
-sphinx-build doc doc/build
+meson setup build/debug . --buildtype debug
+ninja -C build/debug sphinx-build
 ```
 
-And we can view the generated documentation by opening `doc/build/index.html` in a browser.
+This will generate a `doc_build` directorey in the build directory which will contain the generated static website of
+the documentation. Launching the `index.html` will display the documentation.
+To obtain the exact path to this `index.html` file, run
+```
+ninja -C build/debug get-sphinx-build-path
+```
+The documentation contains a dashboard, which tracks  the quality metrics of the project.
+The dashboard is automatically generated and displayed in the online version of the documentation.
+If you want to generate the dashboard locally as well then you have to run
+```
+ninja -C build/debug sphinx-build-with-dashboard
+```
+instead of the
+```
+ninja -C build/debug sphinx-build
+```
+However, be aware that this will rerun all the metrics generators, like `clang-tidy` and and `coverage`, which can take significantly longer.
+```
 
 ## Code Style
 
 Our code is automatically formatted using `clang-format`. We plan to enforce the formatting in the CI. This means that
 merging will be blocked if the code is not fully formatted. Either set up your editor to automatically format code
-while editing or when saving or run clang format manually before submitting a PR. The formatting guidelines are definded in the `.clang-format` file.
+while editing or when saving or run clang format manually before submitting a PR. The formatting guidelines are defined in the `.clang-format` file.
+
+First install clang-format which is easiest to do with pip (on any platform):
+
+```
+pip install clang-format
+```
+
 
 > [!WARNING]
 > This method only works if you can use ninja as the meson backend. This works by default on Linux. And was not tested
@@ -95,6 +129,12 @@ On fedora use the following command:
 sudo dnf install clang-tools-extra
 sudo dnf install llvm
 ```
+
+On any Linux or MacOS system you can also use [homebrew](https://brew.sh/) to install llvm:
+```shell
+brew install llvm
+```
+This will also instll `clang-tidy` automatically.
 
 ### Running `clang-tidy`
 
