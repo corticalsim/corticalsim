@@ -68,7 +68,9 @@ PROJECT_LOGO           =
 # entered, it will be relative to the location where doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = "doc/build"
+# NOTE : Do not modify this file or attemt to use sphinx directly. Sphinx is managed by the meson build system.
+# The buildsystem resets this variable and passes the value along to sphinx. So modifying it here will have no effect!
+OUTPUT_DIRECTORY       = "docs_build"
 
 # If the CREATE_SUBDIRS tag is set to YES then doxygen will create up to 4096
 # sub-directories (in 2 levels) under the output directory of each output format
@@ -2269,6 +2271,8 @@ GENERATE_XML           = YES
 # The default directory is: xml.
 # This tag requires that the tag GENERATE_XML is set to YES.
 
+# NOTE : Do not modify this file or attemt to use sphinx directly. Sphinx is managed by the meson build system.
+# The buildsystem resets this variable and passes the value along to sphinx. So modifying it here will have no effect!
 XML_OUTPUT             = doxygen_xml
 
 # If the XML_PROGRAMLISTING tag is set to YES, doxygen will dump the program
