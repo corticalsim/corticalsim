@@ -107,7 +107,8 @@ void edgeDescriptors(vector<Vertices*>&, vector<elementList*>&, vector<Triangle3
 
 void establishPBC(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<elementList*>&, double);
 
-void rigidBodyProperties(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&);
+void rigidBodyProperties(
+vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&);
 
 void viewGraph(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, string);
 
