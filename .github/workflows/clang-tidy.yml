@@ -39,7 +39,7 @@ jobs:
       - name: Run clang-tidy target
         run: |
           meson setup build/release . --buildtype release --reconfigure
-          ninja -C build/release tidy
+          meson compile -C build/release tidy
           echo $(date) >> clang-tidy.log
           echo "git-sha: ${{ github.sha }}" >> clang-tidy.log
 
