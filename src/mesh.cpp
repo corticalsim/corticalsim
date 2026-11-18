@@ -1269,7 +1269,8 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3D, doubl
             regions[eno]->Q.y() = cross(1, 0);
             regions[eno]->Q.z() = cross(2, 0);
 
-            // find the necessary Eigen::Quaternion for 3d -> 2d triangle rotation and rotate the 3d-triangle to 2d-triangle
+            // find the necessary Eigen::Quaternion for 3d -> 2d triangle rotation and rotate the 3d-triangle to
+            // 2d-triangle
             Eigen::Quaternion<double> qr(0.0, 0.0, 0.0, 0.0);
 
             // rotate the mid-point of the triangle region
