@@ -28,7 +28,6 @@ incdir = include_directories('include')
 
 # Directories containing source files
 subdir('src')
-subdir('tests')
 
 # Dependencies
 # ============
@@ -87,22 +86,7 @@ meson.add_postconf_script(
 
 # Google Test
 
-gtest = dependency('gtest_main')
-
-if gtest.found()
-    test_executable = executable(
-        'all_tests',
-        test_sources,
-        include_directories: incdir,
-        link_with: corticalsim_lib,
-        dependencies: [
-            gtest,
-            corticalsim_deps,
-        ],
-    )
-
-    test('all_tests', test_executable)
-endif
+subdir('tests')
 
 
 # Clang-format
