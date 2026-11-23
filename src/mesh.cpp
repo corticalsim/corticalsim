@@ -1013,12 +1013,9 @@ void rigidBodyProperties(vector<Vertices*>& Gvertex,
 
     double m000(0.0), m100(0.0), m010(0.0), m001(0.0);
     double m110(0.0), m101(0.0), m011(0.0), m200(0.0), m020(0.0), m002(0.0);
-    double totalArea(0.0);
 
     for (size_t eno = 0; eno < element3D.size(); eno++)
     {
-        totalArea += element3D[eno]->area;
-
         // zeroth order moment (same as volume enclosed by the mesh)
         m000 += element3D[eno]->area * element3D[eno]->givenNormal.dot(element3D[eno]->midPoint);
 
