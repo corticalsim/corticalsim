@@ -158,3 +158,83 @@ meson configure build/release  -Dwarnings-as-errors='clang-analyzer-*'
 ```
 
 This step is happening before the `tidy` target is run.
+
+
+## Testing
+
+## Unit-Tests
+
+We use [gtest](https://google.github.io/googletest/) for unit testing. The dependency is automatically installed by
+the meson build system.
+
+To run all test targets you can run:
+```bash
+meson test -C <path/to/build> --print-errorlogs
+```
+after setting up the build folder.
+
+To run only a specific test target, use the following command:
+```bash
+meson test -C <path/to/build> --print-errorlogs <target_name>
+```
+
+### How to write unit tests
+
+We use the Given/When/Then pattern for unit tests. This means that each unit test case has three sections (clauses).
+Each clause starts with a comment containing the clause name and description, followed by the code that accomplishes
+the described behavior.
+
+Example:
+
+```cpp
+TEST(DLListTest, DLListSizeReportsCorrectSize)
+{
+    // Given a newly created DLList
+    DLList<DummyTestType> dl_list{};
+
+    // When we create several new elements
+    constexpr std::size_t num_new_elements{ 17 };
+
+    for (std::size_t i = 0; i < num_new_elements; ++i)
+    {
+        std::ignore = dl_list.create();
+    }
+
+    // Then the list size corresponds to the number of new elements
+    EXPECT_EQ(dl_list.size(), num_new_elements);
+}
+```
+
+**Given clause**
+
+Establish the initial known state of the system. To keep the clause simple only address the initial state relevant to the test.
+
+**When clause**
+
+Describe the action, which you want to test.
+
+**Then clause**
+
+Describe the expected outcome of the tested action.
+
+
+**Naming the test**
+
+In gTest each test case starts with a `TEST` macro which takes two arguments, `test_suite_name` and `test_name`, both of which have to be valid c++ identifiers. `test_suite_name` should be shared between tests that test the same interface, and each `test_name` must be unique.
+Since this names will later appear in test logs it is useful to make them descriptive.
+The suggested convention in the code is to use the class or function name followed by the word test. The `test_name`
+should contain a full sentence which states the tested behavior and expected outcome.
+Example:
+
+Say we have Parameters class which contains all simulation parameters, and this class has a `load_from_file` method
+with the following signature:
+```cpp
+static std::optional<Parameters> Parameters::load_from_file(std::string_view path);
+```
+We will want to test what happens if we provide a file path that does not exist.
+If we can not load the parameters from the file then we want to return an empty optional.
+A possible test case would be named as follows:
+
+```cpp
+TEST(ParametersTest, load_from_file_returns_empty_optional_when_file_does_not_exist)
+```
