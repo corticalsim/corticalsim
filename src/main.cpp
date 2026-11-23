@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 {
     cout << fixed;
     cout << setprecision(3);
-    time_t startTime = time(0);
+    time_t startTime = time(nullptr);
 
     s1 = new System(argv[1]);
 
@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     if (s1->p.showOutput == 1)
     {
         cout << "corticalSim v" << PROGRAM_VERSION << endl;
-        cout << "Total running time: " << static_cast<int>(time(0)) - startTime << " seconds.\n";
+        cout << "Total running time: " << static_cast<int>(time(nullptr)) - startTime << " seconds.\n";
         cout << "stochastic events: " << s1->totalSEventCount << ", deterministic events: " << s1->totalValidDEventCount
              << ".\n";
 #ifndef CROSS_SEV

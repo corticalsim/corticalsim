@@ -16,7 +16,7 @@ void iniEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
 
     head->cell_id = cid;
     head->edge_index = fid;
-    head->next = NULL;
+    head->next = nullptr;
 }
 
 // appending edge
@@ -26,12 +26,12 @@ void addEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
     newedgeRecord->key = v;
     newedgeRecord->cell_id = cid;
     newedgeRecord->edge_index = fid;
-    newedgeRecord->next = NULL;
+    newedgeRecord->next = nullptr;
     edgeRecord* cur = head;
 
     while (cur)
     {
-        if (cur->next == NULL)
+        if (cur->next == nullptr)
         {
             cur->next = newedgeRecord;
             return;
@@ -44,13 +44,13 @@ void addEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
 void deleteFirst(struct edgeRecord** head)
 {
     struct edgeRecord* tmp = *head;
-    if (tmp == NULL)
+    if (tmp == nullptr)
     {
         return;
     }
     *head = tmp->next;
     delete tmp;
-    tmp = NULL;
+    tmp = nullptr;
 }
 
 // display edge record
@@ -107,7 +107,7 @@ void edge_sort(edgeRecord** EList, int nodeMax)
             edgeRecord* oldedge = edge;
             edge = edge->next;
             delete oldedge;
-            oldedge = NULL;
+            oldedge = nullptr;
         }
 
         for (int j = 0; j < nodeMax; j++)
@@ -129,7 +129,7 @@ void edge_sort(edgeRecord** EList, int nodeMax)
         }
         deleteFirst(&(*EList));
         delete[] Bin;
-        Bin = NULL;
+        Bin = nullptr;
     }
 }
 
@@ -138,10 +138,10 @@ void find_connectivity(edgeRecord** FList, vector<elementList*>& eList)
 {
     edgeRecord* edge = *FList;
     int ecount(0);
-    while (edge != NULL)
+    while (edge != nullptr)
     {
         edgeRecord* edgenext = edge->next;
-        if (edgenext == NULL)
+        if (edgenext == nullptr)
         {
             break;
         }
@@ -705,7 +705,7 @@ void pickup_shape(Geometry* g)
         // FOLLOW-UP
         // This used to be a comparison (element3D[eno] == NULL).
         // Check if the fix introduces any regressions.
-        element3D[eno] = NULL;
+        element3D[eno] = nullptr;
     }
     element3D.clear();
 
@@ -713,7 +713,7 @@ void pickup_shape(Geometry* g)
     for (size_t gno = 0; gno < Gvertex.size(); gno++)
     {
         delete Gvertex[gno];
-        Gvertex[gno] = NULL;
+        Gvertex[gno] = nullptr;
     }
     Gvertex.clear();
 
@@ -721,7 +721,7 @@ void pickup_shape(Geometry* g)
     for (size_t el = 0; el < eList.size(); el++)
     {
         delete eList[el];
-        eList[el] = NULL;
+        eList[el] = nullptr;
     }
     eList.clear();
 
@@ -790,7 +790,7 @@ void makeGraph(int Gvertex, vector<elementList*>& eList, vector<Triangle3D*>& el
     }
 
     delete EdgList;
-    EdgList = NULL;
+    EdgList = nullptr;
 
     return;
 }

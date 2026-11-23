@@ -276,7 +276,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross) /
 }
 
 System::System(char* parFile):
-    geometry(NULL),
+    geometry(nullptr),
     p(this),
     systemTime(0),
     systemTimeOffset(0),
@@ -284,7 +284,7 @@ System::System(char* parFile):
     totalLength(0),
     memUsage(0),
     stopSignal(false),
-    wallClockStartTime(time(0)),
+    wallClockStartTime(time(nullptr)),
     totalSEventCount(0),
     totalValidDEventCount(0),
     totalInvalidDEventCount(0),
@@ -382,7 +382,7 @@ void System::run(double simTime, string& cS, string& mS)
     {
         if (++wallTimePollingCounter == CLOCK_POLLING_INTERVAL)
         {
-            if (difftime(time(0), wallClockStartTime) >= p.wallClockLimit)
+            if (difftime(time(nullptr), wallClockStartTime) >= p.wallClockLimit)
             {
                 // time's up; send a stop signal
                 cerr << "Wall clock limit (" << p.wallClockLimit << " seconds) reached. Stopping.\n";
@@ -485,7 +485,7 @@ bool System::integrityCheck()
 
     // integrity check of each growing MTs
     Microtubule* mt = growing_mts.first();
-    while (mt != NULL)
+    while (mt != nullptr)
     {
         if (!mt->integrityCheck())
         {
@@ -497,7 +497,7 @@ bool System::integrityCheck()
 
     // integrity check of each shrinking MTs
     mt = shrinking_mts.first();
-    while (mt != NULL)
+    while (mt != nullptr)
     {
         if (!mt->integrityCheck())
         {
@@ -520,14 +520,14 @@ void System::flushAndReload(bool refreshParameterEvent)
     // recalculate total lengths to avoid drift (in DBG mode, also check for large deviations)
     double regionLength(0.);
     double systemLength(0);
-    Trajectory* tptr(NULL);
+    Trajectory* tptr(nullptr);
 
     for (size_t ridx = 0; ridx < geometry->regions.size(); ridx++)
     {
         regionLength = 0;
         tptr = geometry->regions[ridx]->trajectories.first();
 
-        while (tptr != NULL)
+        while (tptr != nullptr)
         {
             regionLength += tptr->segmentLength();
             tptr = tptr->next();
@@ -590,17 +590,17 @@ void System::flushAndReload(bool refreshParameterEvent)
         timeQueue.pushGlobal(nextPPBEventTime, signalPPB);
     }
 
-    Microtubule* mt(NULL);
-    Segment* seg(NULL);
+    Microtubule* mt(nullptr);
+    Segment* seg(nullptr);
     mt = growing_mts.first();
 
-    while (mt != NULL)
+    while (mt != nullptr)
     {
         // this can go into a change time function
         mt->nucleationTime -= timeOffset;
         seg = mt->segments.first();
 
-        while (seg != NULL)
+        while (seg != nullptr)
         {
             seg->nucleationTime -= timeOffset;
             seg = seg->next();
@@ -617,7 +617,7 @@ void System::flushAndReload(bool refreshParameterEvent)
 
     mt = shrinking_mts.first();
 
-    while (mt != NULL)
+    while (mt != nullptr)
     {
         mt->nucleationTime -= timeOffset;
         seg = mt->segments.first();
@@ -816,7 +816,7 @@ void System::updateAll(bool forceUpdate)
     Microtubule* mt;
     mt = growing_mts.first();
 
-    while (mt != NULL)
+    while (mt != nullptr)
     {
         mt->updateLength(forceUpdate);
 
@@ -835,7 +835,7 @@ void System::updateAll(bool forceUpdate)
     }
 
     mt = shrinking_mts.first();
-    while (mt != NULL)
+    while (mt != nullptr)
     {
         mt->updateLength(forceUpdate);
 
@@ -1128,11 +1128,11 @@ void System::handleRescueEvent()
 void System::handleSeveringEvent()
 {
     double cutLength(0.0);
-    Segment* cutSeg(NULL);
+    Segment* cutSeg(nullptr);
     randomPositionOnMicrotubule(cutLength, cutSeg);
 
     // sever the MT now !
-    if (cutSeg != NULL)
+    if (cutSeg != nullptr)
     {
         cutSeg->mt->sever(cutSeg, cutLength);
     }
@@ -1213,7 +1213,7 @@ void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
     }
 
     // Now that the area has been selected, cycle over trajectories and their segments
-    Trajectory* trptr(NULL);
+    Trajectory* trptr(nullptr);
     list<Segment*>::iterator seg;
     double temp(0.0);
     bool stopFlag(false);
@@ -1251,7 +1251,7 @@ void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
             }
 
             // if we ran out of trajectories, something is wrong. This could happen due to numerical inaccuracies.
-            if (trptr->next() == NULL)
+            if (trptr->next() == nullptr)
             {
                 cerr << "Rare event: cutting on the edge\n";
                 seg--;
@@ -1292,7 +1292,7 @@ void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
                 break;
             }
 
-            if (trptr->previous() == NULL)
+            if (trptr->previous() == nullptr)
             {
                 cerr << "Rare event: cutting on the edge\n";
                 seg++;
@@ -1314,10 +1314,10 @@ void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
 // TODO: verify this function
 void System::handleSeveringAtCrossEvent()
 {
-    Microtubule* cutMT(NULL);
+    Microtubule* cutMT(nullptr);
     IntersectionItr cutIS;
-    OccupiedIntersection* cutOccIS(NULL);
-    Segment* cutSeg(NULL);
+    OccupiedIntersection* cutOccIS(nullptr);
+    Segment* cutSeg(nullptr);
     int cutSegNumber(0);
     list<Segment*>::iterator testSeg;
     list<Segment*>::iterator finalTestSeg;
@@ -1393,11 +1393,11 @@ void System::handleSeveringAtCrossEvent()
             }
         }
     }
-    if (cutSeg != NULL)
+    if (cutSeg != nullptr)
     {
         cutMT = cutSeg->mt;
         cutMT->updateLength();
-        if (cutMT != NULL)
+        if (cutMT != nullptr)
         {
             cutMT->severAtCross(cutIS, cutSeg);
         }
@@ -1796,7 +1796,7 @@ EventDescriptor* System::getEventDescriptor(EventDescriptorIndex idx)
     map<EventDescriptorIndex, EventDescriptor*>::iterator itr = EventDescriptorMap.find(idx);
     if (itr == EventDescriptorMap.end())
     {
-        return NULL;
+        return nullptr;
     }
     else
     {
@@ -1808,8 +1808,8 @@ EventDescriptor* System::getEventDescriptor(EventDescriptorIndex idx)
 void System::removeOccupiedIntersection(Intersection& is)
 {
     OccupiedIntersectionList.RemoveElement(is.occupiedListPtr->index);
-    is.occupiedListPtr = NULL;
-    is.mirror->second.occupiedListPtr = NULL;
+    is.occupiedListPtr = nullptr;
+    is.mirror->second.occupiedListPtr = nullptr;
     return;
 }
 

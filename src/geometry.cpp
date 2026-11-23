@@ -152,7 +152,7 @@ bool Geometry::integrityCheck()
     int plusGrowCount(0);
     int plusShrinkCount(0);
     int minusCount(0);
-    Trajectory* tptr(NULL);
+    Trajectory* tptr(nullptr);
 
     for (size_t ridx = 0; ridx < regions.size(); ridx++)
     {
@@ -160,7 +160,7 @@ bool Geometry::integrityCheck()
         plusShrinkCount += regions[ridx]->shrinkingPlusTipList.size();
         minusCount += regions[ridx]->minusTipList.size();
         tptr = regions[ridx]->trajectories.first();
-        while (tptr != NULL)
+        while (tptr != nullptr)
         {
             if (!tptr->integrityCheck())
             {
@@ -502,7 +502,7 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR, vector<Eigen:
 
     Trajectory* tr(trajectories.first());
 
-    while (tr != NULL)
+    while (tr != nullptr)
     {
         length = tr->segmentLength();
 
@@ -619,7 +619,7 @@ void Cartesian::outputSnapshotOffset(ostream& out, double xOffset, double yOffse
 
     tr = trajectories.first();
 
-    while (tr != NULL)
+    while (tr != nullptr)
     {
         svec = tr->base;
 
@@ -728,7 +728,7 @@ void Cartesian::makeIntersectionList(Trajectory* tr1)
 
     Trajectory* tr2(trajectories.first());
 
-    while (tr2 != NULL)
+    while (tr2 != nullptr)
     {
         // imagine a triangle with vertices sitting at: (a) one at the trajectory intersection point and (b) other two
         // at the base of the two trajectories
@@ -833,7 +833,7 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
     double oldX(sVec.x);
     double oldY(sVec.y);
 
-    tVec.trajectory = NULL;
+    tVec.trajectory = nullptr;
 
     double acos(cos(sVec.angle));
     double asin(sin(sVec.angle));

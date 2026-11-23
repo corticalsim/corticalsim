@@ -129,13 +129,13 @@ void System::performMeasurement(void)
     Microtubule* mt;
 
     mt = growing_mts.first();
-    while (mt != NULL)
+    while (mt != nullptr)
     {
         segmentCount += mt->segments.size();
         mt = mt->next();
     }
     mt = shrinking_mts.first();
-    while (mt != NULL)
+    while (mt != nullptr)
     {
         segmentCount += mt->segments.size();
         mt = mt->next();

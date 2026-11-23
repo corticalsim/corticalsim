@@ -8,7 +8,7 @@ double Microtubule::length()
     Segment* seg = segments.first();
 
     // calculate total length of a MT
-    while (seg != NULL)
+    while (seg != nullptr)
     {
         temp += seg->length();
         seg = seg->next();
@@ -339,7 +339,7 @@ void Microtubule::severAtCross(IntersectionItr is, Segment* cutSeg)
 void Microtubule::splitSegmentAtTrajPos(double cutPos, Segment* cutSeg)
 {
     // used in sever and severAtCross
-    Microtubule* newMT(NULL);
+    Microtubule* newMT(nullptr);
     TrajectoryVector tv;
 
     tv.trajectory = cutSeg->trajectory;
@@ -364,7 +364,7 @@ void Microtubule::splitSegmentAtTrajPos(double cutPos, Segment* cutSeg)
     newMT->segments.first()->nucleationTime = cutSeg->nucleationTime;
     newMT->segments.importSet(segments, cutSeg->next(), segments.last());
     Segment* tempSeg = newMT->segments.first()->next();
-    while (tempSeg != NULL)
+    while (tempSeg != nullptr)
     {
         tempSeg->mt = newMT;
         tempSeg = tempSeg->next();
@@ -431,7 +431,7 @@ void Microtubule::splitSegmentAtTrajPos(double cutPos, Segment* cutSeg)
 void Microtubule::translatePositionMT2Segment(double& cutPos, Segment*& cutSeg)
 {
     cutSeg = segments.first();
-    while ((cutSeg != NULL) && (cutPos > cutSeg->length()))
+    while ((cutSeg != nullptr) && (cutPos > cutSeg->length()))
     {
         cutPos -= cutSeg->length();
         cutSeg = cutSeg->next();
@@ -665,8 +665,8 @@ void Microtubule::endOfSegment(MTTip* tip)
 #endif
 
     Direction newDir;
-    Segment* newSeg(NULL);
-    Segment* killSeg(NULL);
+    Segment* newSeg(nullptr);
+    Segment* killSeg(nullptr);
 
     // select plus tip associated segment
     if (tip == &plus)
@@ -847,7 +847,7 @@ bool Microtubule::integrityCheck()
     bool valid(true);
     double maxDeviation(0.0);
 
-    Segment* seg(NULL);
+    Segment* seg(nullptr);
     IntersectionItr is;
     size_t count(0);
 
@@ -869,7 +869,7 @@ bool Microtubule::integrityCheck()
         }
 
         seg = segments.first();
-        if (seg == NULL)
+        if (seg == nullptr)
         {
             // pointer to segment list can not be null
             cerr << "null pointer received\n";
@@ -1053,7 +1053,7 @@ bool Microtubule::integrityCheck()
 
     // check validity of intersections by running them to the end of the trajectory
     seg = segments.first();
-    while (seg != NULL)
+    while (seg != nullptr)
     {
         is = seg->startItr;
         count = 0;
@@ -1102,7 +1102,7 @@ bool Microtubule::integrityCheck()
 
     // round-trip check of the segment-trajectory pairs
     seg = segments.first();
-    while (seg != NULL)
+    while (seg != nullptr)
     {
         if (*(seg->trajectoryTag) != seg)
         {
@@ -1133,7 +1133,7 @@ bool Microtubule::integrityCheck()
     }
 
     seg = segments.first();
-    while (seg != NULL)
+    while (seg != nullptr)
     {
         if (seg->dir == ::forward)
         {

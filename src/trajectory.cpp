@@ -7,8 +7,8 @@
 Trajectory::Trajectory(SurfaceVector baseVec, vector<PointATedge> endP, double l):
     base(baseVec),
     length(l),
-    prevTr(0, ::forward, NULL),
-    nextTr(0, ::forward, NULL),
+    prevTr(0, ::forward, nullptr),
+    nextTr(0, ::forward, nullptr),
     prevTrCosAngle(1.0),
     nextTrCosAngle(1.0)
 {
@@ -42,7 +42,7 @@ bool Trajectory::integrityCheck()
 {
     bool valid(true);
 
-    if (prevTr.trajectory != NULL)
+    if (prevTr.trajectory != nullptr)
     {
         if (prevTr.dir == backward)
         {
@@ -61,7 +61,7 @@ bool Trajectory::integrityCheck()
             }
         }
     }
-    if (nextTr.trajectory != NULL)
+    if (nextTr.trajectory != nullptr)
     {
         if (nextTr.dir == ::forward)
         {
@@ -370,7 +370,7 @@ TrajectoryVector Trajectory::nextTrajectory(Direction dir)
     if (dir == ::forward)
     {
         // direction forward and a next trajectory is waiting to take the tip on board
-        if (nextTr.trajectory != NULL)
+        if (nextTr.trajectory != nullptr)
         {
 #ifdef DBG_GEOMETRY
             cout << "DBG/GEOMETRY: Following existing trajectory link forward. [from "
@@ -385,7 +385,7 @@ TrajectoryVector Trajectory::nextTrajectory(Direction dir)
     else
     {
         // direction backward and a previous trajectory is waiting to take the on board
-        if (prevTr.trajectory != NULL)
+        if (prevTr.trajectory != nullptr)
         {
 #ifdef DBG_GEOMETRY
             cout << "DBG/GEOMETRY: Following existing trajectory link forward. [from "

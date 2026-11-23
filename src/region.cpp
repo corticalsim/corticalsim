@@ -55,7 +55,7 @@ void Region::removeTrajectory(Trajectory* tr)
     // skip the first intersection iterator, as it is a garbage
     IntersectionItr is(++tr->intersections.begin());
 
-    Trajectory* otherTr(NULL);
+    Trajectory* otherTr(nullptr);
 
     while (is != tr->intersections.end())
     {
@@ -74,31 +74,31 @@ void Region::removeTrajectory(Trajectory* tr)
     tr->intersections.clear();
 
     // important to inform the linked (previous/next) trajectories about this removal
-    if (tr->prevTr.trajectory != NULL)
+    if (tr->prevTr.trajectory != nullptr)
     {
         if (tr->prevTr.dir == backward)
         {
-            tr->prevTr.trajectory->nextTr.trajectory = NULL;
+            tr->prevTr.trajectory->nextTr.trajectory = nullptr;
         }
         else
         {
-            tr->prevTr.trajectory->prevTr.trajectory = NULL;
+            tr->prevTr.trajectory->prevTr.trajectory = nullptr;
         }
 
-        tr->prevTr.trajectory = NULL;
+        tr->prevTr.trajectory = nullptr;
     }
 
-    if (tr->nextTr.trajectory != NULL)
+    if (tr->nextTr.trajectory != nullptr)
     {
         if (tr->nextTr.dir == ::forward)
         {
-            tr->nextTr.trajectory->prevTr.trajectory = NULL;
+            tr->nextTr.trajectory->prevTr.trajectory = nullptr;
         }
         else
         {
-            tr->nextTr.trajectory->nextTr.trajectory = NULL;
+            tr->nextTr.trajectory->nextTr.trajectory = nullptr;
         }
-        tr->nextTr.trajectory = NULL;
+        tr->nextTr.trajectory = nullptr;
     }
 
     // now remove the trajectory
@@ -111,7 +111,7 @@ double Region::opticalLength()
     double sum(0.0);
 
     // calculate total optical length present in this region
-    while (tr != NULL)
+    while (tr != nullptr)
     {
         sum += tr->coveredLength();
         tr = tr->next();

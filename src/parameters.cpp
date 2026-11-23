@@ -46,7 +46,7 @@ Parameters::Parameters(System* s):
     interactionType(int_zipFirst),
     bundleType(bdl_simple),
     geomParam("0"),
-    seed(time(0)),
+    seed(time(nullptr)),
     stopTime(36000),
     measurementInterval(600),
     wallClockLimit(1000),
@@ -268,7 +268,7 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, string
 
 bool Parameters::readFromFile(const char* pf, bool initialRun)
 {
-    if ((pf == NULL) || (*pf == 0))
+    if ((pf == nullptr) || (*pf == 0))
     {
         return false;
     }
