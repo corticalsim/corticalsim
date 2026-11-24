@@ -1,5 +1,5 @@
-#ifndef DLLIST_H_
-#define DLLIST_H_
+#ifndef DLLIST_H
+#define DLLIST_H
 
 #include <boost/pool/singleton_pool.hpp>
 #include <new>
@@ -309,4 +309,4 @@ class DLContainerItem
     }
 };
 
-#endif // DLLIST_H_
+#endif // DLLIST_H

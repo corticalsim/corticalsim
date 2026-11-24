@@ -1,5 +1,5 @@
-#ifndef COMPACTLIST_H_
-#define COMPACTLIST_H_
+#ifndef COMPACTLIST_H
+#define COMPACTLIST_H
 #include <boost/pool/singleton_pool.hpp>
 #include <new>
 #include <iostream>
@@ -171,4 +171,4 @@ class CompactListItem
 };
 
 #endif
-// COMPACTLIST_H_
+// COMPACTLIST_H
