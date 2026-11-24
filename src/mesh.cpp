@@ -1701,14 +1701,14 @@ double intersectingPolygon(vector<Vertices>& polygon,
             z = Gvertex[eList[i].nodes[1]].z;
             Eigen::Vector3d lE(x, y, z);
 
-            Eigen::Vector3d I(0.0, 0.0, 0.0);
+            Eigen::Vector3d i_vec(0.0, 0.0, 0.0);
 
-            bool Intersect = linePlaneIntersect(np, cp, lS, lE, I);
+            bool Intersect = linePlaneIntersect(np, cp, lS, lE, i_vec);
 
             if (Intersect)
             {
                 intersectedEdges.push_back(i);
-                eList[i].intersectionByPlane = I;
+                eList[i].intersectionByPlane = i_vec;
             }
         }
 
