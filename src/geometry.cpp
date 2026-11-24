@@ -308,31 +308,31 @@ void TriMeshGeometry::outputOrderHeatMap(ostream& out, vector<double>& localOrde
         Eigen::Vector3d cross(regions[eno]->Q.x(), regions[eno]->Q.y(), regions[eno]->Q.z());
         double crossMagnitude = cross.norm();
 
-        Eigen::Quaternion<double> qr(0.0, 0.0, 0.0, 0.0), QR(0.0, 0.0, 0.0, 0.0);
+        Eigen::Quaternion<double> qr_1(0.0, 0.0, 0.0, 0.0), qr_2(0.0, 0.0, 0.0, 0.0);
 
         // region (and hence all the sgments in this region) need 3D rotation + translation
         if (crossMagnitude > 0.0)
         {
             // translate and rotate the start point of the segment
-            QR.w() = 0;
-            QR.x() = -1.0 * svLength * sv[eno](0, 0) + regions[eno]->midPoint(0, 0);
-            QR.y() = -1.0 * svLength * sv[eno](1, 0) + regions[eno]->midPoint(1, 0);
-            QR.z() = -1.0 * svLength * sv[eno](2, 0) + regions[eno]->zOffset;
+            qr_2.w() = 0;
+            qr_2.x() = -1.0 * svLength * sv[eno](0, 0) + regions[eno]->midPoint(0, 0);
+            qr_2.y() = -1.0 * svLength * sv[eno](1, 0) + regions[eno]->midPoint(1, 0);
+            qr_2.z() = -1.0 * svLength * sv[eno](2, 0) + regions[eno]->zOffset;
 
-            qr = regions[eno]->Q.inverse() * QR * regions[eno]->Q;
-            seg3D << qr.x(), qr.y(), qr.z();
+            qr_1 = regions[eno]->Q.inverse() * qr_2 * regions[eno]->Q;
+            seg3D << qr_1.x(), qr_1.y(), qr_1.z();
             seg3D += objectCM;
 
             out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << ",";
 
             // translate and rotate the end point of the segment
-            QR.w() = 0;
-            QR.x() = svLength * sv[eno](0, 0) + regions[eno]->midPoint(0, 0);
-            QR.y() = svLength * sv[eno](1, 0) + regions[eno]->midPoint(1, 0);
-            QR.z() = svLength * sv[eno](2, 0) + regions[eno]->zOffset;
+            qr_2.w() = 0;
+            qr_2.x() = svLength * sv[eno](0, 0) + regions[eno]->midPoint(0, 0);
+            qr_2.y() = svLength * sv[eno](1, 0) + regions[eno]->midPoint(1, 0);
+            qr_2.z() = svLength * sv[eno](2, 0) + regions[eno]->zOffset;
 
-            qr = regions[eno]->Q.inverse() * QR * regions[eno]->Q;
-            seg3D << qr.x(), qr.y(), qr.z();
+            qr_1 = regions[eno]->Q.inverse() * qr_2 * regions[eno]->Q;
+            seg3D << qr_1.x(), qr_1.y(), qr_1.z();
             seg3D += objectCM;
 
             out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << "," << regions[eno]->regionId << "@";
@@ -611,7 +611,7 @@ void Cartesian::outputSnapshotOffset(ostream& out, double xOffset, double yOffse
     Eigen::Vector3d cross(Q.x(), Q.y(), Q.z());
     double crossMagnitude = cross.norm();
 
-    Eigen::Quaternion<double> qr(0.0, 0.0, 0.0, 0.0), QR(0.0, 0.0, 0.0, 0.0);
+    Eigen::Quaternion<double> qr_1(0.0, 0.0, 0.0, 0.0), qr_2(0.0, 0.0, 0.0, 0.0);
 
     Trajectory* tr;
     SurfaceVector svec;
@@ -646,25 +646,25 @@ void Cartesian::outputSnapshotOffset(ostream& out, double xOffset, double yOffse
             if (crossMagnitude > 0.0)
             {
                 // translate and rotate the start point of the segment
-                QR.w() = 0;
-                QR.x() = svec.x + midPoint(0, 0);
-                QR.y() = svec.y + midPoint(1, 0);
-                QR.z() = zOffset;
+                qr_2.w() = 0;
+                qr_2.x() = svec.x + midPoint(0, 0);
+                qr_2.y() = svec.y + midPoint(1, 0);
+                qr_2.z() = zOffset;
 
-                qr = Q.inverse() * QR * Q;
-                seg3D << qr.x(), qr.y(), qr.z();
+                qr_1 = Q.inverse() * qr_2 * Q;
+                seg3D << qr_1.x(), qr_1.y(), qr_1.z();
                 seg3D += geometry->objectCM;
 
                 out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << ",";
 
                 // translate and rotate the end point of the segment
-                QR.w() = 0;
-                QR.x() = svec.x + midPoint(0, 0) + (**seg).length() * cos(svec.angle);
-                QR.y() = svec.y + midPoint(1, 0) + (**seg).length() * sin(svec.angle);
-                QR.z() = zOffset;
+                qr_2.w() = 0;
+                qr_2.x() = svec.x + midPoint(0, 0) + (**seg).length() * cos(svec.angle);
+                qr_2.y() = svec.y + midPoint(1, 0) + (**seg).length() * sin(svec.angle);
+                qr_2.z() = zOffset;
 
-                qr = Q.inverse() * QR * Q;
-                seg3D << qr.x(), qr.y(), qr.z();
+                qr_1 = Q.inverse() * qr_2 * Q;
+                seg3D << qr_1.x(), qr_1.y(), qr_1.z();
                 seg3D += geometry->objectCM;
 
                 out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << "," << regionId << "@";
