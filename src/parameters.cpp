@@ -363,22 +363,16 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
             for (int edg = 1; edg <= m_edg_number; edg++)
             {
                 double edg_cat_val;
-                string edg_cat_type1 = "edgCat_" + std::to_string(edg);
-                char* edg_cat_type = new char[edg_cat_type1.length() + 1];
-                strcpy(edg_cat_type, edg_cat_type1.c_str());
-                load_param_maps(recognized, par_file, id, edg_cat_type, edg_cat_val, m_edg_cat_map);
-                delete[] edg_cat_type;
+                string edg_cat_type{"edgCat_" + std::to_string(edg)};
+                load_param_maps(recognized, par_file, id, edg_cat_type.c_str(), edg_cat_val, m_edg_cat_map);
             }
 
             load_param(recognized, par_file, id, "faceNumber", m_face_number);
             for (int face = 1; face <= m_face_number; face++)
             {
                 double face_cat_val;
-                string face_cat_type1 = "faceCat_" + std::to_string(face);
-                char* face_cat_type = new char[face_cat_type1.length() + 1];
-                strcpy(face_cat_type, face_cat_type1.c_str());
-                load_param_maps(recognized, par_file, id, face_cat_type, face_cat_val, m_face_cat_map);
-                delete[] face_cat_type;
+                string face_cat_type{"faceCat_" + std::to_string(face)};
+                load_param_maps(recognized, par_file, id, face_cat_type.c_str(), face_cat_val, m_face_cat_map);
             }
             if (!recognized)
             {
