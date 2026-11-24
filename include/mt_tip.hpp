@@ -8,30 +8,30 @@ class MTTip
 {
   public:
 
-    Microtubule* mt;
-    Trajectory* trajectory;
+    Microtubule* m_mt;
+    Trajectory* m_trajectory;
 
-    Direction dir;
-    double velocity;
-    EventDescriptor event;
-    IntersectionItr nextCollision;
-    TrjMTTipTag notificationTag;
-    RegionMTTipTag regionTag;
-    double nextEventPos;
+    Direction m_dir;
+    double m_velocity;
+    EventDescriptor m_event;
+    IntersectionItr m_next_collision;
+    TrjMTTipTag m_notification_tag;
+    RegionMTTipTag m_region_tag;
+    double m_next_event_pos;
     MTTip(Microtubule*, TrajectoryVector, double, DeterministicQueue*, double);
     ~MTTip();
     TipType type();
     double position();
-    double otherPosition();
+    double other_position();
     Segment& segment();
     void initialize();
-    void unlinkFromTrajectory();
-    void switchTrajectory(Trajectory*, Direction, IntersectionItr, bool = true);
-    void locateIntersection();
-    void advanceIntersection();
-    void determineEvent();
-    void notifyInsert(IntersectionItr&);
-    void notifyRemove(IntersectionItr&);
+    void unlink_from_trajectory();
+    void switch_trajectory(Trajectory*, Direction, IntersectionItr, bool = true);
+    void locate_intersection();
+    void advance_intersection();
+    void determine_event();
+    void notify_insert(IntersectionItr&);
+    void notify_remove(IntersectionItr&);
 
   private:
 

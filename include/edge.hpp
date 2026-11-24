@@ -8,42 +8,42 @@ class Edge
 {
   public:
 
-    int excludePoint;
+    int m_exclude_point;
 
-    double pCat;
-    double edgAngNorm;
-    double xyRotationAngle;
-    double edgAngle;
-    double edgBendAngle;
+    double m_p_cat;
+    double m_edg_ang_norm;
+    double m_xy_rotation_angle;
+    double m_edg_angle;
+    double m_edg_bend_angle;
 
-    Eigen::Vector2d midPoint;
-    Eigen::Vector2d b;
-    Eigen::Matrix2d A;
-    vector<int> dir;
-    Eigen::Vector2d dir2D;
-    vector<int> orientation;
+    Eigen::Vector2d m_mid_point;
+    Eigen::Vector2d m_b;
+    Eigen::Matrix2d m_a;
+    vector<int> m_dir;
+    Eigen::Vector2d m_dir2_d;
+    vector<int> m_orientation;
 
-    map<int, int> orientationMap;
-    map<int, int> excludePointMap;
+    map<int, int> m_orientation_map;
+    map<int, int> m_exclude_point_map;
 
     Edge()
     {
-        excludePoint = 0;
+        m_exclude_point = 0;
 
-        pCat = 0.0;
-        edgAngNorm = 0.0;
-        xyRotationAngle = 0.0;
-        edgAngle = 0.0;
-        edgBendAngle = 0.0;
+        m_p_cat = 0.0;
+        m_edg_ang_norm = 0.0;
+        m_xy_rotation_angle = 0.0;
+        m_edg_angle = 0.0;
+        m_edg_bend_angle = 0.0;
 
-        midPoint << 0.0, 0.0;
+        m_mid_point << 0.0, 0.0;
 
-        A << 0.0, 0.0, 0.0, 0.0;
+        m_a << 0.0, 0.0, 0.0, 0.0;
 
-        b << 0.0, 0.0;
+        m_b << 0.0, 0.0;
 
-        orientation.push_back(0);
-        orientation.push_back(0);
+        m_orientation.push_back(0);
+        m_orientation.push_back(0);
     }
 };
 

@@ -41,162 +41,162 @@ class Parameters
 {
   public:
 
-    System* system;
-    double vPlus;
-    double vMin;
-    double vTM;
-    double kSev;
-    double kCross;
-    double kCat;
-    double kRes;
-    double kNuc;
-    double PPBformingTime;
-    double poolDensity;
-    int treadmillingEnabled;
-    int severingEnabled;
-    int crossSeveringEnabled;
-    int crossSeveringTop;
-    double crossSeveringStartAngle;
-    int PPB;
-    int restrictedPool;
-    int edgeCatastropheEnabled;
-    int edgeCatastropheSmooth;
-    double pCatSpecialEdgeMax;
-    double pCatRegularEdgeMax;
-    int edgNumber;
-    int faceNumber;
-    map<string, double> edgCatMap;
-    map<string, double> faceCatMap;
-    vector<double> RegionKcatMultiplier;
-    NucleationType nucleationType;
-    int zipperingEnabled;
-    int catastrophesEnabled;
-    int proportionalCatastrophes;
-    double inducedCatastropheFraction;
-    double zipFraction;
-    double PPBkNucFraction;
-    double catStartAngle;
-    double magicAngle;
-    InteractionType interactionType;
-    BundleType bundleType;
-    string geomParam;
-    unsigned long seed;
-    double stopTime;
-    double measurementInterval;
-    double wallClockLimit;
-    double memoryLimit;
-    string inputDir;
-    string outputDir;
-    string movieDir;
-    int createSubdir;
-    double newParameterReadInterval;
-    string newParameterFile;
-    int movieEnabled;
-    int showOutput;
-    int showMesh;
-    string geometry;
-    double movieFrameInterval;
-    double geometryScaleFactor;
+    System* m_system;
+    double m_v_plus;
+    double m_v_min;
+    double m_v_tm;
+    double m_k_sev;
+    double m_k_cross;
+    double m_k_cat;
+    double m_k_res;
+    double m_k_nuc;
+    double m_pp_bforming_time;
+    double m_pool_density;
+    int m_treadmilling_enabled;
+    int m_severing_enabled;
+    int m_cross_severing_enabled;
+    int m_cross_severing_top;
+    double m_cross_severing_start_angle;
+    int m_ppb;
+    int m_restricted_pool;
+    int m_edge_catastrophe_enabled;
+    int m_edge_catastrophe_smooth;
+    double m_p_cat_special_edge_max;
+    double m_p_cat_regular_edge_max;
+    int m_edg_number;
+    int m_face_number;
+    map<string, double> m_edg_cat_map;
+    map<string, double> m_face_cat_map;
+    vector<double> m_region_kcat_multiplier;
+    NucleationType m_nucleation_type;
+    int m_zippering_enabled;
+    int m_catastrophes_enabled;
+    int m_proportional_catastrophes;
+    double m_induced_catastrophe_fraction;
+    double m_zip_fraction;
+    double m_pp_bk_nuc_fraction;
+    double m_cat_start_angle;
+    double m_magic_angle;
+    InteractionType m_interaction_type;
+    BundleType m_bundle_type;
+    string m_geom_param;
+    unsigned long m_seed;
+    double m_stop_time;
+    double m_measurement_interval;
+    double m_wall_clock_limit;
+    double m_memory_limit;
+    string m_input_dir;
+    string m_output_dir;
+    string m_movie_dir;
+    int m_create_subdir;
+    double m_new_parameter_read_interval;
+    string m_new_parameter_file;
+    int m_movie_enabled;
+    int m_show_output;
+    int m_show_mesh;
+    string m_geometry;
+    double m_movie_frame_interval;
+    double m_geometry_scale_factor;
 
-    double c0calc;
-    double x0calc;
-    double z0calc;
+    double m_c0calc;
+    double m_x0calc;
+    double m_z0calc;
 
   public:
 
     Parameters(System*);
     void initialize(const char*);
     bool reinitialize(const char*);
-    bool readFromFile(const char*, bool);
-    bool writeToFile();
-    void verifyParameters();
-    bool calcTheoryParameters();
+    bool read_from_file(const char*, bool);
+    bool write_to_file();
+    void verify_parameters();
+    bool calc_theory_parameters();
 };
 
 struct OrderParameters
 {
-    double R, C;
-    double Rdirector[3];
-    vector<double> localOrder;
-    vector<Eigen::Vector3d> Sv;
+    double m_r, m_c;
+    double m_rdirector[3];
+    vector<double> m_local_order;
+    vector<Eigen::Vector3d> m_sv;
 };
 
 class OrderParametersRaw
 {
   public:
 
-    double localL;
-    double localLOpt;
-    double Qxx;
-    double Qxy;
-    double Qxz;
-    double Qyy;
-    double Qyz;
-    double Qzz;
-    double localOrder;
-    Eigen::Vector3d Sv;
+    double m_local_l;
+    double m_local_l_opt;
+    double m_qxx;
+    double m_qxy;
+    double m_qxz;
+    double m_qyy;
+    double m_qyz;
+    double m_qzz;
+    double m_local_order;
+    Eigen::Vector3d m_sv;
 
     OrderParametersRaw(void)
     {
-        localL = 0.;
-        localLOpt = 0.;
-        Qxx = 0;
-        Qxy = 0;
-        Qxz = 0;
-        Qyy = 0;
-        Qyz = 0;
-        Qzz = 0;
+        m_local_l = 0.;
+        m_local_l_opt = 0.;
+        m_qxx = 0;
+        m_qxy = 0;
+        m_qxz = 0;
+        m_qyy = 0;
+        m_qyz = 0;
+        m_qzz = 0;
 
-        Sv << 0.0, 0.0, 0.0;
+        m_sv << 0.0, 0.0, 0.0;
 
         return;
     }
 
-    double extractR(double director[3], string geometry)
+    double extract_r(double director[3], string geometry)
     {
-        Eigen::Matrix3d matrix{ { Qxx, Qxy, Qxz }, { Qxy, Qyy, Qyz }, { Qxz, Qyz, Qzz } };
-        Eigen::Matrix3d evecMat{ Eigen::Matrix3d::Zero() };
-        Eigen::Vector3d eVal{ Eigen::Vector3d::Zero() };
-        double selEigenVal{ 0.0 };
+        Eigen::Matrix3d matrix{ { m_qxx, m_qxy, m_qxz }, { m_qxy, m_qyy, m_qyz }, { m_qxz, m_qyz, m_qzz } };
+        Eigen::Matrix3d evec_mat{ Eigen::Matrix3d::Zero() };
+        Eigen::Vector3d e_val{ Eigen::Vector3d::Zero() };
+        double sel_eigen_val{ 0.0 };
 
-        eigen_decomposition(matrix, evecMat, eVal);
+        eigen_decomposition(matrix, evec_mat, e_val);
 
         if (geometry == "2D-plane_1_0_0")
         {
-            int maxPos(0);
-            if (eVal[1] > eVal[0])
+            int max_pos(0);
+            if (e_val[1] > e_val[0])
             {
-                maxPos = 1;
+                max_pos = 1;
             }
-            if (eVal[2] > eVal[maxPos])
+            if (e_val[2] > e_val[max_pos])
             {
-                maxPos = 2;
+                max_pos = 2;
             }
-            selEigenVal = fabs(eVal[maxPos]);
+            sel_eigen_val = fabs(e_val[max_pos]);
             for (size_t i = 0; i < 3; ++i)
             {
-                director[i] = evecMat(i, maxPos);
+                director[i] = evec_mat(i, max_pos);
             }
         }
         else
         {
-            int minPos(0);
-            if (eVal[1] < eVal[0])
+            int min_pos(0);
+            if (e_val[1] < e_val[0])
             {
-                minPos = 1;
+                min_pos = 1;
             }
-            if (eVal[2] < eVal[minPos])
+            if (e_val[2] < e_val[min_pos])
             {
-                minPos = 2;
+                min_pos = 2;
             }
-            selEigenVal = fabs(eVal[minPos]);
+            sel_eigen_val = fabs(e_val[min_pos]);
             for (size_t i = 0; i < 3; ++i)
             {
-                director[i] = evecMat(i, minPos);
+                director[i] = evec_mat(i, min_pos);
             }
         }
 
-        return (selEigenVal);
+        return (sel_eigen_val);
     }
 };
 

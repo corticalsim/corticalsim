@@ -3,15 +3,15 @@
 #include "microtubule.hpp"
 
 Segment::Segment(Microtubule* m, TrajectoryVector& tv):
-    mt(m),
-    trajectory(tv.trajectory),
-    trajectoryTag(tv.trajectory->segments.end()),
-    nucleationTime(m->system->systemTime + m->system->systemTimeOffset),
-    dir(tv.dir),
-    start(tv.pos),
-    end(tv.pos),
-    startItr(tv.trajectory->wallEnd()),
-    endItr(tv.trajectory->wallEnd())
+    m_mt(m),
+    m_trajectory(tv.m_trajectory),
+    m_trajectory_tag(tv.m_trajectory->m_segments.end()),
+    m_nucleation_time(m->m_system->m_system_time + m->m_system->m_system_time_offset),
+    m_dir(tv.m_dir),
+    m_start(tv.m_pos),
+    m_end(tv.m_pos),
+    m_start_itr(tv.m_trajectory->wall_end()),
+    m_end_itr(tv.m_trajectory->wall_end())
 {
 #ifdef DBG_MTS
     cout << "DBG/MTS: Segment created.\n";
@@ -19,10 +19,10 @@ Segment::Segment(Microtubule* m, TrajectoryVector& tv):
 #endif
 
     // insert this segment to the associated MT trajectory
-    trajectoryTag = tv.trajectory->insertSegment(this);
+    m_trajectory_tag = tv.m_trajectory->insert_segment(this);
 
     // increase total number of segments for the associated MT
-    mt->system->countSegments++;
+    m_mt->m_system->m_count_segments++;
     return;
 }
 
@@ -33,30 +33,30 @@ Segment::~Segment()
 #endif
 
     // decrease total number of segments for the associated MT
-    mt->system->countSegments--;
+    m_mt->m_system->m_count_segments--;
 
     // if this is the last segment, remove the tip references...
-    trajectory->removeSegment(trajectoryTag);
+    m_trajectory->remove_segment(m_trajectory_tag);
     return;
 }
 
-bool Segment::isLastInMT()
+bool Segment::is_last_in_mt()
 {
     // check whether this is the last segment of the MT
-    return (this == mt->segments.last());
+    return (this == m_mt->m_segments.last());
 }
 
-bool Segment::isFirstInMT()
+bool Segment::is_first_in_mt()
 {
     // check whether this is the first segment of the MT
-    return (this == mt->segments.first());
+    return (this == m_mt->m_segments.first());
 }
 
-bool Segment::crossesIntersection(IntersectionItr& is)
+bool Segment::crosses_intersection(IntersectionItr& is)
 {
     // check whether the segment has a cross intersection with a trajectory
     double temp(0.0);
-    temp = (is->first - end) * (is->first - start);
+    temp = (is->first - m_end) * (is->first - m_start);
 
     if (temp < -ZERO_CUTOFF)
     {
@@ -65,10 +65,10 @@ bool Segment::crossesIntersection(IntersectionItr& is)
 
     else if (temp < ZERO_CUTOFF)
     {
-        int sign1 = trajectory->differenceSign(
-        (this == mt->segments.last()) ? mt->plus.nextCollision : endItr, end, is, is->first);
-        int sign2 = trajectory->differenceSign(
-        (this == mt->segments.first()) ? mt->minus.nextCollision : startItr, start, is, is->first);
+        int sign1 = m_trajectory->difference_sign(
+        (this == m_mt->m_segments.last()) ? m_mt->m_plus.m_next_collision : m_end_itr, m_end, is, is->first);
+        int sign2 = m_trajectory->difference_sign(
+        (this == m_mt->m_segments.first()) ? m_mt->m_minus.m_next_collision : m_start_itr, m_start, is, is->first);
 
         if (sign1 * sign2 == -1)
         {

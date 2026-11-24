@@ -83,87 +83,87 @@ typedef list<MTTip*>::iterator RegionMTTipTag;
 // new data type definition
 typedef enum
 {
-    forward = 1,
-    backward = -1
+    FORWARD = 1,
+    BACKWARD = -1
 } Direction;
 
-extern string DirectionTypeText[];
+extern string direction_type_text[];
 
 typedef enum
 {
-    ev_none,
-    ev_wall = 1,
-    ev_collision,
-    ev_backtrack,
-    ev_end_of_segment,
-    ev_disappear
+    EV_NONE,
+    EV_WALL = 1,
+    EV_COLLISION,
+    EV_BACKTRACK,
+    EV_END_OF_SEGMENT,
+    EV_DISAPPEAR
 } DeterministicEventType;
 
 typedef enum
 {
-    measure = 1,
-    snapshot,
-    stop,
-    status,
-    parameter_change,
-    signalPPB
+    MEASURE = 1,
+    SNAPSHOT,
+    STOP,
+    STATUS,
+    PARAMETER_CHANGE,
+    SIGNAL_PPB
 } GlobalEventType;
 
 typedef enum
 {
-    catastrophe = 1,
-    rescue,
-    katanin,
-    severingAtCross,
-    nucleation
+    CATASTROPHE = 1,
+    RESCUE,
+    KATANIN,
+    SEVERING_AT_CROSS,
+    NUCLEATION
 } StochasticEventType;
 
 typedef enum
 {
-    ct_zipper = 1,
-    ct_crossover,
-    ct_inducedCatastrophe
+    CT_ZIPPER = 1,
+    CT_CROSSOVER,
+    CT_INDUCED_CATASTROPHE
 } CollisionType;
 
 typedef enum
 {
-    nuc_isotropic,
-    nuc_COUNT_LAST
+    NUC_ISOTROPIC,
+    NUC_COUNT_LAST
 } NucleationType;
 
-extern string NucleationTypeText[];
+extern string nucleation_type_text[];
 
 typedef enum
 {
-    int_zipFirst,
-    int_catFirst,
-    int_COUNT_LAST
+    INT_ZIP_FIRST,
+    INT_CAT_FIRST,
+    INT_COUNT_LAST
 } InteractionType;
 
-extern string InteractionTypeText[];
+extern string interaction_type_text[];
 
 typedef enum
 {
-    bdl_simple,
-    bdl_sticky,
-    bdl_noZip,
-    bdl_multiCollision,
-    bdl_Ncollision,
-    bdl_COUNT_LAST
+    BDL_SIMPLE,
+    BDL_STICKY,
+    BDL_NO_ZIP,
+    BDL_MULTI_COLLISION,
+    BDL_NCOLLISION,
+    BDL_COUNT_LAST
 } BundleType;
 
-extern string BundleTypeText[];
+extern string bundle_type_text[];
 
 typedef enum
 {
-    t_minus,
-    t_plus
+    T_MINUS,
+    T_PLUS
 } TipType;
 
 typedef enum
 {
-    mt_growing,
-    mt_shrinking
+    MT_GROWING,
+    MT_SHRINKING
 } MTType;
 
 #endif // TYPES_HPP

@@ -8,113 +8,113 @@ class Triangle3D
 {
   public:
 
-    int elementId;
-    int edgeTag;
-    int faceTag;
-    int polyIntersectMark;
-    int periodicTag;
+    int m_element_id;
+    int m_edge_tag;
+    int m_face_tag;
+    int m_poly_intersect_mark;
+    int m_periodic_tag;
 
-    double area;
-    double periMeter;
-    double edgAngNorm;
-    double pcatEdgeWeight;
+    double m_area;
+    double m_peri_meter;
+    double m_edg_ang_norm;
+    double m_pcat_edge_weight;
 
-    Eigen::Vector3d midPoint;
-    Eigen::Vector3d givenNormal;
+    Eigen::Vector3d m_mid_point;
+    Eigen::Vector3d m_given_normal;
 
-    vector<Edge> side;
-    vector<int> vertexIds;
-    vector<int> intersectEdg;
-    vector<Eigen::Vector3d> Vertex;
+    vector<Edge> m_side;
+    vector<int> m_vertex_ids;
+    vector<int> m_intersect_edg;
+    vector<Eigen::Vector3d> m_vertex;
 
-    map<int, int> sideMap;
-    map<int, int> sideRevMap;
-    map<int, int> vertexIdsMap;
-    map<int, int> sideToEdge;
+    map<int, int> m_side_map;
+    map<int, int> m_side_rev_map;
+    map<int, int> m_vertex_ids_map;
+    map<int, int> m_side_to_edge;
 
     Triangle3D()
     {
-        elementId = 0;
-        edgeTag = 0;
-        faceTag = 1;
-        polyIntersectMark = 0;
-        periodicTag = 0;
+        m_element_id = 0;
+        m_edge_tag = 0;
+        m_face_tag = 1;
+        m_poly_intersect_mark = 0;
+        m_periodic_tag = 0;
 
-        area = 0.000001;
-        periMeter = 0.000001;
-        edgAngNorm = 0.000001;
-        pcatEdgeWeight = 0.000001;
-        midPoint << 0.0, 0.0, 0.0;
-        givenNormal << 0.0, 0.0, 0.0;
+        m_area = 0.000001;
+        m_peri_meter = 0.000001;
+        m_edg_ang_norm = 0.000001;
+        m_pcat_edge_weight = 0.000001;
+        m_mid_point << 0.0, 0.0, 0.0;
+        m_given_normal << 0.0, 0.0, 0.0;
 
         for (int i = 0; i < 3; i++)
         {
-            side.push_back(Edge());
-            vertexIds.push_back(0);
-            Vertex.push_back(Eigen::Vector3d(0, 0, 0));
+            m_side.push_back(Edge());
+            m_vertex_ids.push_back(0);
+            m_vertex.push_back(Eigen::Vector3d(0, 0, 0));
         }
     }
 };
 
-struct edgeRecord
+struct EdgeRecord
 {
-    vector<int> key;
-    int cell_id;
-    int edge_index;
-    edgeRecord* next;
+    vector<int> m_key;
+    int m_cell_id;
+    int m_edge_index;
+    EdgeRecord* m_next;
 };
 
-class edgeOfficer
+class EdgeOfficer
 {
   public:
 
-    int cur;
-    double meanEdgAngle;
-    vector<int> elements;
-    vector<int> edgeSpStore;
-    vector<vector<int>> edgefaceStore;
+    int m_cur;
+    double m_mean_edg_angle;
+    vector<int> m_elements;
+    vector<int> m_edge_sp_store;
+    vector<vector<int>> m_edgeface_store;
 
-    edgeOfficer(int c)
+    EdgeOfficer(int c)
     {
-        cur = c;
-        meanEdgAngle = 0.0;
+        m_cur = c;
+        m_mean_edg_angle = 0.0;
         for (int i = 0; i < 2; i++)
         {
-            edgefaceStore.push_back(vector<int>());
+            m_edgeface_store.push_back(vector<int>());
         }
     }
 };
 
 vector<string> split(string, char);
 
-double findNorm(Eigen::VectorXd&);
+double find_norm(Eigen::VectorXd&);
 
-bool checkEular(int, int, int);
+bool check_eular(int, int, int);
 
 void pickup_shape(Geometry*);
 
-bool checkSurfaceOrientation(vector<Triangle3D*>&);
+bool check_surface_orientation(vector<Triangle3D*>&);
 
-void Image3dTo2D(vector<Region*>&, vector<Triangle3D*>&, double[]);
+void image3d_to2_d(vector<Region*>&, vector<Triangle3D*>&, double[]);
 
-void orientSurface(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&);
+void orient_surface(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&);
 
-void connectWithGlobe(vector<Vertices*>&, vector<Triangle3D*>&);
+void connect_with_globe(vector<Vertices*>&, vector<Triangle3D*>&);
 
-void makeGraph(int, vector<elementList*>&, vector<Triangle3D*>&);
+void make_graph(int, vector<ElementList*>&, vector<Triangle3D*>&);
 
-void edgeDescriptors(vector<Vertices*>&, vector<elementList*>&, vector<Triangle3D*>&);
+void edge_descriptors(vector<Vertices*>&, vector<ElementList*>&, vector<Triangle3D*>&);
 
-void establishPBC(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<elementList*>&, double);
+void establish_pbc(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<ElementList*>&, double);
 
-void rigidBodyProperties(
+void rigid_body_properties(
 vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&);
 
-void viewGraph(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, string);
+void view_graph(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, string);
 
-bool linePlaneIntersect(Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d&);
+bool line_plane_intersect(Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d&);
 
-double areaPolygon3D(vector<Vertices>&, Eigen::Vector3d);
+double area_polygon3_d(vector<Vertices>&, Eigen::Vector3d);
 
-double intersectingPolygon(
-vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<elementList>&, Eigen::Vector3d, Eigen::Vector3d, string);
+double intersecting_polygon(
+vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<ElementList>&, Eigen::Vector3d, Eigen::Vector3d, string);

@@ -16,7 +16,7 @@ class CompactList
 {
   private:
 
-    vector<T*> elements;
+    vector<T*> m_elements;
 
     // Memory management: choose to place items (T) together in blocks of
     // AllocatorGranularity. IMPORTANT NOTE: Not tread-safe!
@@ -30,27 +30,27 @@ class CompactList
                                   boost::details::pool::null_mutex,
                                   AllocatorGranularity>
     MemPool;
-    T* InsertElement(T* newElement);
+    T* insert_element(T* new_element);
     void remove(T*);
-    void removeAll();
+    void remove_all();
 
   public:
 
     CompactList():
-        elements()
+        m_elements()
     {
-        elements.reserve(AllocatorGranularity);
+        m_elements.reserve(AllocatorGranularity);
     };
 
     ~CompactList();
 
-    T* ElementAddress(int idx) { return elements[idx]; };
+    T* element_address(int idx) { return m_elements[idx]; };
 
-    void RemoveElement(int idx);
+    void remove_element(int idx);
 
-    int size() { return elements.size(); };
+    int size() { return m_elements.size(); };
 
-    T& operator[](int idx) { return *(elements[idx]); };
+    T& operator[](int idx) { return *(m_elements[idx]); };
 
     T* create();
     template <class Q>
@@ -61,26 +61,26 @@ class CompactList
     T* create(Q, R, S);
 };
 
-template <class T, int i>
-CompactList<T, i>::~CompactList()
+template <class T, int I>
+CompactList<T, I>::~CompactList()
 {
-    removeAll();
+    remove_all();
     return;
 }
 
-template <class T, int i>
-void CompactList<T, i>::removeAll()
+template <class T, int I>
+void CompactList<T, I>::remove_all()
 // private function (called by ~)
 {
-    for (int j = elements.size() - 1; j >= 0; j--)
+    for (int j = m_elements.size() - 1; j >= 0; j--)
     {
-        remove(elements[j]);
+        remove(m_elements[j]);
     }
-    elements.pop_back();
+    m_elements.pop_back();
 }
 
-template <class T, int i>
-inline void CompactList<T, i>::remove(T* element)
+template <class T, int I>
+inline void CompactList<T, I>::remove(T* element)
 // private function (called by removeAll (~) and RemoveElement)
 // Removes a single element. No checking is performed on the pointer.
 {
@@ -89,61 +89,61 @@ inline void CompactList<T, i>::remove(T* element)
     return;
 }
 
-template <class T, int i>
-inline T* CompactList<T, i>::create()
+template <class T, int I>
+inline T* CompactList<T, I>::create()
 {
-    T* newElement = new (MemPool::malloc()) T();
-    return InsertElement(newElement);
+    T* new_element = new (MemPool::malloc()) T();
+    return insert_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q>
-inline T* CompactList<T, i>::create(Q par1)
+inline T* CompactList<T, I>::create(Q par1)
 {
-    T* newElement = new (MemPool::malloc()) T(par1);
-    return InsertElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1);
+    return insert_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q, class R>
-inline T* CompactList<T, i>::create(Q par1, R par2)
+inline T* CompactList<T, I>::create(Q par1, R par2)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2);
-    return InsertElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2);
+    return insert_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q, class R, class S>
-inline T* CompactList<T, i>::create(Q par1, R par2, S par3)
+inline T* CompactList<T, I>::create(Q par1, R par2, S par3)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2, par3);
-    return InsertElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2, par3);
+    return insert_element(new_element);
 }
 
-template <class T, int i>
-inline T* CompactList<T, i>::InsertElement(T* newElement)
+template <class T, int I>
+inline T* CompactList<T, I>::insert_element(T* new_element)
 // private function!
 {
-    newElement->index = elements.size();
-    elements.push_back(newElement);
-    return newElement;
+    new_element->m_index = m_elements.size();
+    m_elements.push_back(new_element);
+    return new_element;
 }
 
-template <class T, int i>
-inline void CompactList<T, i>::RemoveElement(int idx)
+template <class T, int I>
+inline void CompactList<T, I>::remove_element(int idx)
 // check (only the outer!!) can eliminate?
 {
-    int size = elements.size();
+    int size = m_elements.size();
     if (idx < size)
     {
-        remove(elements[idx]);
+        remove(m_elements[idx]);
         // if idx was not the last element, move last element to the gap
         if (idx != size - 1)
         {
-            elements[idx] = elements.back();
-            elements[idx]->index = idx;
+            m_elements[idx] = m_elements.back();
+            m_elements[idx]->m_index = idx;
         }
-        elements.pop_back();
+        m_elements.pop_back();
     }
     else
     {
@@ -160,13 +160,13 @@ class CompactListItem
   public:
 
     CompactListItem():
-        index(0) {};
-    int index;
+        m_index(0) {};
+    int m_index;
 
   protected:
 
     virtual ~CompactListItem() {};
-    template <class Q, int i>
+    template <class Q, int I>
     friend class CompactList;
 };
 

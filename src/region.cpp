@@ -2,34 +2,34 @@
 #include "geometry.hpp"
 #include "system.hpp"
 
-TrajectoryVector Region::insertTrajectory(const SurfaceVector& sVec)
+TrajectoryVector Region::insert_trajectory(const SurfaceVector& s_vec)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Region::insertTrajectory() called\n";
 #endif
 
-    TrajectoryVector tVec;
-    double tLength(0.);
-    SurfaceVector newBase(sVec);
+    TrajectoryVector t_vec;
+    double t_length(0.);
+    SurfaceVector new_base(s_vec);
 
-    vector<PointATedge> endPoint;
+    vector<PointATedge> end_point;
 
     // gather coordinates of the trajectory to be created
-    getTrajectoryCoordinates(newBase, tLength, endPoint, tVec);
+    get_trajectory_coordinates(new_base, t_length, end_point, t_vec);
 
     // create the trajectory
-    tVec.trajectory = trajectories.create(newBase, endPoint, tLength);
+    t_vec.m_trajectory = m_trajectories.create(new_base, end_point, t_length);
 
     // make a list of intersections of the created trajectory with all other trajectories
-    makeIntersectionList(tVec.trajectory);
+    make_intersection_list(t_vec.m_trajectory);
 
     // increase total number of intersections accordingly
-    geometry->system->countIntersections += 2 * (tVec.trajectory->intersections.size());
+    m_geometry->m_system->m_count_intersections += 2 * (t_vec.m_trajectory->m_intersections.size());
 
-    return tVec;
+    return t_vec;
 }
 
-void Region::removeTrajectory(Trajectory* tr)
+void Region::remove_trajectory(Trajectory* tr)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Region::removeTrajectory() called\n";
@@ -50,149 +50,149 @@ void Region::removeTrajectory(Trajectory* tr)
 #endif
 
     // decrease total number of intersections in the geometry
-    geometry->system->countIntersections -= 2 * (tr->intersections.size());
+    m_geometry->m_system->m_count_intersections -= 2 * (tr->m_intersections.size());
 
     // skip the first intersection iterator, as it is a garbage
-    IntersectionItr is(++tr->intersections.begin());
+    IntersectionItr is(++tr->m_intersections.begin());
 
-    Trajectory* otherTr(nullptr);
+    Trajectory* other_tr(nullptr);
 
-    while (is != tr->intersections.end())
+    while (is != tr->m_intersections.end())
     {
-        otherTr = is->second.otherTrajectory;
+        other_tr = is->second.m_other_trajectory;
 
         // invalidate all the intersetion for the other trajectory
-        otherTr->invalidateIntersection(is->second.mirror);
+        other_tr->invalidate_intersection(is->second.m_mirror);
 
         // erase all the intersections for the other trajectory
-        otherTr->intersections.erase(is->second.mirror);
+        other_tr->m_intersections.erase(is->second.m_mirror);
 
         is++;
     }
 
     // now clear all itersections of the trajectory
-    tr->intersections.clear();
+    tr->m_intersections.clear();
 
     // important to inform the linked (previous/next) trajectories about this removal
-    if (tr->prevTr.trajectory != nullptr)
+    if (tr->m_prev_tr.m_trajectory != nullptr)
     {
-        if (tr->prevTr.dir == backward)
+        if (tr->m_prev_tr.m_dir == BACKWARD)
         {
-            tr->prevTr.trajectory->nextTr.trajectory = nullptr;
+            tr->m_prev_tr.m_trajectory->m_next_tr.m_trajectory = nullptr;
         }
         else
         {
-            tr->prevTr.trajectory->prevTr.trajectory = nullptr;
+            tr->m_prev_tr.m_trajectory->m_prev_tr.m_trajectory = nullptr;
         }
 
-        tr->prevTr.trajectory = nullptr;
+        tr->m_prev_tr.m_trajectory = nullptr;
     }
 
-    if (tr->nextTr.trajectory != nullptr)
+    if (tr->m_next_tr.m_trajectory != nullptr)
     {
-        if (tr->nextTr.dir == ::forward)
+        if (tr->m_next_tr.m_dir == ::FORWARD)
         {
-            tr->nextTr.trajectory->prevTr.trajectory = nullptr;
+            tr->m_next_tr.m_trajectory->m_prev_tr.m_trajectory = nullptr;
         }
         else
         {
-            tr->nextTr.trajectory->nextTr.trajectory = nullptr;
+            tr->m_next_tr.m_trajectory->m_next_tr.m_trajectory = nullptr;
         }
-        tr->nextTr.trajectory = nullptr;
+        tr->m_next_tr.m_trajectory = nullptr;
     }
 
     // now remove the trajectory
-    trajectories.remove(tr);
+    m_trajectories.remove(tr);
 }
 
-double Region::opticalLength()
+double Region::optical_length()
 {
-    Trajectory* tr(trajectories.first());
+    Trajectory* tr(m_trajectories.first());
     double sum(0.0);
 
     // calculate total optical length present in this region
     while (tr != nullptr)
     {
-        sum += tr->coveredLength();
+        sum += tr->covered_length();
         tr = tr->next();
     }
     return sum;
 }
 
-RegionMTTipTag Region::registerOnRegion(MTTip* pTip, TipType tiptype, MTType mttype)
+RegionMTTipTag Region::register_on_region(MTTip* p_tip, TipType tiptype, MTType mttype)
 {
     // update length
-    updateRegionLength();
+    update_region_length();
 
     // minus tip
-    if (tiptype == t_minus)
+    if (tiptype == T_MINUS)
     {
-        return minusTipList.insert(minusTipList.end(), pTip);
+        return m_minus_tip_list.insert(m_minus_tip_list.end(), p_tip);
     }
 
     // plus tip
     else
     {
         // insert growing MT
-        if (mttype == mt_growing)
+        if (mttype == MT_GROWING)
         {
-            geometry->system->growingTipsReg[faceTag]++;
-            return growingPlusTipList.insert(growingPlusTipList.end(), pTip);
+            m_geometry->m_system->m_growing_tips_reg[m_face_tag]++;
+            return m_growing_plus_tip_list.insert(m_growing_plus_tip_list.end(), p_tip);
         }
 
         // insert shrinking MT
         else
         {
-            return shrinkingPlusTipList.insert(shrinkingPlusTipList.end(), pTip);
+            return m_shrinking_plus_tip_list.insert(m_shrinking_plus_tip_list.end(), p_tip);
         }
     }
 }
 
-void Region::unregisterFromRegion(RegionMTTipTag tag, TipType tiptype, MTType mttype)
+void Region::unregister_from_region(RegionMTTipTag tag, TipType tiptype, MTType mttype)
 {
     // update length
-    updateRegionLength();
+    update_region_length();
 
     // minus tip
-    if (tiptype == t_minus)
+    if (tiptype == T_MINUS)
     {
-        minusTipList.erase(tag);
+        m_minus_tip_list.erase(tag);
     }
 
     // plus tip
     else
     {
         // erase growing MT
-        if (mttype == mt_growing)
+        if (mttype == MT_GROWING)
         {
-            geometry->system->growingTipsReg[faceTag]--;
-            growingPlusTipList.erase(tag);
+            m_geometry->m_system->m_growing_tips_reg[m_face_tag]--;
+            m_growing_plus_tip_list.erase(tag);
         }
 
         // erase shrinking MT
         else
         {
-            shrinkingPlusTipList.erase(tag);
+            m_shrinking_plus_tip_list.erase(tag);
         }
     }
     return;
 }
 
-void Region::updateRegionLength(bool forceUpdate)
+void Region::update_region_length(bool force_update)
 {
     // can go wrong on position cache refresh, a cleaner solution required
-    if ((previousUpdateTag == geometry->system->currentTimeTag) && (!forceUpdate))
+    if ((m_previous_update_tag == m_geometry->m_system->m_current_time_tag) && (!force_update))
     {
         return;
     }
 
-    totalLength
-    += geometry->system->timeQueue.progression(previousUpdateTag)
-       * (geometry->system->p.vMin * (shrinkingPlusTipList.size()) - geometry->system->p.vTM * (minusTipList.size()))
-       + geometry->system->vPlusQueue.progression(previousUpdateTag)
-         * (geometry->system->p.vPlus * (growingPlusTipList.size()));
+    m_total_length
+    += m_geometry->m_system->m_time_queue.progression(m_previous_update_tag)
+       * (m_geometry->m_system->m_p.m_v_min * (m_shrinking_plus_tip_list.size()) - m_geometry->m_system->m_p.m_v_tm * (m_minus_tip_list.size()))
+       + m_geometry->m_system->m_v_plus_queue.progression(m_previous_update_tag)
+         * (m_geometry->m_system->m_p.m_v_plus * (m_growing_plus_tip_list.size()));
 
-    previousUpdateTag = geometry->system->currentTimeTag;
+    m_previous_update_tag = m_geometry->m_system->m_current_time_tag;
 
     return;
 }

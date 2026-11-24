@@ -6,26 +6,26 @@
 #include <numeric>
 #include <random>
 
-template <class real_t = double, class int_t = unsigned long>
+template <class RealT = double, class IntT = unsigned long>
 class RandHub
 {
     // This class contains an RNG engine and some convenience attributes
     // and methods for drawing random numbers from various distributions.
-    std::mt19937_64 mt;
-    std::uniform_real_distribution<real_t> real_dist{ 0.0, 1.0 };
-    std::uniform_int_distribution<int_t> int_dist{ std::numeric_limits<int_t>::min(),
-                                                   std::numeric_limits<int_t>::max() };
-    std::normal_distribution<real_t> norm_dist{ 0.0, 1.0 };
+    std::mt19937_64 m_mt;
+    std::uniform_real_distribution<RealT> m_real_dist{ 0.0, 1.0 };
+    std::uniform_int_distribution<IntT> m_int_dist{ std::numeric_limits<IntT>::min(),
+                                                   std::numeric_limits<IntT>::max() };
+    std::normal_distribution<RealT> m_norm_dist{ 0.0, 1.0 };
 
   public:
 
     RandHub():
-        mt(std::random_device{}())
+        m_mt(std::random_device{}())
     {
     }
 
     RandHub(unsigned s):
-        mt(s)
+        m_mt(s)
     {
     }
 
@@ -38,56 +38,56 @@ class RandHub
     // whereby on rare occasions it could also return the upper bound,
     // thus inadvertently matching the desired behaviour for this method.
     // However, we cannot rely on that in case it is 'fixed' later on.
-    real_t rand(const real_t lbound, const real_t ubound)
+    RealT rand(const RealT lbound, const RealT ubound)
     {
         // Set the parameters of the distribution.
-        real_dist.param(typename std::uniform_real_distribution<real_t>::param_type(
+        m_real_dist.param(typename std::uniform_real_distribution<RealT>::param_type(
         lbound, std::nexttoward(ubound, std::numeric_limits<long double>::max())));
 
-        return std::min(real_dist(mt), ubound);
+        return std::min(m_real_dist(m_mt), ubound);
     }
 
-    real_t rand(const real_t ubound = 1.0) { return rand(0.0, ubound); }
+    RealT rand(const RealT ubound = 1.0) { return rand(0.0, ubound); }
 
     // Real number in [0,ubound).
-    real_t randExc(const real_t lbound, const real_t ubound)
+    RealT rand_exc(const RealT lbound, const RealT ubound)
     {
-        return std::min(rand(lbound, ubound), std::nexttoward(ubound, static_cast<real_t>(0.0)));
+        return std::min(rand(lbound, ubound), std::nexttoward(ubound, static_cast<RealT>(0.0)));
     }
 
-    real_t randExc(const real_t ubound = 1.0) { return randExc(0.0, ubound); }
+    RealT rand_exc(const RealT ubound = 1.0) { return rand_exc(0.0, ubound); }
 
     // Real number in (0,ubound).
-    real_t randDblExc(const real_t lbound, const real_t ubound)
+    RealT rand_dbl_exc(const RealT lbound, const RealT ubound)
     {
-        return std::max(std::nexttoward(static_cast<real_t>(0.0), 1.0), randExc(lbound, ubound));
+        return std::max(std::nexttoward(static_cast<RealT>(0.0), 1.0), rand_exc(lbound, ubound));
     }
 
-    real_t randDblExc(const real_t ubound = 1.0) { return randDblExc(0.0, ubound); }
+    RealT rand_dbl_exc(const RealT ubound = 1.0) { return rand_dbl_exc(0.0, ubound); }
 
     // Integer in [0,ubound] for ubound < int_t::max.
-    int_t randInt(const int_t lbound, const int_t ubound)
+    IntT rand_int(const IntT lbound, const IntT ubound)
     {
         // Set the parameters of the distribution.
-        int_dist.param(typename std::uniform_int_distribution<int_t>::param_type(lbound, ubound));
-        return int_dist(mt);
+        m_int_dist.param(typename std::uniform_int_distribution<IntT>::param_type(lbound, ubound));
+        return m_int_dist(m_mt);
     }
 
-    int_t randInt(const int_t ubound = std::numeric_limits<int_t>::max()) { return randInt(0, ubound); }
+    IntT rand_int(const IntT ubound = std::numeric_limits<IntT>::max()) { return rand_int(0, ubound); }
 
     // Normal distribution.
-    real_t randNorm(const real_t mean = 0.0, const real_t stddev = 1.0)
+    RealT rand_norm(const RealT mean = 0.0, const RealT stddev = 1.0)
     {
         // Set the parameters of the distribution.
-        norm_dist.param(typename std::normal_distribution<real_t>::param_type(mean, stddev));
-        return norm_dist(mt);
+        m_norm_dist.param(typename std::normal_distribution<RealT>::param_type(mean, stddev));
+        return m_norm_dist(m_mt);
     }
 
     // Same as rand().
-    real_t operator()() { return rand(); }
+    RealT operator()() { return rand(); }
 
     // Seed the RNG engine.
-    void seed(const unsigned s) { mt.seed(s); }
+    void seed(const unsigned s) { m_mt.seed(s); }
 };
 
 #endif // RANDHUB_H

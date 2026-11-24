@@ -1,19 +1,19 @@
 #include "det_queue.hpp"
 #include "system.hpp"
 
-DeterministicQueue::DeterministicQueue(System* s, double (System::*dtFunc)(double), double (System::*tdFunc)(double)):
-    system(s),
-    currentBase(0),
-    distanceTimeConversionFunction(dtFunc),
-    timeDistanceConversionFunction(tdFunc)
+DeterministicQueue::DeterministicQueue(System* s, double (System::*dt_func)(double), double (System::*td_func)(double)):
+    m_system(s),
+    m_current_base(0),
+    m_distance_time_conversion_function(dt_func),
+    m_time_distance_conversion_function(td_func)
 {
     // do not use the system pointer here, as it has not been initialized
-    valueCache[0] = 0;
+    m_value_cache[0] = 0;
 }
 
-double DeterministicQueue::firstEventTime()
+double DeterministicQueue::first_event_time()
 {
-    DeterministicEvent event = queue.top();
+    DeterministicEvent event = m_queue.top();
 
 #ifdef DBG_ASSERT
     if (event.eventTimeDist - currentBase < -ZERO_CUTOFF)
@@ -34,19 +34,19 @@ double DeterministicQueue::firstEventTime()
     }
 #endif
 
-    return system->systemTime + (system->*distanceTimeConversionFunction)(event.eventTimeDist - currentBase);
+    return m_system->m_system_time + (m_system->*m_distance_time_conversion_function)(event.m_event_time_dist - m_current_base);
 }
 
 void DeterministicQueue::flush()
 {
     // flush queue
-    while (!queue.empty())
+    while (!m_queue.empty())
     {
-        queue.pop();
+        m_queue.pop();
     }
 
-    currentBase = 0;
-    valueCache[system->currentTimeTag] = 0;
+    m_current_base = 0;
+    m_value_cache[m_system->m_current_time_tag] = 0;
 
     return;
 }
@@ -54,77 +54,77 @@ void DeterministicQueue::flush()
 DeterministicEvent DeterministicQueue::pop()
 {
     // get a deterministic event from top of the queue
-    DeterministicEvent event = queue.top();
-    queue.pop();
+    DeterministicEvent event = m_queue.top();
+    m_queue.pop();
 
     return event;
 }
 
-void DeterministicQueue::advanceTime(double t)
+void DeterministicQueue::advance_time(double t)
 {
     // get advanced in time
-    currentBase += (system->*timeDistanceConversionFunction)(t - system->systemTime);
+    m_current_base += (m_system->*m_time_distance_conversion_function)(t - m_system->m_system_time);
     return;
 }
 
-void DeterministicQueue::storeTime(int tag)
+void DeterministicQueue::store_time(int tag)
 {
     // store the current base time
-    valueCache[tag] = currentBase;
+    m_value_cache[tag] = m_current_base;
     return;
 }
 
-void DeterministicQueue::pushGlobal(double timedist, GlobalEventType type)
+void DeterministicQueue::push_global(double timedist, GlobalEventType type)
 {
     DeterministicEvent event;
-    event.infoIdx = -1;
-    event.eventTimeDist = timedist;
-    event.global_type = type;
+    event.m_info_idx = -1;
+    event.m_event_time_dist = timedist;
+    event.m_global_type = type;
 
     // store a new global event into the queue
-    queue.push(event);
+    m_queue.push(event);
     return;
 }
 
-EventTrackingTag DeterministicQueue::pushDeterministic(double timedist, EventDescriptorIndex idx)
+EventTrackingTag DeterministicQueue::push_deterministic(double timedist, EventDescriptorIndex idx)
 {
     DeterministicEvent event;
-    event.infoIdx = idx;
-    event.eventTimeDist = timedist;
-    event.tag = system->getEventTag();
+    event.m_info_idx = idx;
+    event.m_event_time_dist = timedist;
+    event.m_tag = m_system->get_event_tag();
 
     // store a new deterministic event into the queue
-    queue.push(event);
-    return event.tag;
+    m_queue.push(event);
+    return event.m_tag;
 }
 
 EventDescriptor::EventDescriptor(Microtubule* m, DeterministicQueue* q, double velocity):
-    index(0),
-    mt(m),
-    type(ev_none),
-    tag(-1),
-    queue(q)
+    m_index(0),
+    m_mt(m),
+    m_type(EV_NONE),
+    m_tag(-1),
+    m_queue(q)
 {
     // after creation, register the object as a valid event descriptor
-    index = q->system->registerEventDescriptor(this);
+    m_index = q->m_system->register_event_descriptor(this);
 
     if (abs(velocity) > ZERO_CUTOFF)
     {
-        distanceScaleFactor = 1.0 / velocity;
+        m_distance_scale_factor = 1.0 / velocity;
     }
     else
     {
         if (velocity == 0.0)
         {
-            distanceScaleFactor = -VERY_LARGE;
+            m_distance_scale_factor = -VERY_LARGE;
         }
         else if (velocity >= 0.0)
         {
-            distanceScaleFactor = VERY_LARGE;
+            m_distance_scale_factor = VERY_LARGE;
         }
         else
         {
-            distanceScaleFactor = -VERY_LARGE;
+            m_distance_scale_factor = -VERY_LARGE;
         }
     }
 
@@ -134,34 +134,34 @@ EventDescriptor::EventDescriptor(Microtubule* m, DeterministicQueue* q, double v
 EventDescriptor::~EventDescriptor()
 {
     // unregister the event descriptor
-    mt->system->unregisterEventDescriptor(index);
+    m_mt->m_system->unregister_event_descriptor(m_index);
     return;
 }
 
 void EventDescriptor::reinitialize(DeterministicQueue* q, double velocity)
 {
     // re-initialize the event descriptor
-    queue = q;
+    m_queue = q;
     if (abs(velocity) < 1. / ZERO_CUTOFF)
     {
-        distanceScaleFactor = 1.0 / velocity;
+        m_distance_scale_factor = 1.0 / velocity;
     }
     else
     {
         if (velocity >= 0.0)
         {
-            distanceScaleFactor = VERY_LARGE;
+            m_distance_scale_factor = VERY_LARGE;
         }
         else
         {
-            distanceScaleFactor = -VERY_LARGE;
+            m_distance_scale_factor = -VERY_LARGE;
         }
     }
 
     return;
 }
 
-void EventDescriptor::pushOnQueue(double dist, DeterministicEventType t)
+void EventDescriptor::push_on_queue(double dist, DeterministicEventType t)
 {
 #ifdef DBG_ASSERT
     if (dist * distanceScaleFactor < -0.0)
@@ -172,17 +172,17 @@ void EventDescriptor::pushOnQueue(double dist, DeterministicEventType t)
     }
 #endif
 
-    type = t;
+    m_type = t;
 
     // store deterministic event into the queue
-    tag = queue->pushDeterministic(queue->currentPos() + dist * distanceScaleFactor, index);
+    m_tag = m_queue->push_deterministic(m_queue->current_pos() + dist * m_distance_scale_factor, m_index);
     return;
 }
 
 void EventDescriptor::clear()
 {
     // clear event descriptor
-    tag = -1;
-    type = ev_none;
+    m_tag = -1;
+    m_type = EV_NONE;
     return;
 }

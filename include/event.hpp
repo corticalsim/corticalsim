@@ -16,18 +16,18 @@ class EventDescriptor
   public:
 
     // index of this object in the EventDescriptorMap (necessary for removal)
-    EventDescriptorIndex index;
-    Microtubule* const mt;
+    EventDescriptorIndex m_index;
+    Microtubule* const m_mt;
 
     // type of queued event
-    DeterministicEventType type;
+    DeterministicEventType m_type;
 
     // associated tracking tag (for validity testing)
-    EventTrackingTag tag;
+    EventTrackingTag m_tag;
 
     // inverse velocity (with respect to the event clock defined in the queue)
-    double distanceScaleFactor;
-    DeterministicQueue* queue;
+    double m_distance_scale_factor;
+    DeterministicQueue* m_queue;
     EventDescriptor(Microtubule*, DeterministicQueue*, double);
     ~EventDescriptor();
 
@@ -35,7 +35,7 @@ class EventDescriptor
     void reinitialize(DeterministicQueue*, double);
 
     // pushes a deterministic event at a certain distance onto the queue
-    void pushOnQueue(double, DeterministicEventType);
+    void push_on_queue(double, DeterministicEventType);
 
     // invalidates the queued event
     void clear();
@@ -45,20 +45,20 @@ class DeterministicEvent
 {
   public:
 
-    double eventTimeDist;
+    double m_event_time_dist;
 
     // -1 indicates a global event
-    EventDescriptorIndex infoIdx;
+    EventDescriptorIndex m_info_idx;
 
     union
     {
-        EventTrackingTag tag;
-        GlobalEventType global_type;
+        EventTrackingTag m_tag;
+        GlobalEventType m_global_type;
     };
 
     // define the < operator for automatic sorting of events in the event queue
     // (nearest first)
-    bool operator<(const DeterministicEvent& ev2) const { return eventTimeDist > ev2.eventTimeDist; }
+    bool operator<(const DeterministicEvent& ev2) const { return m_event_time_dist > ev2.m_event_time_dist; }
 };
 
 #endif // EVENT_HPP
