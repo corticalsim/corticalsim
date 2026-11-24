@@ -1576,15 +1576,15 @@ bool linePlaneIntersect(Eigen::Vector3d n, Eigen::Vector3d p, Eigen::Vector3d a,
 
 double areaPolygon3D(vector<Vertices>& V, Eigen::Vector3d N)
 {
-    int n = V.size();
+    size_t v_size(V.size());
     V.push_back(Vertices(V[0].x, V[0].y, V[0].z));
 
     float area = 0;
     float an, ax, ay, az;
     int coord;
-    int i, j, k;
+    size_t i, j, k;
 
-    if (n < 3)
+    if (v_size < 3)
     {
         return 0;
     }
@@ -1611,21 +1611,21 @@ double areaPolygon3D(vector<Vertices>& V, Eigen::Vector3d N)
     switch (coord)
     {
         case 1:
-            for (i = 1, j = 2, k = 0; i < n; i++, j++, k++)
+            for (i = 1, j = 2, k = 0; i < v_size; i++, j++, k++)
             {
                 area += (V[i].y * (V[j].z - V[k].z));
             }
             break;
 
         case 2:
-            for (i = 1, j = 2, k = 0; i < n; i++, j++, k++)
+            for (i = 1, j = 2, k = 0; i < v_size; i++, j++, k++)
             {
                 area += (V[i].z * (V[j].x - V[k].x));
             }
             break;
 
         case 3:
-            for (i = 1, j = 2, k = 0; i < n; i++, j++, k++)
+            for (i = 1, j = 2, k = 0; i < v_size; i++, j++, k++)
             {
                 area += (V[i].x * (V[j].y - V[k].y));
             }
@@ -1635,13 +1635,13 @@ double areaPolygon3D(vector<Vertices>& V, Eigen::Vector3d N)
     switch (coord)
     {
         case 1:
-            area += (V[n].y * (V[1].z - V[n - 1].z));
+            area += (V[v_size].y * (V[1].z - V[v_size - 1].z));
             break;
         case 2:
-            area += (V[n].z * (V[1].x - V[n - 1].x));
+            area += (V[v_size].z * (V[1].x - V[v_size - 1].x));
             break;
         case 3:
-            area += (V[n].x * (V[1].y - V[n - 1].y));
+            area += (V[v_size].x * (V[1].y - V[v_size - 1].y));
             break;
     }
 
