@@ -65,8 +65,8 @@ class DLList
 
     DLList():
         numElements(0),
-        firstElement(NULL),
-        lastElement(NULL) {};
+        firstElement(nullptr),
+        lastElement(nullptr) {};
     ~DLList();
 
     inline int size() { return numElements; }
@@ -102,7 +102,7 @@ DLList<T, i>::~DLList()
 template <class T, int i>
 void DLList<T, i>::removeAll()
 {
-    while (firstElement != NULL)
+    while (firstElement != nullptr)
     {
         remove(firstElement);
     }
@@ -115,8 +115,8 @@ inline T* DLList<T, i>::linkElement(T* newElement)
 {
     numElements++;
     newElement->previousElement = lastElement;
-    newElement->nextElement = NULL;
-    if (lastElement != NULL)
+    newElement->nextElement = nullptr;
+    if (lastElement != nullptr)
     {
         lastElement->nextElement = newElement;
     }
@@ -141,11 +141,11 @@ inline void DLList<T, i>::unlinkElement(T* element)
     {
         lastElement = element->previousElement;
     }
-    if (element->nextElement != NULL)
+    if (element->nextElement != nullptr)
     {
         element->nextElement->previousElement = element->previousElement;
     }
-    if (element->previousElement != NULL)
+    if (element->previousElement != nullptr)
     {
         element->previousElement->nextElement = element->nextElement;
     }
@@ -211,7 +211,7 @@ inline void DLList<T, i>::importSet(DLList<T, i>& oldList, T* firstElement, T* l
 {
     T* current = firstElement;
     T* temp;
-    while (current != NULL)
+    while (current != nullptr)
     {
         temp = current;
         current = current->next();
