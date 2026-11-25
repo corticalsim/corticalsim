@@ -831,7 +831,7 @@ SurfaceVector Triangle::random_surface_vector()
 
 void Triangle::get_trajectory_coordinates(SurfaceVector& s_vec,
                                           double& total_length,
-                                          vector<PointATedge>& end_point,
+                                          vector<PointAtEdge>& end_point,
                                           TrajectoryVector& t_vec)
 {
     // copy old base coordinate
@@ -910,7 +910,7 @@ void Triangle::get_trajectory_coordinates(SurfaceVector& s_vec,
 
             // get triangle-edge to trajectory intersection point
             end_point.push_back(
-            PointATedge(u1(0, 0) + sval * (u2(0, 0) - u1(0, 0)), u1(1, 0) + sval * (u2(1, 0) - u1(1, 0)), 0.0, neno));
+            PointAtEdge(u1(0, 0) + sval * (u2(0, 0) - u1(0, 0)), u1(1, 0) + sval * (u2(1, 0) - u1(1, 0)), 0.0, neno));
         }
     }
 

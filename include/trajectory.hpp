@@ -37,7 +37,7 @@ class Trajectory: public DLBaseItem<Trajectory>
     const SurfaceVector base;
     const double length;
 
-    vector<PointATedge> end_point;
+    vector<PointAtEdge> end_point;
     TrajectoryVector this_tr;
 
     // trajectoryVector of the connecting trajectory at the zero end
@@ -75,7 +75,7 @@ class Trajectory: public DLBaseItem<Trajectory>
         return intersections.begin();
     }
 
-    explicit Trajectory(SurfaceVector, vector<PointATedge>, double);
+    explicit Trajectory(SurfaceVector, vector<PointAtEdge>, double);
     ~Trajectory();
 
     bool integrity_check();

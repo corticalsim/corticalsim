@@ -12,7 +12,7 @@ TrajectoryVector Region::insert_trajectory(const SurfaceVector& s_vec)
     double t_length(0.);
     SurfaceVector new_base(s_vec);
 
-    vector<PointATedge> end_point;
+    vector<PointAtEdge> end_point;
 
     // gather coordinates of the trajectory to be created
     get_trajectory_coordinates(new_base, t_length, end_point, t_vec);

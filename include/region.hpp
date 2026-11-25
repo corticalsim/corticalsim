@@ -76,7 +76,7 @@ class Region
 
     // vector computation functions (to be implemented in specializations)
     virtual void translate_vector(SurfaceVector&, const double) = 0;
-    virtual void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
+    virtual void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointAtEdge>&, TrajectoryVector&) = 0;
     virtual double intersection_angle(Trajectory*, Trajectory*) = 0;
     virtual void output_snapshot(ostream&) = 0;
     virtual void output_order_heat_map(ostream&, vector<double>&, vector<Eigen::Vector3d>&) = 0;
@@ -104,7 +104,7 @@ class Cartesian: public Region
     Cartesian(Geometry*, double);
 
     virtual SurfaceVector random_surface_vector() = 0;
-    virtual void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
+    virtual void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointAtEdge>&, TrajectoryVector&) = 0;
     void make_intersection_list(Trajectory*);
     void translate_vector(SurfaceVector&, const double);
     double intersection_angle(Trajectory*, Trajectory*);
@@ -126,7 +126,7 @@ class Triangle: public Cartesian
     Triangle(double, Geometry*);
 
     SurfaceVector random_surface_vector();
-    void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&);
+    void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointAtEdge>&, TrajectoryVector&);
 };
 
 #endif // REGION_HPP
