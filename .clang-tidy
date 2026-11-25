@@ -48,3 +48,15 @@ HeaderFilterRegex: 'include/[a-zA-Z0-9_-]+\.hpp$'
 ExcludeHeaderFilterRegex: 'subprojects/.*$'
 
 FormatStyle: file
+
+CheckOptions:
+  - key: readability-identifier-naming.AllowTrailingUnderscore
+    value: true
+  - key: readability-identifier-naming.AggressiveDependentMemberLookup
+    value: true
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.ClassConstantCase
+    value: UPPER_CASE
