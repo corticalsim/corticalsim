@@ -68,19 +68,19 @@ void MTTip::locateIntersection()
     IntersectionItr temp = nextCollision;
 
     // if necessary, step down to the intersection on the other side of the tip [minus end can have velocity zero (=0)]
-    if (((static_cast<double>(dir) * velocity) < 0) || ((velocity == 0) && (dir == ::forward)))
+    if (((static_cast<double>(dir) * velocity) < 0) || ((velocity == 0) && (dir == ::FORWARD)))
     {
         nextCollision--;
     }
 
     // if direction of the tip is backward then only step down the segment interator
-    if (dir == backward)
+    if (dir == BACKWARD)
     {
         temp--;
     }
 
     // plus tip (must be on the end of top segment)
-    if (type() == t_plus)
+    if (type() == T_PLUS)
     {
         mt->segments.last()->endItr = temp;
     }
@@ -97,7 +97,7 @@ void MTTip::locateIntersection()
 void MTTip::advanceIntersection()
 {
     // next collission site in front
-    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == backward)))
+    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == BACKWARD)))
     {
 #ifdef DBG_ASSERT
         if (nextCollision == trajectory->wallEnd())
@@ -129,7 +129,7 @@ void MTTip::advanceIntersection()
     // for minus end velocity (if direction of the tip is backward then step down the segment interator else step up)
     if (velocity <= 0)
     {
-        if (dir == backward)
+        if (dir == BACKWARD)
         {
             temp--;
         }
@@ -140,7 +140,7 @@ void MTTip::advanceIntersection()
     }
 
     // plus tip (must be on the end of top segment)
-    if (type() == t_plus)
+    if (type() == T_PLUS)
     {
         mt->segments.last()->endItr = temp;
     }
@@ -168,21 +168,21 @@ void MTTip::determineEvent()
         // next collision on wall begenning (at the bottom of the trajectory)
         if (nextCollision == trajectory->wallBegin())
         {
-            eventType = ev_wall;
+            eventType = EV_WALL;
             eventPos = 0;
         }
 
         // next collision on wall end (at the top of the trajectory)
         else if (nextCollision == trajectory->wallEnd())
         {
-            eventType = ev_wall;
+            eventType = EV_WALL;
             eventPos = trajectory->length;
         }
 
         // next collision, some where at the middle of trajectory
         else
         {
-            eventType = ev_collision;
+            eventType = EV_COLLISION;
             eventPos = nextCollision->first;
         }
     }
@@ -194,7 +194,7 @@ void MTTip::determineEvent()
         if (nextCollision == trajectory->wallBegin())
         {
             // the segment will be removed
-            eventType = ev_end_of_segment;
+            eventType = EV_END_OF_SEGMENT;
             eventPos = 0;
         }
 
@@ -202,7 +202,7 @@ void MTTip::determineEvent()
         else if (nextCollision == trajectory->wallEnd())
         {
             // the segment will be removed
-            eventType = ev_end_of_segment;
+            eventType = EV_END_OF_SEGMENT;
             eventPos = trajectory->length;
         }
 
@@ -211,7 +211,7 @@ void MTTip::determineEvent()
                  && (nextCollision == mt->segments.last()->startItr))
         {
             // the segment will be removed
-            eventType = ev_end_of_segment;
+            eventType = EV_END_OF_SEGMENT;
             eventPos = mt->segments.last()->startItr->first;
         }
 
@@ -220,14 +220,14 @@ void MTTip::determineEvent()
                  && (nextCollision == mt->segments.first()->endItr))
         {
             // the segment will be removed
-            eventType = ev_end_of_segment;
+            eventType = EV_END_OF_SEGMENT;
             eventPos = mt->segments.first()->endItr->first;
         }
 
         // next collision is some where at the middle of trajectory and a back-track event will occur
         else
         {
-            eventType = ev_backtrack;
+            eventType = EV_BACKTRACK;
             eventPos = nextCollision->first;
         }
     }
@@ -267,12 +267,12 @@ void MTTip::notifyRemove(IntersectionItr& oldIs)
     }
 
     // get the tip start/end iterator
-    IntersectionItr& ref = (type() == t_plus) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
+    IntersectionItr& ref = (type() == T_PLUS) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
 
     // link the tip start/end iterator to the new inserted iterator
     if (ref == oldIs)
     {
-        if (dir == ::forward)
+        if (dir == ::FORWARD)
         {
             ref++;
         }
@@ -294,7 +294,7 @@ void MTTip::notifyInsert(IntersectionItr& newIs)
     IntersectionItr temp = newIs;
 
     // next collission site in front
-    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == backward)))
+    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == BACKWARD)))
     {
         // if the scheduled next collision is located after the new intersection point,  then replace it by the new
         // intersection
@@ -320,13 +320,13 @@ void MTTip::notifyInsert(IntersectionItr& newIs)
     temp = newIs;
 
     // get the tip start/end iterator
-    IntersectionItr& refItr = (type() == t_plus) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
+    IntersectionItr& refItr = (type() == T_PLUS) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
 
     // get the tip start/end position
-    double& refPos = (type() == t_plus) ? mt->segments.last()->end : mt->segments.first()->start;
+    double& refPos = (type() == T_PLUS) ? mt->segments.last()->end : mt->segments.first()->start;
 
     // link the tip start/end iterator to the new inserted iterator
-    if (dir == ::forward)
+    if (dir == ::FORWARD)
     {
         if ((++temp == refItr) && (newIs->first > refPos))
         {
@@ -350,11 +350,11 @@ TipType MTTip::type()
     // get tip type of MT
     if (this == &(mt->plus))
     {
-        return t_plus;
+        return T_PLUS;
     }
     else
     {
-        return t_minus;
+        return T_MINUS;
     }
 }
 

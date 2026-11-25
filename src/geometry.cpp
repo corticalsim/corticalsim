@@ -41,14 +41,14 @@ const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAng
     thisVec.trajectory = oldtr;
 
     // old trajectory vector has direction forward, set the new trajectory vector as next
-    if (olddir == ::forward)
+    if (olddir == ::FORWARD)
     {
         oldtr->nextTr = tVec;
         oldtr->nextTrCosAngle = cosAngle;
         oldtr->nextTrpCat = pCat;
 
         // get the direction and position of the dummy trajectory vector
-        thisVec.dir = backward;
+        thisVec.dir = BACKWARD;
         thisVec.pos = oldtr->length;
     }
 
@@ -60,12 +60,12 @@ const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAng
         oldtr->prevTrpCat = pCat;
 
         // get the direction and position of the dummy trajectory vector
-        thisVec.dir = ::forward;
+        thisVec.dir = ::FORWARD;
         thisVec.pos = 0;
     }
 
     // new trajectory vector has direction forward, set the dummy trajectory vector as previous
-    if (tVec.dir == ::forward)
+    if (tVec.dir == ::FORWARD)
     {
         tVec.trajectory->prevTr = thisVec;
         tVec.trajectory->prevTrCosAngle = cosAngle;
@@ -377,7 +377,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
     int regionIndex(oldtr->base.region->regionId), regionIndexNeigh(0);
 
     // forward direction: move to the end of the trajectory
-    if (dir == ::forward)
+    if (dir == ::FORWARD)
     {
         newBase.x = oldtr->endPoint[1].x;
         newBase.y = oldtr->endPoint[1].y;
@@ -392,7 +392,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
     }
 
     // backward direction: stay at the start of the trajectory
-    if (dir == backward)
+    if (dir == BACKWARD)
     {
         // unit vector along the direction of old trajectory
         double tDx = oldtr->endPoint[0].x - oldtr->endPoint[1].x;
@@ -633,7 +633,7 @@ void Cartesian::outputSnapshotOffset(ostream& out, double xOffset, double yOffse
             translateVector(svec, (**seg).start);
 
             // for backward direction retrieve actual base angle (during nucleation)
-            if ((**seg).dir == backward)
+            if ((**seg).dir == BACKWARD)
             {
                 svec.angle -= PI;
                 if (svec.angle < 0)
@@ -843,11 +843,11 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
     {
         if (sVec.angle < PI)
         {
-            tVec.dir = ::forward;
+            tVec.dir = ::FORWARD;
         }
         else
         {
-            tVec.dir = backward;
+            tVec.dir = BACKWARD;
             sVec.angle -= PI;
         }
     }
@@ -855,7 +855,7 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
     else if (acos < 0)
     {
         sVec.angle += PI;
-        tVec.dir = backward;
+        tVec.dir = BACKWARD;
         if (sVec.angle > 2 * PI)
         {
             sVec.angle -= 2 * PI;
@@ -864,7 +864,7 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
 
     else
     {
-        tVec.dir = ::forward;
+        tVec.dir = ::FORWARD;
     }
 
     // use the triangle perimeter to create a trajectory, this will to make sure to have exactly two intersections

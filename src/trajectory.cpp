@@ -7,8 +7,8 @@
 Trajectory::Trajectory(SurfaceVector baseVec, vector<PointATedge> endP, double l):
     base(baseVec),
     length(l),
-    prevTr(0, ::forward, nullptr),
-    nextTr(0, ::forward, nullptr),
+    prevTr(0, ::FORWARD, nullptr),
+    nextTr(0, ::FORWARD, nullptr),
     prevTrCosAngle(1.0),
     nextTrCosAngle(1.0)
 {
@@ -44,7 +44,7 @@ bool Trajectory::integrityCheck()
 
     if (prevTr.trajectory != nullptr)
     {
-        if (prevTr.dir == backward)
+        if (prevTr.dir == BACKWARD)
         {
             if (prevTr.trajectory->nextTr.trajectory != this)
             {
@@ -63,7 +63,7 @@ bool Trajectory::integrityCheck()
     }
     if (nextTr.trajectory != nullptr)
     {
-        if (nextTr.dir == ::forward)
+        if (nextTr.dir == ::FORWARD)
         {
             if (nextTr.trajectory->prevTr.trajectory != this)
             {
@@ -98,7 +98,7 @@ bool Trajectory::integrityCheck()
     while (segItr != segments.end())
     {
         is = (**segItr).startItr;
-        if ((**segItr).dir == ::forward)
+        if ((**segItr).dir == ::FORWARD)
         {
             while (++is != (**segItr).endItr)
             {
@@ -129,7 +129,7 @@ bool Trajectory::integrityCheck()
     while (segItr != segments.end())
     {
         is = (**segItr).startItr;
-        if ((**segItr).dir == ::forward)
+        if ((**segItr).dir == ::FORWARD)
         {
             while (++is != (**segItr).endItr)
             {
@@ -367,7 +367,7 @@ void Trajectory::unregisterForNotifications(TrjMTTipTag tag)
 
 TrajectoryVector Trajectory::nextTrajectory(Direction dir)
 {
-    if (dir == ::forward)
+    if (dir == ::FORWARD)
     {
         // direction forward and a next trajectory is waiting to take the tip on board
         if (nextTr.trajectory != nullptr)

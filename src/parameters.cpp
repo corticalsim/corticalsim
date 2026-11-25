@@ -34,7 +34,7 @@ Parameters::Parameters(System* s):
     pCatRegularEdgeMax(0.0),
     edgNumber(0),
     faceNumber(0),
-    nucleationType(nuc_isotropic),
+    nucleationType(NUC_ISOTROPIC),
     zipperingEnabled(1),
     catastrophesEnabled(1),
     proportionalCatastrophes(0),
@@ -43,8 +43,8 @@ Parameters::Parameters(System* s):
     PPBkNucFraction(0.0),
     catStartAngle(0),
     magicAngle(40),
-    interactionType(int_zipFirst),
-    bundleType(bdl_simple),
+    interactionType(INT_ZIP_FIRST),
+    bundleType(BDL_SIMPLE),
     geomParam("0"),
     seed(time(nullptr)),
     stopTime(36000),
@@ -350,11 +350,11 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
             loadParam(recognized, parFile, id, "movieFrameInterval", movieFrameInterval);
             loadParam(recognized, parFile, id, "geometryScaleFactor", geometryScaleFactor);
             loadParamEnumText<NucleationType>(
-            recognized, parFile, id, "nucleationType", nucleationType, NucleationTypeText, nuc_COUNT_LAST);
+            recognized, parFile, id, "nucleationType", nucleationType, NucleationTypeText, NUC_COUNT_LAST);
             loadParamEnumText<InteractionType>(
-            recognized, parFile, id, "interactionType", interactionType, InteractionTypeText, int_COUNT_LAST);
+            recognized, parFile, id, "interactionType", interactionType, InteractionTypeText, INT_COUNT_LAST);
             loadParamEnumText<BundleType>(
-            recognized, parFile, id, "bundleType", bundleType, BundleTypeText, bdl_COUNT_LAST);
+            recognized, parFile, id, "bundleType", bundleType, BundleTypeText, BDL_COUNT_LAST);
             loadParam(recognized, parFile, id, "showOutput", showOutput);
             loadParam(recognized, parFile, id, "showMesh", showMesh);
             loadParam(recognized, parFile, id, "geometry", geometry);
@@ -451,7 +451,7 @@ void Parameters::verifyParameters()
     switch (nucleationType)
     {
             // isotropic nucleation need no conditional check
-        case nuc_isotropic:
+        case NUC_ISOTROPIC:
             break;
 
         default:
@@ -463,11 +463,11 @@ void Parameters::verifyParameters()
     switch (interactionType)
     {
         // catastrophe first, need no further conditional check
-        case int_catFirst:
+        case INT_CAT_FIRST:
             break;
 
         // zip first needs further check
-        case int_zipFirst:
+        case INT_ZIP_FIRST:
 
             // zippering fraction must be in the range: (0.0 - 1.0)
             if (zipperingEnabled)
@@ -483,7 +483,7 @@ void Parameters::verifyParameters()
             }
             break;
 
-        case int_COUNT_LAST:
+        case INT_COUNT_LAST:
             break;
     }
 
@@ -499,7 +499,7 @@ bool Parameters::calcTheoryParameters(void)
     switch (interactionType)
     {
         // zippering first is requested
-        case int_zipFirst:
+        case INT_ZIP_FIRST:
 
             // fzippering is enabled
             if (zipperingEnabled)
@@ -552,7 +552,7 @@ bool Parameters::calcTheoryParameters(void)
             break;
 
         // catastrophe first is requested
-        case int_catFirst:
+        case INT_CAT_FIRST:
 
             // catastrophe is enabled
             if (catastrophesEnabled)
