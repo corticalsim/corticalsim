@@ -31,16 +31,16 @@ void System::initialize_output(void)
     if (p.createSubdir)
     {
         string identifier;
-        time_t timeRaw;
-        struct tm* timeStruct;
-        char timeName[100];
+        time_t time_raw;
+        struct tm* time_struct;
+        char time_name[100];
 
-        time(&timeRaw);
-        timeStruct = localtime(&timeRaw);
-        strftime(timeName, 100, "%c", timeStruct);
+        time(&time_raw);
+        time_struct = localtime(&time_raw);
+        strftime(time_name, 100, "%c", time_struct);
 
         // create subdirectory with a time Tag, to isolate each data folder
-        p.outputDir += "/" + p.geometry + "/outputData" + string(timeName);
+        p.outputDir += "/" + p.geometry + "/outputData" + string(time_name);
         int i = std::filesystem::create_directories(p.outputDir.c_str());
 
         // if the sub-directory path is invalid
@@ -52,8 +52,8 @@ void System::initialize_output(void)
     }
 
     // open output parameter file
-    string FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/parameters.txt"));
-    parameterFile.open(FileName.c_str());
+    string file_name = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/parameters.txt"));
+    parameterFile.open(file_name.c_str());
     if (!parameterFile)
     {
         cout << "ERROR: cannot open file for output (parameters)\n";
@@ -61,8 +61,8 @@ void System::initialize_output(void)
     }
 
     // open output measurements file
-    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/measurements.txt"));
-    measurementFile.open(FileName.c_str());
+    file_name = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/measurements.txt"));
+    measurementFile.open(file_name.c_str());
     if (!measurementFile.is_open())
     {
         cout << "ERROR: cannot open file for output (measurements)\n";
@@ -73,8 +73,8 @@ void System::initialize_output(void)
     write_measurement_descriptors(measurementFile);
 
     // open output Draw_MT_segments file
-    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/Draw_MT_segments.txt"));
-    movieFile.open(FileName.c_str());
+    file_name = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/Draw_MT_segments.txt"));
+    movieFile.open(file_name.c_str());
     if (!movieFile.is_open())
     {
         cout << "ERROR: cannot open file for output (Draw_MT_segments.txt)\n";
@@ -82,8 +82,8 @@ void System::initialize_output(void)
     }
 
     // open output heatMapOrder file
-    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/heatMapOrder.txt"));
-    heatMapFile.open(FileName.c_str());
+    file_name = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/heatMapOrder.txt"));
+    heatMapFile.open(file_name.c_str());
     if (!heatMapFile.is_open())
     {
         cout << "ERROR: cannot open file for output (heatMapOrder.txt)\n";
@@ -125,24 +125,24 @@ void System::perform_measurement(void)
     m.growingNumber = growing_mts.size();
     m.shrinkingNumber = shrinking_mts.size();
 
-    int segmentCount = 0;
+    int segment_count = 0;
     Microtubule* mt;
 
     mt = growing_mts.first();
     while (mt != nullptr)
     {
-        segmentCount += mt->segments.size();
+        segment_count += mt->segments.size();
         mt = mt->next();
     }
     mt = shrinking_mts.first();
     while (mt != nullptr)
     {
-        segmentCount += mt->segments.size();
+        segment_count += mt->segments.size();
         mt = mt->next();
     }
 
     // total number of segments
-    m.segments = segmentCount - boundaryCrossingCount;
+    m.segments = segment_count - boundaryCrossingCount;
 
     // total number of trajectories (both active and inactive)
     m.trajectories = geometry->trajectory_count();
@@ -217,12 +217,12 @@ void System::perform_measurement(void)
 
 void System::write_measurements_to_file(int number_to_keep)
 {
-    int i, iMax;
+    int i, i_max;
 
-    iMax = measurementHistory.size() - number_to_keep;
+    i_max = measurementHistory.size() - number_to_keep;
 
     // write output on files
-    for (i = 0; i < iMax; i++)
+    for (i = 0; i < i_max; i++)
     {
         measurementFile << measurementHistory[0];
         measurementHistory.pop_front();

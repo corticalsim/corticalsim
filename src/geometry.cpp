@@ -9,15 +9,15 @@
 
 void Geometry::call_translator(SurfaceVector& s_vec, int region_index, int region_index_neigh)
 {
-    int Index1(regions[region_index]->sideRevMap[region_index_neigh]);
+    int index1(regions[region_index]->sideRevMap[region_index_neigh]);
 
     // use affine transformation of triangle to map a point from one region to other region
-    Eigen::Vector2d V1(s_vec.x, s_vec.y), V2;
-    V2 = regions[region_index]->side[Index1].A * V1 + regions[region_index]->side[Index1].b;
-    s_vec.x = V2(0, 0);
-    s_vec.y = V2(1, 0);
+    Eigen::Vector2d v1(s_vec.x, s_vec.y), v2;
+    v2 = regions[region_index]->side[index1].A * v1 + regions[region_index]->side[index1].b;
+    s_vec.x = v2(0, 0);
+    s_vec.y = v2(1, 0);
 
-    s_vec.angle += regions[region_index]->side[Index1].xyRotationAngle;
+    s_vec.angle += regions[region_index]->side[index1].xyRotationAngle;
 
     return;
 }
@@ -32,87 +32,87 @@ TrajectoryVector Geometry::create_and_link_trajectory(
 const SurfaceVector& new_base, Trajectory* oldtr, Direction olddir, double cos_angle, double p_cat)
 {
     // first create a new trajectory vector (trajectory)
-    TrajectoryVector tVec = create_trajectory(new_base);
+    TrajectoryVector t_vec = create_trajectory(new_base);
 
     // declare a dummy trajectory vector
-    TrajectoryVector thisVec;
+    TrajectoryVector this_vec;
 
     // copy old trajectory vector
-    thisVec.trajectory = oldtr;
+    this_vec.trajectory = oldtr;
 
     // old trajectory vector has direction forward, set the new trajectory vector as next
     if (olddir == ::FORWARD)
     {
-        oldtr->nextTr = tVec;
+        oldtr->nextTr = t_vec;
         oldtr->nextTrCosAngle = cos_angle;
         oldtr->nextTrpCat = p_cat;
 
         // get the direction and position of the dummy trajectory vector
-        thisVec.dir = BACKWARD;
-        thisVec.pos = oldtr->length;
+        this_vec.dir = BACKWARD;
+        this_vec.pos = oldtr->length;
     }
 
     // old trajectory vector has direction backward, set the new trajectory vector as previous
     else
     {
-        oldtr->prevTr = tVec;
+        oldtr->prevTr = t_vec;
         oldtr->prevTrCosAngle = cos_angle;
         oldtr->prevTrpCat = p_cat;
 
         // get the direction and position of the dummy trajectory vector
-        thisVec.dir = ::FORWARD;
-        thisVec.pos = 0;
+        this_vec.dir = ::FORWARD;
+        this_vec.pos = 0;
     }
 
     // new trajectory vector has direction forward, set the dummy trajectory vector as previous
-    if (tVec.dir == ::FORWARD)
+    if (t_vec.dir == ::FORWARD)
     {
-        tVec.trajectory->prevTr = thisVec;
-        tVec.trajectory->prevTrCosAngle = cos_angle;
-        tVec.trajectory->prevTrpCat = p_cat;
+        t_vec.trajectory->prevTr = this_vec;
+        t_vec.trajectory->prevTrCosAngle = cos_angle;
+        t_vec.trajectory->prevTrpCat = p_cat;
     }
 
     // new trajectory vector has direction backward, set the dummy trajectory vector as next
     else
     {
-        tVec.trajectory->nextTr = thisVec;
-        tVec.trajectory->nextTrCosAngle = cos_angle;
-        tVec.trajectory->nextTrpCat = p_cat;
+        t_vec.trajectory->nextTr = this_vec;
+        t_vec.trajectory->nextTrCosAngle = cos_angle;
+        t_vec.trajectory->nextTrpCat = p_cat;
     }
 
-    return tVec;
+    return t_vec;
 }
 
 SurfaceVector Geometry::random_surface_vector()
 {
-    int regionSelector{ 0 };
-    double rArea{ 0.0 };
-    int domainType{ 0 };
+    int region_selector{ 0 };
+    double r_area{ 0.0 };
+    int domain_type{ 0 };
 
     if (regions.size() > 1)
     {
         // nucleation on PPB
         if (system->p.PPBkNucFraction > 0)
         {
-            double randGen = system->randomGen.rand();
-            domainType = (randGen < system->p.PPBkNucFraction) ? 1 : 2;
+            double rand_gen = system->randomGen.rand();
+            domain_type = (rand_gen < system->p.PPBkNucFraction) ? 1 : 2;
         }
 
         // nucleation outside PPB
         else
         {
-            domainType = 0;
+            domain_type = 0;
         }
 
         // select a region
-        rArea = system->randomGen.rand_dbl_exc(patchArea[domainType]);
+        r_area = system->randomGen.rand_dbl_exc(patchArea[domain_type]);
 
-        if (rArea < 0.5 * patchArea[domainType])
+        if (r_area < 0.5 * patchArea[domain_type])
         {
-            regionSelector = 0;
-            while (rArea > regions[RegionsIndex[domainType][regionSelector]]->area)
+            region_selector = 0;
+            while (r_area > regions[RegionsIndex[domain_type][region_selector]]->area)
             {
-                rArea -= regions[RegionsIndex[domainType][regionSelector++]]->area;
+                r_area -= regions[RegionsIndex[domain_type][region_selector++]]->area;
 
 #ifdef DBG_ACID_TEST
                 if (regionSelector == regions.size())
@@ -126,11 +126,11 @@ SurfaceVector Geometry::random_surface_vector()
 
         else
         {
-            regionSelector = RegionsIndex[domainType].size() - 1;
-            rArea = patchArea[domainType] - rArea;
-            while (rArea > regions[RegionsIndex[domainType][regionSelector]]->area)
+            region_selector = RegionsIndex[domain_type].size() - 1;
+            r_area = patchArea[domain_type] - r_area;
+            while (r_area > regions[RegionsIndex[domain_type][region_selector]]->area)
             {
-                rArea -= regions[RegionsIndex[domainType][regionSelector--]]->area;
+                r_area -= regions[RegionsIndex[domain_type][region_selector--]]->area;
 
 #ifdef DBG_ACID_TEST
                 if (regionSelector == -1)
@@ -143,22 +143,22 @@ SurfaceVector Geometry::random_surface_vector()
         }
     }
 
-    return regions[RegionsIndex[domainType][regionSelector]]->random_surface_vector();
+    return regions[RegionsIndex[domain_type][region_selector]]->random_surface_vector();
 }
 
 bool Geometry::integrity_check()
 {
     bool valid(true);
-    int plusGrowCount(0);
-    int plusShrinkCount(0);
-    int minusCount(0);
+    int plus_grow_count(0);
+    int plus_shrink_count(0);
+    int minus_count(0);
     Trajectory* tptr(nullptr);
 
     for (size_t ridx = 0; ridx < regions.size(); ridx++)
     {
-        plusGrowCount += regions[ridx]->growingPlusTipList.size();
-        plusShrinkCount += regions[ridx]->shrinkingPlusTipList.size();
-        minusCount += regions[ridx]->minusTipList.size();
+        plus_grow_count += regions[ridx]->growingPlusTipList.size();
+        plus_shrink_count += regions[ridx]->shrinkingPlusTipList.size();
+        minus_count += regions[ridx]->minusTipList.size();
         tptr = regions[ridx]->trajectories.first();
         while (tptr != nullptr)
         {
@@ -171,33 +171,33 @@ bool Geometry::integrity_check()
         }
     }
 
-    if (minusCount != plusGrowCount + plusShrinkCount)
+    if (minus_count != plus_grow_count + plus_shrink_count)
     {
         cerr << "Integrity check failed: unequal number of plus and minus ends registered on regions\n";
         valid = false;
     }
 
-    if (plusGrowCount != system->growing_mts.size())
+    if (plus_grow_count != system->growing_mts.size())
     {
         cerr << "Integrity check failed: number of registered growing tips does not equal the number of growing "
                 "microtubules.\n";
         valid = false;
     }
 
-    if (plusShrinkCount != system->shrinking_mts.size())
+    if (plus_shrink_count != system->shrinking_mts.size())
     {
         cerr << "Integrity check failed: number of registered shrinking tips does not equal the number of shrinking "
                 "microtubules.\n";
         valid = false;
     }
 
-    int totalPlusGrowCount(0);
-    for (int dTag = 0; dTag <= system->p.faceNumber; dTag++)
+    int total_plus_grow_count(0);
+    for (int d_tag = 0; d_tag <= system->p.faceNumber; d_tag++)
     {
-        totalPlusGrowCount += system->growingTipsReg[dTag];
+        total_plus_grow_count += system->growingTipsReg[d_tag];
     }
 
-    if (plusGrowCount != totalPlusGrowCount)
+    if (plus_grow_count != total_plus_grow_count)
     {
         cerr << "Integrity check failed: number of growing tips does not equal cached values\n";
         valid = false;
@@ -242,40 +242,40 @@ TriMeshGeometry::TriMeshGeometry(System* s):
 
 void TriMeshGeometry::get_order_parameters(OrderParameters& op)
 {
-    OrderParametersRaw opRaw;
+    OrderParametersRaw op_raw;
 
     // calculate order parameter components
     for (int eno = 0; eno < elementMax; eno++)
     {
         static_cast<Cartesian*>(regions[eno])
-        ->get_order_parameters_raw_flat(opRaw, regions[eno]->orientation, regions[eno]->area);
+        ->get_order_parameters_raw_flat(op_raw, regions[eno]->orientation, regions[eno]->area);
 
         // store local scalar order parameter
-        op.localOrder.push_back(opRaw.localOrder);
-        op.Sv.push_back(opRaw.Sv);
+        op.localOrder.push_back(op_raw.localOrder);
+        op.Sv.push_back(op_raw.Sv);
     }
 
     // normalizing the order parameter components
-    if (opRaw.localL > ZERO_CUTOFF)
+    if (op_raw.localL > ZERO_CUTOFF)
     {
-        opRaw.Qxx /= opRaw.localL;
-        opRaw.Qxy /= opRaw.localL;
-        opRaw.Qxz /= opRaw.localL;
-        opRaw.Qyy /= opRaw.localL;
-        opRaw.Qyz /= opRaw.localL;
-        opRaw.Qzz /= opRaw.localL;
+        op_raw.Qxx /= op_raw.localL;
+        op_raw.Qxy /= op_raw.localL;
+        op_raw.Qxz /= op_raw.localL;
+        op_raw.Qyy /= op_raw.localL;
+        op_raw.Qyz /= op_raw.localL;
+        op_raw.Qzz /= op_raw.localL;
     }
 
     /// calculate Q(2) tensor order parameter
-    op.R = opRaw.extract_r(op.Rdirector, system->p.geometry);
+    op.R = op_raw.extract_r(op.Rdirector, system->p.geometry);
 
     // normalize the order parameter director
-    Eigen::Vector3d Rvec(op.Rdirector[0], op.Rdirector[1], op.Rdirector[2]);
-    Rvec /= Rvec.norm();
+    Eigen::Vector3d rvec(op.Rdirector[0], op.Rdirector[1], op.Rdirector[2]);
+    rvec /= rvec.norm();
 
-    op.Rdirector[0] = Rvec(0, 0);
-    op.Rdirector[1] = Rvec(1, 0);
-    op.Rdirector[2] = Rvec(2, 0);
+    op.Rdirector[0] = rvec(0, 0);
+    op.Rdirector[1] = rvec(1, 0);
+    op.Rdirector[2] = rvec(2, 0);
 
     op.C = fabs(op.Rdirector[2]) - 0.5 * sqrt(op.Rdirector[0] * op.Rdirector[0] + op.Rdirector[1] * op.Rdirector[1]);
 
@@ -299,61 +299,61 @@ void TriMeshGeometry::output_order_heat_map(ostream& out, vector<double>& local_
 {
     for (size_t eno = 0; eno < local_order.size(); eno++)
     {
-        Eigen::Vector3d seg3D;
+        Eigen::Vector3d seg3_d;
 
         // Incircle radius of the triangle
-        double svLength = (2.0 * regions[eno]->area * regions[eno]->area) / regions[eno]->periMeter;
+        double sv_length = (2.0 * regions[eno]->area * regions[eno]->area) / regions[eno]->periMeter;
 
         // get the region 3D rotation axis
         Eigen::Vector3d cross(regions[eno]->Q.x(), regions[eno]->Q.y(), regions[eno]->Q.z());
-        double crossMagnitude = cross.norm();
+        double cross_magnitude = cross.norm();
 
         Eigen::Quaternion<double> qr_1(0.0, 0.0, 0.0, 0.0), qr_2(0.0, 0.0, 0.0, 0.0);
 
         // region (and hence all the sgments in this region) need 3D rotation + translation
-        if (crossMagnitude > 0.0)
+        if (cross_magnitude > 0.0)
         {
             // translate and rotate the start point of the segment
             qr_2.w() = 0;
-            qr_2.x() = -1.0 * svLength * sv[eno](0, 0) + regions[eno]->midPoint(0, 0);
-            qr_2.y() = -1.0 * svLength * sv[eno](1, 0) + regions[eno]->midPoint(1, 0);
-            qr_2.z() = -1.0 * svLength * sv[eno](2, 0) + regions[eno]->zOffset;
+            qr_2.x() = -1.0 * sv_length * sv[eno](0, 0) + regions[eno]->midPoint(0, 0);
+            qr_2.y() = -1.0 * sv_length * sv[eno](1, 0) + regions[eno]->midPoint(1, 0);
+            qr_2.z() = -1.0 * sv_length * sv[eno](2, 0) + regions[eno]->zOffset;
 
             qr_1 = regions[eno]->Q.inverse() * qr_2 * regions[eno]->Q;
-            seg3D << qr_1.x(), qr_1.y(), qr_1.z();
-            seg3D += objectCM;
+            seg3_d << qr_1.x(), qr_1.y(), qr_1.z();
+            seg3_d += objectCM;
 
-            out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << ",";
+            out << seg3_d(0, 0) << "," << seg3_d(1, 0) << "," << seg3_d(2, 0) << ",";
 
             // translate and rotate the end point of the segment
             qr_2.w() = 0;
-            qr_2.x() = svLength * sv[eno](0, 0) + regions[eno]->midPoint(0, 0);
-            qr_2.y() = svLength * sv[eno](1, 0) + regions[eno]->midPoint(1, 0);
-            qr_2.z() = svLength * sv[eno](2, 0) + regions[eno]->zOffset;
+            qr_2.x() = sv_length * sv[eno](0, 0) + regions[eno]->midPoint(0, 0);
+            qr_2.y() = sv_length * sv[eno](1, 0) + regions[eno]->midPoint(1, 0);
+            qr_2.z() = sv_length * sv[eno](2, 0) + regions[eno]->zOffset;
 
             qr_1 = regions[eno]->Q.inverse() * qr_2 * regions[eno]->Q;
-            seg3D << qr_1.x(), qr_1.y(), qr_1.z();
-            seg3D += objectCM;
+            seg3_d << qr_1.x(), qr_1.y(), qr_1.z();
+            seg3_d += objectCM;
 
-            out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << "," << regions[eno]->regionId << "@";
+            out << seg3_d(0, 0) << "," << seg3_d(1, 0) << "," << seg3_d(2, 0) << "," << regions[eno]->regionId << "@";
         }
 
         // need no rotation of the region (and hence all the sgments in this region)
         else
         {
             // translate the start point of the segment
-            seg3D << -1.0 * svLength * sv[eno](0, 0) + regions[eno]->midPoint(0, 0),
-            -1.0 * svLength * sv[eno](1, 0) + regions[eno]->midPoint(1, 0),
-            -1.0 * svLength * sv[eno](2, 0) + regions[eno]->zOffset;
-            seg3D += objectCM;
-            out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << ",";
+            seg3_d << -1.0 * sv_length * sv[eno](0, 0) + regions[eno]->midPoint(0, 0),
+            -1.0 * sv_length * sv[eno](1, 0) + regions[eno]->midPoint(1, 0),
+            -1.0 * sv_length * sv[eno](2, 0) + regions[eno]->zOffset;
+            seg3_d += objectCM;
+            out << seg3_d(0, 0) << "," << seg3_d(1, 0) << "," << seg3_d(2, 0) << ",";
 
             // translate the end point of the segment
-            seg3D << svLength * sv[eno](0, 0) + regions[eno]->midPoint(0, 0),
-            svLength * sv[eno](1, 0) + regions[eno]->midPoint(1, 0),
-            -1.0 * svLength * sv[eno](2, 0) + regions[eno]->zOffset;
-            seg3D += objectCM;
-            out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << "," << regions[eno]->regionId << "@";
+            seg3_d << sv_length * sv[eno](0, 0) + regions[eno]->midPoint(0, 0),
+            sv_length * sv[eno](1, 0) + regions[eno]->midPoint(1, 0),
+            -1.0 * sv_length * sv[eno](2, 0) + regions[eno]->zOffset;
+            seg3_d += objectCM;
+            out << seg3_d(0, 0) << "," << seg3_d(1, 0) << "," << seg3_d(2, 0) << "," << regions[eno]->regionId << "@";
         }
     }
 
@@ -369,75 +369,75 @@ TrajectoryVector TriMeshGeometry::extend_trajectory(Trajectory* oldtr, Direction
 #endif
 
     // trajectory-director
-    Eigen::Vector2d tDirector(0.0, 0.0);
+    Eigen::Vector2d t_director(0.0, 0.0);
 
-    SurfaceVector newBase(oldtr->base);
+    SurfaceVector new_base(oldtr->base);
 
     // get copy of old trajectory region index
-    int regionIndex(oldtr->base.region->regionId), regionIndexNeigh(0);
+    int region_index(oldtr->base.region->regionId), region_index_neigh(0);
 
     // forward direction: move to the end of the trajectory
     if (dir == ::FORWARD)
     {
-        newBase.x = oldtr->endPoint[1].x;
-        newBase.y = oldtr->endPoint[1].y;
+        new_base.x = oldtr->endPoint[1].x;
+        new_base.y = oldtr->endPoint[1].y;
 
         // unit vector along the direction of old trajectory
-        double tDx = oldtr->endPoint[1].x - oldtr->endPoint[0].x;
-        double tDy = oldtr->endPoint[1].y - oldtr->endPoint[0].y;
-        tDirector << tDx / oldtr->length, tDy / oldtr->length;
+        double t_dx = oldtr->endPoint[1].x - oldtr->endPoint[0].x;
+        double t_dy = oldtr->endPoint[1].y - oldtr->endPoint[0].y;
+        t_director << t_dx / oldtr->length, t_dy / oldtr->length;
 
         // get the neighbouring region index
-        regionIndexNeigh = oldtr->endPoint[1].nextElement;
+        region_index_neigh = oldtr->endPoint[1].nextElement;
     }
 
     // backward direction: stay at the start of the trajectory
     if (dir == BACKWARD)
     {
         // unit vector along the direction of old trajectory
-        double tDx = oldtr->endPoint[0].x - oldtr->endPoint[1].x;
-        double tDy = oldtr->endPoint[0].y - oldtr->endPoint[1].y;
-        tDirector << tDx / oldtr->length, tDy / oldtr->length;
+        double t_dx = oldtr->endPoint[0].x - oldtr->endPoint[1].x;
+        double t_dy = oldtr->endPoint[0].y - oldtr->endPoint[1].y;
+        t_director << t_dx / oldtr->length, t_dy / oldtr->length;
 
         // get the neighbouring region index
-        regionIndexNeigh = oldtr->endPoint[0].nextElement;
+        region_index_neigh = oldtr->endPoint[0].nextElement;
 
-        if (newBase.angle >= PI)
+        if (new_base.angle >= PI)
         {
-            newBase.angle -= PI;
+            new_base.angle -= PI;
         }
         else
         {
-            newBase.angle += PI;
+            new_base.angle += PI;
         }
     }
 
     // get base coordinates for a fresh trajectory (to be created)
-    call_translator(newBase, regionIndex, regionIndexNeigh);
+    call_translator(new_base, region_index, region_index_neigh);
 
     // get the new region for the fresh trajectory (to be created)
-    newBase.region = regions[regionIndexNeigh];
+    new_base.region = regions[region_index_neigh];
 
-    double cosEdgeAngle(1.0), pCatReg(0.0);
-    int s(oldtr->base.region->sideRevMap[regionIndexNeigh]);
+    double cos_edge_angle(1.0), p_cat_reg(0.0);
+    int s(oldtr->base.region->sideRevMap[region_index_neigh]);
 
     // cos-angle: between (encountered) triangle-edge and the trajectory-director
-    double cosBendingAngle(tDirector.dot(oldtr->base.region->side[s].dir2D));
+    double cos_bending_angle(t_director.dot(oldtr->base.region->side[s].dir2D));
 
     // assign square of the cos-angle for this (encountered) triangle edge
-    cosEdgeAngle = cosBendingAngle * cosBendingAngle;
+    cos_edge_angle = cos_bending_angle * cos_bending_angle;
 
     // assign pCatReg for this for this (encountered) triangle edge
-    pCatReg = oldtr->base.region->side[s].pCat;
+    p_cat_reg = oldtr->base.region->side[s].pCat;
 
     // final correction to newBase angle -> [0 ... 2*PI]
-    if (newBase.angle >= 2 * PI)
+    if (new_base.angle >= 2 * PI)
     {
-        newBase.angle -= 2 * PI;
+        new_base.angle -= 2 * PI;
     }
-    else if (newBase.angle < 0)
+    else if (new_base.angle < 0)
     {
-        newBase.angle += 2 * PI;
+        new_base.angle += 2 * PI;
     }
 
 #ifdef DBG_GEOMETRY
@@ -445,7 +445,7 @@ TrajectoryVector TriMeshGeometry::extend_trajectory(Trajectory* oldtr, Direction
 #endif
 
     // create a fresh trajectory
-    return create_and_link_trajectory(newBase, oldtr, dir, cosEdgeAngle, pCatReg);
+    return create_and_link_trajectory(new_base, oldtr, dir, cos_edge_angle, p_cat_reg);
 }
 
 Cartesian::Cartesian(Geometry* g, double a):
@@ -493,10 +493,10 @@ void Cartesian::get_order_parameters_raw_flat(OrderParametersRaw& op_r,
 {
     double sin2(0.0), cos2(0.0);
     Eigen::Vector3d sv(0.0, 0.0, 0.0);
-    double angle(0.0), length(0.0), localLength(0.);
+    double angle(0.0), length(0.0), local_length(0.);
     double qxx(0.0), qxy(0.0), qxz(0.0), qyy(0.0), qyz(0.0), qzz(0.0);
-    double u1(0.0), u2(0.0), u3(0.0), orderLocal(0.0);
-    Eigen::MatrixXd QF(3, 3), QC(3, 3), e(3, 3), O_l(2, 2);
+    double u1(0.0), u2(0.0), u3(0.0), order_local(0.0);
+    Eigen::MatrixXd qf(3, 3), qc(3, 3), e(3, 3), o_l(2, 2);
 
     // get the rotation matrix
     e << orientation[0][0], orientation[1][0], orientation[2][0], orientation[0][1], orientation[1][1],
@@ -509,7 +509,7 @@ void Cartesian::get_order_parameters_raw_flat(OrderParametersRaw& op_r,
         length = tr->segment_length();
 
         // add up all the segmnt lengths
-        localLength += length;
+        local_length += length;
 
         angle = tr->base.angle;
 
@@ -534,65 +534,65 @@ void Cartesian::get_order_parameters_raw_flat(OrderParametersRaw& op_r,
     }
 
     // only if trace of MT segment found
-    if (localLength > 0)
+    if (local_length > 0)
     {
-        qxx /= localLength;
-        qxy /= localLength;
-        qxz /= localLength;
-        qyy /= localLength;
-        qyz /= localLength;
-        qzz /= localLength;
+        qxx /= local_length;
+        qxy /= local_length;
+        qxz /= local_length;
+        qyy /= local_length;
+        qyz /= local_length;
+        qzz /= local_length;
 
-        sin2 /= localLength;
-        cos2 /= localLength;
+        sin2 /= local_length;
+        cos2 /= local_length;
 
         // local order
         Eigen::Matrix3d matrix{ { qxx, qxy, qxz }, { qxy, qyy, qyz }, { qxz, qyz, qzz } };
-        Eigen::Matrix3d evecMat{ Eigen::Matrix3d::Zero() };
-        Eigen::Vector3d eVal{ Eigen::Vector3d::Zero() };
+        Eigen::Matrix3d evec_mat{ Eigen::Matrix3d::Zero() };
+        Eigen::Vector3d e_val{ Eigen::Vector3d::Zero() };
 
-        eigen_decomposition(matrix, evecMat, eVal);
+        eigen_decomposition(matrix, evec_mat, e_val);
 
-        int maxPos(0);
+        int max_pos(0);
 
-        if (eVal[1] > eVal[0])
+        if (e_val[1] > e_val[0])
         {
-            maxPos = 1;
+            max_pos = 1;
         }
-        if (eVal[2] > eVal[maxPos])
+        if (e_val[2] > e_val[max_pos])
         {
-            maxPos = 2;
+            max_pos = 2;
         }
 
         for (size_t i = 0; i < 3; ++i)
         {
-            sv[i] = evecMat(i, maxPos);
+            sv[i] = evec_mat(i, max_pos);
         }
 
         sv /= sv.norm();
-        orderLocal = sqrt(sin2 * sin2 + cos2 * cos2) / area;
+        order_local = sqrt(sin2 * sin2 + cos2 * cos2) / area;
 
         // global order
         qxx -= 1;
         qyy -= 1;
-        QF << qxx, qxy, qxz, qxy, qyy, qyz, qxz, qyz, qzz;
+        qf << qxx, qxy, qxz, qxy, qyy, qyz, qxz, qyz, qzz;
 
         // make tensor transformation
-        QC = e * QF * e.transpose();
+        qc = e * qf * e.transpose();
 
         // accumulate all the Q(2) tensors components from different regions
-        op_r.Qxx += localLength * QC(0, 0);
-        op_r.Qxy += localLength * QC(0, 1);
-        op_r.Qxz += localLength * QC(0, 2);
-        op_r.Qyy += localLength * QC(1, 1);
-        op_r.Qyz += localLength * QC(1, 2);
-        op_r.Qzz += localLength * QC(2, 2);
+        op_r.Qxx += local_length * qc(0, 0);
+        op_r.Qxy += local_length * qc(0, 1);
+        op_r.Qxz += local_length * qc(0, 2);
+        op_r.Qyy += local_length * qc(1, 1);
+        op_r.Qyz += local_length * qc(1, 2);
+        op_r.Qzz += local_length * qc(2, 2);
 
         // add up length of the segments from all the regions
-        op_r.localL += localLength;
+        op_r.localL += local_length;
     }
 
-    op_r.localOrder = orderLocal;
+    op_r.localOrder = order_local;
     op_r.Sv = sv;
     return;
 }
@@ -610,11 +610,11 @@ void Cartesian::output_order_heat_map(ostream& out, vector<double>& local_order,
 
 void Cartesian::output_snapshot_offset(ostream& out, double x_offset, double y_offset)
 {
-    Eigen::Vector3d seg3D;
+    Eigen::Vector3d seg3_d;
 
     // get the region 3D rotation axis
     Eigen::Vector3d cross(Q.x(), Q.y(), Q.z());
-    double crossMagnitude = cross.norm();
+    double cross_magnitude = cross.norm();
 
     Eigen::Quaternion<double> qr_1(0.0, 0.0, 0.0, 0.0), qr_2(0.0, 0.0, 0.0, 0.0);
 
@@ -648,7 +648,7 @@ void Cartesian::output_snapshot_offset(ostream& out, double x_offset, double y_o
             }
 
             // region (and hence all the sgments in this region) need 3D rotation + translation
-            if (crossMagnitude > 0.0)
+            if (cross_magnitude > 0.0)
             {
                 // translate and rotate the start point of the segment
                 qr_2.w() = 0;
@@ -657,10 +657,10 @@ void Cartesian::output_snapshot_offset(ostream& out, double x_offset, double y_o
                 qr_2.z() = zOffset;
 
                 qr_1 = Q.inverse() * qr_2 * Q;
-                seg3D << qr_1.x(), qr_1.y(), qr_1.z();
-                seg3D += geometry->objectCM;
+                seg3_d << qr_1.x(), qr_1.y(), qr_1.z();
+                seg3_d += geometry->objectCM;
 
-                out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << ",";
+                out << seg3_d(0, 0) << "," << seg3_d(1, 0) << "," << seg3_d(2, 0) << ",";
 
                 // translate and rotate the end point of the segment
                 qr_2.w() = 0;
@@ -669,25 +669,25 @@ void Cartesian::output_snapshot_offset(ostream& out, double x_offset, double y_o
                 qr_2.z() = zOffset;
 
                 qr_1 = Q.inverse() * qr_2 * Q;
-                seg3D << qr_1.x(), qr_1.y(), qr_1.z();
-                seg3D += geometry->objectCM;
+                seg3_d << qr_1.x(), qr_1.y(), qr_1.z();
+                seg3_d += geometry->objectCM;
 
-                out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << "," << regionId << "@";
+                out << seg3_d(0, 0) << "," << seg3_d(1, 0) << "," << seg3_d(2, 0) << "," << regionId << "@";
             }
 
             // need no rotation of the region (and hence all the sgments in this region)
             else
             {
                 // translate the start point of the segment
-                seg3D << svec.x + midPoint(0, 0), svec.y + midPoint(1, 0), zOffset;
-                seg3D += geometry->objectCM;
-                out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << ",";
+                seg3_d << svec.x + midPoint(0, 0), svec.y + midPoint(1, 0), zOffset;
+                seg3_d += geometry->objectCM;
+                out << seg3_d(0, 0) << "," << seg3_d(1, 0) << "," << seg3_d(2, 0) << ",";
 
                 // translate the end point of the segment
-                seg3D << svec.x + midPoint(0, 0) + (**seg).length() * cos(svec.angle),
+                seg3_d << svec.x + midPoint(0, 0) + (**seg).length() * cos(svec.angle),
                 svec.y + midPoint(1, 0) + (**seg).length() * sin(svec.angle), zOffset;
-                seg3D += geometry->objectCM;
-                out << seg3D(0, 0) << "," << seg3D(1, 0) << "," << seg3D(2, 0) << "," << regionId << "@";
+                seg3_d += geometry->objectCM;
+                out << seg3_d(0, 0) << "," << seg3_d(1, 0) << "," << seg3_d(2, 0) << "," << regionId << "@";
             }
             seg++;
         }
@@ -712,7 +712,7 @@ void Cartesian::make_intersection_list(Trajectory* tr1)
     cout << "DBG/GEOMETRY: Cartesian::makeIntersectionList() called\n";
 #endif
 
-    double cosDiff(0.0);
+    double cos_diff(0.0);
     double denominator(0.0);
     double temp1(0.0), temp2(0.0);
     double bp1(0.0), bp2(0.0);
@@ -722,14 +722,14 @@ void Cartesian::make_intersection_list(Trajectory* tr1)
     cos1 = cos(tr1->base.angle);
     sin1 = sin(tr1->base.angle);
 
-    Intersection isThis;
-    Intersection isThat;
-    IntersectionItr thisItr;
-    IntersectionItr thatItr;
+    Intersection is_this;
+    Intersection is_that;
+    IntersectionItr this_itr;
+    IntersectionItr that_itr;
 
-    isThis.occupancy = 0;
-    isThat.occupancy = 0;
-    isThat.otherTrajectory = tr1;
+    is_this.occupancy = 0;
+    is_that.occupancy = 0;
+    is_that.otherTrajectory = tr1;
 
     Trajectory* tr2(trajectories.first());
 
@@ -743,8 +743,8 @@ void Cartesian::make_intersection_list(Trajectory* tr1)
             cos2 = cos(tr2->base.angle);
             sin2 = sin(tr2->base.angle);
 
-            cosDiff = cos1 * cos2 + sin1 * sin2;
-            denominator = 1 - cosDiff * cosDiff;
+            cos_diff = cos1 * cos2 + sin1 * sin2;
+            denominator = 1 - cos_diff * cos_diff;
 
             // find the intersection point distance on the trajectory
             if (denominator > ZERO_CUTOFF)
@@ -753,12 +753,12 @@ void Cartesian::make_intersection_list(Trajectory* tr1)
                 temp1 = (tr2->base.x - tr1->base.x) * denominator;
                 temp2 = (tr2->base.y - tr1->base.y) * denominator;
 
-                bp1 = temp1 * (cos1 - cosDiff * cos2) + temp2 * (sin1 - cosDiff * sin2);
+                bp1 = temp1 * (cos1 - cos_diff * cos2) + temp2 * (sin1 - cos_diff * sin2);
 
                 // intersetion located within the range of trajectory length
                 if (!((bp1 < 0) || (bp1 > tr1->length)))
                 {
-                    bp2 = -temp1 * (cos2 - cosDiff * cos1) - temp2 * (sin2 - cosDiff * sin1);
+                    bp2 = -temp1 * (cos2 - cos_diff * cos1) - temp2 * (sin2 - cos_diff * sin1);
 #ifdef DBG_ASSERT
                     if ((bp2 < 0) || (bp2 > tr2->length))
                     {
@@ -772,16 +772,16 @@ void Cartesian::make_intersection_list(Trajectory* tr1)
 #endif
 
                     // first insert 'isThat': occupancy and other are still incorrect
-                    thatItr = tr2->intersections.insert(pair<double, Intersection>(bp2, isThat));
-                    isThis.mirror = thatItr;
-                    isThis.otherTrajectory = tr2;
-                    thisItr = tr1->intersections.insert(pair<double, Intersection>(bp1, isThis));
+                    that_itr = tr2->intersections.insert(pair<double, Intersection>(bp2, is_that));
+                    is_this.mirror = that_itr;
+                    is_this.otherTrajectory = tr2;
+                    this_itr = tr1->intersections.insert(pair<double, Intersection>(bp1, is_this));
 
                     // update the reference in the other half of the intersection
-                    thatItr->second.mirror = thisItr;
+                    that_itr->second.mirror = this_itr;
 
                     // call the update routine of the other trajectory, this will also correct the occupancy number
-                    tr2->new_intersection(thatItr);
+                    tr2->new_intersection(that_itr);
                 }
             }
         }
@@ -835,8 +835,8 @@ void Triangle::get_trajectory_coordinates(SurfaceVector& s_vec,
                                           TrajectoryVector& t_vec)
 {
     // copy old base coordinate
-    double oldX(s_vec.x);
-    double oldY(s_vec.y);
+    double old_x(s_vec.x);
+    double old_y(s_vec.y);
 
     t_vec.trajectory = nullptr;
 
@@ -877,7 +877,7 @@ void Triangle::get_trajectory_coordinates(SurfaceVector& s_vec,
     Eigen::Vector2d v2(s_vec.x - periMeter * acos, s_vec.y - periMeter * asin);
 
     // intersection points of the trajectory with the triangle edges
-    int encounter(0), Neno(0);
+    int encounter(0), neno(0);
     for (int i = 0; i < 3; i++)
     {
         if (encounter == 2)
@@ -906,11 +906,11 @@ void Triangle::get_trajectory_coordinates(SurfaceVector& s_vec,
         if ((sval >= 0.0) && (sval <= 1.0))
         {
             encounter += 1;
-            Neno = sideMap[i];
+            neno = sideMap[i];
 
             // get triangle-edge to trajectory intersection point
             end_point.push_back(
-            PointATedge(u1(0, 0) + sval * (u2(0, 0) - u1(0, 0)), u1(1, 0) + sval * (u2(1, 0) - u1(1, 0)), 0.0, Neno));
+            PointATedge(u1(0, 0) + sval * (u2(0, 0) - u1(0, 0)), u1(1, 0) + sval * (u2(1, 0) - u1(1, 0)), 0.0, neno));
         }
     }
 
@@ -924,7 +924,7 @@ void Triangle::get_trajectory_coordinates(SurfaceVector& s_vec,
     s_vec.y = end_point[0].y;
 
     // nucleation position (distance between old base and nucleation point) on the trajectory
-    double dx(s_vec.x - oldX), dy(s_vec.y - oldY);
+    double dx(s_vec.x - old_x), dy(s_vec.y - old_y);
     t_vec.pos = sqrt(dx * dx + dy * dy);
 
     // length of the trajectory (distance between the end points of the trajectory)

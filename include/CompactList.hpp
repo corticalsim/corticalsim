@@ -92,32 +92,32 @@ inline void CompactList<T, I>::remove(T* element)
 template <class T, int I>
 inline T* CompactList<T, I>::create()
 {
-    T* newElement = new (MemPool::malloc()) T();
-    return insert_element(newElement);
+    T* new_element = new (MemPool::malloc()) T();
+    return insert_element(new_element);
 }
 
 template <class T, int I>
 template <class Q>
 inline T* CompactList<T, I>::create(Q par1)
 {
-    T* newElement = new (MemPool::malloc()) T(par1);
-    return insert_element(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1);
+    return insert_element(new_element);
 }
 
 template <class T, int I>
 template <class Q, class R>
 inline T* CompactList<T, I>::create(Q par1, R par2)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2);
-    return insert_element(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2);
+    return insert_element(new_element);
 }
 
 template <class T, int I>
 template <class Q, class R, class S>
 inline T* CompactList<T, I>::create(Q par1, R par2, S par3)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2, par3);
-    return insert_element(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2, par3);
+    return insert_element(new_element);
 }
 
 template <class T, int I>

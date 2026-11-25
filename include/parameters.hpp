@@ -155,48 +155,48 @@ class OrderParametersRaw
     double extract_r(double director[3], string geometry)
     {
         Eigen::Matrix3d matrix{ { Qxx, Qxy, Qxz }, { Qxy, Qyy, Qyz }, { Qxz, Qyz, Qzz } };
-        Eigen::Matrix3d evecMat{ Eigen::Matrix3d::Zero() };
-        Eigen::Vector3d eVal{ Eigen::Vector3d::Zero() };
-        double selEigenVal{ 0.0 };
+        Eigen::Matrix3d evec_mat{ Eigen::Matrix3d::Zero() };
+        Eigen::Vector3d e_val{ Eigen::Vector3d::Zero() };
+        double sel_eigen_val{ 0.0 };
 
-        eigen_decomposition(matrix, evecMat, eVal);
+        eigen_decomposition(matrix, evec_mat, e_val);
 
         if (geometry == "2D-plane_1_0_0")
         {
-            int maxPos(0);
-            if (eVal[1] > eVal[0])
+            int max_pos(0);
+            if (e_val[1] > e_val[0])
             {
-                maxPos = 1;
+                max_pos = 1;
             }
-            if (eVal[2] > eVal[maxPos])
+            if (e_val[2] > e_val[max_pos])
             {
-                maxPos = 2;
+                max_pos = 2;
             }
-            selEigenVal = fabs(eVal[maxPos]);
+            sel_eigen_val = fabs(e_val[max_pos]);
             for (size_t i = 0; i < 3; ++i)
             {
-                director[i] = evecMat(i, maxPos);
+                director[i] = evec_mat(i, max_pos);
             }
         }
         else
         {
-            int minPos(0);
-            if (eVal[1] < eVal[0])
+            int min_pos(0);
+            if (e_val[1] < e_val[0])
             {
-                minPos = 1;
+                min_pos = 1;
             }
-            if (eVal[2] < eVal[minPos])
+            if (e_val[2] < e_val[min_pos])
             {
-                minPos = 2;
+                min_pos = 2;
             }
-            selEigenVal = fabs(eVal[minPos]);
+            sel_eigen_val = fabs(e_val[min_pos]);
             for (size_t i = 0; i < 3; ++i)
             {
-                director[i] = evecMat(i, minPos);
+                director[i] = evec_mat(i, min_pos);
             }
         }
 
-        return (selEigenVal);
+        return (sel_eigen_val);
     }
 };
 

@@ -3,11 +3,11 @@
 #include "parameters.hpp"
 #include "system.hpp"
 
-string DirectionTypeText[] = { "forward", "backward" };
-string GeometryTypeText[] = { "cell" };
-string InteractionTypeText[] = { "zipFirst", "catFirst", "minimalFourier" };
-string NucleationTypeText[] = { "isotropic", "biased", "ellipse" };
-string BundleTypeText[] = { "simple", "sticky", "noZip", "multiCollision", "Ncollision" };
+string direction_type_text[] = { "forward", "backward" };
+string geometry_type_text[] = { "cell" };
+string interaction_type_text[] = { "zipFirst", "catFirst", "minimalFourier" };
+string nucleation_type_text[] = { "isotropic", "biased", "ellipse" };
+string bundle_type_text[] = { "simple", "sticky", "noZip", "multiCollision", "Ncollision" };
 
 Parameters::Parameters(System* s):
     system(s),
@@ -273,9 +273,9 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
         return false;
     }
 
-    ifstream parFile;
-    parFile.open(pf);
-    if (!parFile.good())
+    ifstream par_file;
+    par_file.open(pf);
+    if (!par_file.good())
     {
         cerr << "Could not open parameter file [" << pf << "].\n";
         return false;
@@ -288,17 +288,17 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
 
     string id;
     bool recognized;
-    while (parFile.good())
+    while (par_file.good())
     {
-        parFile >> id;
-        if (!parFile.good())
+        par_file >> id;
+        if (!par_file.good())
         {
             break;
         }
 
         if (id[0] == '#')
         {
-            getline(parFile, id);
+            getline(par_file, id);
         }
         else
         {
@@ -306,85 +306,85 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
 
             if (initial_run)
             {
-                load_param_random(recognized, parFile, id, "random_seed", seed);
+                load_param_random(recognized, par_file, id, "random_seed", seed);
             }
 
-            load_param(recognized, parFile, id, "outputDir", outputDir);
-            load_param(recognized, parFile, id, "inputDir", inputDir);
-            load_param(recognized, parFile, id, "createSubdir", createSubdir);
-            load_param(recognized, parFile, id, "newParameterReadInterval", newParameterReadInterval);
-            load_param(recognized, parFile, id, "newParameterFile", newParameterFile);
-            load_param(recognized, parFile, id, "zippering", zipperingEnabled);
-            load_param(recognized, parFile, id, "ind_cat", catastrophesEnabled);
-            load_param(recognized, parFile, id, "proportionalCatastrophes", proportionalCatastrophes);
-            load_param(recognized, parFile, id, "induced_cat_fraction", inducedCatastropheFraction);
-            load_param(recognized, parFile, id, "cat_start_angle", catStartAngle);
-            load_param(recognized, parFile, id, "zipFraction", zipFraction);
-            load_param(recognized, parFile, id, "magic_angle", magicAngle);
-            load_param(recognized, parFile, id, "vPlus", vPlus);
-            load_param(recognized, parFile, id, "vMin", vMin);
-            load_param(recognized, parFile, id, "vTM", vTM);
-            load_param(recognized, parFile, id, "kCat", kCat);
-            load_param(recognized, parFile, id, "kRes", kRes);
-            load_param(recognized, parFile, id, "kSev", kSev);
-            load_param(recognized, parFile, id, "kCross", kCross);
-            load_param(recognized, parFile, id, "poolDensity", poolDensity);
-            load_param(recognized, parFile, id, "treadmilling", treadmillingEnabled);
-            load_param(recognized, parFile, id, "severing", severingEnabled);
-            load_param(recognized, parFile, id, "crossSevering", crossSeveringEnabled);
-            load_param(recognized, parFile, id, "crossSeveringTop", crossSeveringTop);
-            load_param(recognized, parFile, id, "crossSeveringStartAngle", crossSeveringStartAngle);
-            load_param(recognized, parFile, id, "restrictedPool", restrictedPool);
-            load_param(recognized, parFile, id, "edgeCatastropheEnabled", edgeCatastropheEnabled);
-            load_param(recognized, parFile, id, "edgeCatastropheSmooth", edgeCatastropheSmooth);
-            load_param(recognized, parFile, id, "pCatSpecialEdgeMax", pCatSpecialEdgeMax);
-            load_param(recognized, parFile, id, "pCatRegularEdgeMax", pCatRegularEdgeMax);
-            load_param(recognized, parFile, id, "PPB", PPB);
-            load_param(recognized, parFile, id, "PPBformingTime", PPBformingTime);
-            load_param(recognized, parFile, id, "kNuc", kNuc);
-            load_param(recognized, parFile, id, "stopTime", stopTime);
-            load_param(recognized, parFile, id, "measurementInterval", measurementInterval);
-            load_param(recognized, parFile, id, "wallClockLimit", wallClockLimit);
-            load_param(recognized, parFile, id, "memoryLimit", memoryLimit);
-            load_param(recognized, parFile, id, "movieEnabled", movieEnabled);
-            load_param(recognized, parFile, id, "movieFrameInterval", movieFrameInterval);
-            load_param(recognized, parFile, id, "geometryScaleFactor", geometryScaleFactor);
+            load_param(recognized, par_file, id, "outputDir", outputDir);
+            load_param(recognized, par_file, id, "inputDir", inputDir);
+            load_param(recognized, par_file, id, "createSubdir", createSubdir);
+            load_param(recognized, par_file, id, "newParameterReadInterval", newParameterReadInterval);
+            load_param(recognized, par_file, id, "newParameterFile", newParameterFile);
+            load_param(recognized, par_file, id, "zippering", zipperingEnabled);
+            load_param(recognized, par_file, id, "ind_cat", catastrophesEnabled);
+            load_param(recognized, par_file, id, "proportionalCatastrophes", proportionalCatastrophes);
+            load_param(recognized, par_file, id, "induced_cat_fraction", inducedCatastropheFraction);
+            load_param(recognized, par_file, id, "cat_start_angle", catStartAngle);
+            load_param(recognized, par_file, id, "zipFraction", zipFraction);
+            load_param(recognized, par_file, id, "magic_angle", magicAngle);
+            load_param(recognized, par_file, id, "vPlus", vPlus);
+            load_param(recognized, par_file, id, "vMin", vMin);
+            load_param(recognized, par_file, id, "vTM", vTM);
+            load_param(recognized, par_file, id, "kCat", kCat);
+            load_param(recognized, par_file, id, "kRes", kRes);
+            load_param(recognized, par_file, id, "kSev", kSev);
+            load_param(recognized, par_file, id, "kCross", kCross);
+            load_param(recognized, par_file, id, "poolDensity", poolDensity);
+            load_param(recognized, par_file, id, "treadmilling", treadmillingEnabled);
+            load_param(recognized, par_file, id, "severing", severingEnabled);
+            load_param(recognized, par_file, id, "crossSevering", crossSeveringEnabled);
+            load_param(recognized, par_file, id, "crossSeveringTop", crossSeveringTop);
+            load_param(recognized, par_file, id, "crossSeveringStartAngle", crossSeveringStartAngle);
+            load_param(recognized, par_file, id, "restrictedPool", restrictedPool);
+            load_param(recognized, par_file, id, "edgeCatastropheEnabled", edgeCatastropheEnabled);
+            load_param(recognized, par_file, id, "edgeCatastropheSmooth", edgeCatastropheSmooth);
+            load_param(recognized, par_file, id, "pCatSpecialEdgeMax", pCatSpecialEdgeMax);
+            load_param(recognized, par_file, id, "pCatRegularEdgeMax", pCatRegularEdgeMax);
+            load_param(recognized, par_file, id, "PPB", PPB);
+            load_param(recognized, par_file, id, "PPBformingTime", PPBformingTime);
+            load_param(recognized, par_file, id, "kNuc", kNuc);
+            load_param(recognized, par_file, id, "stopTime", stopTime);
+            load_param(recognized, par_file, id, "measurementInterval", measurementInterval);
+            load_param(recognized, par_file, id, "wallClockLimit", wallClockLimit);
+            load_param(recognized, par_file, id, "memoryLimit", memoryLimit);
+            load_param(recognized, par_file, id, "movieEnabled", movieEnabled);
+            load_param(recognized, par_file, id, "movieFrameInterval", movieFrameInterval);
+            load_param(recognized, par_file, id, "geometryScaleFactor", geometryScaleFactor);
             load_param_enum_text<NucleationType>(
-            recognized, parFile, id, "nucleationType", nucleationType, NucleationTypeText, NUC_COUNT_LAST);
+            recognized, par_file, id, "nucleationType", nucleationType, nucleation_type_text, NUC_COUNT_LAST);
             load_param_enum_text<InteractionType>(
-            recognized, parFile, id, "interactionType", interactionType, InteractionTypeText, INT_COUNT_LAST);
+            recognized, par_file, id, "interactionType", interactionType, interaction_type_text, INT_COUNT_LAST);
             load_param_enum_text<BundleType>(
-            recognized, parFile, id, "bundleType", bundleType, BundleTypeText, BDL_COUNT_LAST);
-            load_param(recognized, parFile, id, "showOutput", showOutput);
-            load_param(recognized, parFile, id, "showMesh", showMesh);
-            load_param(recognized, parFile, id, "geometry", geometry);
-            load_param(recognized, parFile, id, "edgNumber", edgNumber);
+            recognized, par_file, id, "bundleType", bundleType, bundle_type_text, BDL_COUNT_LAST);
+            load_param(recognized, par_file, id, "showOutput", showOutput);
+            load_param(recognized, par_file, id, "showMesh", showMesh);
+            load_param(recognized, par_file, id, "geometry", geometry);
+            load_param(recognized, par_file, id, "edgNumber", edgNumber);
 
             for (int edg = 1; edg <= edgNumber; edg++)
             {
-                double edgCatVal;
-                string edgCatType1 = "edgCat_" + std::to_string(edg);
-                char* edgCatType = new char[edgCatType1.length() + 1];
-                strcpy(edgCatType, edgCatType1.c_str());
-                load_param_maps(recognized, parFile, id, edgCatType, edgCatVal, edgCatMap);
-                delete[] edgCatType;
+                double edg_cat_val;
+                string edg_cat_type1 = "edgCat_" + std::to_string(edg);
+                char* edg_cat_type = new char[edg_cat_type1.length() + 1];
+                strcpy(edg_cat_type, edg_cat_type1.c_str());
+                load_param_maps(recognized, par_file, id, edg_cat_type, edg_cat_val, edgCatMap);
+                delete[] edg_cat_type;
             }
 
-            load_param(recognized, parFile, id, "faceNumber", faceNumber);
+            load_param(recognized, par_file, id, "faceNumber", faceNumber);
             for (int face = 1; face <= faceNumber; face++)
             {
-                double faceCatVal;
-                string faceCatType1 = "faceCat_" + std::to_string(face);
-                char* faceCatType = new char[faceCatType1.length() + 1];
-                strcpy(faceCatType, faceCatType1.c_str());
-                load_param_maps(recognized, parFile, id, faceCatType, faceCatVal, faceCatMap);
-                delete[] faceCatType;
+                double face_cat_val;
+                string face_cat_type1 = "faceCat_" + std::to_string(face);
+                char* face_cat_type = new char[face_cat_type1.length() + 1];
+                strcpy(face_cat_type, face_cat_type1.c_str());
+                load_param_maps(recognized, par_file, id, face_cat_type, face_cat_val, faceCatMap);
+                delete[] face_cat_type;
             }
             if (!recognized)
             {
                 cerr << "Parameter not recognized: " << id << "\n";
             }
-            getline(parFile, id);
+            getline(par_file, id);
         }
     }
 
@@ -493,8 +493,8 @@ void Parameters::verify_parameters()
 bool Parameters::calc_theory_parameters(void)
 {
     // convert the angle values from degrees to radians
-    double maRad = magicAngle * PI / 180.0;
-    double csRad = catStartAngle * PI / 180.0;
+    double ma_rad = magicAngle * PI / 180.0;
+    double cs_rad = catStartAngle * PI / 180.0;
 
     switch (interactionType)
     {
@@ -504,7 +504,7 @@ bool Parameters::calc_theory_parameters(void)
             // fzippering is enabled
             if (zipperingEnabled)
             {
-                z0calc = (4. / PI) * (1. - cos(maRad)) * zipFraction;
+                z0calc = (4. / PI) * (1. - cos(ma_rad)) * zipFraction;
             }
 
             // zippering is disabled
@@ -523,21 +523,21 @@ bool Parameters::calc_theory_parameters(void)
                     if (magicAngle > catStartAngle)
                     {
                         c0calc = (4.0 / PI) * 2.0 * inducedCatastropheFraction
-                                 * (1. - sin(maRad) + (maRad - csRad) * cos(maRad)) / (PI - 2. * csRad);
+                                 * (1. - sin(ma_rad) + (ma_rad - cs_rad) * cos(ma_rad)) / (PI - 2. * cs_rad);
                     }
 
                     // magic angle <= catastrophe start angle
                     else
                     {
                         c0calc
-                        = (4.0 / PI) * 2.0 * inducedCatastropheFraction * (1.0 - sin(csRad)) / (PI - 2.0 * csRad);
+                        = (4.0 / PI) * 2.0 * inducedCatastropheFraction * (1.0 - sin(cs_rad)) / (PI - 2.0 * cs_rad);
                     }
                 }
 
                 // proportional catastrophe is disabled
                 else
                 {
-                    c0calc = (4.0 / PI) * inducedCatastropheFraction * cos(max(maRad, csRad));
+                    c0calc = (4.0 / PI) * inducedCatastropheFraction * cos(max(ma_rad, cs_rad));
                 }
             }
 
@@ -560,40 +560,40 @@ bool Parameters::calc_theory_parameters(void)
                 // proportional catastrophe is enabled
                 if (proportionalCatastrophes)
                 {
-                    double temp = max(0., csRad);
+                    double temp = max(0., cs_rad);
                     c0calc = (4.0 / PI) * 2.0 * inducedCatastropheFraction
-                             * (1.0 - sin(temp) + (temp - csRad) * cos(temp)) / (PI - 2.0 * csRad);
+                             * (1.0 - sin(temp) + (temp - cs_rad) * cos(temp)) / (PI - 2.0 * cs_rad);
                 }
 
                 // proportional catastrophe is disabled
                 else
                 {
-                    c0calc = (4.0 / PI) * inducedCatastropheFraction * cos(max(csRad, 0.));
+                    c0calc = (4.0 / PI) * inducedCatastropheFraction * cos(max(cs_rad, 0.));
                 }
             }
 
             // zippering is enabled
             if (zipperingEnabled)
             {
-                z0calc = (4.0 / PI) * (1.0 - cos(maRad));
+                z0calc = (4.0 / PI) * (1.0 - cos(ma_rad));
 
                 // catastrophe is enabled and  (magic angle > catastrophe start angle)
-                if (catastrophesEnabled && (csRad < maRad))
+                if (catastrophesEnabled && (cs_rad < ma_rad))
                 {
                     // proportional catastrophe is enabled
                     if (proportionalCatastrophes)
                     {
-                        double leftBoundary = max(0., csRad);
+                        double left_boundary = max(0., cs_rad);
                         z0calc -= (4.0 / PI) * 2.0 * inducedCatastropheFraction
-                                  * ((leftBoundary - csRad) * cos(leftBoundary) - (maRad - csRad) * cos(maRad)
-                                     - sin(leftBoundary) + sin(maRad))
-                                  / (PI - 2.0 * csRad);
+                                  * ((left_boundary - cs_rad) * cos(left_boundary) - (ma_rad - cs_rad) * cos(ma_rad)
+                                     - sin(left_boundary) + sin(ma_rad))
+                                  / (PI - 2.0 * cs_rad);
                     }
 
                     // proportional catastrophe is disabled
                     else
                     {
-                        z0calc -= (4.0 / PI) * inducedCatastropheFraction * (cos(csRad) - cos(maRad));
+                        z0calc -= (4.0 / PI) * inducedCatastropheFraction * (cos(cs_rad) - cos(ma_rad));
                     }
                 }
             }
@@ -615,8 +615,8 @@ bool Parameters::calc_theory_parameters(void)
 
     // theoretial value of G
     double l0 = pow((2.0 * (-vMin + vTM) * (vPlus - vTM) * (vPlus - vTM)) / (kNuc * vPlus * (-vMin + vPlus)), 1. / 3.);
-    double lavgInv = kRes / (-vMin + vTM) - kCat / (vPlus - vTM);
-    double G_0 = l0 * lavgInv;
+    double lavg_inv = kRes / (-vMin + vTM) - kCat / (vPlus - vTM);
+    double g_0 = l0 * lavg_inv;
 
     if (showOutput == 1)
     {
@@ -625,8 +625,8 @@ bool Parameters::calc_theory_parameters(void)
         cout << "===============================================" << endl;
         cout << "l0 = " << l0 << endl;
         ;
-        cout << "lavg = " << -1. / lavgInv << endl;
-        cout << "G_0 = -l0/lavg = " << G_0 << endl;
+        cout << "lavg = " << -1. / lavg_inv << endl;
+        cout << "G_0 = -l0/lavg = " << g_0 << endl;
         cout << "===============================================" << endl;
     }
 

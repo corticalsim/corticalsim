@@ -156,8 +156,8 @@ void MTTip::advance_intersection()
 
 void MTTip::determine_event()
 {
-    double eventPos(0.0);
-    DeterministicEventType eventType;
+    double event_pos(0.0);
+    DeterministicEventType event_type;
 
     // get the current position of the tip on the trajectory
     double pos = position();
@@ -168,22 +168,22 @@ void MTTip::determine_event()
         // next collision on wall begenning (at the bottom of the trajectory)
         if (nextCollision == trajectory->wall_begin())
         {
-            eventType = EV_WALL;
-            eventPos = 0;
+            event_type = EV_WALL;
+            event_pos = 0;
         }
 
         // next collision on wall end (at the top of the trajectory)
         else if (nextCollision == trajectory->wall_end())
         {
-            eventType = EV_WALL;
-            eventPos = trajectory->length;
+            event_type = EV_WALL;
+            event_pos = trajectory->length;
         }
 
         // next collision, some where at the middle of trajectory
         else
         {
-            eventType = EV_COLLISION;
-            eventPos = nextCollision->first;
+            event_type = EV_COLLISION;
+            event_pos = nextCollision->first;
         }
     }
 
@@ -194,16 +194,16 @@ void MTTip::determine_event()
         if (nextCollision == trajectory->wall_begin())
         {
             // the segment will be removed
-            eventType = EV_END_OF_SEGMENT;
-            eventPos = 0;
+            event_type = EV_END_OF_SEGMENT;
+            event_pos = 0;
         }
 
         // next collision on wall end (at the top of the trajectory)
         else if (nextCollision == trajectory->wall_end())
         {
             // the segment will be removed
-            eventType = EV_END_OF_SEGMENT;
-            eventPos = trajectory->length;
+            event_type = EV_END_OF_SEGMENT;
+            event_pos = trajectory->length;
         }
 
         // plus end tip and the next collision is some where at the middle of trajectory
@@ -211,8 +211,8 @@ void MTTip::determine_event()
                  && (nextCollision == mt->segments.last()->startItr))
         {
             // the segment will be removed
-            eventType = EV_END_OF_SEGMENT;
-            eventPos = mt->segments.last()->startItr->first;
+            event_type = EV_END_OF_SEGMENT;
+            event_pos = mt->segments.last()->startItr->first;
         }
 
         // minus end tip and the next collision is some where at the middle of trajectory
@@ -220,23 +220,23 @@ void MTTip::determine_event()
                  && (nextCollision == mt->segments.first()->endItr))
         {
             // the segment will be removed
-            eventType = EV_END_OF_SEGMENT;
-            eventPos = mt->segments.first()->endItr->first;
+            event_type = EV_END_OF_SEGMENT;
+            event_pos = mt->segments.first()->endItr->first;
         }
 
         // next collision is some where at the middle of trajectory and a back-track event will occur
         else
         {
-            eventType = EV_BACKTRACK;
-            eventPos = nextCollision->first;
+            event_type = EV_BACKTRACK;
+            event_pos = nextCollision->first;
         }
     }
 
     // store the event with: (a) type of event and (b) distance to travel
-    event.push_on_queue((eventPos - pos) * static_cast<double>(dir), eventType);
+    event.push_on_queue((event_pos - pos) * static_cast<double>(dir), event_type);
 
     // transfer the value of the calculated event position to the next event position
-    nextEventPos = eventPos;
+    nextEventPos = event_pos;
 
 #ifdef DBG_EVENT
     if (event.type != ev_none)
@@ -320,25 +320,25 @@ void MTTip::notify_insert(IntersectionItr& new_is)
     temp = new_is;
 
     // get the tip start/end iterator
-    IntersectionItr& refItr = (type() == T_PLUS) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
+    IntersectionItr& ref_itr = (type() == T_PLUS) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
 
     // get the tip start/end position
-    double& refPos = (type() == T_PLUS) ? mt->segments.last()->end : mt->segments.first()->start;
+    double& ref_pos = (type() == T_PLUS) ? mt->segments.last()->end : mt->segments.first()->start;
 
     // link the tip start/end iterator to the new inserted iterator
     if (dir == ::FORWARD)
     {
-        if ((++temp == refItr) && (new_is->first > refPos))
+        if ((++temp == ref_itr) && (new_is->first > ref_pos))
         {
-            refItr = new_is;
+            ref_itr = new_is;
         }
     }
 
     else
     {
-        if ((--temp == refItr) && (new_is->first < refPos))
+        if ((--temp == ref_itr) && (new_is->first < ref_pos))
         {
-            refItr = new_is;
+            ref_itr = new_is;
         }
     }
 
@@ -401,7 +401,7 @@ void MTTip::switch_trajectory(Trajectory* new_tr, Direction d, IntersectionItr i
 {
 
     // copy old trajectory of the tip (required to unregister the tip from old trajectory region)
-    Trajectory* oldTr(trajectory);
+    Trajectory* old_tr(trajectory);
 
     // assign new trajectory to the tip
     trajectory = new_tr;
@@ -420,19 +420,19 @@ void MTTip::switch_trajectory(Trajectory* new_tr, Direction d, IntersectionItr i
     determine_event();
 
     // unregister the tip from old trajectory
-    oldTr->base.region->unregister_from_region(regionTag, type(), mt->type);
+    old_tr->base.region->unregister_from_region(regionTag, type(), mt->type);
 
     // find the new regiontag of the tip
     regionTag = new_tr->base.region->register_on_region(this, type(), mt->type);
 
     // copy old notification tag of the tip (required to unregister the tip from old trajectory notification list)
-    TrjMTTipTag tempTag = notificationTag;
+    TrjMTTipTag temp_tag = notificationTag;
 
     // assign new notification tag to the tip
     notificationTag = new_tr->register_for_notifications(this);
 
     // unregister notification of the tip from old trajectory
-    oldTr->unregister_for_notifications(tempTag);
+    old_tr->unregister_for_notifications(temp_tag);
 
     return;
 }

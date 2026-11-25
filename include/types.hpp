@@ -87,7 +87,7 @@ typedef enum
     BACKWARD = -1
 } Direction;
 
-extern string DirectionTypeText[];
+extern string direction_type_text[];
 
 typedef enum
 {
@@ -131,7 +131,7 @@ typedef enum
     NUC_COUNT_LAST
 } NucleationType;
 
-extern string NucleationTypeText[];
+extern string nucleation_type_text[];
 
 typedef enum
 {
@@ -140,7 +140,7 @@ typedef enum
     INT_COUNT_LAST
 } InteractionType;
 
-extern string InteractionTypeText[];
+extern string interaction_type_text[];
 
 typedef enum
 {
@@ -152,7 +152,7 @@ typedef enum
     BDL_COUNT_LAST
 } BundleType;
 
-extern string BundleTypeText[];
+extern string bundle_type_text[];
 
 typedef enum
 {

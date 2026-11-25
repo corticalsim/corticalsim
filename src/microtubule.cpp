@@ -316,21 +316,21 @@ void Microtubule::sever_at_cross(IntersectionItr is, Segment* cut_seg)
     // again and again, leading to problems.
 
     // this time, cutPos and cutSeg are already known.
-    double splitPos(is->first);
+    double split_pos(is->first);
     // shift the cut ever so slightly away from the intersection, in the direction of the plus end.
     if (cut_seg->dir == ::FORWARD)
     {
-        splitPos += ZERO_CUTOFF;
+        split_pos += ZERO_CUTOFF;
     }
     else
     {
-        splitPos -= ZERO_CUTOFF;
+        split_pos -= ZERO_CUTOFF;
     }
 
     // only cut if the severing position is comfortably located within the segment interval
-    if ((cut_seg->start - splitPos) * (cut_seg->end - splitPos) < ZERO_CUTOFF)
+    if ((cut_seg->start - split_pos) * (cut_seg->end - split_pos) < ZERO_CUTOFF)
     {
-        split_segment_at_traj_pos(splitPos, cut_seg);
+        split_segment_at_traj_pos(split_pos, cut_seg);
         system->totalIntersectionSeveringCount++;
     }
     return;
@@ -339,7 +339,7 @@ void Microtubule::sever_at_cross(IntersectionItr is, Segment* cut_seg)
 void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
 {
     // used in sever and severAtCross
-    Microtubule* newMT(nullptr);
+    Microtubule* new_mt(nullptr);
     TrajectoryVector tv;
 
     tv.trajectory = cut_seg->trajectory;
@@ -347,47 +347,47 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
     tv.pos = cut_pos;
     if (type == MT_GROWING)
     {
-        newMT = system->growing_mts.create(system, tv, false);
+        new_mt = system->growing_mts.create(system, tv, false);
     }
     else
     {
-        newMT = system->shrinking_mts.create(system, tv, false);
+        new_mt = system->shrinking_mts.create(system, tv, false);
     }
 
-    newMT->nucleationTime = nucleationTime;
-    newMT->type = type;
+    new_mt->nucleationTime = nucleationTime;
+    new_mt->type = type;
 
     // transfer segments
-    newMT->segments.create(newMT, tv);
-    newMT->segments.first()->end = cut_seg->end;
-    newMT->segments.first()->endItr = cut_seg->endItr;
-    newMT->segments.first()->nucleationTime = cut_seg->nucleationTime;
-    newMT->segments.import_set(segments, cut_seg->next(), segments.last());
-    Segment* tempSeg = newMT->segments.first()->next();
-    while (tempSeg != nullptr)
+    new_mt->segments.create(new_mt, tv);
+    new_mt->segments.first()->end = cut_seg->end;
+    new_mt->segments.first()->endItr = cut_seg->endItr;
+    new_mt->segments.first()->nucleationTime = cut_seg->nucleationTime;
+    new_mt->segments.import_set(segments, cut_seg->next(), segments.last());
+    Segment* temp_seg = new_mt->segments.first()->next();
+    while (temp_seg != nullptr)
     {
-        tempSeg->mt = newMT;
-        tempSeg = tempSeg->next();
+        temp_seg->mt = new_mt;
+        temp_seg = temp_seg->next();
     }
 
     // now update the plus tip trajectory/position
-    newMT->plus.trajectory = plus.trajectory;
-    newMT->plus.velocity = plus.velocity;
-    newMT->plus.event.reinitialize(plus.event.queue, plus.velocity);
-    newMT->plus.dir = plus.dir;
-    newMT->plus.nextCollision = plus.nextCollision;
-    newMT->plus.notificationTag = newMT->plus.trajectory->register_for_notifications(&(newMT->plus));
-    newMT->plus.regionTag = newMT->plus.trajectory->base.region->register_on_region(&(newMT->plus), T_PLUS, type);
+    new_mt->plus.trajectory = plus.trajectory;
+    new_mt->plus.velocity = plus.velocity;
+    new_mt->plus.event.reinitialize(plus.event.queue, plus.velocity);
+    new_mt->plus.dir = plus.dir;
+    new_mt->plus.nextCollision = plus.nextCollision;
+    new_mt->plus.notificationTag = new_mt->plus.trajectory->register_for_notifications(&(new_mt->plus));
+    new_mt->plus.regionTag = new_mt->plus.trajectory->base.region->register_on_region(&(new_mt->plus), T_PLUS, type);
 
     // next, update the minus end of the new MT
-    newMT->segments.first()->start = tv.pos;
-    newMT->minus.notificationTag = newMT->minus.trajectory->register_for_notifications(&(newMT->minus));
-    newMT->minus.regionTag = newMT->minus.trajectory->base.region->register_on_region(&(newMT->minus), T_MINUS, type);
-    newMT->minus.locate_intersection();
+    new_mt->segments.first()->start = tv.pos;
+    new_mt->minus.notificationTag = new_mt->minus.trajectory->register_for_notifications(&(new_mt->minus));
+    new_mt->minus.regionTag = new_mt->minus.trajectory->base.region->register_on_region(&(new_mt->minus), T_MINUS, type);
+    new_mt->minus.locate_intersection();
 
-    newMT->plus.determine_event();
-    newMT->minus.determine_event();
-    newMT->set_disappear_event();
+    new_mt->plus.determine_event();
+    new_mt->minus.determine_event();
+    new_mt->set_disappear_event();
 
     // now, finish up the base microtubule
     segments.last()->end = cut_pos;
@@ -411,8 +411,8 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
     //...and register on region again
     plus.regionTag = plus.trajectory->base.region->register_on_region(&plus, T_PLUS, MT_SHRINKING);
     plus.dir = tv.dir;
-    plus.nextCollision = newMT->minus.nextCollision;
-    if (system->p.vMin * newMT->minus.velocity >= 0)
+    plus.nextCollision = new_mt->minus.nextCollision;
+    if (system->p.vMin * new_mt->minus.velocity >= 0)
     {
         // both tips move in opposite directions [this should generally be the case]
         plus.advance_intersection();
@@ -475,12 +475,12 @@ void Microtubule::wall()
     // edge catastrophe enabled
     if (system->p.edgeCatastropheEnabled)
     {
-        double cosAngle = (plus.dir == ::FORWARD) ? plus.trajectory->nextTrCosAngle : plus.trajectory->prevTrCosAngle;
+        double cos_angle = (plus.dir == ::FORWARD) ? plus.trajectory->nextTrCosAngle : plus.trajectory->prevTrCosAngle;
 
         // MT is moving non-parallel to the edege
-        if ((1.0 - cosAngle) > ZERO_CUTOFF)
+        if ((1.0 - cos_angle) > ZERO_CUTOFF)
         {
-            double pCat(0.0);
+            double p_cat(0.0);
 
             // for sharp edged cube
             if (system->p.geometry == "cubeReal")
@@ -489,12 +489,12 @@ void Microtubule::wall()
                 {
                     if (abs(plus.trajectory->base.region->faceTag - tv.trajectory->base.region->faceTag) > 1)
                     {
-                        pCat = system->p.pCatSpecialEdgeMax;
+                        p_cat = system->p.pCatSpecialEdgeMax;
                     }
 
                     else
                     {
-                        pCat = system->p.pCatRegularEdgeMax;
+                        p_cat = system->p.pCatRegularEdgeMax;
                     }
                 }
             }
@@ -502,17 +502,17 @@ void Microtubule::wall()
             // other
             else
             {
-                pCat = (plus.dir == ::FORWARD) ? plus.trajectory->nextTrpCat : plus.trajectory->prevTrpCat;
+                p_cat = (plus.dir == ::FORWARD) ? plus.trajectory->nextTrpCat : plus.trajectory->prevTrpCat;
             }
 
             // when smooth catastrophe is enabled
             if (system->p.edgeCatastropheSmooth)
             {
-                pCat *= (1.0 - cosAngle);
+                p_cat *= (1.0 - cos_angle);
             }
 
             // apply catastrophe
-            if (system->randomGen.rand() <= pCat)
+            if (system->randomGen.rand() <= p_cat)
             {
                 tv.trajectory->conditional_remove();
                 catastrophe();
@@ -570,13 +570,13 @@ void Microtubule::collision()
     // MT(s) passing through the next collision point
     else
     {
-        double diffAngle
+        double diff_angle
         = plus.trajectory->base.region->intersection_angle(plus.trajectory, plus.nextCollision->second.otherTrajectory);
 
-        if (diffAngle > 0.5 * PI)
+        if (diff_angle > 0.5 * PI)
         {
             dir = (plus.dir == ::FORWARD) ? BACKWARD : ::FORWARD;
-            diffAngle = PI - diffAngle;
+            diff_angle = PI - diff_angle;
         }
         else
         {
@@ -585,7 +585,7 @@ void Microtubule::collision()
 
         // find out type of collision event to be occured
         type = system->collision_result(
-        diffAngle, plus.nextCollision->second.occupancy, plus.nextCollision->second.mirror->second.occupancy);
+        diff_angle, plus.nextCollision->second.occupancy, plus.nextCollision->second.mirror->second.occupancy);
     }
 
     switch (type)
@@ -664,30 +664,30 @@ void Microtubule::end_of_segment(MTTip* tip)
     }
 #endif
 
-    Direction newDir;
-    Segment* newSeg(nullptr);
-    Segment* killSeg(nullptr);
+    Direction new_dir;
+    Segment* new_seg(nullptr);
+    Segment* kill_seg(nullptr);
 
     // select plus tip associated segment
     if (tip == &plus)
     {
-        killSeg = segments.last();
-        newSeg = segments.last()->previous();
-        newDir = newSeg->dir;
+        kill_seg = segments.last();
+        new_seg = segments.last()->previous();
+        new_dir = new_seg->dir;
     }
 
     // select minus tip associated segment
     else
     {
-        killSeg = segments.first();
-        newSeg = segments.first()->next();
-        if (newSeg->dir == ::FORWARD)
+        kill_seg = segments.first();
+        new_seg = segments.first()->next();
+        if (new_seg->dir == ::FORWARD)
         {
-            newDir = BACKWARD;
+            new_dir = BACKWARD;
         }
         else
         {
-            newDir = ::FORWARD;
+            new_dir = ::FORWARD;
         }
     }
 
@@ -700,21 +700,21 @@ void Microtubule::end_of_segment(MTTip* tip)
 #endif
 
     // kill the selected segment
-    segments.remove(killSeg);
+    segments.remove(kill_seg);
 
     // tip switching to a new trajectory (in a different region) after encountering wall-begin/wall-end
     if ((tip->nextCollision == tip->trajectory->wall_begin()) || (tip->nextCollision == tip->trajectory->wall_end()))
     {
-        tip->switch_trajectory(newSeg->trajectory,
-                              newDir,
-                              newDir == ::FORWARD ? newSeg->trajectory->wall_end() : newSeg->trajectory->wall_begin());
+        tip->switch_trajectory(new_seg->trajectory,
+                              new_dir,
+                              new_dir == ::FORWARD ? new_seg->trajectory->wall_end() : new_seg->trajectory->wall_begin());
         system->boundaryCrossingCount--;
     }
 
     // tip switching to a new trajectory (in the same region)
     else
     {
-        tip->switch_trajectory(tip->nextCollision->second.otherTrajectory, newDir, tip->nextCollision->second.mirror);
+        tip->switch_trajectory(tip->nextCollision->second.otherTrajectory, new_dir, tip->nextCollision->second.mirror);
     }
 
     // MT length zero (=0) encountered
@@ -845,7 +845,7 @@ void Microtubule::harakiri()
 bool Microtubule::integrity_check()
 {
     bool valid(true);
-    double maxDeviation(0.0);
+    double max_deviation(0.0);
 
     Segment* seg(nullptr);
     IntersectionItr is;
@@ -893,7 +893,7 @@ bool Microtubule::integrity_check()
                 cerr << "Location of segment end does not coincide with intersection position\n";
             }
 
-            maxDeviation = max(maxDeviation, abs(seg->end - seg->endItr->first));
+            max_deviation = max(max_deviation, abs(seg->end - seg->endItr->first));
 
             if (abs(seg->next()->start - seg->next()->startItr->first) > ZERO_CUTOFF)
             {
@@ -901,7 +901,7 @@ bool Microtubule::integrity_check()
                 valid = false;
                 cerr << "Location of segment end does not coincide with intersection position\n";
             }
-            maxDeviation = max(maxDeviation, abs(seg->next()->start - seg->next()->startItr->first));
+            max_deviation = max(max_deviation, abs(seg->next()->start - seg->next()->startItr->first));
         }
 
         // segment at the end of a trajectory
@@ -916,7 +916,7 @@ bool Microtubule::integrity_check()
                     valid = false;
                     cerr << "Segment end location does not coincide with end of trajectory\n";
                 }
-                maxDeviation = max(maxDeviation, abs(seg->end - seg->trajectory->length));
+                max_deviation = max(max_deviation, abs(seg->end - seg->trajectory->length));
             }
 
             // positions should match with wall begin location
@@ -928,7 +928,7 @@ bool Microtubule::integrity_check()
                     valid = false;
                     cerr << "Segment end location does not coincide with end of trajectory\n";
                 }
-                maxDeviation = max(maxDeviation, abs(seg->end - 0));
+                max_deviation = max(max_deviation, abs(seg->end - 0));
             }
 
             if (seg->next()->startItr == seg->next()->trajectory->wall_end())
@@ -940,7 +940,7 @@ bool Microtubule::integrity_check()
                     cerr << "start: " << seg->next()->start << ", length: " << seg->next()->trajectory->length
                          << ", diff=" << abs(seg->next()->start - seg->next()->trajectory->length) << "\n";
                 }
-                maxDeviation = max(maxDeviation, abs(seg->next()->start - seg->next()->trajectory->length));
+                max_deviation = max(max_deviation, abs(seg->next()->start - seg->next()->trajectory->length));
             }
             else
             {
@@ -951,7 +951,7 @@ bool Microtubule::integrity_check()
                     cerr << "start: " << seg->next()->start << ", length: " << seg->next()->trajectory->length
                          << ", diff=" << abs(seg->next()->start) << "\n";
                 }
-                maxDeviation = max(maxDeviation, abs(seg->next()->start - 0));
+                max_deviation = max(max_deviation, abs(seg->next()->start - 0));
             }
         }
         seg = seg->next();

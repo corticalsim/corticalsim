@@ -167,32 +167,32 @@ inline void DLList<T, I>::remove(T* element)
 template <class T, int I>
 inline T* DLList<T, I>::create()
 {
-    T* newElement = new (MemPool::malloc()) T();
-    return link_element(newElement);
+    T* new_element = new (MemPool::malloc()) T();
+    return link_element(new_element);
 }
 
 template <class T, int I>
 template <class Q>
 inline T* DLList<T, I>::create(Q par1)
 {
-    T* newElement = new (MemPool::malloc()) T(par1);
-    return link_element(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1);
+    return link_element(new_element);
 }
 
 template <class T, int I>
 template <class Q, class R>
 inline T* DLList<T, I>::create(Q par1, R par2)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2);
-    return link_element(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2);
+    return link_element(new_element);
 }
 
 template <class T, int I>
 template <class Q, class R, class S>
 inline T* DLList<T, I>::create(Q par1, R par2, S par3)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2, par3);
-    return link_element(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2, par3);
+    return link_element(new_element);
 }
 
 template <class T, int I>

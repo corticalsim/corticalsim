@@ -83,7 +83,7 @@ bool Trajectory::integrity_check()
 
     IntersectionItr is(wall_begin());
 
-    for (size_t isCount = 1; isCount < intersections.size(); isCount++)
+    for (size_t is_count = 1; is_count < intersections.size(); is_count++)
     {
         is++;
         if (is->second.mirror->second.mirror != is)
@@ -93,26 +93,26 @@ bool Trajectory::integrity_check()
         }
     }
 
-    list<Segment*>::iterator segItr(segments.begin());
+    list<Segment*>::iterator seg_itr(segments.begin());
 
-    while (segItr != segments.end())
+    while (seg_itr != segments.end())
     {
-        is = (**segItr).startItr;
-        if ((**segItr).dir == ::FORWARD)
+        is = (**seg_itr).startItr;
+        if ((**seg_itr).dir == ::FORWARD)
         {
-            while (++is != (**segItr).endItr)
+            while (++is != (**seg_itr).endItr)
             {
                 is->second.occupancy--;
             }
         }
         else
         {
-            while (--is != (**segItr).endItr)
+            while (--is != (**seg_itr).endItr)
             {
                 is->second.occupancy--;
             }
         }
-        segItr++;
+        seg_itr++;
     }
     // now, check whether all occupancy counts are zero
     is = intersections.begin();
@@ -125,25 +125,25 @@ bool Trajectory::integrity_check()
         }
     }
 
-    segItr = segments.begin();
-    while (segItr != segments.end())
+    seg_itr = segments.begin();
+    while (seg_itr != segments.end())
     {
-        is = (**segItr).startItr;
-        if ((**segItr).dir == ::FORWARD)
+        is = (**seg_itr).startItr;
+        if ((**seg_itr).dir == ::FORWARD)
         {
-            while (++is != (**segItr).endItr)
+            while (++is != (**seg_itr).endItr)
             {
                 is->second.occupancy++;
             }
         }
         else
         {
-            while (--is != (**segItr).endItr)
+            while (--is != (**seg_itr).endItr)
             {
                 is->second.occupancy++;
             }
         }
-        segItr++;
+        seg_itr++;
     }
 
     if (!valid)
@@ -156,57 +156,57 @@ bool Trajectory::integrity_check()
 
 double Trajectory::segment_length()
 {
-    double sumLength(0.0);
+    double sum_length(0.0);
     list<Segment*>::iterator seg(segments.begin());
 
     // calculate total length of all the segments present in the trajectory
     while (seg != segments.end())
     {
-        sumLength += (**seg).length();
+        sum_length += (**seg).length();
         seg++;
     }
-    return sumLength;
+    return sum_length;
 }
 
 double Trajectory::covered_length()
 {
     list<Segment*>::iterator seg(segments.begin());
-    list<double> startPoints;
-    list<double> endPoints;
+    list<double> start_points;
+    list<double> end_points;
 
     // store the start and end point locations of segments in two seperate list
     while (seg != segments.end())
     {
-        startPoints.push_back(min((**seg).start, (**seg).end));
-        endPoints.push_back(max((**seg).start, (**seg).end));
+        start_points.push_back(min((**seg).start, (**seg).end));
+        end_points.push_back(max((**seg).start, (**seg).end));
         seg++;
     }
 
     // make sure the last value of start-point-list is maximum of all values from both lists
-    startPoints.push_back(VERY_LARGE);
+    start_points.push_back(VERY_LARGE);
 
     // sort the distances
-    startPoints.sort();
-    endPoints.sort();
+    start_points.sort();
+    end_points.sort();
 
-    double previousPos(0.0);
-    double currentPos(0.0);
+    double previous_pos(0.0);
+    double current_pos(0.0);
     int occupancy(0);
-    double cLength(0.0);
-    list<double>::iterator stepup(startPoints.begin());
-    list<double>::iterator stepdown(endPoints.begin());
+    double c_length(0.0);
+    list<double>::iterator stepup(start_points.begin());
+    list<double>::iterator stepdown(end_points.begin());
 
-    while (stepdown != endPoints.end())
+    while (stepdown != end_points.end())
     {
-        currentPos = min(*stepup, *stepdown);
+        current_pos = min(*stepup, *stepdown);
 
         // sum up only once and if the trajectory is covered, i.e. avoid multiple addition for bundles
         if (occupancy >= 1)
         {
-            cLength += currentPos - previousPos;
+            c_length += current_pos - previous_pos;
         }
 
-        previousPos = currentPos;
+        previous_pos = current_pos;
 
         // occupancy increasing, chances of the presence of bundle increasing
         if ((*stepup) < (*stepdown))
@@ -223,7 +223,7 @@ double Trajectory::covered_length()
         }
     }
 
-    return cLength;
+    return c_length;
 }
 
 void Trajectory::invalidate_intersection(IntersectionItr& old_is)

@@ -8,25 +8,25 @@ TrajectoryVector Region::insert_trajectory(const SurfaceVector& s_vec)
     cout << "DBG/GEOMETRY: Region::insertTrajectory() called\n";
 #endif
 
-    TrajectoryVector tVec;
-    double tLength(0.);
-    SurfaceVector newBase(s_vec);
+    TrajectoryVector t_vec;
+    double t_length(0.);
+    SurfaceVector new_base(s_vec);
 
-    vector<PointATedge> endPoint;
+    vector<PointATedge> end_point;
 
     // gather coordinates of the trajectory to be created
-    get_trajectory_coordinates(newBase, tLength, endPoint, tVec);
+    get_trajectory_coordinates(new_base, t_length, end_point, t_vec);
 
     // create the trajectory
-    tVec.trajectory = trajectories.create(newBase, endPoint, tLength);
+    t_vec.trajectory = trajectories.create(new_base, end_point, t_length);
 
     // make a list of intersections of the created trajectory with all other trajectories
-    make_intersection_list(tVec.trajectory);
+    make_intersection_list(t_vec.trajectory);
 
     // increase total number of intersections accordingly
-    geometry->system->countIntersections += 2 * (tVec.trajectory->intersections.size());
+    geometry->system->countIntersections += 2 * (t_vec.trajectory->intersections.size());
 
-    return tVec;
+    return t_vec;
 }
 
 void Region::remove_trajectory(Trajectory* tr)
@@ -55,17 +55,17 @@ void Region::remove_trajectory(Trajectory* tr)
     // skip the first intersection iterator, as it is a garbage
     IntersectionItr is(++tr->intersections.begin());
 
-    Trajectory* otherTr(nullptr);
+    Trajectory* other_tr(nullptr);
 
     while (is != tr->intersections.end())
     {
-        otherTr = is->second.otherTrajectory;
+        other_tr = is->second.otherTrajectory;
 
         // invalidate all the intersetion for the other trajectory
-        otherTr->invalidate_intersection(is->second.mirror);
+        other_tr->invalidate_intersection(is->second.mirror);
 
         // erase all the intersections for the other trajectory
-        otherTr->intersections.erase(is->second.mirror);
+        other_tr->intersections.erase(is->second.mirror);
 
         is++;
     }
