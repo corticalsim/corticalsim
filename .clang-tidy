@@ -43,7 +43,6 @@ Checks: >
   -readability-identifier-length,
   modernize-*,
   -modernize-use-trailing-return-type,
-  -readability-identifier-length,
 
 HeaderFilterRegex: 'include/[a-zA-Z0-9_-]+\.hpp$'
 ExcludeHeaderFilterRegex: 'subprojects/.*$'
