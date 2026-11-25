@@ -320,7 +320,8 @@ void MTTip::notify_insert(IntersectionItr& new_is)
     temp = new_is;
 
     // get the tip start/end iterator
-    IntersectionItr& ref_itr = (type() == TipType::PLUS) ? mt->segments.last()->end_itr : mt->segments.first()->start_itr;
+    IntersectionItr& ref_itr
+    = (type() == TipType::PLUS) ? mt->segments.last()->end_itr : mt->segments.first()->start_itr;
 
     // get the tip start/end position
     double& ref_pos = (type() == TipType::PLUS) ? mt->segments.last()->end : mt->segments.first()->start;

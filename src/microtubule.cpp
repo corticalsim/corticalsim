@@ -377,12 +377,14 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
     new_mt->plus.dir = plus.dir;
     new_mt->plus.next_collision = plus.next_collision;
     new_mt->plus.notification_tag = new_mt->plus.trajectory->register_for_notifications(&(new_mt->plus));
-    new_mt->plus.region_tag = new_mt->plus.trajectory->base.region->register_on_region(&(new_mt->plus), TipType::PLUS, type);
+    new_mt->plus.region_tag
+    = new_mt->plus.trajectory->base.region->register_on_region(&(new_mt->plus), TipType::PLUS, type);
 
     // next, update the minus end of the new MT
     new_mt->segments.first()->start = tv.pos;
     new_mt->minus.notification_tag = new_mt->minus.trajectory->register_for_notifications(&(new_mt->minus));
-    new_mt->minus.region_tag = new_mt->minus.trajectory->base.region->register_on_region(&(new_mt->minus), TipType::MINUS, type);
+    new_mt->minus.region_tag
+    = new_mt->minus.trajectory->base.region->register_on_region(&(new_mt->minus), TipType::MINUS, type);
     new_mt->minus.locate_intersection();
 
     new_mt->plus.determine_event();
@@ -475,7 +477,8 @@ void Microtubule::wall()
     // edge catastrophe enabled
     if (system->p.edge_catastrophe_enabled)
     {
-        double cos_angle = (plus.dir == Direction::FORWARD) ? plus.trajectory->next_tr_cos_angle : plus.trajectory->prev_tr_cos_angle;
+        double cos_angle
+        = (plus.dir == Direction::FORWARD) ? plus.trajectory->next_tr_cos_angle : plus.trajectory->prev_tr_cos_angle;
 
         // MT is moving non-parallel to the edege
         if ((1.0 - cos_angle) > ZERO_CUTOFF)
@@ -502,7 +505,8 @@ void Microtubule::wall()
             // other
             else
             {
-                p_cat = (plus.dir == Direction::FORWARD) ? plus.trajectory->next_trp_cat : plus.trajectory->prev_trp_cat;
+                p_cat
+                = (plus.dir == Direction::FORWARD) ? plus.trajectory->next_trp_cat : plus.trajectory->prev_trp_cat;
             }
 
             // when smooth catastrophe is enabled
@@ -570,8 +574,8 @@ void Microtubule::collision()
     // MT(s) passing through the next collision point
     else
     {
-        double diff_angle
-        = plus.trajectory->base.region->intersection_angle(plus.trajectory, plus.next_collision->second.other_trajectory);
+        double diff_angle = plus.trajectory->base.region->intersection_angle(
+        plus.trajectory, plus.next_collision->second.other_trajectory);
 
         if (diff_angle > 0.5 * PI)
         {
@@ -706,15 +710,17 @@ void Microtubule::end_of_segment(MTTip* tip)
     if ((tip->next_collision == tip->trajectory->wall_begin()) || (tip->next_collision == tip->trajectory->wall_end()))
     {
         tip->switch_trajectory(new_seg->trajectory,
-                              new_dir,
-                              new_dir == Direction::FORWARD ? new_seg->trajectory->wall_end() : new_seg->trajectory->wall_begin());
+                               new_dir,
+                               new_dir == Direction::FORWARD ? new_seg->trajectory->wall_end()
+                                                             : new_seg->trajectory->wall_begin());
         system->boundary_crossing_count--;
     }
 
     // tip switching to a new trajectory (in the same region)
     else
     {
-        tip->switch_trajectory(tip->next_collision->second.other_trajectory, new_dir, tip->next_collision->second.mirror);
+        tip->switch_trajectory(
+        tip->next_collision->second.other_trajectory, new_dir, tip->next_collision->second.mirror);
     }
 
     // MT length zero (=0) encountered

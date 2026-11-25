@@ -20,8 +20,8 @@ int main(int argc, char* argv[])
     {
         cout << "corticalSim v" << PROGRAM_VERSION << endl;
         cout << "Total running time: " << static_cast<int>(time(nullptr)) - start_time << " seconds.\n";
-        cout << "stochastic events: " << s1->total_s_event_count << ", deterministic events: " << s1->total_valid_d_event_count
-             << ".\n";
+        cout << "stochastic events: " << s1->total_s_event_count
+             << ", deterministic events: " << s1->total_valid_d_event_count << ".\n";
 #ifndef CROSS_SEV
         cout << "No severing at corners possible. If desired, #define CROSS_SEV.\n";
 #endif

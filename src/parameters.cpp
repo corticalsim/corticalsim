@@ -351,10 +351,20 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
             load_param(recognized, par_file, id, "movieEnabled", movie_enabled);
             load_param(recognized, par_file, id, "movieFrameInterval", movie_frame_interval);
             load_param(recognized, par_file, id, "geometryScaleFactor", geometry_scale_factor);
-            load_param_enum_text<NucleationType>(
-            recognized, par_file, id, "nucleationType", nucleation_type, nucleation_type_text, NucleationType::COUNT_LAST);
-            load_param_enum_text<InteractionType>(
-            recognized, par_file, id, "interactionType", interaction_type, interaction_type_text, InteractionType::COUNT_LAST);
+            load_param_enum_text<NucleationType>(recognized,
+                                                 par_file,
+                                                 id,
+                                                 "nucleationType",
+                                                 nucleation_type,
+                                                 nucleation_type_text,
+                                                 NucleationType::COUNT_LAST);
+            load_param_enum_text<InteractionType>(recognized,
+                                                  par_file,
+                                                  id,
+                                                  "interactionType",
+                                                  interaction_type,
+                                                  interaction_type_text,
+                                                  InteractionType::COUNT_LAST);
             load_param_enum_text<BundleType>(
             recognized, par_file, id, "bundleType", bundle_type, bundle_type_text, BundleType::COUNT_LAST);
             load_param(recognized, par_file, id, "showOutput", show_output);
@@ -525,7 +535,7 @@ bool Parameters::calc_theory_parameters(void)
                     if (magic_angle > cat_start_angle)
                     {
                         c0_calc = (4.0 / PI) * 2.0 * induced_catastrophe_fraction
-                                 * (1. - sin(ma_rad) + (ma_rad - cs_rad) * cos(ma_rad)) / (PI - 2. * cs_rad);
+                                  * (1. - sin(ma_rad) + (ma_rad - cs_rad) * cos(ma_rad)) / (PI - 2. * cs_rad);
                     }
 
                     // magic angle <= catastrophe start angle
@@ -564,7 +574,7 @@ bool Parameters::calc_theory_parameters(void)
                 {
                     double temp = max(0., cs_rad);
                     c0_calc = (4.0 / PI) * 2.0 * induced_catastrophe_fraction
-                             * (1.0 - sin(temp) + (temp - cs_rad) * cos(temp)) / (PI - 2.0 * cs_rad);
+                              * (1.0 - sin(temp) + (temp - cs_rad) * cos(temp)) / (PI - 2.0 * cs_rad);
                 }
 
                 // proportional catastrophe is disabled
@@ -587,9 +597,9 @@ bool Parameters::calc_theory_parameters(void)
                     {
                         double left_boundary = max(0., cs_rad);
                         z0_calc -= (4.0 / PI) * 2.0 * induced_catastrophe_fraction
-                                  * ((left_boundary - cs_rad) * cos(left_boundary) - (ma_rad - cs_rad) * cos(ma_rad)
-                                     - sin(left_boundary) + sin(ma_rad))
-                                  / (PI - 2.0 * cs_rad);
+                                   * ((left_boundary - cs_rad) * cos(left_boundary) - (ma_rad - cs_rad) * cos(ma_rad)
+                                      - sin(left_boundary) + sin(ma_rad))
+                                   / (PI - 2.0 * cs_rad);
                     }
 
                     // proportional catastrophe is disabled
@@ -611,12 +621,14 @@ bool Parameters::calc_theory_parameters(void)
             break;
 
         default:
-            cerr << "no function to calculate z0, c0, x0 etc. (interactionType = " << static_cast<int>(interaction_type) << ")\n";
+            cerr << "no function to calculate z0, c0, x0 etc. (interactionType = " << static_cast<int>(interaction_type)
+                 << ")\n";
             return false;
     }
 
     // theoretial value of G
-    double l0 = pow((2.0 * (-v_min + v_tm) * (v_plus - v_tm) * (v_plus - v_tm)) / (k_nuc * v_plus * (-v_min + v_plus)), 1. / 3.);
+    double l0
+    = pow((2.0 * (-v_min + v_tm) * (v_plus - v_tm) * (v_plus - v_tm)) / (k_nuc * v_plus * (-v_min + v_plus)), 1. / 3.);
     double lavg_inv = k_res / (-v_min + v_tm) - k_cat / (v_plus - v_tm);
     double g_0 = l0 * lavg_inv;
 
