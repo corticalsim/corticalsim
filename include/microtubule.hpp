@@ -17,13 +17,13 @@ class Microtubule: public DLBaseItem<Microtubule>
 
     // event descriptor for events that are not directly associated to a single
     // tip (only disappearance)
-    EventDescriptor disappearEvent;
+    EventDescriptor disappear_event;
     // type of microtubule (growing, shrinking)
     MTType type;
-    double nucleationTime;
+    double nucleation_time;
 
     // time tag at which the positions and lengths were last updated
-    int previousUpdateTag;
+    int previous_update_tag;
 
     DLList<Segment> segments;
 

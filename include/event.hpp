@@ -26,7 +26,7 @@ class EventDescriptor
     EventTrackingTag tag;
 
     // inverse velocity (with respect to the event clock defined in the queue)
-    double distanceScaleFactor;
+    double distance_scale_factor;
     DeterministicQueue* queue;
     EventDescriptor(Microtubule*, DeterministicQueue*, double);
     ~EventDescriptor();
@@ -45,10 +45,10 @@ class DeterministicEvent
 {
   public:
 
-    double eventTimeDist;
+    double event_time_dist;
 
     // -1 indicates a global event
-    EventDescriptorIndex infoIdx;
+    EventDescriptorIndex info_idx;
 
     union
     {
@@ -58,7 +58,7 @@ class DeterministicEvent
 
     // define the < operator for automatic sorting of events in the event queue
     // (nearest first)
-    bool operator<(const DeterministicEvent& ev2) const { return eventTimeDist > ev2.eventTimeDist; }
+    bool operator<(const DeterministicEvent& ev2) const { return event_time_dist > ev2.event_time_dist; }
 };
 
 #endif // EVENT_HPP

@@ -10,7 +10,7 @@ class TrajectoryVector
   public:
 
     double pos;
-    Direction dir, Cdir;
+    Direction dir, cdir;
     Trajectory* trajectory;
 
     TrajectoryVector(double p, Direction d, Trajectory* t):
@@ -37,27 +37,27 @@ class Trajectory: public DLBaseItem<Trajectory>
     const SurfaceVector base;
     const double length;
 
-    vector<PointATedge> endPoint;
-    TrajectoryVector thisTr;
+    vector<PointATedge> end_point;
+    TrajectoryVector this_tr;
 
     // trajectoryVector of the connecting trajectory at the zero end
-    TrajectoryVector prevTr;
+    TrajectoryVector prev_tr;
 
     // trajectoryVector of the connecting trajectory at the far end
-    TrajectoryVector nextTr;
+    TrajectoryVector next_tr;
 
     // cosine of the 3D angle with the previous trajectory (for edge
     // catastrophes)
-    double prevTrCosAngle;
+    double prev_tr_cos_angle;
 
     // cosine of the 3D angle with the next trajectory (for edge catastrophes)
-    double nextTrCosAngle;
+    double next_tr_cos_angle;
 
     // regular catastrophe value at the trajectory zero end
-    double prevTrpCat;
+    double prev_trp_cat;
 
     // regular catastrophe value at the trajectory far end
-    double nextTrpCat;
+    double next_trp_cat;
 
     multimap<double, Intersection> intersections;
 
@@ -97,7 +97,7 @@ class Trajectory: public DLBaseItem<Trajectory>
     void remove_segment(TrjSegmentTag);
 
     // list of pointers to associated tips
-    list<MTTip*> notificationList;
+    list<MTTip*> notification_list;
 
     // insert a tip for  notifications
     TrjMTTipTag register_for_notifications(MTTip*);

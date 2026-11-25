@@ -10,15 +10,15 @@ class Segment: public DLBaseItem<Segment>
 
     Microtubule* mt;
     Trajectory* const trajectory;
-    TrjSegmentTag trajectoryTag;
-    double nucleationTime;
+    TrjSegmentTag trajectory_tag;
+    double nucleation_time;
 
     // -+ direction with respect to trajectory orientation
     Direction dir;
     double start;
     double end;
-    IntersectionItr startItr;
-    IntersectionItr endItr;
+    IntersectionItr start_itr;
+    IntersectionItr end_itr;
 
     // constructs a segment as part of a microtubule at a specified vector
     // location

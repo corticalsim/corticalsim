@@ -37,14 +37,14 @@ class DLList
 {
   private:
 
-    int numElements;
+    int num_elements;
     // This class keeps a pointer to both the first and the last element.
     // This is not strictly necessary (first is enough), but this has the advantage
     // that elements can be inserted in the back and iterated over from the front of
     // the set. In the absence of deletions, this leads to a traversal of the elements
     // in the order of creation - and hopefully in the order of memory allocation.
-    T* firstElement;
-    T* lastElement;
+    T* first_element;
+    T* last_element;
 
     // definitions for the Boost memory pool
     // Currently, it uses a *non*-thread safe allocation mechanism (for speed) and a user-defined granularity
@@ -64,16 +64,16 @@ class DLList
   public:
 
     DLList():
-        numElements(0),
-        firstElement(nullptr),
-        lastElement(nullptr) {};
+        num_elements(0),
+        first_element(nullptr),
+        last_element(nullptr) {};
     ~DLList();
 
-    inline int size() { return numElements; }
+    inline int size() { return num_elements; }
 
-    inline T* first() { return firstElement; }
+    inline T* first() { return first_element; }
 
-    inline T* last() { return lastElement; }
+    inline T* last() { return last_element; }
 
     inline T* next(T* el) { return el->nextElement; }
 
@@ -102,9 +102,9 @@ DLList<T, I>::~DLList()
 template <class T, int I>
 void DLList<T, I>::remove_all()
 {
-    while (firstElement != nullptr)
+    while (first_element != nullptr)
     {
-        remove(firstElement);
+        remove(first_element);
     }
 }
 
@@ -113,18 +113,18 @@ inline T* DLList<T, I>::link_element(T* new_element)
 // Inserts a new element into the linked list.
 // Insertion takes place at the back of the list for memory-traversal speed considerations.
 {
-    numElements++;
-    new_element->previousElement = lastElement;
-    new_element->nextElement = nullptr;
-    if (lastElement != nullptr)
+    num_elements++;
+    new_element->previous_element = last_element;
+    new_element->next_element = nullptr;
+    if (last_element != nullptr)
     {
-        lastElement->nextElement = new_element;
+        last_element->next_element = new_element;
     }
     else // if list was empty
     {
-        firstElement = new_element;
+        first_element = new_element;
     }
-    lastElement = new_element;
+    last_element = new_element;
     return new_element;
 }
 
@@ -132,22 +132,22 @@ template <class T, int I>
 inline void DLList<T, I>::unlink_element(T* element)
 // Removes an element from the linked list.
 {
-    numElements--;
-    if (element == firstElement)
+    num_elements--;
+    if (element == first_element)
     {
-        firstElement = element->nextElement;
+        first_element = element->next_element;
     }
-    if (element == lastElement)
+    if (element == last_element)
     {
-        lastElement = element->previousElement;
+        last_element = element->previous_element;
     }
-    if (element->nextElement != nullptr)
+    if (element->next_element != nullptr)
     {
-        element->nextElement->previousElement = element->previousElement;
+        element->next_element->previous_element = element->previous_element;
     }
-    if (element->previousElement != nullptr)
+    if (element->previous_element != nullptr)
     {
-        element->previousElement->nextElement = element->nextElement;
+        element->previous_element->next_element = element->next_element;
     }
     return;
 }
@@ -235,8 +235,8 @@ class DLBaseItem
 
   private:
 
-    T* nextElement;
-    T* previousElement;
+    T* next_element;
+    T* previous_element;
 
   protected:
 
@@ -245,9 +245,9 @@ class DLBaseItem
 
   public:
 
-    inline T* next() { return nextElement; }
+    inline T* next() { return next_element; }
 
-    inline T* previous() { return previousElement; }
+    inline T* previous() { return previous_element; }
 };
 
 template <class T>
@@ -260,8 +260,8 @@ class DLContainerItem
 
   private:
 
-    DLContainerItem<T>* nextElement;
-    DLContainerItem<T>* previousElement;
+    DLContainerItem<T>* next_element;
+    DLContainerItem<T>* previous_element;
 
   protected:
 
@@ -272,9 +272,9 @@ class DLContainerItem
 
     T data;
 
-    inline DLContainerItem<T>* next() { return nextElement; }
+    inline DLContainerItem<T>* next() { return next_element; }
 
-    inline DLContainerItem<T>* previous() { return previousElement; }
+    inline DLContainerItem<T>* previous() { return previous_element; }
 
     inline T* data_ptr() { return &data; }
 

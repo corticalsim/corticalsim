@@ -3,12 +3,12 @@
 
 DeterministicQueue::DeterministicQueue(System* s, double (System::*dt_func)(double), double (System::*td_func)(double)):
     system(s),
-    currentBase(0),
-    distanceTimeConversionFunction(dt_func),
-    timeDistanceConversionFunction(td_func)
+    current_base(0),
+    distance_time_conversion_function(dt_func),
+    time_distance_conversion_function(td_func)
 {
     // do not use the system pointer here, as it has not been initialized
-    valueCache[0] = 0;
+    value_cache[0] = 0;
 }
 
 double DeterministicQueue::first_event_time()
@@ -34,7 +34,7 @@ double DeterministicQueue::first_event_time()
     }
 #endif
 
-    return system->systemTime + (system->*distanceTimeConversionFunction)(event.eventTimeDist - currentBase);
+    return system->system_time + (system->*distance_time_conversion_function)(event.event_time_dist - current_base);
 }
 
 void DeterministicQueue::flush()
@@ -45,8 +45,8 @@ void DeterministicQueue::flush()
         queue.pop();
     }
 
-    currentBase = 0;
-    valueCache[system->currentTimeTag] = 0;
+    current_base = 0;
+    value_cache[system->current_time_tag] = 0;
 
     return;
 }
@@ -63,22 +63,22 @@ DeterministicEvent DeterministicQueue::pop()
 void DeterministicQueue::advance_time(double t)
 {
     // get advanced in time
-    currentBase += (system->*timeDistanceConversionFunction)(t - system->systemTime);
+    current_base += (system->*time_distance_conversion_function)(t - system->system_time);
     return;
 }
 
 void DeterministicQueue::store_time(int tag)
 {
     // store the current base time
-    valueCache[tag] = currentBase;
+    value_cache[tag] = current_base;
     return;
 }
 
 void DeterministicQueue::push_global(double timedist, GlobalEventType type)
 {
     DeterministicEvent event;
-    event.infoIdx = -1;
-    event.eventTimeDist = timedist;
+    event.info_idx = -1;
+    event.event_time_dist = timedist;
     event.global_type = type;
 
     // store a new global event into the queue
@@ -89,8 +89,8 @@ void DeterministicQueue::push_global(double timedist, GlobalEventType type)
 EventTrackingTag DeterministicQueue::push_deterministic(double timedist, EventDescriptorIndex idx)
 {
     DeterministicEvent event;
-    event.infoIdx = idx;
-    event.eventTimeDist = timedist;
+    event.info_idx = idx;
+    event.event_time_dist = timedist;
     event.tag = system->get_event_tag();
 
     // store a new deterministic event into the queue
@@ -110,21 +110,21 @@ EventDescriptor::EventDescriptor(Microtubule* m, DeterministicQueue* q, double v
 
     if (abs(velocity) > ZERO_CUTOFF)
     {
-        distanceScaleFactor = 1.0 / velocity;
+        distance_scale_factor = 1.0 / velocity;
     }
     else
     {
         if (velocity == 0.0)
         {
-            distanceScaleFactor = -VERY_LARGE;
+            distance_scale_factor = -VERY_LARGE;
         }
         else if (velocity >= 0.0)
         {
-            distanceScaleFactor = VERY_LARGE;
+            distance_scale_factor = VERY_LARGE;
         }
         else
         {
-            distanceScaleFactor = -VERY_LARGE;
+            distance_scale_factor = -VERY_LARGE;
         }
     }
 
@@ -144,17 +144,17 @@ void EventDescriptor::reinitialize(DeterministicQueue* q, double velocity)
     queue = q;
     if (abs(velocity) < 1. / ZERO_CUTOFF)
     {
-        distanceScaleFactor = 1.0 / velocity;
+        distance_scale_factor = 1.0 / velocity;
     }
     else
     {
         if (velocity >= 0.0)
         {
-            distanceScaleFactor = VERY_LARGE;
+            distance_scale_factor = VERY_LARGE;
         }
         else
         {
-            distanceScaleFactor = -VERY_LARGE;
+            distance_scale_factor = -VERY_LARGE;
         }
     }
 
@@ -175,7 +175,7 @@ void EventDescriptor::push_on_queue(double dist, DeterministicEventType t)
     type = t;
 
     // store deterministic event into the queue
-    tag = queue->push_deterministic(queue->current_pos() + dist * distanceScaleFactor, index);
+    tag = queue->push_deterministic(queue->current_pos() + dist * distance_scale_factor, index);
     return;
 }
 

@@ -8,50 +8,50 @@ class Triangle3D
 {
   public:
 
-    int elementId;
-    int edgeTag;
-    int faceTag;
-    int polyIntersectMark;
-    int periodicTag;
+    int element_id;
+    int edge_tag;
+    int face_tag;
+    int poly_intersect_mark;
+    int periodic_tag;
 
     double area;
-    double periMeter;
-    double edgAngNorm;
-    double pcatEdgeWeight;
+    double peri_meter;
+    double edg_ang_norm;
+    double pcat_edge_weight;
 
-    Eigen::Vector3d midPoint;
-    Eigen::Vector3d givenNormal;
+    Eigen::Vector3d mid_point;
+    Eigen::Vector3d given_normal;
 
     vector<Edge> side;
-    vector<int> vertexIds;
-    vector<int> intersectEdg;
-    vector<Eigen::Vector3d> Vertex;
+    vector<int> vertex_ids;
+    vector<int> intersect_edg;
+    vector<Eigen::Vector3d> vertex;
 
-    map<int, int> sideMap;
-    map<int, int> sideRevMap;
-    map<int, int> vertexIdsMap;
-    map<int, int> sideToEdge;
+    map<int, int> side_map;
+    map<int, int> side_rev_map;
+    map<int, int> vertex_ids_map;
+    map<int, int> side_to_edge;
 
     Triangle3D()
     {
-        elementId = 0;
-        edgeTag = 0;
-        faceTag = 1;
-        polyIntersectMark = 0;
-        periodicTag = 0;
+        element_id = 0;
+        edge_tag = 0;
+        face_tag = 1;
+        poly_intersect_mark = 0;
+        periodic_tag = 0;
 
         area = 0.000001;
-        periMeter = 0.000001;
-        edgAngNorm = 0.000001;
-        pcatEdgeWeight = 0.000001;
-        midPoint << 0.0, 0.0, 0.0;
-        givenNormal << 0.0, 0.0, 0.0;
+        peri_meter = 0.000001;
+        edg_ang_norm = 0.000001;
+        pcat_edge_weight = 0.000001;
+        mid_point << 0.0, 0.0, 0.0;
+        given_normal << 0.0, 0.0, 0.0;
 
         for (int i = 0; i < 3; i++)
         {
             side.push_back(Edge());
-            vertexIds.push_back(0);
-            Vertex.push_back(Eigen::Vector3d(0, 0, 0));
+            vertex_ids.push_back(0);
+            vertex.push_back(Eigen::Vector3d(0, 0, 0));
         }
     }
 };
@@ -69,18 +69,18 @@ class EdgeOfficer
   public:
 
     int cur;
-    double meanEdgAngle;
+    double mean_edg_angle;
     vector<int> elements;
-    vector<int> edgeSpStore;
-    vector<vector<int>> edgefaceStore;
+    vector<int> edge_sp_store;
+    vector<vector<int>> edgeface_store;
 
     EdgeOfficer(int c)
     {
         cur = c;
-        meanEdgAngle = 0.0;
+        mean_edg_angle = 0.0;
         for (int i = 0; i < 2; i++)
         {
-            edgefaceStore.push_back(vector<int>());
+            edgeface_store.push_back(vector<int>());
         }
     }
 };

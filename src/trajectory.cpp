@@ -7,10 +7,10 @@
 Trajectory::Trajectory(SurfaceVector base_vec, vector<PointATedge> end_p, double l):
     base(base_vec),
     length(l),
-    prevTr(0, ::FORWARD, nullptr),
-    nextTr(0, ::FORWARD, nullptr),
-    prevTrCosAngle(1.0),
-    nextTrCosAngle(1.0)
+    prev_tr(0, ::FORWARD, nullptr),
+    next_tr(0, ::FORWARD, nullptr),
+    prev_tr_cos_angle(1.0),
+    next_tr_cos_angle(1.0)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Trajectory created\n";
@@ -19,11 +19,11 @@ Trajectory::Trajectory(SurfaceVector base_vec, vector<PointATedge> end_p, double
     // assign end points of the trajectory
     for (int i = 0; i < 2; i++)
     {
-        endPoint.push_back(end_p[i]);
+        end_point.push_back(end_p[i]);
     }
 
     // increase total number of trajectories in the geometry
-    base.region->geometry->system->countTrajectories++;
+    base.region->geometry->system->count_trajectories++;
 
     // initialize the intersection list of the trajectory
     intersections.insert(pair<double, Intersection>(-1.0, Intersection()));
@@ -34,7 +34,7 @@ Trajectory::Trajectory(SurfaceVector base_vec, vector<PointATedge> end_p, double
 Trajectory::~Trajectory()
 {
     // decrease total number of trajectories in the geometry
-    base.region->geometry->system->countTrajectories--;
+    base.region->geometry->system->count_trajectories--;
     return;
 }
 
@@ -42,11 +42,11 @@ bool Trajectory::integrity_check()
 {
     bool valid(true);
 
-    if (prevTr.trajectory != nullptr)
+    if (prev_tr.trajectory != nullptr)
     {
-        if (prevTr.dir == BACKWARD)
+        if (prev_tr.dir == BACKWARD)
         {
-            if (prevTr.trajectory->nextTr.trajectory != this)
+            if (prev_tr.trajectory->next_tr.trajectory != this)
             {
                 valid = false;
                 cout << "Integrity: trajectory dependency chain broken.\n";
@@ -54,18 +54,18 @@ bool Trajectory::integrity_check()
         }
         else
         {
-            if (prevTr.trajectory->prevTr.trajectory != this)
+            if (prev_tr.trajectory->prev_tr.trajectory != this)
             {
                 valid = false;
                 cout << "Integrity: trajectory dependency chain broken.\n";
             }
         }
     }
-    if (nextTr.trajectory != nullptr)
+    if (next_tr.trajectory != nullptr)
     {
-        if (nextTr.dir == ::FORWARD)
+        if (next_tr.dir == ::FORWARD)
         {
-            if (nextTr.trajectory->prevTr.trajectory != this)
+            if (next_tr.trajectory->prev_tr.trajectory != this)
             {
                 valid = false;
                 cout << "Integrity: trajectory dependency chain broken.\n";
@@ -73,7 +73,7 @@ bool Trajectory::integrity_check()
         }
         else
         {
-            if (nextTr.trajectory->nextTr.trajectory != this)
+            if (next_tr.trajectory->next_tr.trajectory != this)
             {
                 valid = false;
                 cout << "Integrity: trajectory dependency chain broken.\n";
@@ -97,17 +97,17 @@ bool Trajectory::integrity_check()
 
     while (seg_itr != segments.end())
     {
-        is = (**seg_itr).startItr;
+        is = (**seg_itr).start_itr;
         if ((**seg_itr).dir == ::FORWARD)
         {
-            while (++is != (**seg_itr).endItr)
+            while (++is != (**seg_itr).end_itr)
             {
                 is->second.occupancy--;
             }
         }
         else
         {
-            while (--is != (**seg_itr).endItr)
+            while (--is != (**seg_itr).end_itr)
             {
                 is->second.occupancy--;
             }
@@ -128,17 +128,17 @@ bool Trajectory::integrity_check()
     seg_itr = segments.begin();
     while (seg_itr != segments.end())
     {
-        is = (**seg_itr).startItr;
+        is = (**seg_itr).start_itr;
         if ((**seg_itr).dir == ::FORWARD)
         {
-            while (++is != (**seg_itr).endItr)
+            while (++is != (**seg_itr).end_itr)
             {
                 is->second.occupancy++;
             }
         }
         else
         {
-            while (--is != (**seg_itr).endItr)
+            while (--is != (**seg_itr).end_itr)
             {
                 is->second.occupancy++;
             }
@@ -228,10 +228,10 @@ double Trajectory::covered_length()
 
 void Trajectory::invalidate_intersection(IntersectionItr& old_is)
 {
-    list<MTTip*>::iterator tip(notificationList.begin());
+    list<MTTip*>::iterator tip(notification_list.begin());
 
     // notify all tips on the current trajectory that a previous insertion is invalidated
-    while (tip != notificationList.end())
+    while (tip != notification_list.end())
     {
         (**tip).notify_remove(old_is);
         tip++;
@@ -267,8 +267,8 @@ void Trajectory::new_intersection(IntersectionItr& new_is)
     new_is->second.occupancy = occupancy;
 
     // notify all tips on the current trajectory that a new insertion has happened
-    list<MTTip*>::iterator tip(notificationList.begin());
-    while (tip != notificationList.end())
+    list<MTTip*>::iterator tip(notification_list.begin());
+    while (tip != notification_list.end())
     {
         (**tip).notify_insert(new_is);
         tip++;
@@ -352,13 +352,13 @@ void Trajectory::remove_segment(TrjSegmentTag s)
 TrjMTTipTag Trajectory::register_for_notifications(MTTip* p_tip)
 {
     // a new tip arrived on the trajectory, add it to the notification list
-    return notificationList.insert(notificationList.end(), p_tip);
+    return notification_list.insert(notification_list.end(), p_tip);
 }
 
 void Trajectory::unregister_for_notifications(TrjMTTipTag tag)
 {
     // a tip is leaving the trajectory, remove it from the notification list
-    notificationList.erase(tag);
+    notification_list.erase(tag);
 
     // if the associated trajectory has no tips and no segments, then remove the whole trajectory
     conditional_remove();
@@ -370,7 +370,7 @@ TrajectoryVector Trajectory::next_trajectory(Direction dir)
     if (dir == ::FORWARD)
     {
         // direction forward and a next trajectory is waiting to take the tip on board
-        if (nextTr.trajectory != nullptr)
+        if (next_tr.trajectory != nullptr)
         {
 #ifdef DBG_GEOMETRY
             cout << "DBG/GEOMETRY: Following existing trajectory link forward. [from "
@@ -378,14 +378,14 @@ TrajectoryVector Trajectory::next_trajectory(Direction dir)
                  << "]\n";
 #endif
 
-            return nextTr;
+            return next_tr;
         }
     }
 
     else
     {
         // direction backward and a previous trajectory is waiting to take the on board
-        if (prevTr.trajectory != nullptr)
+        if (prev_tr.trajectory != nullptr)
         {
 #ifdef DBG_GEOMETRY
             cout << "DBG/GEOMETRY: Following existing trajectory link forward. [from "
@@ -393,7 +393,7 @@ TrajectoryVector Trajectory::next_trajectory(Direction dir)
                  << "]\n";
 #endif
 
-            return prevTr;
+            return prev_tr;
         }
     }
 
@@ -404,7 +404,7 @@ TrajectoryVector Trajectory::next_trajectory(Direction dir)
 void Trajectory::conditional_remove()
 {
     // if there is no segments and no tips, associted with a trajectory, then remove it rigth way
-    if (segments.empty() && (notificationList.size() == 0))
+    if (segments.empty() && (notification_list.size() == 0))
     {
         base.region->remove_trajectory(this);
     }

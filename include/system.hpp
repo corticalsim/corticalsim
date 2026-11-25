@@ -21,51 +21,51 @@ class System
     DLList<Microtubule, MICROTUBULE_GRANULARITY> shrinking_mts;
 
 #ifdef CROSS_SEV
-    CompactList<OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY> OccupiedIntersectionList;
+    CompactList<OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY> occupied_intersection_list;
 #endif
 
-    vector<int> growingTipsReg;
+    vector<int> growing_tips_reg;
 
     Parameters p;
 
     // random generator
-    RandHub<> randomGen;
+    RandHub<> random_gen;
 
     // current system time with respect to offset
-    double systemTime;
+    double system_time;
 
     // current system time offset
-    double systemTimeOffset;
+    double system_time_offset;
 
-    int currentTimeTag;
-    double totalLength;
-    int memUsage;
-    bool stopSignal;
+    int current_time_tag;
+    double total_length;
+    int mem_usage;
+    bool stop_signal;
 
-    time_t wallClockStartTime;
-    int totalSEventCount;
-    int totalValidDEventCount;
-    int totalInvalidDEventCount;
-    int totalLengthSeveringCount;
-    int totalIntersectionSeveringCount;
-    int boundaryCrossingCount;
-    int totalZipperCount;
-    int totalCrossoverCount;
-    int totalInducedCatastropheCount;
+    time_t wall_clock_start_time;
+    int total_s_event_count;
+    int total_valid_d_event_count;
+    int total_invalid_d_event_count;
+    int total_length_severing_count;
+    int total_intersection_severing_count;
+    int boundary_crossing_count;
+    int total_zipper_count;
+    int total_crossover_count;
+    int total_induced_catastrophe_count;
 
-    int countSegments;
-    int countTrajectories;
-    int countIntersections;
+    int count_segments;
+    int count_trajectories;
+    int count_intersections;
     int estimate_memory_footprint();
 
-    double nextStochasticEventTime;
-    StochasticEventType nextStochasticEventType;
+    double next_stochastic_event_time;
+    StochasticEventType next_stochastic_event_type;
 
     // queue object for time-defined events
-    DeterministicQueue timeQueue;
+    DeterministicQueue time_queue;
 
     // queue object for vPlus-defined events (regulated by tubulin pool size)
-    DeterministicQueue vPlusQueue;
+    DeterministicQueue v_plus_queue;
 
     double identity(double i) { return i; }
 
@@ -75,16 +75,16 @@ class System
     // time to distance conversion for growing tips
     double time_to_v_plus(double);
 
-    double nextStatusEventTime;
-    double nextSnapshotEventTime;
-    double nextParameterEventTime;
-    double nextPPBEventTime;
+    double next_status_event_time;
+    double next_snapshot_event_time;
+    double next_parameter_event_time;
+    double next_ppb_event_time;
 
     // current tag for event descriptor
-    EventDescriptorIndex EventDescriptorID;
+    EventDescriptorIndex event_descriptor_id;
 
     // structure that maps EventDescriptorIDs onto EventDescriptor objects
-    map<EventDescriptorIndex, EventDescriptor*> EventDescriptorMap;
+    map<EventDescriptorIndex, EventDescriptor*> event_descriptor_map;
 
     // returns a new event descriptor tag
     EventDescriptorIndex register_event_descriptor(EventDescriptor*);
@@ -96,10 +96,10 @@ class System
     EventDescriptor* get_event_descriptor(EventDescriptorIndex);
 
     // the current event tracking tag
-    EventTrackingTag eventID;
+    EventTrackingTag event_id;
 
     // returns a new event tracking tag
-    EventTrackingTag get_event_tag() { return eventID++; }
+    EventTrackingTag get_event_tag() { return event_id++; }
 
     System(char*);
     ~System();
@@ -135,19 +135,19 @@ class System
     void collision_probabilities(double, double&, double&);
 
     // binomial table. Necessary for bundle collision type: multi-collisions
-    double binomialTable[MAXBINOM][MAXBINOM];
+    double binomial_table[MAXBINOM][MAXBINOM];
     void make_binomial_table(void);
 
     double multi_pcross(int npar, int ncoll, double x_single, double z_single);
     double multi_pzip(int npar, int ncoll, double x_single, double z_single);
 
-    ofstream parameterFile;
-    ofstream movieFile;
-    ofstream heatMapFile;
-    ofstream measurementFile;
-    ofstream orderDirectorFile;
-    deque<Measurement> measurementHistory;
-    bool dataSaved;
+    ofstream parameter_file;
+    ofstream movie_file;
+    ofstream heat_map_file;
+    ofstream measurement_file;
+    ofstream order_director_file;
+    deque<Measurement> measurement_history;
+    bool data_saved;
     void initialize_output();
     void perform_measurement();
     void write_measurements_to_file(int = 0);

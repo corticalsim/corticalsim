@@ -5,13 +5,13 @@
 Segment::Segment(Microtubule* m, TrajectoryVector& tv):
     mt(m),
     trajectory(tv.trajectory),
-    trajectoryTag(tv.trajectory->segments.end()),
-    nucleationTime(m->system->systemTime + m->system->systemTimeOffset),
+    trajectory_tag(tv.trajectory->segments.end()),
+    nucleation_time(m->system->system_time + m->system->system_time_offset),
     dir(tv.dir),
     start(tv.pos),
     end(tv.pos),
-    startItr(tv.trajectory->wall_end()),
-    endItr(tv.trajectory->wall_end())
+    start_itr(tv.trajectory->wall_end()),
+    end_itr(tv.trajectory->wall_end())
 {
 #ifdef DBG_MTS
     cout << "DBG/MTS: Segment created.\n";
@@ -19,10 +19,10 @@ Segment::Segment(Microtubule* m, TrajectoryVector& tv):
 #endif
 
     // insert this segment to the associated MT trajectory
-    trajectoryTag = tv.trajectory->insert_segment(this);
+    trajectory_tag = tv.trajectory->insert_segment(this);
 
     // increase total number of segments for the associated MT
-    mt->system->countSegments++;
+    mt->system->count_segments++;
     return;
 }
 
@@ -33,10 +33,10 @@ Segment::~Segment()
 #endif
 
     // decrease total number of segments for the associated MT
-    mt->system->countSegments--;
+    mt->system->count_segments--;
 
     // if this is the last segment, remove the tip references...
-    trajectory->remove_segment(trajectoryTag);
+    trajectory->remove_segment(trajectory_tag);
     return;
 }
 
@@ -66,9 +66,9 @@ bool Segment::crosses_intersection(IntersectionItr& is)
     else if (temp < ZERO_CUTOFF)
     {
         int sign1 = trajectory->difference_sign(
-        (this == mt->segments.last()) ? mt->plus.nextCollision : endItr, end, is, is->first);
+        (this == mt->segments.last()) ? mt->plus.next_collision : end_itr, end, is, is->first);
         int sign2 = trajectory->difference_sign(
-        (this == mt->segments.first()) ? mt->minus.nextCollision : startItr, start, is, is->first);
+        (this == mt->segments.first()) ? mt->minus.next_collision : start_itr, start, is, is->first);
 
         if (sign1 * sign2 == -1)
         {

@@ -22,15 +22,15 @@ struct Vertices
 struct BendingOperator
 {
 
-    double cosTheta;
-    double sinTheta;
+    double cos_theta;
+    double sin_theta;
 
     Eigen::Vector3d axis;
 
     BendingOperator()
     {
-        cosTheta = 0.0;
-        sinTheta = 0.0;
+        cos_theta = 0.0;
+        sin_theta = 0.0;
 
         axis << 0.0, 0.0, 0.0;
     }
@@ -42,7 +42,7 @@ struct SurfaceVector
     double y;
     double z;
     double angle;
-    double tvPos;
+    double tv_pos;
 
     Region* region;
 
@@ -53,33 +53,33 @@ struct SurfaceVector
         z = 0.0;
 
         angle = 0.0;
-        tvPos = 0.0;
+        tv_pos = 0.0;
     }
 };
 
 struct ElementList
 {
 
-    int midPoint;
+    int mid_point;
     double length;
     vector<int> nodes;
-    vector<int> sharedElement;
-    vector<int> sharedEdge;
-    double edge3DAngle;
-    Eigen::Vector3d intersectionByPlane;
+    vector<int> shared_element;
+    vector<int> shared_edge;
+    double edge_3d_angle;
+    Eigen::Vector3d intersection_by_plane;
 
     ElementList()
     {
-        midPoint = 0;
+        mid_point = 0;
         length = 0.0;
-        edge3DAngle = 0.0;
-        intersectionByPlane << 0.0, 0.0, 0.0;
+        edge_3d_angle = 0.0;
+        intersection_by_plane << 0.0, 0.0, 0.0;
 
         for (int i = 0; i < 2; i++)
         {
             nodes.push_back(0);
-            sharedElement.push_back(0);
-            sharedEdge.push_back(0);
+            shared_element.push_back(0);
+            shared_edge.push_back(0);
         }
     }
 };

@@ -14,10 +14,10 @@ class MTTip
     Direction dir;
     double velocity;
     EventDescriptor event;
-    IntersectionItr nextCollision;
-    TrjMTTipTag notificationTag;
-    RegionMTTipTag regionTag;
-    double nextEventPos;
+    IntersectionItr next_collision;
+    TrjMTTipTag notification_tag;
+    RegionMTTipTag region_tag;
+    double next_event_pos;
     MTTip(Microtubule*, TrajectoryVector, double, DeterministicQueue*, double);
     ~MTTip();
     TipType type();

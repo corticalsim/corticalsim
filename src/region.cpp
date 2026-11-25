@@ -24,7 +24,7 @@ TrajectoryVector Region::insert_trajectory(const SurfaceVector& s_vec)
     make_intersection_list(t_vec.trajectory);
 
     // increase total number of intersections accordingly
-    geometry->system->countIntersections += 2 * (t_vec.trajectory->intersections.size());
+    geometry->system->count_intersections += 2 * (t_vec.trajectory->intersections.size());
 
     return t_vec;
 }
@@ -50,7 +50,7 @@ void Region::remove_trajectory(Trajectory* tr)
 #endif
 
     // decrease total number of intersections in the geometry
-    geometry->system->countIntersections -= 2 * (tr->intersections.size());
+    geometry->system->count_intersections -= 2 * (tr->intersections.size());
 
     // skip the first intersection iterator, as it is a garbage
     IntersectionItr is(++tr->intersections.begin());
@@ -59,7 +59,7 @@ void Region::remove_trajectory(Trajectory* tr)
 
     while (is != tr->intersections.end())
     {
-        other_tr = is->second.otherTrajectory;
+        other_tr = is->second.other_trajectory;
 
         // invalidate all the intersetion for the other trajectory
         other_tr->invalidate_intersection(is->second.mirror);
@@ -74,31 +74,31 @@ void Region::remove_trajectory(Trajectory* tr)
     tr->intersections.clear();
 
     // important to inform the linked (previous/next) trajectories about this removal
-    if (tr->prevTr.trajectory != nullptr)
+    if (tr->prev_tr.trajectory != nullptr)
     {
-        if (tr->prevTr.dir == BACKWARD)
+        if (tr->prev_tr.dir == BACKWARD)
         {
-            tr->prevTr.trajectory->nextTr.trajectory = nullptr;
+            tr->prev_tr.trajectory->next_tr.trajectory = nullptr;
         }
         else
         {
-            tr->prevTr.trajectory->prevTr.trajectory = nullptr;
+            tr->prev_tr.trajectory->prev_tr.trajectory = nullptr;
         }
 
-        tr->prevTr.trajectory = nullptr;
+        tr->prev_tr.trajectory = nullptr;
     }
 
-    if (tr->nextTr.trajectory != nullptr)
+    if (tr->next_tr.trajectory != nullptr)
     {
-        if (tr->nextTr.dir == ::FORWARD)
+        if (tr->next_tr.dir == ::FORWARD)
         {
-            tr->nextTr.trajectory->prevTr.trajectory = nullptr;
+            tr->next_tr.trajectory->prev_tr.trajectory = nullptr;
         }
         else
         {
-            tr->nextTr.trajectory->nextTr.trajectory = nullptr;
+            tr->next_tr.trajectory->next_tr.trajectory = nullptr;
         }
-        tr->nextTr.trajectory = nullptr;
+        tr->next_tr.trajectory = nullptr;
     }
 
     // now remove the trajectory
@@ -127,7 +127,7 @@ RegionMTTipTag Region::register_on_region(MTTip* p_tip, TipType tiptype, MTType 
     // minus tip
     if (tiptype == T_MINUS)
     {
-        return minusTipList.insert(minusTipList.end(), p_tip);
+        return minus_tip_list.insert(minus_tip_list.end(), p_tip);
     }
 
     // plus tip
@@ -136,14 +136,14 @@ RegionMTTipTag Region::register_on_region(MTTip* p_tip, TipType tiptype, MTType 
         // insert growing MT
         if (mttype == MT_GROWING)
         {
-            geometry->system->growingTipsReg[faceTag]++;
-            return growingPlusTipList.insert(growingPlusTipList.end(), p_tip);
+            geometry->system->growing_tips_reg[face_tag]++;
+            return growing_plus_tip_list.insert(growing_plus_tip_list.end(), p_tip);
         }
 
         // insert shrinking MT
         else
         {
-            return shrinkingPlusTipList.insert(shrinkingPlusTipList.end(), p_tip);
+            return shrinking_plus_tip_list.insert(shrinking_plus_tip_list.end(), p_tip);
         }
     }
 }
@@ -156,7 +156,7 @@ void Region::unregister_from_region(RegionMTTipTag tag, TipType tiptype, MTType 
     // minus tip
     if (tiptype == T_MINUS)
     {
-        minusTipList.erase(tag);
+        minus_tip_list.erase(tag);
     }
 
     // plus tip
@@ -165,14 +165,14 @@ void Region::unregister_from_region(RegionMTTipTag tag, TipType tiptype, MTType 
         // erase growing MT
         if (mttype == MT_GROWING)
         {
-            geometry->system->growingTipsReg[faceTag]--;
-            growingPlusTipList.erase(tag);
+            geometry->system->growing_tips_reg[face_tag]--;
+            growing_plus_tip_list.erase(tag);
         }
 
         // erase shrinking MT
         else
         {
-            shrinkingPlusTipList.erase(tag);
+            shrinking_plus_tip_list.erase(tag);
         }
     }
     return;
@@ -181,18 +181,18 @@ void Region::unregister_from_region(RegionMTTipTag tag, TipType tiptype, MTType 
 void Region::update_region_length(bool force_update)
 {
     // can go wrong on position cache refresh, a cleaner solution required
-    if ((previousUpdateTag == geometry->system->currentTimeTag) && (!force_update))
+    if ((previous_update_tag == geometry->system->current_time_tag) && (!force_update))
     {
         return;
     }
 
-    totalLength
-    += geometry->system->timeQueue.progression(previousUpdateTag)
-       * (geometry->system->p.vMin * (shrinkingPlusTipList.size()) - geometry->system->p.vTM * (minusTipList.size()))
-       + geometry->system->vPlusQueue.progression(previousUpdateTag)
-         * (geometry->system->p.vPlus * (growingPlusTipList.size()));
+    total_length
+    += geometry->system->time_queue.progression(previous_update_tag)
+       * (geometry->system->p.v_min * (shrinking_plus_tip_list.size()) - geometry->system->p.v_tm * (minus_tip_list.size()))
+       + geometry->system->v_plus_queue.progression(previous_update_tag)
+         * (geometry->system->p.v_plus * (growing_plus_tip_list.size()));
 
-    previousUpdateTag = geometry->system->currentTimeTag;
+    previous_update_tag = geometry->system->current_time_tag;
 
     return;
 }

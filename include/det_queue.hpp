@@ -16,13 +16,13 @@ class DeterministicQueue
 
     double current_pos()
     {
-        return currentBase; // returns the current 'distance'
+        return current_base; // returns the current 'distance'
     }
 
     void advance_time(double); // advances the parameters to the current system time
     void store_time(int);      // store 'currentBase' in the cache at a given tag position
 
-    double progression(int cache_pos) { return currentBase - valueCache[cache_pos]; }
+    double progression(int cache_pos) { return current_base - value_cache[cache_pos]; }
 
     // returns the progress of 'currentBase' relative to a given time tag
     double first_event_time();  // returns the system time of the first scheduled
@@ -44,11 +44,11 @@ class DeterministicQueue
 
     friend class System;
     priority_queue<DeterministicEvent> queue; // the queue itself
-    double currentBase;                       // the current 'distance'
-    double valueCache[POSITION_CACHE_SIZE];   // cache of previous 'distance' values
-    double (System::* const distanceTimeConversionFunction)(double);
+    double current_base;                       // the current 'distance'
+    double value_cache[POSITION_CACHE_SIZE];   // cache of previous 'distance' values
+    double (System::* const distance_time_conversion_function)(double);
     // pointer to a function that converts a distance to a time
-    double (System::* const timeDistanceConversionFunction)(double);
+    double (System::* const time_distance_conversion_function)(double);
     // pointer to a function that converts a time to a distance
 };
 
