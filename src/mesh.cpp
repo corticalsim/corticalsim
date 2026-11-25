@@ -6,7 +6,7 @@
 #include "linalg.hpp"
 
 // initialize edge
-void iniEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
+void iniEdgeRecord(struct EdgeRecord* head, vector<int>& v, int cid, int fid)
 {
 
     for (int i = 0; i < 2; i++)
@@ -20,14 +20,14 @@ void iniEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
 }
 
 // appending edge
-void addEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
+void addEdgeRecord(struct EdgeRecord* head, vector<int>& v, int cid, int fid)
 {
-    edgeRecord* newedgeRecord = new edgeRecord;
+    EdgeRecord* newedgeRecord = new EdgeRecord;
     newedgeRecord->key = v;
     newedgeRecord->cell_id = cid;
     newedgeRecord->edge_index = fid;
     newedgeRecord->next = nullptr;
-    edgeRecord* cur = head;
+    EdgeRecord* cur = head;
 
     while (cur)
     {
@@ -41,9 +41,9 @@ void addEdgeRecord(struct edgeRecord* head, vector<int>& v, int cid, int fid)
 }
 
 // delete from edge front
-void deleteFirst(struct edgeRecord** head)
+void deleteFirst(struct EdgeRecord** head)
 {
-    struct edgeRecord* tmp = *head;
+    struct EdgeRecord* tmp = *head;
     if (tmp == nullptr)
     {
         return;
@@ -54,9 +54,9 @@ void deleteFirst(struct edgeRecord** head)
 }
 
 // display edge record
-void display(struct edgeRecord* head)
+void display(struct EdgeRecord* head)
 {
-    edgeRecord* list = head;
+    EdgeRecord* list = head;
     int listCount(0);
     while (list)
     {
@@ -80,7 +80,7 @@ void display(struct edgeRecord* head)
 }
 
 // bin-sorting
-void edge_sort(edgeRecord** EList, int nodeMax)
+void edge_sort(EdgeRecord** EList, int nodeMax)
 {
     vector<int> v1;
     for (int i = 0; i < 2; i++)
@@ -90,21 +90,21 @@ void edge_sort(edgeRecord** EList, int nodeMax)
 
     for (int i = 1; i >= 0; i--)
     {
-        edgeRecord** Bin;
-        Bin = new edgeRecord*[nodeMax];
+        EdgeRecord** Bin;
+        Bin = new EdgeRecord*[nodeMax];
 
         for (int j = 0; j < nodeMax; j++)
         {
-            Bin[j] = new edgeRecord;
+            Bin[j] = new EdgeRecord;
             iniEdgeRecord(Bin[j], v1, -1, -1);
         }
 
-        edgeRecord* edge = *EList;
+        EdgeRecord* edge = *EList;
         while (edge)
         {
             addEdgeRecord(Bin[edge->key[i]], edge->key, edge->cell_id, edge->edge_index);
 
-            edgeRecord* oldedge = edge;
+            EdgeRecord* oldedge = edge;
             edge = edge->next;
             delete oldedge;
             oldedge = nullptr;
@@ -115,12 +115,12 @@ void edge_sort(edgeRecord** EList, int nodeMax)
             deleteFirst(&Bin[j]);
         }
 
-        *EList = new edgeRecord;
+        *EList = new EdgeRecord;
         iniEdgeRecord(*EList, v1, -1, -1);
 
         for (int j = 0; j < nodeMax; j++)
         {
-            edgeRecord* binedge = Bin[j];
+            EdgeRecord* binedge = Bin[j];
             while (binedge)
             {
                 addEdgeRecord(*EList, binedge->key, binedge->cell_id, binedge->edge_index);
@@ -134,13 +134,13 @@ void edge_sort(edgeRecord** EList, int nodeMax)
 }
 
 // connectivity establishment
-void find_connectivity(edgeRecord** FList, vector<elementList*>& eList)
+void find_connectivity(EdgeRecord** FList, vector<ElementList*>& eList)
 {
-    edgeRecord* edge = *FList;
+    EdgeRecord* edge = *FList;
     int ecount(0);
     while (edge != nullptr)
     {
-        edgeRecord* edgenext = edge->next;
+        EdgeRecord* edgenext = edge->next;
         if (edgenext == nullptr)
         {
             break;
@@ -148,7 +148,7 @@ void find_connectivity(edgeRecord** FList, vector<elementList*>& eList)
 
         if (edge->key == edgenext->key)
         {
-            eList.push_back(new elementList());
+            eList.push_back(new ElementList());
             ecount = eList.size() - 1;
             eList[ecount]->nodes[0] = edge->key[0];
             eList[ecount]->nodes[1] = edge->key[1];
@@ -195,7 +195,7 @@ void pickup_shape(Geometry* g)
     Eigen::Vector3d axC(0.0, 0.0, 0.0);
 
     // list of triangle-edges to be detected
-    vector<elementList*> eList;
+    vector<ElementList*> eList;
 
     int a0(0), a1(0), a2(0);
     int vmax(0), trimax(0), spf(0), cur(0);
@@ -678,7 +678,7 @@ void pickup_shape(Geometry* g)
     // (b) element list
     for (size_t i = 0; i < eList.size(); i++)
     {
-        g->ppbEdgeList.push_back(elementList());
+        g->ppbEdgeList.push_back(ElementList());
 
         for (size_t j = 0; j < 2; j++)
         {
@@ -728,13 +728,13 @@ void pickup_shape(Geometry* g)
     return;
 }
 
-void makeGraph(int Gvertex, vector<elementList*>& eList, vector<Triangle3D*>& element3D)
+void makeGraph(int Gvertex, vector<ElementList*>& eList, vector<Triangle3D*>& element3D)
 {
     // make the connectivity graph
-    void edge_sort(edgeRecord**, int);
-    void find_connectivity(edgeRecord**, vector<elementList*>&);
+    void edge_sort(EdgeRecord**, int);
+    void find_connectivity(EdgeRecord**, vector<ElementList*>&);
 
-    struct edgeRecord* EdgList = new edgeRecord();
+    struct EdgeRecord* EdgList = new EdgeRecord();
 
     vector<int> v;
     v.push_back(0);
@@ -1125,7 +1125,7 @@ void rigidBodyProperties(vector<Vertices*>& Gvertex,
     }
 }
 
-void edgeDescriptors(vector<Vertices*>& Gvertex, vector<elementList*>& eList, vector<Triangle3D*>& element3D)
+void edgeDescriptors(vector<Vertices*>& Gvertex, vector<ElementList*>& eList, vector<Triangle3D*>& element3D)
 {
     // edge descriptors
 
@@ -1665,7 +1665,7 @@ double areaPolygon3D(vector<Vertices>& V, Eigen::Vector3d N)
 double intersectingPolygon(vector<Vertices>& polygon,
                            vector<Vertices>& Gvertex,
                            vector<Region*>& regions,
-                           vector<elementList>& eList,
+                           vector<ElementList>& eList,
                            Eigen::Vector3d np,
                            Eigen::Vector3d cp,
                            string shapeType)
@@ -1790,7 +1790,7 @@ vector<string> split(string str, char delimiter)
 void establishPBC(vector<Vertices*>& vertices,
                   vector<Triangle3D*>& triangles,
                   vector<Triangle3D*>& viewTriangles,
-                  vector<elementList*>& eList,
+                  vector<ElementList*>& eList,
                   double sizeFactor)
 {
     int bCount(0);

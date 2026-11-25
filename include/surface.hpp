@@ -19,7 +19,7 @@ struct Vertices
     }
 };
 
-struct bendingOperator
+struct BendingOperator
 {
 
     double cosTheta;
@@ -27,7 +27,7 @@ struct bendingOperator
 
     Eigen::Vector3d axis;
 
-    bendingOperator()
+    BendingOperator()
     {
         cosTheta = 0.0;
         sinTheta = 0.0;
@@ -57,7 +57,7 @@ struct SurfaceVector
     }
 };
 
-struct elementList
+struct ElementList
 {
 
     int midPoint;
@@ -68,7 +68,7 @@ struct elementList
     double edge3DAngle;
     Eigen::Vector3d intersectionByPlane;
 
-    elementList()
+    ElementList()
     {
         midPoint = 0;
         length = 0.0;

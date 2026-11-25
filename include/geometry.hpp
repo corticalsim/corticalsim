@@ -19,7 +19,7 @@ class Geometry
     double areainMesh;
     System* const system;
 
-    std::vector<elementList> ppbEdgeList;
+    std::vector<ElementList> ppbEdgeList;
     std::vector<Vertices> globalVertex;
 
     double areaPPB;

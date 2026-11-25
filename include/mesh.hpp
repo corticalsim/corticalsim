@@ -56,15 +56,15 @@ class Triangle3D
     }
 };
 
-struct edgeRecord
+struct EdgeRecord
 {
     vector<int> key;
     int cell_id;
     int edge_index;
-    edgeRecord* next;
+    EdgeRecord* next;
 };
 
-class edgeOfficer
+class EdgeOfficer
 {
   public:
 
@@ -74,7 +74,7 @@ class edgeOfficer
     vector<int> edgeSpStore;
     vector<vector<int>> edgefaceStore;
 
-    edgeOfficer(int c)
+    EdgeOfficer(int c)
     {
         cur = c;
         meanEdgAngle = 0.0;
@@ -101,11 +101,11 @@ void orientSurface(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>
 
 void connectWithGlobe(vector<Vertices*>&, vector<Triangle3D*>&);
 
-void makeGraph(int, vector<elementList*>&, vector<Triangle3D*>&);
+void makeGraph(int, vector<ElementList*>&, vector<Triangle3D*>&);
 
-void edgeDescriptors(vector<Vertices*>&, vector<elementList*>&, vector<Triangle3D*>&);
+void edgeDescriptors(vector<Vertices*>&, vector<ElementList*>&, vector<Triangle3D*>&);
 
-void establishPBC(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<elementList*>&, double);
+void establishPBC(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<ElementList*>&, double);
 
 void rigidBodyProperties(
 vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&);
@@ -117,4 +117,4 @@ bool linePlaneIntersect(Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen
 double areaPolygon3D(vector<Vertices>&, Eigen::Vector3d);
 
 double intersectingPolygon(
-vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<elementList>&, Eigen::Vector3d, Eigen::Vector3d, string);
+vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<ElementList>&, Eigen::Vector3d, Eigen::Vector3d, string);
