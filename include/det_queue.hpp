@@ -25,18 +25,18 @@ class DeterministicQueue
     double progression(int cache_pos) { return current_base - value_cache[cache_pos]; }
 
     // returns the progress of 'currentBase' relative to a given time tag
-    double first_event_time();  // returns the system time of the first scheduled
-                              // event
-    DeterministicEvent pop(); // returns and removes the first scheduled event
+    double first_event_time(); // returns the system time of the first scheduled
+                               // event
+    DeterministicEvent pop();  // returns and removes the first scheduled event
 
     bool empty()
     {
         return queue.empty(); // checks whether the queue is empty
     }
 
-    void flush();                             // empties the queue and resets currentBase
+    void flush();                              // empties the queue and resets currentBase
     void push_global(double, GlobalEventType); // pushes a global event onto the
-                                              // queue at a certain distance
+                                               // queue at a certain distance
     EventTrackingTag push_deterministic(double, EventDescriptorIndex);
     // pushes a deterministic (MT) event onto the queue at a certain distance
 
@@ -44,8 +44,8 @@ class DeterministicQueue
 
     friend class System;
     priority_queue<DeterministicEvent> queue; // the queue itself
-    double current_base;                       // the current 'distance'
-    double value_cache[POSITION_CACHE_SIZE];   // cache of previous 'distance' values
+    double current_base;                      // the current 'distance'
+    double value_cache[POSITION_CACHE_SIZE];  // cache of previous 'distance' values
     double (System::* const distance_time_conversion_function)(double);
     // pointer to a function that converts a distance to a time
     double (System::* const time_distance_conversion_function)(double);
