@@ -13,8 +13,7 @@ class RandHub
     // and methods for drawing random numbers from various distributions.
     std::mt19937_64 mt;
     std::uniform_real_distribution<Real> real_dist{ 0.0, 1.0 };
-    std::uniform_int_distribution<Int> int_dist{ std::numeric_limits<Int>::min(),
-                                                   std::numeric_limits<Int>::max() };
+    std::uniform_int_distribution<Int> int_dist{ std::numeric_limits<Int>::min(), std::numeric_limits<Int>::max() };
     std::normal_distribution<Real> norm_dist{ 0.0, 1.0 };
 
   public:

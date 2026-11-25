@@ -108,7 +108,7 @@ double System::multi_pcross(int npar, int ncoll, double x_single, double z_singl
         for (j = max(0, i - ncoll); j <= max(0, i - 1); j++)
         {
             total_sum += (npar + 1 - i) * binomial_table[ncoll][i - j] * binomial_table[max(0, i - 1)][j]
-                        * pow(x_single, 2 * j + ncoll - i) * pow(z_single, 2 * (i - j));
+                         * pow(x_single, 2 * j + ncoll - i) * pow(z_single, 2 * (i - j));
         }
     }
     return total_sum / (npar + 1);
@@ -127,7 +127,7 @@ double System::multi_pzip(int n_par, int n_coll, double x_single, double z_singl
             for (k = max(0, i - j); k <= i; k++)
             {
                 total_sum += binomial_table[j][i - k] * binomial_table[i][k] * pow(x_single, 2 * k + j - i)
-                            * pow(z_single, 2 * (i - k) + 1);
+                             * pow(z_single, 2 * (i - k) + 1);
             }
         }
     }
@@ -790,8 +790,8 @@ void System::advance_time(double new_time)
     v_plus_queue.advance_time(new_time);
     system_time = new_time;
     total_length += time_queue.progression(current_time_tag)
-                   * (p.v_min * shrinking_mts.size() - p.v_tm * (growing_mts.size() + shrinking_mts.size()))
-                   + v_plus_queue.progression(current_time_tag) * (p.v_plus * growing_mts.size());
+                    * (p.v_min * shrinking_mts.size() - p.v_tm * (growing_mts.size() + shrinking_mts.size()))
+                    + v_plus_queue.progression(current_time_tag) * (p.v_plus * growing_mts.size());
 
     if (++current_time_tag == POSITION_CACHE_SIZE)
     {
@@ -1354,9 +1354,10 @@ void System::handle_severing_at_cross_event()
     */
     // find the segment to be cut
     cut_seg_number = random_gen.rand_int(cut_is->second.occupancy - 1); // nummers 0 - occupancy -1 .
-    if (cut_seg_number < cut_is->second.occupancy / 2)                // search from the beginning.
-                                                    // In principle, all searches could start from the beginning. Also
-                                                    // starting from the end should save (on average) half of the time
+    if (cut_seg_number
+        < cut_is->second.occupancy / 2) // search from the beginning.
+                                        // In principle, all searches could start from the beginning. Also
+                                        // starting from the end should save (on average) half of the time
     {
         test_seg = cut_is->second.mirror->second.other_trajectory->segments.begin();
         final_test_seg = cut_is->second.mirror->second.other_trajectory->segments.end();
@@ -1419,7 +1420,8 @@ void System::handle_nucleation_event()
 {
     // if there is a finite tubulin pool and vPlus is essentially the same as vTM : leading to moving microtubules with
     // zero length, causing ordering problems on collisions
-    if ((p.restricted_pool != 0) && (p.v_tm / (p.v_plus * (1. - total_length / (p.pool_density * geometry->area))) > 0.9999))
+    if ((p.restricted_pool != 0)
+        && (p.v_tm / (p.v_plus * (1. - total_length / (p.pool_density * geometry->area))) > 0.9999))
     {
         return;
     }
@@ -1575,8 +1577,8 @@ void System::determine_stochastic_event()
 // select severing event
 #ifdef CROSS_SEV
     else if (type_selector < (p.k_nuc * geometry->area + type_select_reg_source + p.k_res * shrinking_mts.size()
-                             + p.k_cross * occupied_intersection_list.size())
-                            * inv_total_rate)
+                              + p.k_cross * occupied_intersection_list.size())
+                             * inv_total_rate)
     {
         next_stochastic_event_type = SEVERING_AT_CROSS;
     }
@@ -1628,9 +1630,9 @@ void System::handle_global_event(DeterministicEvent& event)
                 // write a movie frame
                 movie_file << order.rdirector[0] << "," << order.rdirector[1] << "," << order.rdirector[2] << "#";
                 movie_file << geometry->object_cm(0, 0) << "," << geometry->object_cm(1, 0) << ","
-                          << geometry->object_cm(2, 0) << "#";
+                           << geometry->object_cm(2, 0) << "#";
                 movie_file << geometry->object_pa(0, 0) << "," << geometry->object_pa(1, 0) << ","
-                          << geometry->object_pa(2, 0) << "*";
+                           << geometry->object_pa(2, 0) << "*";
 
                 geometry->output_snapshot(movie_file);
 
@@ -1650,12 +1652,12 @@ void System::handle_global_event(DeterministicEvent& event)
             // division plane: polygon edge-list & area
             Eigen::Vector3d normal_ppb(order.rdirector[0], order.rdirector[1], order.rdirector[2]);
             geometry->area_ppb = intersecting_polygon(geometry->ppb,
-                                                    geometry->global_vertex,
-                                                    geometry->regions,
-                                                    geometry->ppb_edge_list,
-                                                    normal_ppb,
-                                                    geometry->nucleous_position,
-                                                    p.geometry);
+                                                      geometry->global_vertex,
+                                                      geometry->regions,
+                                                      geometry->ppb_edge_list,
+                                                      normal_ppb,
+                                                      geometry->nucleous_position,
+                                                      p.geometry);
 
             if (p.show_output == 1)
             {
@@ -1722,12 +1724,12 @@ void System::handle_global_event(DeterministicEvent& event)
             geometry->get_order_parameters(order);
             Eigen::Vector3d normal_ppb(order.rdirector[0], order.rdirector[1], order.rdirector[2]);
             geometry->area_ppb = intersecting_polygon(geometry->ppb,
-                                                    geometry->global_vertex,
-                                                    geometry->regions,
-                                                    geometry->ppb_edge_list,
-                                                    normal_ppb,
-                                                    geometry->nucleous_position,
-                                                    p.geometry);
+                                                      geometry->global_vertex,
+                                                      geometry->regions,
+                                                      geometry->ppb_edge_list,
+                                                      normal_ppb,
+                                                      geometry->nucleous_position,
+                                                      p.geometry);
 
             for (int d_tag = 0; d_tag <= p.face_number; d_tag++)
             {

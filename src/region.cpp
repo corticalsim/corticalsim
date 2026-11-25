@@ -186,11 +186,11 @@ void Region::update_region_length(bool force_update)
         return;
     }
 
-    total_length
-    += geometry->system->time_queue.progression(previous_update_tag)
-       * (geometry->system->p.v_min * (shrinking_plus_tip_list.size()) - geometry->system->p.v_tm * (minus_tip_list.size()))
-       + geometry->system->v_plus_queue.progression(previous_update_tag)
-         * (geometry->system->p.v_plus * (growing_plus_tip_list.size()));
+    total_length += geometry->system->time_queue.progression(previous_update_tag)
+                    * (geometry->system->p.v_min * (shrinking_plus_tip_list.size())
+                       - geometry->system->p.v_tm * (minus_tip_list.size()))
+                    + geometry->system->v_plus_queue.progression(previous_update_tag)
+                      * (geometry->system->p.v_plus * (growing_plus_tip_list.size()));
 
     previous_update_tag = geometry->system->current_time_tag;
 

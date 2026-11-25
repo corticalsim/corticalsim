@@ -523,7 +523,7 @@ bool Parameters::calc_theory_parameters(void)
                     if (magic_angle > cat_start_angle)
                     {
                         c0_calc = (4.0 / PI) * 2.0 * induced_catastrophe_fraction
-                                 * (1. - sin(ma_rad) + (ma_rad - cs_rad) * cos(ma_rad)) / (PI - 2. * cs_rad);
+                                  * (1. - sin(ma_rad) + (ma_rad - cs_rad) * cos(ma_rad)) / (PI - 2. * cs_rad);
                     }
 
                     // magic angle <= catastrophe start angle
@@ -562,7 +562,7 @@ bool Parameters::calc_theory_parameters(void)
                 {
                     double temp = max(0., cs_rad);
                     c0_calc = (4.0 / PI) * 2.0 * induced_catastrophe_fraction
-                             * (1.0 - sin(temp) + (temp - cs_rad) * cos(temp)) / (PI - 2.0 * cs_rad);
+                              * (1.0 - sin(temp) + (temp - cs_rad) * cos(temp)) / (PI - 2.0 * cs_rad);
                 }
 
                 // proportional catastrophe is disabled
@@ -585,9 +585,9 @@ bool Parameters::calc_theory_parameters(void)
                     {
                         double left_boundary = max(0., cs_rad);
                         z0_calc -= (4.0 / PI) * 2.0 * induced_catastrophe_fraction
-                                  * ((left_boundary - cs_rad) * cos(left_boundary) - (ma_rad - cs_rad) * cos(ma_rad)
-                                     - sin(left_boundary) + sin(ma_rad))
-                                  / (PI - 2.0 * cs_rad);
+                                   * ((left_boundary - cs_rad) * cos(left_boundary) - (ma_rad - cs_rad) * cos(ma_rad)
+                                      - sin(left_boundary) + sin(ma_rad))
+                                   / (PI - 2.0 * cs_rad);
                     }
 
                     // proportional catastrophe is disabled
@@ -614,7 +614,8 @@ bool Parameters::calc_theory_parameters(void)
     }
 
     // theoretial value of G
-    double l0 = pow((2.0 * (-v_min + v_tm) * (v_plus - v_tm) * (v_plus - v_tm)) / (k_nuc * v_plus * (-v_min + v_plus)), 1. / 3.);
+    double l0
+    = pow((2.0 * (-v_min + v_tm) * (v_plus - v_tm) * (v_plus - v_tm)) / (k_nuc * v_plus * (-v_min + v_plus)), 1. / 3.);
     double lavg_inv = k_res / (-v_min + v_tm) - k_cat / (v_plus - v_tm);
     double g_0 = l0 * lavg_inv;
 
