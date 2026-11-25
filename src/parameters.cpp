@@ -363,7 +363,7 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
             for (int edg = 1; edg <= edg_number; edg++)
             {
                 double edge_cat_val;
-                string edge_cat_type{"edgCat_" + std::to_string(edg)};
+                string edge_cat_type{ "edgCat_" + std::to_string(edg) };
                 load_param_maps(recognized, par_file, id, edge_cat_type.c_str(), edge_cat_val, edg_cat_map);
             }
 
@@ -371,7 +371,7 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
             for (int face = 1; face <= face_number; face++)
             {
                 double face_cat_val;
-                string face_cat_type{"faceCat_" + std::to_string(face)};
+                string face_cat_type{ "faceCat_" + std::to_string(face) };
                 load_param_maps(recognized, par_file, id, face_cat_type.c_str(), face_cat_val, face_cat_map);
             }
             if (!recognized)
