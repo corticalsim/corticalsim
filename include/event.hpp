@@ -35,7 +35,7 @@ class EventDescriptor
     void reinitialize(DeterministicQueue*, double);
 
     // pushes a deterministic event at a certain distance onto the queue
-    void pushOnQueue(double, DeterministicEventType);
+    void push_on_queue(double, DeterministicEventType);
 
     // invalidates the queued event
     void clear();

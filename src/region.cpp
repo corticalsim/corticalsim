@@ -2,7 +2,7 @@
 #include "geometry.hpp"
 #include "system.hpp"
 
-TrajectoryVector Region::insertTrajectory(const SurfaceVector& s_vec)
+TrajectoryVector Region::insert_trajectory(const SurfaceVector& s_vec)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Region::insertTrajectory() called\n";
@@ -15,13 +15,13 @@ TrajectoryVector Region::insertTrajectory(const SurfaceVector& s_vec)
     vector<PointATedge> endPoint;
 
     // gather coordinates of the trajectory to be created
-    getTrajectoryCoordinates(newBase, tLength, endPoint, tVec);
+    get_trajectory_coordinates(newBase, tLength, endPoint, tVec);
 
     // create the trajectory
     tVec.trajectory = trajectories.create(newBase, endPoint, tLength);
 
     // make a list of intersections of the created trajectory with all other trajectories
-    makeIntersectionList(tVec.trajectory);
+    make_intersection_list(tVec.trajectory);
 
     // increase total number of intersections accordingly
     geometry->system->countIntersections += 2 * (tVec.trajectory->intersections.size());
@@ -29,7 +29,7 @@ TrajectoryVector Region::insertTrajectory(const SurfaceVector& s_vec)
     return tVec;
 }
 
-void Region::removeTrajectory(Trajectory* tr)
+void Region::remove_trajectory(Trajectory* tr)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Region::removeTrajectory() called\n";
@@ -62,7 +62,7 @@ void Region::removeTrajectory(Trajectory* tr)
         otherTr = is->second.otherTrajectory;
 
         // invalidate all the intersetion for the other trajectory
-        otherTr->invalidateIntersection(is->second.mirror);
+        otherTr->invalidate_intersection(is->second.mirror);
 
         // erase all the intersections for the other trajectory
         otherTr->intersections.erase(is->second.mirror);
@@ -105,7 +105,7 @@ void Region::removeTrajectory(Trajectory* tr)
     trajectories.remove(tr);
 }
 
-double Region::opticalLength()
+double Region::optical_length()
 {
     Trajectory* tr(trajectories.first());
     double sum(0.0);
@@ -113,16 +113,16 @@ double Region::opticalLength()
     // calculate total optical length present in this region
     while (tr != nullptr)
     {
-        sum += tr->coveredLength();
+        sum += tr->covered_length();
         tr = tr->next();
     }
     return sum;
 }
 
-RegionMTTipTag Region::registerOnRegion(MTTip* p_tip, TipType tiptype, MTType mttype)
+RegionMTTipTag Region::register_on_region(MTTip* p_tip, TipType tiptype, MTType mttype)
 {
     // update length
-    updateRegionLength();
+    update_region_length();
 
     // minus tip
     if (tiptype == T_MINUS)
@@ -148,10 +148,10 @@ RegionMTTipTag Region::registerOnRegion(MTTip* p_tip, TipType tiptype, MTType mt
     }
 }
 
-void Region::unregisterFromRegion(RegionMTTipTag tag, TipType tiptype, MTType mttype)
+void Region::unregister_from_region(RegionMTTipTag tag, TipType tiptype, MTType mttype)
 {
     // update length
-    updateRegionLength();
+    update_region_length();
 
     // minus tip
     if (tiptype == T_MINUS)
@@ -178,7 +178,7 @@ void Region::unregisterFromRegion(RegionMTTipTag tag, TipType tiptype, MTType mt
     return;
 }
 
-void Region::updateRegionLength(bool force_update)
+void Region::update_region_length(bool force_update)
 {
     // can go wrong on position cache refresh, a cleaner solution required
     if ((previousUpdateTag == geometry->system->currentTimeTag) && (!force_update))

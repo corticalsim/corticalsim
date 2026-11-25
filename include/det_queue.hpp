@@ -14,18 +14,18 @@ class DeterministicQueue
     System* const system; // pointer to containing system
     DeterministicQueue(System*, double (System::*dt_func)(double), double (System::*td_func)(double));
 
-    double currentPos()
+    double current_pos()
     {
         return currentBase; // returns the current 'distance'
     }
 
-    void advanceTime(double); // advances the parameters to the current system time
-    void storeTime(int);      // store 'currentBase' in the cache at a given tag position
+    void advance_time(double); // advances the parameters to the current system time
+    void store_time(int);      // store 'currentBase' in the cache at a given tag position
 
     double progression(int cache_pos) { return currentBase - valueCache[cache_pos]; }
 
     // returns the progress of 'currentBase' relative to a given time tag
-    double firstEventTime();  // returns the system time of the first scheduled
+    double first_event_time();  // returns the system time of the first scheduled
                               // event
     DeterministicEvent pop(); // returns and removes the first scheduled event
 
@@ -35,9 +35,9 @@ class DeterministicQueue
     }
 
     void flush();                             // empties the queue and resets currentBase
-    void pushGlobal(double, GlobalEventType); // pushes a global event onto the
+    void push_global(double, GlobalEventType); // pushes a global event onto the
                                               // queue at a certain distance
-    EventTrackingTag pushDeterministic(double, EventDescriptorIndex);
+    EventTrackingTag push_deterministic(double, EventDescriptorIndex);
     // pushes a deterministic (MT) event onto the queue at a certain distance
 
   private:

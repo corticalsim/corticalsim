@@ -4,7 +4,7 @@
 #include "mt_tip.hpp"
 #include "parameters.hpp"
 
-void System::collisionProbabilities(double angle, double& pcat, double& pzip)
+void System::collision_probabilities(double angle, double& pcat, double& pzip)
 {
     switch (p.interactionType)
     {
@@ -97,7 +97,7 @@ void System::collisionProbabilities(double angle, double& pcat, double& pzip)
     return;
 }
 
-double System::multiPcross(int npar, int ncoll, double x_single, double z_single)
+double System::multi_pcross(int npar, int ncoll, double x_single, double z_single)
 {
     double totalSum = 0;
 
@@ -114,7 +114,7 @@ double System::multiPcross(int npar, int ncoll, double x_single, double z_single
     return totalSum / (npar + 1);
 }
 
-double System::multiPzip(int n_par, int n_coll, double x_single, double z_single)
+double System::multi_pzip(int n_par, int n_coll, double x_single, double z_single)
 {
     double totalSum = 0;
 
@@ -134,7 +134,7 @@ double System::multiPzip(int n_par, int n_coll, double x_single, double z_single
     return totalSum / (n_par + 1);
 }
 
-CollisionType System::collisionResult(double angle, int n_parallel, int n_cross) // range: 0..PI/2
+CollisionType System::collision_result(double angle, int n_parallel, int n_cross) // range: 0..PI/2
 {
 #ifdef DBG_ASSERT
     if ((angle < 0) || (angle > PI / 2))
@@ -159,10 +159,10 @@ CollisionType System::collisionResult(double angle, int n_parallel, int n_cross)
     double Psum{ 0.0 };
 
     // get a random number
-    double rand = randomGen.randDblExc();
+    double rand = randomGen.rand_dbl_exc();
 
     // get the available Pcat and Pzip
-    collisionProbabilities(angle, Pcat, Pzip);
+    collision_probabilities(angle, Pcat, Pzip);
 
     switch (p.bundleType)
     {
@@ -249,8 +249,8 @@ CollisionType System::collisionResult(double angle, int n_parallel, int n_cross)
         case BDL_MULTI_COLLISION:
 
             double Pcross = 1.0 - Pcat - Pzip;
-            double multiPx = multiPcross(min(n_parallel, MAXBINOM - 1), min(n_cross, MAXBINOM - 1), Pcross, Pzip);
-            double multiPz = multiPzip(min(n_parallel, MAXBINOM - 1), min(n_cross, MAXBINOM - 1), Pcross, Pzip);
+            double multiPx = multi_pcross(min(n_parallel, MAXBINOM - 1), min(n_cross, MAXBINOM - 1), Pcross, Pzip);
+            double multiPz = multi_pzip(min(n_parallel, MAXBINOM - 1), min(n_cross, MAXBINOM - 1), Pcross, Pzip);
 
             if (rand < multiPx)
             {
@@ -298,7 +298,7 @@ System::System(char* par_file):
     countTrajectories(0),
     countIntersections(0),
     timeQueue(this, &System::identity, &System::identity),
-    vPlusQueue(this, &System::vPlusToTime, &System::timeToVPlus),
+    vPlusQueue(this, &System::v_plus_to_time, &System::time_to_v_plus),
     nextStatusEventTime(0),
     nextSnapshotEventTime(0),
     EventDescriptorID(0),
@@ -321,35 +321,35 @@ System::System(char* par_file):
     randomGen.seed(p.seed);
 
     /// used in multiPcross & multiPzip events
-    makeBinomialTable();
+    make_binomial_table();
 
     /// perform further initialization
-    initializeOutput();
-    p.writeToFile();
+    initialize_output();
+    p.write_to_file();
 
     /// start creating MT events
-    determineStochasticEvent();
-    timeQueue.pushGlobal(p.measurementInterval, STATUS);
+    determine_stochastic_event();
+    timeQueue.push_global(p.measurementInterval, STATUS);
     nextStatusEventTime = p.measurementInterval;
 
     /// if snapShot events are requested
     if (p.movieEnabled)
     {
-        timeQueue.pushGlobal(p.movieFrameInterval, SNAPSHOT);
+        timeQueue.push_global(p.movieFrameInterval, SNAPSHOT);
         nextSnapshotEventTime = p.movieFrameInterval;
     }
 
     /// if parameter file is updated on run
     if (p.PPB)
     {
-        timeQueue.pushGlobal(p.PPBformingTime, SIGNAL_PPB);
+        timeQueue.push_global(p.PPBformingTime, SIGNAL_PPB);
         nextPPBEventTime = p.PPBformingTime;
     }
 
     /// if parameter file is updated on run
     if (p.newParameterReadInterval > ZERO_CUTOFF)
     {
-        timeQueue.pushGlobal(p.newParameterReadInterval, PARAMETER_CHANGE);
+        timeQueue.push_global(p.newParameterReadInterval, PARAMETER_CHANGE);
         nextParameterEventTime = p.newParameterReadInterval;
     }
 
@@ -359,8 +359,8 @@ System::System(char* par_file):
 System::~System()
 {
     // destroy all MTs
-    growing_mts.removeAll();
-    shrinking_mts.removeAll();
+    growing_mts.remove_all();
+    shrinking_mts.remove_all();
 
     return;
 }
@@ -369,7 +369,7 @@ void System::run(double sim_time, string& c_s, string& m_s)
 {
     int wallTimePollingCounter(0);
     int memoryPollingCounter(0);
-    timeQueue.pushGlobal(sim_time - systemTimeOffset, STOP);
+    timeQueue.push_global(sim_time - systemTimeOffset, STOP);
 
     if (p.showOutput == 1)
     {
@@ -386,16 +386,16 @@ void System::run(double sim_time, string& c_s, string& m_s)
             {
                 // time's up; send a stop signal
                 cerr << "Wall clock limit (" << p.wallClockLimit << " seconds) reached. Stopping.\n";
-                timeQueue.pushGlobal(systemTime, STOP);
+                timeQueue.push_global(systemTime, STOP);
 
                 // write final snapshot when running out of time.
                 if (p.movieEnabled)
                 {
-                    geometry->outputSnapshot(movieFile);
+                    geometry->output_snapshot(movieFile);
                 }
 
                 // emergency exit the program
-                emergencyBreak();
+                emergency_break();
                 exit(-1);
             }
             wallTimePollingCounter = 0;
@@ -403,13 +403,13 @@ void System::run(double sim_time, string& c_s, string& m_s)
 
         if (++memoryPollingCounter == MEMORY_POLLING_INTERVAL)
         {
-            if (estimateMemoryFootprint() > 1024 * 1024 * p.memoryLimit)
+            if (estimate_memory_footprint() > 1024 * 1024 * p.memoryLimit)
             {
                 cerr << "Memory limit (approx. " << p.memoryLimit << " MB) reached. Stopping.\n";
-                timeQueue.pushGlobal(systemTime, STOP);
+                timeQueue.push_global(systemTime, STOP);
 
                 // emergency exit the program
-                emergencyBreak();
+                emergency_break();
                 exit(-1);
             }
             memoryPollingCounter = 0;
@@ -422,13 +422,13 @@ void System::run(double sim_time, string& c_s, string& m_s)
 #endif
 
             // moved forward (used to be after flush and reload)
-            if (!integrityCheck())
+            if (!integrity_check())
             {
                 exit(-1);
             }
 
-            flushAndReload();
-            if (!integrityCheck())
+            flush_and_reload();
+            if (!integrity_check())
             {
                 exit(-1);
             }
@@ -439,26 +439,26 @@ void System::run(double sim_time, string& c_s, string& m_s)
         }
 
         // continue to next event
-        nextEvent();
+        next_event();
     }
 
     // stop signal received : write down necessary output(s)
-    writeMeasurementsToFile(0);
-    closeFiles();
+    write_measurements_to_file(0);
+    close_files();
 
     return;
 }
 
-void System::emergencyBreak()
+void System::emergency_break()
 {
     // write current output(s) and close all opened files
-    writeMeasurementsToFile(0);
-    closeFiles();
+    write_measurements_to_file(0);
+    close_files();
 
     return;
 }
 
-int System::estimateMemoryFootprint()
+int System::estimate_memory_footprint()
 {
     // calculate memory in use
     int total(0);
@@ -473,12 +473,12 @@ int System::estimateMemoryFootprint()
     return total;
 }
 
-bool System::integrityCheck()
+bool System::integrity_check()
 {
     bool valid(true);
 
     // integrity check of the gemoetry embeded components
-    if (!geometry->integrityCheck())
+    if (!geometry->integrity_check())
     {
         valid = false;
     }
@@ -487,7 +487,7 @@ bool System::integrityCheck()
     Microtubule* mt = growing_mts.first();
     while (mt != nullptr)
     {
-        if (!mt->integrityCheck())
+        if (!mt->integrity_check())
         {
             valid = false;
         }
@@ -499,7 +499,7 @@ bool System::integrityCheck()
     mt = shrinking_mts.first();
     while (mt != nullptr)
     {
-        if (!mt->integrityCheck())
+        if (!mt->integrity_check())
         {
             valid = false;
         }
@@ -510,12 +510,12 @@ bool System::integrityCheck()
     return valid;
 }
 
-void System::flushAndReload(bool refresh_parameter_event)
+void System::flush_and_reload(bool refresh_parameter_event)
 {
     double timeOffset(systemTime);
 
     // update all microtubule lengths
-    updateAll();
+    update_all();
 
     // recalculate total lengths to avoid drift (in DBG mode, also check for large deviations)
     double regionLength(0.);
@@ -529,7 +529,7 @@ void System::flushAndReload(bool refresh_parameter_event)
 
         while (tptr != nullptr)
         {
-            regionLength += tptr->segmentLength();
+            regionLength += tptr->segment_length();
             tptr = tptr->next();
         }
 
@@ -538,7 +538,7 @@ void System::flushAndReload(bool refresh_parameter_event)
             cerr << "Unacceptable drift in region length (drift = "
                  << abs(geometry->regions[ridx]->totalLength - regionLength)
                  << "). Exiting. [try lowering flush interval]\n";
-            emergencyBreak();
+            emergency_break();
             exit(-1);
         }
         geometry->regions[ridx]->totalLength = regionLength;
@@ -549,7 +549,7 @@ void System::flushAndReload(bool refresh_parameter_event)
     {
         cerr << "Unacceptable drift in system length (drift = " << abs(totalLength - systemLength)
              << "). Exiting. [try lowering flush interval]\n";
-        emergencyBreak();
+        emergency_break();
         exit(-1);
     }
 
@@ -567,27 +567,27 @@ void System::flushAndReload(bool refresh_parameter_event)
 
     // now, reload all events (this is a PROBLEM for global events that have not been saved. They need to be re-inserted
     // manually)
-    determineStochasticEvent();
-    timeQueue.pushGlobal(p.stopTime - systemTimeOffset, STOP);
+    determine_stochastic_event();
+    timeQueue.push_global(p.stopTime - systemTimeOffset, STOP);
     nextStatusEventTime -= timeOffset;
-    timeQueue.pushGlobal(nextStatusEventTime, STATUS);
+    timeQueue.push_global(nextStatusEventTime, STATUS);
 
     if (refresh_parameter_event)
     {
         nextParameterEventTime -= timeOffset;
-        timeQueue.pushGlobal(nextParameterEventTime, PARAMETER_CHANGE);
+        timeQueue.push_global(nextParameterEventTime, PARAMETER_CHANGE);
     }
 
     if (p.movieEnabled)
     {
         nextSnapshotEventTime -= timeOffset;
-        timeQueue.pushGlobal(nextSnapshotEventTime, SNAPSHOT);
+        timeQueue.push_global(nextSnapshotEventTime, SNAPSHOT);
     }
 
     if (p.PPB)
     {
         nextPPBEventTime -= timeOffset;
-        timeQueue.pushGlobal(nextPPBEventTime, SIGNAL_PPB);
+        timeQueue.push_global(nextPPBEventTime, SIGNAL_PPB);
     }
 
     Microtubule* mt(nullptr);
@@ -606,12 +606,12 @@ void System::flushAndReload(bool refresh_parameter_event)
             seg = seg->next();
         }
 
-        mt->plus.event.index = registerEventDescriptor(&(mt->plus.event));
-        mt->minus.event.index = registerEventDescriptor(&(mt->minus.event));
-        mt->disappearEvent.index = registerEventDescriptor(&(mt->disappearEvent));
-        mt->plus.determineEvent();
-        mt->minus.determineEvent();
-        mt->setDisappearEvent();
+        mt->plus.event.index = register_event_descriptor(&(mt->plus.event));
+        mt->minus.event.index = register_event_descriptor(&(mt->minus.event));
+        mt->disappearEvent.index = register_event_descriptor(&(mt->disappearEvent));
+        mt->plus.determine_event();
+        mt->minus.determine_event();
+        mt->set_disappear_event();
         mt = mt->next();
     }
 
@@ -627,19 +627,19 @@ void System::flushAndReload(bool refresh_parameter_event)
             seg = seg->next();
         }
 
-        mt->plus.event.index = registerEventDescriptor(&(mt->plus.event));
-        mt->minus.event.index = registerEventDescriptor(&(mt->minus.event));
-        mt->disappearEvent.index = registerEventDescriptor(&(mt->disappearEvent));
-        mt->plus.determineEvent();
-        mt->minus.determineEvent();
-        mt->setDisappearEvent();
+        mt->plus.event.index = register_event_descriptor(&(mt->plus.event));
+        mt->minus.event.index = register_event_descriptor(&(mt->minus.event));
+        mt->disappearEvent.index = register_event_descriptor(&(mt->disappearEvent));
+        mt->plus.determine_event();
+        mt->minus.determine_event();
+        mt->set_disappear_event();
         mt = mt->next();
     }
 
     return;
 }
 
-double LambertW(double x)
+double lambert_w(double x)
 {
     double out(0.0);
     const double expMin1 = exp(-1.0);
@@ -703,7 +703,7 @@ double LambertW(double x)
     return out;
 }
 
-double System::vPlusToTime(double dist)
+double System::v_plus_to_time(double dist)
 {
     // for infinite pool (implimented as identity function)
     if (p.restrictedPool == 0)
@@ -742,7 +742,7 @@ double System::vPlusToTime(double dist)
     // verify whether this is an optimal trade-off
     if (pv - qv < 250)
     {
-        return (qv - pv + LambertW(pv * exp(pv - qv))) / beta;
+        return (qv - pv + lambert_w(pv * exp(pv - qv))) / beta;
     }
 
     // if not, do asymptotic approximation
@@ -754,7 +754,7 @@ double System::vPlusToTime(double dist)
               + L2 * (-12 + 36 * L2 - 22 * pow(L2, 2) + 3 * pow(L2, 3)) / (12 * pow(L1, 4)));
 }
 
-double System::timeToVPlus(double time)
+double System::time_to_v_plus(double time)
 {
     // for infinite pool (implimented as identity function)
     if (p.restrictedPool == 0)
@@ -778,7 +778,7 @@ double System::timeToVPlus(double time)
     return (1.0 - lambda_inf) * time - (lambda_0 - lambda_inf) * (1.0 - exp(-beta * time)) / beta;
 }
 
-void System::advanceTime(double new_time)
+void System::advance_time(double new_time)
 {
 #ifdef DBG_SYSTEM
     cout << "DBG/SYSTEM: advancing time by " << newTime - systemTime << " seconds. New system time is " << newTime
@@ -786,8 +786,8 @@ void System::advanceTime(double new_time)
 #endif
 
     // make a jump in time step (taking advantage of using event-driven algorithm)
-    timeQueue.advanceTime(new_time);
-    vPlusQueue.advanceTime(new_time);
+    timeQueue.advance_time(new_time);
+    vPlusQueue.advance_time(new_time);
     systemTime = new_time;
     totalLength += timeQueue.progression(currentTimeTag)
                    * (p.vMin * shrinking_mts.size() - p.vTM * (growing_mts.size() + shrinking_mts.size()))
@@ -796,21 +796,21 @@ void System::advanceTime(double new_time)
     if (++currentTimeTag == POSITION_CACHE_SIZE)
     {
         currentTimeTag = 0;
-        updateAll(true);
+        update_all(true);
     }
 
-    timeQueue.storeTime(currentTimeTag);
-    vPlusQueue.storeTime(currentTimeTag);
+    timeQueue.store_time(currentTimeTag);
+    vPlusQueue.store_time(currentTimeTag);
 
     return;
 }
 
-void System::updateAll(bool force_update)
+void System::update_all(bool force_update)
 {
     // always nice to be updated in lengths of all regions and microtubules (convenient for snapshots, etc.)
     for (size_t ridx = 0; ridx < geometry->regions.size(); ridx++)
     {
-        geometry->regions[ridx]->updateRegionLength(force_update);
+        geometry->regions[ridx]->update_region_length(force_update);
     }
 
     Microtubule* mt;
@@ -818,7 +818,7 @@ void System::updateAll(bool force_update)
 
     while (mt != nullptr)
     {
-        mt->updateLength(force_update);
+        mt->update_length(force_update);
 
 #ifdef DBG_ACID_TEST
         if (mt->segments.size() == 1)
@@ -837,7 +837,7 @@ void System::updateAll(bool force_update)
     mt = shrinking_mts.first();
     while (mt != nullptr)
     {
-        mt->updateLength(force_update);
+        mt->update_length(force_update);
 
 #ifdef DBG_ACID_TEST
         if (mt->segments.size() == 1)
@@ -855,7 +855,7 @@ void System::updateAll(bool force_update)
     return;
 }
 
-void System::nextEvent()
+void System::next_event()
 {
     double tqValue = numeric_limits<double>::max();
     double dqValue = numeric_limits<double>::max();
@@ -863,12 +863,12 @@ void System::nextEvent()
     // maybe clean up a little
     if (!timeQueue.empty())
     {
-        tqValue = timeQueue.firstEventTime();
+        tqValue = timeQueue.first_event_time();
     }
 
     if (!vPlusQueue.empty())
     {
-        dqValue = vPlusQueue.firstEventTime();
+        dqValue = vPlusQueue.first_event_time();
     }
 
     if ((nextStochasticEventTime < tqValue) && (nextStochasticEventTime < dqValue))
@@ -880,30 +880,30 @@ void System::nextEvent()
              << ", type=" << nextStochasticEventType << "]\n";
 #endif
 
-        advanceTime(nextStochasticEventTime);
+        advance_time(nextStochasticEventTime);
 
         // execute next stochastic event
         switch (nextStochasticEventType)
         {
             case CATASTROPHE:
-                handleCatastropheEvent();
+                handle_catastrophe_event();
                 break;
             case RESCUE:
-                handleRescueEvent();
+                handle_rescue_event();
                 break;
             case KATANIN:
-                handleSeveringEvent();
+                handle_severing_event();
                 break;
 #ifdef CROSS_SEV
             case SEVERING_AT_CROSS:
-                handleSeveringAtCrossEvent();
+                handle_severing_at_cross_event();
                 break;
 #endif
             case NUCLEATION:
-                handleNucleationEvent();
+                handle_nucleation_event();
                 break;
         }
-        determineStochasticEvent();
+        determine_stochastic_event();
     }
 
     else
@@ -936,9 +936,9 @@ void System::nextEvent()
 #endif
 
                 totalValidDEventCount++;
-                advanceTime(nextEventTime);
-                eventItr->second->mt->handleEvent(eventItr->second);
-                determineStochasticEvent();
+                advance_time(nextEventTime);
+                eventItr->second->mt->handle_event(eventItr->second);
+                determine_stochastic_event();
             }
 
             // invalid event
@@ -959,15 +959,15 @@ void System::nextEvent()
                  << "]\n";
 #endif
 
-            advanceTime(event.eventTimeDist);
-            handleGlobalEvent(event);
+            advance_time(event.eventTimeDist);
+            handle_global_event(event);
         }
     }
 
     return;
 }
 
-void System::handleCatastropheEvent()
+void System::handle_catastrophe_event()
 {
 
     size_t tipNumber(0), totalRelevantTips(0), ridx(0);
@@ -994,7 +994,7 @@ void System::handleCatastropheEvent()
         }
     }
 
-    tipNumber = randomGen.randInt(totalRelevantTips - 1);
+    tipNumber = randomGen.rand_int(totalRelevantTips - 1);
 
     // determine the region this tip is located in
     // depending on whether it's a high or low number, start scanning from the beginning or end
@@ -1062,7 +1062,7 @@ void System::handleCatastropheEvent()
     return;
 }
 
-void System::handleRescueEvent()
+void System::handle_rescue_event()
 {
     // TODO
     // Fix the logic below and the types of these variables
@@ -1073,7 +1073,7 @@ void System::handleRescueEvent()
     RegionMTTipTag tipTag;
 
     // select the number of the tip to be rescued
-    tipNumber = randomGen.randInt(shrinking_mts.size() - 1);
+    tipNumber = randomGen.rand_int(shrinking_mts.size() - 1);
 
     // determine the region this tip is located : binary search algorithm
     if (tipNumber < static_cast<unsigned long long>(shrinking_mts.size() / 2))
@@ -1125,11 +1125,11 @@ void System::handleRescueEvent()
     return;
 }
 
-void System::handleSeveringEvent()
+void System::handle_severing_event()
 {
     double cutLength(0.0);
     Segment* cutSeg(nullptr);
-    randomPositionOnMicrotubule(cutLength, cutSeg);
+    random_position_on_microtubule(cutLength, cutSeg);
 
     // sever the MT now !
     if (cutSeg != nullptr)
@@ -1144,21 +1144,21 @@ void System::handleSeveringEvent()
     return;
 }
 
-void System::randomPositionOnMicrotubule(double& random_pos, Segment*& random_seg)
+void System::random_position_on_microtubule(double& random_pos, Segment*& random_seg)
 {
     // TODO
     // Fix the logic below and the type of this variable
     // to eliminate the need for static_cast.
     long long ridx(0);
     // select position at which severing will take place
-    double cutLength = randomGen.randDblExc(totalLength);
+    double cutLength = randomGen.rand_dbl_exc(totalLength);
     // first, select relevant region. Go from both sides to reduce time.
     if (cutLength < 0.5 * totalLength)
     {
         ridx = 0;
         while (true)
         {
-            geometry->regions[ridx]->updateRegionLength();
+            geometry->regions[ridx]->update_region_length();
             if (cutLength < geometry->regions[ridx]->totalLength)
             {
                 break;
@@ -1186,7 +1186,7 @@ void System::randomPositionOnMicrotubule(double& random_pos, Segment*& random_se
         cutLength = totalLength - cutLength;
         while (true)
         {
-            geometry->regions[ridx]->updateRegionLength();
+            geometry->regions[ridx]->update_region_length();
             if (cutLength < geometry->regions[ridx]->totalLength)
             {
                 break;
@@ -1230,7 +1230,7 @@ void System::randomPositionOnMicrotubule(double& random_pos, Segment*& random_se
             while (seg != trptr->segments.end())
             {
                 // make sure the lengths are accurate
-                (*seg)->mt->updateLength();
+                (*seg)->mt->update_length();
                 // break when the correct segment is found
                 if (cutLength < (temp = (*seg)->length()))
                 {
@@ -1274,7 +1274,7 @@ void System::randomPositionOnMicrotubule(double& random_pos, Segment*& random_se
             {
                 seg--;
                 // make sure that the segment length is correct
-                (*seg)->mt->updateLength();
+                (*seg)->mt->update_length();
                 // break if the requested position lies on this segment
                 if (cutLength < (temp = (**seg).length()))
                 {
@@ -1312,7 +1312,7 @@ void System::randomPositionOnMicrotubule(double& random_pos, Segment*& random_se
 #ifdef CROSS_SEV
 
 // TODO: verify this function
-void System::handleSeveringAtCrossEvent()
+void System::handle_severing_at_cross_event()
 {
     Microtubule* cutMT(nullptr);
     IntersectionItr cutIS;
@@ -1322,8 +1322,8 @@ void System::handleSeveringAtCrossEvent()
     list<Segment*>::iterator testSeg;
     list<Segment*>::iterator finalTestSeg;
 
-    cutOccIS = OccupiedIntersectionList.ElementAddress(randomGen.randInt(OccupiedIntersectionList.size() - 1));
-    if (p.crossSeveringTop || (randomGen.randInt(1) == 0))
+    cutOccIS = OccupiedIntersectionList.element_address(randomGen.rand_int(OccupiedIntersectionList.size() - 1));
+    if (p.crossSeveringTop || (randomGen.rand_int(1) == 0))
     {
         // if MT (bundle) on top should be cut, select that one, or (if random) pick it with 50% chance.
         // Note that no effort is made to ensure proportional selection for bundles of different thickness.
@@ -1333,7 +1333,7 @@ void System::handleSeveringAtCrossEvent()
     {
         cutIS = cutOccIS->intersectionToCut->second.mirror;
     }
-    double diffAngle = cutIS->second.otherTrajectory->base.region->intersectionAngle(
+    double diffAngle = cutIS->second.otherTrajectory->base.region->intersection_angle(
     cutIS->second.otherTrajectory, cutIS->second.mirror->second.otherTrajectory);
     if (diffAngle > 0.5 * PI)
     {
@@ -1353,7 +1353,7 @@ void System::handleSeveringAtCrossEvent()
     }
     */
     // find the segment to be cut
-    cutSegNumber = randomGen.randInt(cutIS->second.occupancy - 1); // nummers 0 - occupancy -1 .
+    cutSegNumber = randomGen.rand_int(cutIS->second.occupancy - 1); // nummers 0 - occupancy -1 .
     if (cutSegNumber < cutIS->second.occupancy / 2)                // search from the beginning.
                                                     // In principle, all searches could start from the beginning. Also
                                                     // starting from the end should save (on average) half of the time
@@ -1363,7 +1363,7 @@ void System::handleSeveringAtCrossEvent()
         cutSegNumber++;
         while (testSeg != finalTestSeg) // NOTE: test should not be necessary "while(true)"
         {
-            if ((**testSeg).crossesIntersection(cutIS))
+            if ((**testSeg).crosses_intersection(cutIS))
             {
                 cutSegNumber--;
                 if (cutSegNumber == 0)
@@ -1382,7 +1382,7 @@ void System::handleSeveringAtCrossEvent()
         while (testSeg != finalTestSeg)
         {
             testSeg--;
-            if ((**testSeg).crossesIntersection(cutIS))
+            if ((**testSeg).crosses_intersection(cutIS))
             {
                 cutSegNumber++;
                 if (cutSegNumber == cutIS->second.occupancy)
@@ -1396,10 +1396,10 @@ void System::handleSeveringAtCrossEvent()
     if (cutSeg != nullptr)
     {
         cutMT = cutSeg->mt;
-        cutMT->updateLength();
+        cutMT->update_length();
         if (cutMT != nullptr)
         {
-            cutMT->severAtCross(cutIS, cutSeg);
+            cutMT->sever_at_cross(cutIS, cutSeg);
         }
         else
         {
@@ -1415,7 +1415,7 @@ void System::handleSeveringAtCrossEvent()
 }
 #endif
 
-void System::handleNucleationEvent()
+void System::handle_nucleation_event()
 {
     // if there is a finite tubulin pool and vPlus is essentially the same as vTM : leading to moving microtubules with
     // zero length, causing ordering problems on collisions
@@ -1428,7 +1428,7 @@ void System::handleNucleationEvent()
     TrajectoryVector tv;
 
     // get random nucleation point (vector)
-    SurfaceVector sv = geometry->randomSurfaceVector();
+    SurfaceVector sv = geometry->random_surface_vector();
 
     // forbiden zone and parameter modified : no microtubule created
     if (sv.region->faceTag == -1)
@@ -1449,13 +1449,13 @@ void System::handleNucleationEvent()
     }
 
     sv.angle = overrideAngle;
-    tv = geometry->createTrajectory(sv);
+    tv = geometry->create_trajectory(sv);
     growing_mts.create(this, tv);
 
     return;
 }
 
-void System::determineStochasticEvent()
+void System::determine_stochastic_event()
 {
     // for(regionIndex=0 ; oldtr->base.region != regions[regionIndex] ; regionIndex++);
 
@@ -1484,7 +1484,7 @@ void System::determineStochasticEvent()
         slopeRate = p.kSev * ((p.vPlus - p.vTM) * growing_mts.size() + (p.vMin - p.vTM) * shrinking_mts.size());
 
         // generate a random number larger than 0 with an exponential distribution
-        logRandom = -log(randomGen.randDblExc());
+        logRandom = -log(randomGen.rand_dbl_exc());
 
         if (abs(slopeRate) < ZERO_CUTOFF)
         {
@@ -1527,9 +1527,9 @@ void System::determineStochasticEvent()
 #endif
 
         double x = p.kSev * (totalLength - L_inf) / (baseRate + p.kSev * L_inf);
-        double y = -beta * log(randomGen.randDblExc()) / (baseRate + p.kSev * L_inf);
+        double y = -beta * log(randomGen.rand_dbl_exc()) / (baseRate + p.kSev * L_inf);
 
-        nextEventInterval = (-x + y + LambertW(x * exp(x - y))) / beta;
+        nextEventInterval = (-x + y + lambert_w(x * exp(x - y))) / beta;
 
         double totalRate = baseRate + p.kSev * (L_inf + (totalLength - L_inf) * exp(-beta * nextEventInterval));
         invTotalRate = 1.0 / totalRate;
@@ -1596,10 +1596,10 @@ void System::determineStochasticEvent()
     return;
 }
 
-void System::handleGlobalEvent(DeterministicEvent& event)
+void System::handle_global_event(DeterministicEvent& event)
 {
     // better to be updated
-    updateAll();
+    update_all();
 
     switch (event.global_type)
     {
@@ -1607,15 +1607,15 @@ void System::handleGlobalEvent(DeterministicEvent& event)
         case MEASURE:
             break;
         case STATUS:
-            if (!integrityCheck())
+            if (!integrity_check())
             {
                 cerr << "Integrity check failed. Exiting.\n";
                 exit(-1);
             }
 
-            performMeasurement();
+            perform_measurement();
             nextStatusEventTime = systemTime + p.measurementInterval;
-            timeQueue.pushGlobal(nextStatusEventTime, STATUS);
+            timeQueue.push_global(nextStatusEventTime, STATUS);
             break;
 
         case SNAPSHOT:
@@ -1623,7 +1623,7 @@ void System::handleGlobalEvent(DeterministicEvent& event)
             {
                 OrderParameters order;
 
-                geometry->getOrderParameters(order);
+                geometry->get_order_parameters(order);
 
                 // write a movie frame
                 movieFile << order.Rdirector[0] << "," << order.Rdirector[1] << "," << order.Rdirector[2] << "#";
@@ -1632,24 +1632,24 @@ void System::handleGlobalEvent(DeterministicEvent& event)
                 movieFile << geometry->objectPA(0, 0) << "," << geometry->objectPA(1, 0) << ","
                           << geometry->objectPA(2, 0) << "*";
 
-                geometry->outputSnapshot(movieFile);
+                geometry->output_snapshot(movieFile);
 
                 // write a local order parameter heatmap frame
-                geometry->outputOrderHeatMap(heatMapFile, order.localOrder, order.Sv);
+                geometry->output_order_heat_map(heatMapFile, order.localOrder, order.Sv);
 
                 nextSnapshotEventTime = systemTime + p.movieFrameInterval;
-                timeQueue.pushGlobal(nextSnapshotEventTime, SNAPSHOT);
+                timeQueue.push_global(nextSnapshotEventTime, SNAPSHOT);
             }
             break;
 
         case STOP:
         {
             OrderParameters order;
-            geometry->getOrderParameters(order);
+            geometry->get_order_parameters(order);
 
             // division plane: polygon edge-list & area
             Eigen::Vector3d normalPPB(order.Rdirector[0], order.Rdirector[1], order.Rdirector[2]);
-            geometry->areaPPB = intersectingPolygon(geometry->ppb,
+            geometry->areaPPB = intersecting_polygon(geometry->ppb,
                                                     geometry->globalVertex,
                                                     geometry->regions,
                                                     geometry->ppbEdgeList,
@@ -1669,24 +1669,24 @@ void System::handleGlobalEvent(DeterministicEvent& event)
         case PARAMETER_CHANGE:
         {
             cout << "Changing parameters. Reading from file [" << p.newParameterFile << "]\n";
-            flushAndReload(false);
+            flush_and_reload(false);
             string oldDir = p.outputDir;
             if (p.reinitialize(p.newParameterFile.c_str()))
             {
                 if (p.outputDir != oldDir)
                 {
                     cout << "Switching directories.\n";
-                    writeMeasurementsToFile(0);
-                    closeFiles();
-                    initializeOutput();
+                    write_measurements_to_file(0);
+                    close_files();
+                    initialize_output();
                 }
-                p.writeToFile();
+                p.write_to_file();
 
                 if (p.movieEnabled)
                 {
                     if (nextSnapshotEventTime < ZERO_CUTOFF)
                     {
-                        timeQueue.pushGlobal(p.movieFrameInterval, SNAPSHOT);
+                        timeQueue.push_global(p.movieFrameInterval, SNAPSHOT);
                         nextSnapshotEventTime = p.movieFrameInterval;
                     }
                 }
@@ -1697,31 +1697,31 @@ void System::handleGlobalEvent(DeterministicEvent& event)
 
                 if (p.newParameterReadInterval > ZERO_CUTOFF)
                 {
-                    timeQueue.pushGlobal(p.newParameterReadInterval, PARAMETER_CHANGE);
+                    timeQueue.push_global(p.newParameterReadInterval, PARAMETER_CHANGE);
                     nextParameterEventTime = p.newParameterReadInterval;
                 }
             }
             else
             {
                 cerr << "Failed to read parameters from file. Exiting.\n";
-                emergencyBreak();
+                emergency_break();
                 exit(-1);
             }
 
-            timeQueue.pushGlobal(p.newParameterReadInterval, PARAMETER_CHANGE);
+            timeQueue.push_global(p.newParameterReadInterval, PARAMETER_CHANGE);
             nextParameterEventTime = p.newParameterReadInterval;
             break;
         }
 
         case SIGNAL_PPB:
             cout << " Starting formation of PPB ...\n";
-            p.writeToFile();
+            p.write_to_file();
             p.PPBkNucFraction = 0.8;
             cout << p.PPBkNucFraction << " : " << p.PPB << endl;
             OrderParameters order;
-            geometry->getOrderParameters(order);
+            geometry->get_order_parameters(order);
             Eigen::Vector3d normalPPB(order.Rdirector[0], order.Rdirector[1], order.Rdirector[2]);
-            geometry->areaPPB = intersectingPolygon(geometry->ppb,
+            geometry->areaPPB = intersecting_polygon(geometry->ppb,
                                                     geometry->globalVertex,
                                                     geometry->regions,
                                                     geometry->ppbEdgeList,
@@ -1762,7 +1762,7 @@ void System::handleGlobalEvent(DeterministicEvent& event)
                     geometry->RegionsIndex[2].push_back(eno);
                 }
             }
-            timeQueue.pushGlobal(VERY_LARGE, SIGNAL_PPB);
+            timeQueue.push_global(VERY_LARGE, SIGNAL_PPB);
             nextPPBEventTime = VERY_LARGE;
 
             break;
@@ -1771,7 +1771,7 @@ void System::handleGlobalEvent(DeterministicEvent& event)
     return;
 }
 
-EventDescriptorIndex System::registerEventDescriptor(EventDescriptor* ei)
+EventDescriptorIndex System::register_event_descriptor(EventDescriptor* ei)
 {
     // maybe use a pool of numbers instead of an increasing number....this could wrap around
     EventDescriptorIndex index = EventDescriptorID++;
@@ -1779,19 +1779,19 @@ EventDescriptorIndex System::registerEventDescriptor(EventDescriptor* ei)
 
     if (EventDescriptorID == numeric_limits<EventDescriptorIndex>::max() - 10)
     {
-        timeQueue.pushGlobal(systemTime, STOP);
+        timeQueue.push_global(systemTime, STOP);
     }
 
     return index;
 }
 
-void System::unregisterEventDescriptor(EventDescriptorIndex ei)
+void System::unregister_event_descriptor(EventDescriptorIndex ei)
 {
     EventDescriptorMap.erase(EventDescriptorMap.find(ei));
     return;
 }
 
-EventDescriptor* System::getEventDescriptor(EventDescriptorIndex idx)
+EventDescriptor* System::get_event_descriptor(EventDescriptorIndex idx)
 {
     map<EventDescriptorIndex, EventDescriptor*>::iterator itr = EventDescriptorMap.find(idx);
     if (itr == EventDescriptorMap.end())
@@ -1805,15 +1805,15 @@ EventDescriptor* System::getEventDescriptor(EventDescriptorIndex idx)
 }
 
 #ifdef CROSS_SEV
-void System::removeOccupiedIntersection(Intersection& is)
+void System::remove_occupied_intersection(Intersection& is)
 {
-    OccupiedIntersectionList.RemoveElement(is.occupiedListPtr->index);
+    OccupiedIntersectionList.remove_element(is.occupiedListPtr->index);
     is.occupiedListPtr = nullptr;
     is.mirror->second.occupiedListPtr = nullptr;
     return;
 }
 
-void System::addOccupiedIntersection(IntersectionItr is)
+void System::add_occupied_intersection(IntersectionItr is)
 {
     is->second.occupiedListPtr = OccupiedIntersectionList.create(is);
     is->second.mirror->second.occupiedListPtr = is->second.occupiedListPtr;
@@ -1821,7 +1821,7 @@ void System::addOccupiedIntersection(IntersectionItr is)
 }
 #endif
 
-void System::makeBinomialTable(void)
+void System::make_binomial_table(void)
 {
     int i(0), j(0);
     double temp(0.0);

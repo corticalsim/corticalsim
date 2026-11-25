@@ -29,13 +29,13 @@ class Microtubule: public DLBaseItem<Microtubule>
 
     Microtubule(System*, TrajectoryVector, bool = true);
     ~Microtubule();
-    bool integrityCheck();
+    bool integrity_check();
     // status functions
     double length();
-    void updateLength(bool force_update = false);
+    void update_length(bool force_update = false);
     // event functions below
-    void setDisappearEvent();
-    void handleEvent(const EventDescriptor*);
+    void set_disappear_event();
+    void handle_event(const EventDescriptor*);
     void catastrophe();
     void rescue();
 
@@ -48,13 +48,13 @@ class Microtubule: public DLBaseItem<Microtubule>
 
     // called when a microtubule retreats across an intersection
     void backtrack(MTTip*);
-    void endOfSegment(MTTip*);
+    void end_of_segment(MTTip*);
     void sever(Segment*, double);
-    void severAtCross(IntersectionItr is, Segment* cut_seg);
-    void splitSegmentAtTrajPos(double cut_pos, Segment* cut_seg);
+    void sever_at_cross(IntersectionItr is, Segment* cut_seg);
+    void split_segment_at_traj_pos(double cut_pos, Segment* cut_seg);
 
     // translates random position at MT to corresponding position at Segment
-    void translatePositionMT2Segment(double& cut_pos, Segment*& cut_seg);
+    void translate_position_m_t2_segment(double& cut_pos, Segment*& cut_seg);
 
   private:
 

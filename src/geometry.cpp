@@ -7,7 +7,7 @@
 #include "parameters.hpp"
 #include "linalg.hpp"
 
-void Geometry::callTranslator(SurfaceVector& s_vec, int region_index, int region_index_neigh)
+void Geometry::call_translator(SurfaceVector& s_vec, int region_index, int region_index_neigh)
 {
     int Index1(regions[region_index]->sideRevMap[region_index_neigh]);
 
@@ -22,17 +22,17 @@ void Geometry::callTranslator(SurfaceVector& s_vec, int region_index, int region
     return;
 }
 
-TrajectoryVector Geometry::createTrajectory(const SurfaceVector& s_vec)
+TrajectoryVector Geometry::create_trajectory(const SurfaceVector& s_vec)
 {
     // create a new trajectory with give trajectory vector
-    return s_vec.region->insertTrajectory(s_vec);
+    return s_vec.region->insert_trajectory(s_vec);
 }
 
-TrajectoryVector Geometry::createAndLinkTrajectory(
+TrajectoryVector Geometry::create_and_link_trajectory(
 const SurfaceVector& new_base, Trajectory* oldtr, Direction olddir, double cos_angle, double p_cat)
 {
     // first create a new trajectory vector (trajectory)
-    TrajectoryVector tVec = createTrajectory(new_base);
+    TrajectoryVector tVec = create_trajectory(new_base);
 
     // declare a dummy trajectory vector
     TrajectoryVector thisVec;
@@ -83,7 +83,7 @@ const SurfaceVector& new_base, Trajectory* oldtr, Direction olddir, double cos_a
     return tVec;
 }
 
-SurfaceVector Geometry::randomSurfaceVector()
+SurfaceVector Geometry::random_surface_vector()
 {
     int regionSelector{ 0 };
     double rArea{ 0.0 };
@@ -105,7 +105,7 @@ SurfaceVector Geometry::randomSurfaceVector()
         }
 
         // select a region
-        rArea = system->randomGen.randDblExc(patchArea[domainType]);
+        rArea = system->randomGen.rand_dbl_exc(patchArea[domainType]);
 
         if (rArea < 0.5 * patchArea[domainType])
         {
@@ -143,10 +143,10 @@ SurfaceVector Geometry::randomSurfaceVector()
         }
     }
 
-    return regions[RegionsIndex[domainType][regionSelector]]->randomSurfaceVector();
+    return regions[RegionsIndex[domainType][regionSelector]]->random_surface_vector();
 }
 
-bool Geometry::integrityCheck()
+bool Geometry::integrity_check()
 {
     bool valid(true);
     int plusGrowCount(0);
@@ -162,7 +162,7 @@ bool Geometry::integrityCheck()
         tptr = regions[ridx]->trajectories.first();
         while (tptr != nullptr)
         {
-            if (!tptr->integrityCheck())
+            if (!tptr->integrity_check())
             {
                 valid = false;
             }
@@ -206,19 +206,19 @@ bool Geometry::integrityCheck()
     return valid;
 }
 
-double Geometry::opticalLength()
+double Geometry::optical_length()
 {
     double sum(0.0);
 
     // calculate total optical length present in the geometry
     for (size_t ridx = 0; ridx < regions.size(); ridx++)
     {
-        sum += regions[ridx]->opticalLength();
+        sum += regions[ridx]->optical_length();
     }
     return sum;
 }
 
-int Geometry::trajectoryCount()
+int Geometry::trajectory_count()
 {
     int sum(0);
 
@@ -240,7 +240,7 @@ TriMeshGeometry::TriMeshGeometry(System* s):
     return;
 }
 
-void TriMeshGeometry::getOrderParameters(OrderParameters& op)
+void TriMeshGeometry::get_order_parameters(OrderParameters& op)
 {
     OrderParametersRaw opRaw;
 
@@ -248,7 +248,7 @@ void TriMeshGeometry::getOrderParameters(OrderParameters& op)
     for (int eno = 0; eno < elementMax; eno++)
     {
         static_cast<Cartesian*>(regions[eno])
-        ->getOrderParametersRawFlat(opRaw, regions[eno]->orientation, regions[eno]->area);
+        ->get_order_parameters_raw_flat(opRaw, regions[eno]->orientation, regions[eno]->area);
 
         // store local scalar order parameter
         op.localOrder.push_back(opRaw.localOrder);
@@ -267,7 +267,7 @@ void TriMeshGeometry::getOrderParameters(OrderParameters& op)
     }
 
     /// calculate Q(2) tensor order parameter
-    op.R = opRaw.extractR(op.Rdirector, system->p.geometry);
+    op.R = opRaw.extract_r(op.Rdirector, system->p.geometry);
 
     // normalize the order parameter director
     Eigen::Vector3d Rvec(op.Rdirector[0], op.Rdirector[1], op.Rdirector[2]);
@@ -282,12 +282,12 @@ void TriMeshGeometry::getOrderParameters(OrderParameters& op)
     return;
 }
 
-void TriMeshGeometry::outputSnapshot(ostream& out)
+void TriMeshGeometry::output_snapshot(ostream& out)
 {
     // output the simulation results
     for (int eno = 0; eno < elementMax; eno++)
     {
-        regions[eno]->outputSnapshot(out);
+        regions[eno]->output_snapshot(out);
     }
 
     out << endl;
@@ -295,7 +295,7 @@ void TriMeshGeometry::outputSnapshot(ostream& out)
     return;
 }
 
-void TriMeshGeometry::outputOrderHeatMap(ostream& out, vector<double>& local_order, vector<Eigen::Vector3d>& sv)
+void TriMeshGeometry::output_order_heat_map(ostream& out, vector<double>& local_order, vector<Eigen::Vector3d>& sv)
 {
     for (size_t eno = 0; eno < local_order.size(); eno++)
     {
@@ -362,10 +362,10 @@ void TriMeshGeometry::outputOrderHeatMap(ostream& out, vector<double>& local_ord
     return;
 }
 
-TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction dir)
+TrajectoryVector TriMeshGeometry::extend_trajectory(Trajectory* oldtr, Direction dir)
 {
 #ifdef DBG_GEOMETRY
-    cout << "DBG/GEOMETRY: Triangle::extendTrajectory() called\n";
+    cout << "DBG/GEOMETRY: Triangle::extend_trajectory() called\n";
 #endif
 
     // trajectory-director
@@ -413,7 +413,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
     }
 
     // get base coordinates for a fresh trajectory (to be created)
-    callTranslator(newBase, regionIndex, regionIndexNeigh);
+    call_translator(newBase, regionIndex, regionIndexNeigh);
 
     // get the new region for the fresh trajectory (to be created)
     newBase.region = regions[regionIndexNeigh];
@@ -445,7 +445,7 @@ TrajectoryVector TriMeshGeometry::extendTrajectory(Trajectory* oldtr, Direction 
 #endif
 
     // create a fresh trajectory
-    return createAndLinkTrajectory(newBase, oldtr, dir, cosEdgeAngle, pCatReg);
+    return create_and_link_trajectory(newBase, oldtr, dir, cosEdgeAngle, pCatReg);
 }
 
 Cartesian::Cartesian(Geometry* g, double a):
@@ -455,7 +455,7 @@ Cartesian::Cartesian(Geometry* g, double a):
     return;
 }
 
-double Cartesian::intersectionAngle(Trajectory* t1, Trajectory* t2)
+double Cartesian::intersection_angle(Trajectory* t1, Trajectory* t2)
 {
 #ifdef DBG_ACID_TEST
     if ((t2->base.angle < 0) || (t2->base.angle > 2 * PI))
@@ -487,7 +487,9 @@ double Cartesian::intersectionAngle(Trajectory* t1, Trajectory* t2)
     return (angle);
 }
 
-void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& op_r, vector<Eigen::Vector3d>& orientation, double area)
+void Cartesian::get_order_parameters_raw_flat(OrderParametersRaw& op_r,
+                                              vector<Eigen::Vector3d>& orientation,
+                                              double area)
 {
     double sin2(0.0), cos2(0.0);
     Eigen::Vector3d sv(0.0, 0.0, 0.0);
@@ -504,7 +506,7 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& op_r, vector<Eigen
 
     while (tr != nullptr)
     {
-        length = tr->segmentLength();
+        length = tr->segment_length();
 
         // add up all the segmnt lengths
         localLength += length;
@@ -595,15 +597,18 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& op_r, vector<Eigen
     return;
 }
 
-void Cartesian::outputSnapshot(ostream& out)
+void Cartesian::output_snapshot(ostream& out)
 {
-    Cartesian::outputSnapshotOffset(out, 0.0, 0.0);
+    Cartesian::output_snapshot_offset(out, 0.0, 0.0);
     return;
 }
 
-void Cartesian::outputOrderHeatMap(ostream& out, vector<double>& local_order, vector<Eigen::Vector3d>& sv) { return; }
+void Cartesian::output_order_heat_map(ostream& out, vector<double>& local_order, vector<Eigen::Vector3d>& sv)
+{
+    return;
+}
 
-void Cartesian::outputSnapshotOffset(ostream& out, double x_offset, double y_offset)
+void Cartesian::output_snapshot_offset(ostream& out, double x_offset, double y_offset)
 {
     Eigen::Vector3d seg3D;
 
@@ -630,7 +635,7 @@ void Cartesian::outputSnapshotOffset(ostream& out, double x_offset, double y_off
             svec = tr->base;
 
             // move to the starting end of the segment
-            translateVector(svec, (**seg).start);
+            translate_vector(svec, (**seg).start);
 
             // for backward direction retrieve actual base angle (during nucleation)
             if ((**seg).dir == BACKWARD)
@@ -693,7 +698,7 @@ void Cartesian::outputSnapshotOffset(ostream& out, double x_offset, double y_off
     return;
 }
 
-void Cartesian::translateVector(SurfaceVector& s_vec, const double dist)
+void Cartesian::translate_vector(SurfaceVector& s_vec, const double dist)
 {
     // this can be used to move a point along a trajectory (used in making snap-shots)
     s_vec.x += cos(s_vec.angle) * dist;
@@ -701,7 +706,7 @@ void Cartesian::translateVector(SurfaceVector& s_vec, const double dist)
     return;
 }
 
-void Cartesian::makeIntersectionList(Trajectory* tr1)
+void Cartesian::make_intersection_list(Trajectory* tr1)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Cartesian::makeIntersectionList() called\n";
@@ -776,7 +781,7 @@ void Cartesian::makeIntersectionList(Trajectory* tr1)
                     thatItr->second.mirror = thisItr;
 
                     // call the update routine of the other trajectory, this will also correct the occupancy number
-                    tr2->newIntersection(thatItr);
+                    tr2->new_intersection(thatItr);
                 }
             }
         }
@@ -797,7 +802,7 @@ Triangle::Triangle(double element_area, Geometry* g):
     return;
 }
 
-SurfaceVector Triangle::randomSurfaceVector()
+SurfaceVector Triangle::random_surface_vector()
 {
     SurfaceVector v;
     double r1(0.0), r2(0.0);
@@ -806,8 +811,8 @@ SurfaceVector Triangle::randomSurfaceVector()
     System* s(geometry->system);
 
     // random number between (0,1)
-    r1 = s->randomGen.randDblExc(1.0);
-    r2 = s->randomGen.randDblExc(1.0);
+    r1 = s->randomGen.rand_dbl_exc(1.0);
+    r2 = s->randomGen.rand_dbl_exc(1.0);
 
     // store sqrt(r1) to use it many times, hence avoid expensive call of sqrt()
     double sqr1 = sqrt(r1);
@@ -817,17 +822,17 @@ SurfaceVector Triangle::randomSurfaceVector()
     v.y = (1 - sqr1) * vertices[0](1, 0) + (sqr1 * (1 - r2)) * vertices[1](1, 0) + (sqr1 * r2) * vertices[2](1, 0);
 
     // make the unifor distribution also isotropic
-    v.angle = s->randomGen.randExc(2 * PI);
+    v.angle = s->randomGen.rand_exc(2 * PI);
 
     v.region = this;
 
     return v;
 }
 
-void Triangle::getTrajectoryCoordinates(SurfaceVector& s_vec,
-                                        double& total_length,
-                                        vector<PointATedge>& end_point,
-                                        TrajectoryVector& t_vec)
+void Triangle::get_trajectory_coordinates(SurfaceVector& s_vec,
+                                          double& total_length,
+                                          vector<PointATedge>& end_point,
+                                          TrajectoryVector& t_vec)
 {
     // copy old base coordinate
     double oldX(s_vec.x);

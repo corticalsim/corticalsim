@@ -46,11 +46,11 @@ class Region
     list<MTTip*> growingPlusTipList;
     list<MTTip*> shrinkingPlusTipList;
     list<MTTip*> minusTipList;
-    RegionMTTipTag registerOnRegion(MTTip*, TipType, MTType);
-    void unregisterFromRegion(RegionMTTipTag, TipType, MTType);
+    RegionMTTipTag register_on_region(MTTip*, TipType, MTType);
+    void unregister_from_region(RegionMTTipTag, TipType, MTType);
 
     // updates the length to the current system time tag
-    void updateRegionLength(bool force_update = false);
+    void update_region_length(bool force_update = false);
 
     Region(Geometry* g, double a):
         geometry(g),
@@ -72,22 +72,22 @@ class Region
 
     virtual ~Region() { return; };
 
-    double opticalLength();
+    double optical_length();
 
     // vector computation functions (to be implemented in specializations)
-    virtual void translateVector(SurfaceVector&, const double) = 0;
-    virtual void getTrajectoryCoordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
-    virtual double intersectionAngle(Trajectory*, Trajectory*) = 0;
-    virtual void outputSnapshot(ostream&) = 0;
-    virtual void outputOrderHeatMap(ostream&, vector<double>&, vector<Eigen::Vector3d>&) = 0;
+    virtual void translate_vector(SurfaceVector&, const double) = 0;
+    virtual void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
+    virtual double intersection_angle(Trajectory*, Trajectory*) = 0;
+    virtual void output_snapshot(ostream&) = 0;
+    virtual void output_order_heat_map(ostream&, vector<double>&, vector<Eigen::Vector3d>&) = 0;
 
   protected:
 
     // trajectory management functions
-    TrajectoryVector insertTrajectory(const SurfaceVector&);
-    void removeTrajectory(Trajectory*);
-    virtual void makeIntersectionList(Trajectory*) = 0;
-    virtual SurfaceVector randomSurfaceVector() = 0;
+    TrajectoryVector insert_trajectory(const SurfaceVector&);
+    void remove_trajectory(Trajectory*);
+    virtual void make_intersection_list(Trajectory*) = 0;
+    virtual SurfaceVector random_surface_vector() = 0;
 
   private:
 
@@ -103,20 +103,20 @@ class Cartesian: public Region
 
     Cartesian(Geometry*, double);
 
-    virtual SurfaceVector randomSurfaceVector() = 0;
-    virtual void getTrajectoryCoordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
-    void makeIntersectionList(Trajectory*);
-    void translateVector(SurfaceVector&, const double);
-    double intersectionAngle(Trajectory*, Trajectory*);
+    virtual SurfaceVector random_surface_vector() = 0;
+    virtual void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&) = 0;
+    void make_intersection_list(Trajectory*);
+    void translate_vector(SurfaceVector&, const double);
+    double intersection_angle(Trajectory*, Trajectory*);
 
-    void getOrderParameters(OrderParameters&);
-    void getOrderParametersRawFlat(OrderParametersRaw&, vector<Eigen::Vector3d>&, double);
-    void getOrderParametersRawCylinder(OrderParametersRaw&, double, double, double);
+    void get_order_parameters(OrderParameters&);
+    void get_order_parameters_raw_flat(OrderParametersRaw&, vector<Eigen::Vector3d>&, double);
+    void get_order_parameters_raw_cylinder(OrderParametersRaw&, double, double, double);
 
-    void outputSnapshot(ostream&);
-    void outputSnapshotOffset(ostream&, double, double);
+    void output_snapshot(ostream&);
+    void output_snapshot_offset(ostream&, double, double);
 
-    void outputOrderHeatMap(ostream&, vector<double>&, vector<Eigen::Vector3d>&);
+    void output_order_heat_map(ostream&, vector<double>&, vector<Eigen::Vector3d>&);
 };
 
 class Triangle: public Cartesian
@@ -125,8 +125,8 @@ class Triangle: public Cartesian
 
     Triangle(double, Geometry*);
 
-    SurfaceVector randomSurfaceVector();
-    void getTrajectoryCoordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&);
+    SurfaceVector random_surface_vector();
+    void get_trajectory_coordinates(SurfaceVector&, double&, vector<PointATedge>&, TrajectoryVector&);
 };
 
 #endif // REGION_HPP

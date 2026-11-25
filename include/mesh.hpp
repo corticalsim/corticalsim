@@ -87,34 +87,34 @@ class EdgeOfficer
 
 vector<string> split(string, char);
 
-double findNorm(Eigen::VectorXd&);
+double find_norm(Eigen::VectorXd&);
 
-bool checkEular(int, int, int);
+bool check_eular(int, int, int);
 
 void pickup_shape(Geometry*);
 
-bool checkSurfaceOrientation(vector<Triangle3D*>&);
+bool check_surface_orientation(vector<Triangle3D*>&);
 
-void Image3dTo2D(vector<Region*>&, vector<Triangle3D*>&, double[]);
+void image3d_to2_d(vector<Region*>&, vector<Triangle3D*>&, double[]);
 
-void orientSurface(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&);
+void orient_surface(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&);
 
-void connectWithGlobe(vector<Vertices*>&, vector<Triangle3D*>&);
+void connect_with_globe(vector<Vertices*>&, vector<Triangle3D*>&);
 
-void makeGraph(int, vector<ElementList*>&, vector<Triangle3D*>&);
+void make_graph(int, vector<ElementList*>&, vector<Triangle3D*>&);
 
-void edgeDescriptors(vector<Vertices*>&, vector<ElementList*>&, vector<Triangle3D*>&);
+void edge_descriptors(vector<Vertices*>&, vector<ElementList*>&, vector<Triangle3D*>&);
 
-void establishPBC(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<ElementList*>&, double);
+void establish_pbc(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&, vector<ElementList*>&, double);
 
-void rigidBodyProperties(
+void rigid_body_properties(
 vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&, Eigen::Vector3d&);
 
-void viewGraph(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, string);
+void view_graph(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, string);
 
-bool linePlaneIntersect(Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d&);
+bool line_plane_intersect(Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d&);
 
-double areaPolygon3D(vector<Vertices>&, Eigen::Vector3d);
+double area_polygon3_d(vector<Vertices>&, Eigen::Vector3d);
 
-double intersectingPolygon(
+double intersecting_polygon(
 vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<ElementList>&, Eigen::Vector3d, Eigen::Vector3d, string);

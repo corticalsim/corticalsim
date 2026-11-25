@@ -6,7 +6,7 @@
 #include "linalg.hpp"
 
 // initialize edge
-void iniEdgeRecord(struct EdgeRecord* head, vector<int>& v, int cid, int fid)
+void ini_edge_record(struct EdgeRecord* head, vector<int>& v, int cid, int fid)
 {
 
     for (int i = 0; i < 2; i++)
@@ -20,7 +20,7 @@ void iniEdgeRecord(struct EdgeRecord* head, vector<int>& v, int cid, int fid)
 }
 
 // appending edge
-void addEdgeRecord(struct EdgeRecord* head, vector<int>& v, int cid, int fid)
+void add_edge_record(struct EdgeRecord* head, vector<int>& v, int cid, int fid)
 {
     EdgeRecord* newedgeRecord = new EdgeRecord;
     newedgeRecord->key = v;
@@ -41,7 +41,7 @@ void addEdgeRecord(struct EdgeRecord* head, vector<int>& v, int cid, int fid)
 }
 
 // delete from edge front
-void deleteFirst(struct EdgeRecord** head)
+void delete_first(struct EdgeRecord** head)
 {
     struct EdgeRecord* tmp = *head;
     if (tmp == nullptr)
@@ -96,13 +96,13 @@ void edge_sort(EdgeRecord** e_list, int node_max)
         for (int j = 0; j < node_max; j++)
         {
             Bin[j] = new EdgeRecord;
-            iniEdgeRecord(Bin[j], v1, -1, -1);
+            ini_edge_record(Bin[j], v1, -1, -1);
         }
 
         EdgeRecord* edge = *e_list;
         while (edge)
         {
-            addEdgeRecord(Bin[edge->key[i]], edge->key, edge->cell_id, edge->edge_index);
+            add_edge_record(Bin[edge->key[i]], edge->key, edge->cell_id, edge->edge_index);
 
             EdgeRecord* oldedge = edge;
             edge = edge->next;
@@ -112,22 +112,22 @@ void edge_sort(EdgeRecord** e_list, int node_max)
 
         for (int j = 0; j < node_max; j++)
         {
-            deleteFirst(&Bin[j]);
+            delete_first(&Bin[j]);
         }
 
         *e_list = new EdgeRecord;
-        iniEdgeRecord(*e_list, v1, -1, -1);
+        ini_edge_record(*e_list, v1, -1, -1);
 
         for (int j = 0; j < node_max; j++)
         {
             EdgeRecord* binedge = Bin[j];
             while (binedge)
             {
-                addEdgeRecord(*e_list, binedge->key, binedge->cell_id, binedge->edge_index);
+                add_edge_record(*e_list, binedge->key, binedge->cell_id, binedge->edge_index);
                 binedge = binedge->next;
             }
         }
-        deleteFirst(&(*e_list));
+        delete_first(&(*e_list));
         delete[] Bin;
         Bin = nullptr;
     }
@@ -508,7 +508,7 @@ void pickup_shape(Geometry* g)
     }
 
     // establish connectivity among the triangles
-    makeGraph(Gvertex.size(), eList, element3D);
+    make_graph(Gvertex.size(), eList, element3D);
 
     // store the numer of triangles, vertices and edges
     int F = element3D.size();
@@ -516,7 +516,7 @@ void pickup_shape(Geometry* g)
     int E = eList.size();
 
     // check mesh consistency
-    bool convex(checkEular(F, V, E));
+    bool convex(check_eular(F, V, E));
 
     // copy triangle elements for viewing mesh (visualization in meshLab)
     vector<Triangle3D*> viewTriangle;
@@ -532,19 +532,19 @@ void pickup_shape(Geometry* g)
     }
 
     // check surface orientation
-    orientSurface(Gvertex, element3D, viewTriangle);
+    orient_surface(Gvertex, element3D, viewTriangle);
 
     // check surface orientation
-    bool surfaceOriented(checkSurfaceOrientation(element3D));
+    bool surfaceOriented(check_surface_orientation(element3D));
 
     // measure rigidbody properties
-    rigidBodyProperties(Gvertex, element3D, centroid, principleAxis, axB, axC);
+    rigid_body_properties(Gvertex, element3D, centroid, principleAxis, axB, axC);
 
     // assign coordinate values to the triangle vertices
-    connectWithGlobe(Gvertex, element3D);
+    connect_with_globe(Gvertex, element3D);
 
     // get triangle edge related measures/properties
-    edgeDescriptors(Gvertex, eList, element3D);
+    edge_descriptors(Gvertex, eList, element3D);
 
     /// PBC for 2D-plane
     if (inFile == "2D-plane")
@@ -552,11 +552,11 @@ void pickup_shape(Geometry* g)
         principleAxis << 1.0, 0.0, 0.0;
         axB << 0.0, 1.0, 0.0;
         axC << 0.0, 0.0, 0.0;
-        establishPBC(Gvertex, element3D, viewTriangle, eList, sizeFactor);
+        establish_pbc(Gvertex, element3D, viewTriangle, eList, sizeFactor);
     }
 
     // visualize mesh in meshLab
-    viewGraph(Gvertex, viewTriangle, centroid, g->system->p.outputDir + "/" + g->system->p.geometry + "/outputData");
+    view_graph(Gvertex, viewTriangle, centroid, g->system->p.outputDir + "/" + g->system->p.geometry + "/outputData");
 
     double totalArea(0.0);
     for (size_t eno = 0; eno < element3D.size(); eno++)
@@ -695,7 +695,7 @@ void pickup_shape(Geometry* g)
     }
 
     // copy 3d-triangle properties information to 2d-triangular regions
-    Image3dTo2D(g->regions, element3D, pCatList);
+    image3d_to2_d(g->regions, element3D, pCatList);
 
     // 3d-triangle properties are transfered to 2d-triangular regions, so release all the memory occupied by 3d
     // triangles
@@ -728,7 +728,7 @@ void pickup_shape(Geometry* g)
     return;
 }
 
-void makeGraph(int gvertex, vector<ElementList*>& e_list, vector<Triangle3D*>& element3_d)
+void make_graph(int gvertex, vector<ElementList*>& e_list, vector<Triangle3D*>& element3_d)
 {
     // make the connectivity graph
     void edge_sort(EdgeRecord**, int);
@@ -740,7 +740,7 @@ void makeGraph(int gvertex, vector<ElementList*>& e_list, vector<Triangle3D*>& e
     v.push_back(0);
     v.push_back(0);
 
-    iniEdgeRecord(EdgList, v, -1, -1);
+    ini_edge_record(EdgList, v, -1, -1);
 
     v.clear();
 
@@ -767,12 +767,12 @@ void makeGraph(int gvertex, vector<ElementList*>& e_list, vector<Triangle3D*>& e
 
             sort(v.begin(), v.end());
 
-            addEdgeRecord(EdgList, v, i, j);
+            add_edge_record(EdgList, v, i, j);
             v.clear();
         }
         element3_d[i]->elementId = i;
     }
-    deleteFirst(&(EdgList));
+    delete_first(&(EdgList));
 
     edge_sort(&EdgList, gvertex);
     find_connectivity(&EdgList, e_list);
@@ -795,10 +795,10 @@ void makeGraph(int gvertex, vector<ElementList*>& e_list, vector<Triangle3D*>& e
     return;
 }
 
-void orientSurface(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d, vector<Triangle3D*>& view_triangle)
+void orient_surface(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d, vector<Triangle3D*>& view_triangle)
 {
     // orient surface normals
-    void correctOrientation(vector<Vertices*>&, Triangle3D*&, Triangle3D*&, int, int, int&);
+    void correct_orientation(vector<Vertices*>&, Triangle3D*&, Triangle3D*&, int, int, int&);
 
     vector<Triangle3D*> TriangleAlive;
     TriangleAlive.push_back(element3_d[0]);
@@ -821,7 +821,7 @@ void orientSurface(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d, 
             {
                 int flip(1);
                 int n1 = neighTriangle->sideRevMap[nextTriangle->elementId];
-                correctOrientation(gvertex, nextTriangle, neighTriangle, i, n1, flip);
+                correct_orientation(gvertex, nextTriangle, neighTriangle, i, n1, flip);
                 TriangleAlive.push_back(neighTriangle);
                 if (flip == -1)
                 {
@@ -835,7 +835,7 @@ void orientSurface(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d, 
     }
 }
 
-void correctOrientation(
+void correct_orientation(
 vector<Vertices*>& gvertex, Triangle3D*& next_triangle, Triangle3D*& neigh_triangle, int n1, int n2, int& flip)
 {
     if (next_triangle->side[n1].orientation == neigh_triangle->side[n2].orientation)
@@ -851,7 +851,7 @@ vector<Vertices*>& gvertex, Triangle3D*& next_triangle, Triangle3D*& neigh_trian
     return;
 }
 
-bool checkSurfaceOrientation(vector<Triangle3D*>& element3_d)
+bool check_surface_orientation(vector<Triangle3D*>& element3_d)
 {
     bool match(false);
     for (size_t i = 0; i < element3_d.size(); i++)
@@ -881,7 +881,7 @@ bool checkSurfaceOrientation(vector<Triangle3D*>& element3_d)
     return (match);
 }
 
-bool checkEular(int f, int v, int e)
+bool check_eular(int f, int v, int e)
 {
     bool graph(((3 * f / 2) - e) == 0);
 
@@ -901,7 +901,7 @@ bool checkEular(int f, int v, int e)
     return (graph);
 }
 
-void rigidBodyProperties(vector<Vertices*>& gvertex,
+void rigid_body_properties(vector<Vertices*>& gvertex,
                          vector<Triangle3D*>& element3_d,
                          Eigen::Vector3d& cm,
                          Eigen::Vector3d& pax,
@@ -1125,7 +1125,7 @@ void rigidBodyProperties(vector<Vertices*>& gvertex,
     }
 }
 
-void edgeDescriptors(vector<Vertices*>& gvertex, vector<ElementList*>& e_list, vector<Triangle3D*>& element3_d)
+void edge_descriptors(vector<Vertices*>& gvertex, vector<ElementList*>& e_list, vector<Triangle3D*>& element3_d)
 {
     // edge descriptors
 
@@ -1201,7 +1201,7 @@ void edgeDescriptors(vector<Vertices*>& gvertex, vector<ElementList*>& e_list, v
     }
 }
 
-void connectWithGlobe(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d)
+void connect_with_globe(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d)
 {
     // link the global coordinates to the triangles
     for (size_t eno = 0; eno < element3_d.size(); eno++)
@@ -1219,7 +1219,7 @@ void connectWithGlobe(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_
     }
 }
 
-void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3_d, double p_cat_curv_list[])
+void image3d_to2_d(vector<Region*>& regions, vector<Triangle3D*>& element3_d, double p_cat_curv_list[])
 {
     // rotate all the 3d-triangles and put them on x-y plane (normal z-axis)
     Eigen::Vector3d z;
@@ -1517,7 +1517,7 @@ void Image3dTo2D(vector<Region*>& regions, vector<Triangle3D*>& element3_d, doub
     }
 }
 
-void viewGraph(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d, Eigen::Vector3d& centroid, string output_dir)
+void view_graph(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d, Eigen::Vector3d& centroid, string output_dir)
 {
     string filename1(output_dir + "/ViewMeshDefault.off");
     string filename2(output_dir + "/ViewMeshFaceTag.dat");
@@ -1555,7 +1555,7 @@ void viewGraph(vector<Vertices*>& gvertex, vector<Triangle3D*>& element3_d, Eige
     fp3.close();
 }
 
-bool linePlaneIntersect(Eigen::Vector3d n, Eigen::Vector3d p, Eigen::Vector3d a, Eigen::Vector3d b, Eigen::Vector3d& i)
+bool line_plane_intersect(Eigen::Vector3d n, Eigen::Vector3d p, Eigen::Vector3d a, Eigen::Vector3d b, Eigen::Vector3d& i)
 {
     Eigen::Vector3d ba = b - a;
     float nDotA = n.dot(a);
@@ -1574,7 +1574,7 @@ bool linePlaneIntersect(Eigen::Vector3d n, Eigen::Vector3d p, Eigen::Vector3d a,
     return (intersect);
 }
 
-double areaPolygon3D(vector<Vertices>& v, Eigen::Vector3d n)
+double area_polygon3_d(vector<Vertices>& v, Eigen::Vector3d n)
 {
     size_t v_size(v.size());
     v.push_back(Vertices(v[0].x, v[0].y, v[0].z));
@@ -1662,7 +1662,7 @@ double areaPolygon3D(vector<Vertices>& v, Eigen::Vector3d n)
     return fabs(area);
 }
 
-double intersectingPolygon(vector<Vertices>& polygon,
+double intersecting_polygon(vector<Vertices>& polygon,
                            vector<Vertices>& gvertex,
                            vector<Region*>& regions,
                            vector<ElementList>& e_list,
@@ -1703,7 +1703,7 @@ double intersectingPolygon(vector<Vertices>& polygon,
 
             Eigen::Vector3d i_vec(0.0, 0.0, 0.0);
 
-            bool Intersect = linePlaneIntersect(np, cp, lS, lE, i_vec);
+            bool Intersect = line_plane_intersect(np, cp, lS, lE, i_vec);
 
             if (Intersect)
             {
@@ -1759,7 +1759,7 @@ double intersectingPolygon(vector<Vertices>& polygon,
         }
 
         // polygon area
-        polyArea = areaPolygon3D(polygon, np);
+        polyArea = area_polygon3_d(polygon, np);
 
         intersectedEdges.clear();
         polygonEdg.clear();
@@ -1787,7 +1787,7 @@ vector<string> split(string str, char delimiter)
 }
 
 /// PBC for 2D-plane and disc
-void establishPBC(vector<Vertices*>& vertices,
+void establish_pbc(vector<Vertices*>& vertices,
                   vector<Triangle3D*>& triangles,
                   vector<Triangle3D*>& view_triangles,
                   vector<ElementList*>& e_list,

@@ -17,14 +17,14 @@ ostream& operator<<(ostream& o, const Measurement m)
              << "\t" << m.order.Rdirector[2] << "\r\n";
 }
 
-void writeMeasurementDescriptors(ostream& o)
+void write_measurement_descriptors(ostream& o)
 {
     // write header of the output file
     o << "time\t\t" << " #MT\t" << " <l>\t" << " rho\t" << "rho_opt\t" << " R\t" << "R_x\t" << "R_y\t" << "R_z\r\n";
     return;
 }
 
-void System::initializeOutput(void)
+void System::initialize_output(void)
 {
 
     // if create sub-directory in enabled
@@ -70,7 +70,7 @@ void System::initializeOutput(void)
     }
 
     // write in measurement file
-    writeMeasurementDescriptors(measurementFile);
+    write_measurement_descriptors(measurementFile);
 
     // open output Draw_MT_segments file
     FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/Draw_MT_segments.txt"));
@@ -93,7 +93,7 @@ void System::initializeOutput(void)
     return;
 }
 
-void System::closeFiles()
+void System::close_files()
 {
     /// close the output files before the program terminates
     parameterFile.close();
@@ -103,7 +103,7 @@ void System::closeFiles()
     return;
 }
 
-void System::performMeasurement(void)
+void System::perform_measurement(void)
 {
     Measurement m;
 
@@ -111,14 +111,14 @@ void System::performMeasurement(void)
     // rest on output file (immediately !)
     if (measurementHistory.size() == MAX_HISTORY_SIZE)
     {
-        writeMeasurementsToFile(MIN_HISTORY_SIZE - 1);
+        write_measurements_to_file(MIN_HISTORY_SIZE - 1);
     }
 
     m.time = systemTime + systemTimeOffset;
 
     // length densities (per area)
     m.lengthDensity = totalLength / geometry->area;
-    m.opticalDensity = geometry->opticalLength() / geometry->area;
+    m.opticalDensity = geometry->optical_length() / geometry->area;
 
     // total number of microtubules
     m.numberOfMTs = growing_mts.size() + shrinking_mts.size();
@@ -145,7 +145,7 @@ void System::performMeasurement(void)
     m.segments = segmentCount - boundaryCrossingCount;
 
     // total number of trajectories (both active and inactive)
-    m.trajectories = geometry->trajectoryCount();
+    m.trajectories = geometry->trajectory_count();
 
     // average length of microtubules
     if (m.numberOfMTs)
@@ -160,7 +160,7 @@ void System::performMeasurement(void)
     }
 
     // order parameter
-    geometry->getOrderParameters(m.order);
+    geometry->get_order_parameters(m.order);
 
     // total number zippering
     m.zipperCount = totalZipperCount;
@@ -215,7 +215,7 @@ void System::performMeasurement(void)
     return;
 }
 
-void System::writeMeasurementsToFile(int number_to_keep)
+void System::write_measurements_to_file(int number_to_keep)
 {
     int i, iMax;
 

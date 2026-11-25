@@ -71,23 +71,23 @@ Parameters::Parameters(System* s):
 
 void Parameters::initialize(const char* pf)
 {
-    if (!readFromFile(pf, true))
+    if (!read_from_file(pf, true))
     {
         cout << "Failed to load parameters from file [" << pf << "]. Aborting\n";
         exit(-1);
     }
-    verifyParameters();
-    calcTheoryParameters();
+    verify_parameters();
+    calc_theory_parameters();
 
     return;
 }
 
 bool Parameters::reinitialize(const char* pf)
 {
-    if (readFromFile(pf, false))
+    if (read_from_file(pf, false))
     {
-        verifyParameters();
-        calcTheoryParameters();
+        verify_parameters();
+        calc_theory_parameters();
         return (true);
     }
     else
@@ -96,7 +96,7 @@ bool Parameters::reinitialize(const char* pf)
     }
 }
 
-bool Parameters::writeToFile()
+bool Parameters::write_to_file()
 {
     ofstream& of = system->parameterFile;
     of << "# CorticalSim parameters\r\n";
@@ -172,7 +172,7 @@ bool Parameters::writeToFile()
 }
 
 template <class T>
-inline void loadParam(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
+inline void load_param(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
 {
     if (!recognized)
     {
@@ -186,7 +186,7 @@ inline void loadParam(bool& recognized, ifstream& file, string& id, const char* 
 }
 
 template <class T>
-inline void loadParamMaps(
+inline void load_param_maps(
 bool& recognized, ifstream& file, string& id, const char* tag, T& target, map<string, T>& edg_cat_map)
 {
     if (!recognized)
@@ -203,7 +203,7 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, map<st
 }
 
 template <class T>
-inline void loadParamRandom(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
+inline void load_param_random(bool& recognized, ifstream& file, string& id, const char* tag, T& target)
 {
     std::stringstream ss;
     if (!recognized)
@@ -236,7 +236,7 @@ inline void loadParamRandom(bool& recognized, ifstream& file, string& id, const 
 }
 
 template <class T>
-inline void loadParamEnumText(
+inline void load_param_enum_text(
 bool& recognized, ifstream& file, string& id, const char* tag, T& target, string* compare_list, T compare_count)
 {
     if (!recognized)
@@ -266,7 +266,7 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, string
     return;
 }
 
-bool Parameters::readFromFile(const char* pf, bool initial_run)
+bool Parameters::read_from_file(const char* pf, bool initial_run)
 {
     if ((pf == nullptr) || (*pf == 0))
     {
@@ -306,59 +306,59 @@ bool Parameters::readFromFile(const char* pf, bool initial_run)
 
             if (initial_run)
             {
-                loadParamRandom(recognized, parFile, id, "random_seed", seed);
+                load_param_random(recognized, parFile, id, "random_seed", seed);
             }
 
-            loadParam(recognized, parFile, id, "outputDir", outputDir);
-            loadParam(recognized, parFile, id, "inputDir", inputDir);
-            loadParam(recognized, parFile, id, "createSubdir", createSubdir);
-            loadParam(recognized, parFile, id, "newParameterReadInterval", newParameterReadInterval);
-            loadParam(recognized, parFile, id, "newParameterFile", newParameterFile);
-            loadParam(recognized, parFile, id, "zippering", zipperingEnabled);
-            loadParam(recognized, parFile, id, "ind_cat", catastrophesEnabled);
-            loadParam(recognized, parFile, id, "proportionalCatastrophes", proportionalCatastrophes);
-            loadParam(recognized, parFile, id, "induced_cat_fraction", inducedCatastropheFraction);
-            loadParam(recognized, parFile, id, "cat_start_angle", catStartAngle);
-            loadParam(recognized, parFile, id, "zipFraction", zipFraction);
-            loadParam(recognized, parFile, id, "magic_angle", magicAngle);
-            loadParam(recognized, parFile, id, "vPlus", vPlus);
-            loadParam(recognized, parFile, id, "vMin", vMin);
-            loadParam(recognized, parFile, id, "vTM", vTM);
-            loadParam(recognized, parFile, id, "kCat", kCat);
-            loadParam(recognized, parFile, id, "kRes", kRes);
-            loadParam(recognized, parFile, id, "kSev", kSev);
-            loadParam(recognized, parFile, id, "kCross", kCross);
-            loadParam(recognized, parFile, id, "poolDensity", poolDensity);
-            loadParam(recognized, parFile, id, "treadmilling", treadmillingEnabled);
-            loadParam(recognized, parFile, id, "severing", severingEnabled);
-            loadParam(recognized, parFile, id, "crossSevering", crossSeveringEnabled);
-            loadParam(recognized, parFile, id, "crossSeveringTop", crossSeveringTop);
-            loadParam(recognized, parFile, id, "crossSeveringStartAngle", crossSeveringStartAngle);
-            loadParam(recognized, parFile, id, "restrictedPool", restrictedPool);
-            loadParam(recognized, parFile, id, "edgeCatastropheEnabled", edgeCatastropheEnabled);
-            loadParam(recognized, parFile, id, "edgeCatastropheSmooth", edgeCatastropheSmooth);
-            loadParam(recognized, parFile, id, "pCatSpecialEdgeMax", pCatSpecialEdgeMax);
-            loadParam(recognized, parFile, id, "pCatRegularEdgeMax", pCatRegularEdgeMax);
-            loadParam(recognized, parFile, id, "PPB", PPB);
-            loadParam(recognized, parFile, id, "PPBformingTime", PPBformingTime);
-            loadParam(recognized, parFile, id, "kNuc", kNuc);
-            loadParam(recognized, parFile, id, "stopTime", stopTime);
-            loadParam(recognized, parFile, id, "measurementInterval", measurementInterval);
-            loadParam(recognized, parFile, id, "wallClockLimit", wallClockLimit);
-            loadParam(recognized, parFile, id, "memoryLimit", memoryLimit);
-            loadParam(recognized, parFile, id, "movieEnabled", movieEnabled);
-            loadParam(recognized, parFile, id, "movieFrameInterval", movieFrameInterval);
-            loadParam(recognized, parFile, id, "geometryScaleFactor", geometryScaleFactor);
-            loadParamEnumText<NucleationType>(
+            load_param(recognized, parFile, id, "outputDir", outputDir);
+            load_param(recognized, parFile, id, "inputDir", inputDir);
+            load_param(recognized, parFile, id, "createSubdir", createSubdir);
+            load_param(recognized, parFile, id, "newParameterReadInterval", newParameterReadInterval);
+            load_param(recognized, parFile, id, "newParameterFile", newParameterFile);
+            load_param(recognized, parFile, id, "zippering", zipperingEnabled);
+            load_param(recognized, parFile, id, "ind_cat", catastrophesEnabled);
+            load_param(recognized, parFile, id, "proportionalCatastrophes", proportionalCatastrophes);
+            load_param(recognized, parFile, id, "induced_cat_fraction", inducedCatastropheFraction);
+            load_param(recognized, parFile, id, "cat_start_angle", catStartAngle);
+            load_param(recognized, parFile, id, "zipFraction", zipFraction);
+            load_param(recognized, parFile, id, "magic_angle", magicAngle);
+            load_param(recognized, parFile, id, "vPlus", vPlus);
+            load_param(recognized, parFile, id, "vMin", vMin);
+            load_param(recognized, parFile, id, "vTM", vTM);
+            load_param(recognized, parFile, id, "kCat", kCat);
+            load_param(recognized, parFile, id, "kRes", kRes);
+            load_param(recognized, parFile, id, "kSev", kSev);
+            load_param(recognized, parFile, id, "kCross", kCross);
+            load_param(recognized, parFile, id, "poolDensity", poolDensity);
+            load_param(recognized, parFile, id, "treadmilling", treadmillingEnabled);
+            load_param(recognized, parFile, id, "severing", severingEnabled);
+            load_param(recognized, parFile, id, "crossSevering", crossSeveringEnabled);
+            load_param(recognized, parFile, id, "crossSeveringTop", crossSeveringTop);
+            load_param(recognized, parFile, id, "crossSeveringStartAngle", crossSeveringStartAngle);
+            load_param(recognized, parFile, id, "restrictedPool", restrictedPool);
+            load_param(recognized, parFile, id, "edgeCatastropheEnabled", edgeCatastropheEnabled);
+            load_param(recognized, parFile, id, "edgeCatastropheSmooth", edgeCatastropheSmooth);
+            load_param(recognized, parFile, id, "pCatSpecialEdgeMax", pCatSpecialEdgeMax);
+            load_param(recognized, parFile, id, "pCatRegularEdgeMax", pCatRegularEdgeMax);
+            load_param(recognized, parFile, id, "PPB", PPB);
+            load_param(recognized, parFile, id, "PPBformingTime", PPBformingTime);
+            load_param(recognized, parFile, id, "kNuc", kNuc);
+            load_param(recognized, parFile, id, "stopTime", stopTime);
+            load_param(recognized, parFile, id, "measurementInterval", measurementInterval);
+            load_param(recognized, parFile, id, "wallClockLimit", wallClockLimit);
+            load_param(recognized, parFile, id, "memoryLimit", memoryLimit);
+            load_param(recognized, parFile, id, "movieEnabled", movieEnabled);
+            load_param(recognized, parFile, id, "movieFrameInterval", movieFrameInterval);
+            load_param(recognized, parFile, id, "geometryScaleFactor", geometryScaleFactor);
+            load_param_enum_text<NucleationType>(
             recognized, parFile, id, "nucleationType", nucleationType, NucleationTypeText, NUC_COUNT_LAST);
-            loadParamEnumText<InteractionType>(
+            load_param_enum_text<InteractionType>(
             recognized, parFile, id, "interactionType", interactionType, InteractionTypeText, INT_COUNT_LAST);
-            loadParamEnumText<BundleType>(
+            load_param_enum_text<BundleType>(
             recognized, parFile, id, "bundleType", bundleType, BundleTypeText, BDL_COUNT_LAST);
-            loadParam(recognized, parFile, id, "showOutput", showOutput);
-            loadParam(recognized, parFile, id, "showMesh", showMesh);
-            loadParam(recognized, parFile, id, "geometry", geometry);
-            loadParam(recognized, parFile, id, "edgNumber", edgNumber);
+            load_param(recognized, parFile, id, "showOutput", showOutput);
+            load_param(recognized, parFile, id, "showMesh", showMesh);
+            load_param(recognized, parFile, id, "geometry", geometry);
+            load_param(recognized, parFile, id, "edgNumber", edgNumber);
 
             for (int edg = 1; edg <= edgNumber; edg++)
             {
@@ -366,18 +366,18 @@ bool Parameters::readFromFile(const char* pf, bool initial_run)
                 string edgCatType1 = "edgCat_" + std::to_string(edg);
                 char* edgCatType = new char[edgCatType1.length() + 1];
                 strcpy(edgCatType, edgCatType1.c_str());
-                loadParamMaps(recognized, parFile, id, edgCatType, edgCatVal, edgCatMap);
+                load_param_maps(recognized, parFile, id, edgCatType, edgCatVal, edgCatMap);
                 delete[] edgCatType;
             }
 
-            loadParam(recognized, parFile, id, "faceNumber", faceNumber);
+            load_param(recognized, parFile, id, "faceNumber", faceNumber);
             for (int face = 1; face <= faceNumber; face++)
             {
                 double faceCatVal;
                 string faceCatType1 = "faceCat_" + std::to_string(face);
                 char* faceCatType = new char[faceCatType1.length() + 1];
                 strcpy(faceCatType, faceCatType1.c_str());
-                loadParamMaps(recognized, parFile, id, faceCatType, faceCatVal, faceCatMap);
+                load_param_maps(recognized, parFile, id, faceCatType, faceCatVal, faceCatMap);
                 delete[] faceCatType;
             }
             if (!recognized)
@@ -396,7 +396,7 @@ bool Parameters::readFromFile(const char* pf, bool initial_run)
     return true;
 }
 
-void Parameters::verifyParameters()
+void Parameters::verify_parameters()
 {
     // adjust the parameter values in accordance with the swith (on/off) values
     vTM *= treadmillingEnabled;
@@ -490,7 +490,7 @@ void Parameters::verifyParameters()
     return;
 }
 
-bool Parameters::calcTheoryParameters(void)
+bool Parameters::calc_theory_parameters(void)
 {
     // convert the angle values from degrees to radians
     double maRad = magicAngle * PI / 180.0;

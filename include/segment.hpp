@@ -28,9 +28,9 @@ class Segment: public DLBaseItem<Segment>
 
     double length() { return abs(end - start); }
 
-    bool isLastInMT();
-    bool isFirstInMT();
-    bool crossesIntersection(IntersectionItr& is);
+    bool is_last_in_mt();
+    bool is_first_in_mt();
+    bool crosses_intersection(IntersectionItr& is);
 };
 
 #endif // SEGMENT_HPP

@@ -107,10 +107,10 @@ class Parameters
     Parameters(System*);
     void initialize(const char*);
     bool reinitialize(const char*);
-    bool readFromFile(const char*, bool);
-    bool writeToFile();
-    void verifyParameters();
-    bool calcTheoryParameters();
+    bool read_from_file(const char*, bool);
+    bool write_to_file();
+    void verify_parameters();
+    bool calc_theory_parameters();
 };
 
 struct OrderParameters
@@ -152,7 +152,7 @@ class OrderParametersRaw
         return;
     }
 
-    double extractR(double director[3], string geometry)
+    double extract_r(double director[3], string geometry)
     {
         Eigen::Matrix3d matrix{ { Qxx, Qxy, Qxz }, { Qxy, Qyy, Qyz }, { Qxz, Qyz, Qzz } };
         Eigen::Matrix3d evecMat{ Eigen::Matrix3d::Zero() };

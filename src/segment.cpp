@@ -10,8 +10,8 @@ Segment::Segment(Microtubule* m, TrajectoryVector& tv):
     dir(tv.dir),
     start(tv.pos),
     end(tv.pos),
-    startItr(tv.trajectory->wallEnd()),
-    endItr(tv.trajectory->wallEnd())
+    startItr(tv.trajectory->wall_end()),
+    endItr(tv.trajectory->wall_end())
 {
 #ifdef DBG_MTS
     cout << "DBG/MTS: Segment created.\n";
@@ -19,7 +19,7 @@ Segment::Segment(Microtubule* m, TrajectoryVector& tv):
 #endif
 
     // insert this segment to the associated MT trajectory
-    trajectoryTag = tv.trajectory->insertSegment(this);
+    trajectoryTag = tv.trajectory->insert_segment(this);
 
     // increase total number of segments for the associated MT
     mt->system->countSegments++;
@@ -36,23 +36,23 @@ Segment::~Segment()
     mt->system->countSegments--;
 
     // if this is the last segment, remove the tip references...
-    trajectory->removeSegment(trajectoryTag);
+    trajectory->remove_segment(trajectoryTag);
     return;
 }
 
-bool Segment::isLastInMT()
+bool Segment::is_last_in_mt()
 {
     // check whether this is the last segment of the MT
     return (this == mt->segments.last());
 }
 
-bool Segment::isFirstInMT()
+bool Segment::is_first_in_mt()
 {
     // check whether this is the first segment of the MT
     return (this == mt->segments.first());
 }
 
-bool Segment::crossesIntersection(IntersectionItr& is)
+bool Segment::crosses_intersection(IntersectionItr& is)
 {
     // check whether the segment has a cross intersection with a trajectory
     double temp(0.0);
@@ -65,9 +65,9 @@ bool Segment::crossesIntersection(IntersectionItr& is)
 
     else if (temp < ZERO_CUTOFF)
     {
-        int sign1 = trajectory->differenceSign(
+        int sign1 = trajectory->difference_sign(
         (this == mt->segments.last()) ? mt->plus.nextCollision : endItr, end, is, is->first);
-        int sign2 = trajectory->differenceSign(
+        int sign2 = trajectory->difference_sign(
         (this == mt->segments.first()) ? mt->minus.nextCollision : startItr, start, is, is->first);
 
         if (sign1 * sign2 == -1)

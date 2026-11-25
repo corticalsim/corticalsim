@@ -50,33 +50,33 @@ class RandHub
     Real rand(const Real ubound = 1.0) { return rand(0.0, ubound); }
 
     // Real number in [0,ubound).
-    Real randExc(const Real lbound, const Real ubound)
+    Real rand_exc(const Real lbound, const Real ubound)
     {
         return std::min(rand(lbound, ubound), std::nexttoward(ubound, static_cast<Real>(0.0)));
     }
 
-    Real randExc(const Real ubound = 1.0) { return randExc(0.0, ubound); }
+    Real rand_exc(const Real ubound = 1.0) { return rand_exc(0.0, ubound); }
 
     // Real number in (0,ubound).
-    Real randDblExc(const Real lbound, const Real ubound)
+    Real rand_dbl_exc(const Real lbound, const Real ubound)
     {
-        return std::max(std::nexttoward(static_cast<Real>(0.0), 1.0), randExc(lbound, ubound));
+        return std::max(std::nexttoward(static_cast<Real>(0.0), 1.0), rand_exc(lbound, ubound));
     }
 
-    Real randDblExc(const Real ubound = 1.0) { return randDblExc(0.0, ubound); }
+    Real rand_dbl_exc(const Real ubound = 1.0) { return rand_dbl_exc(0.0, ubound); }
 
     // Integer in [0,ubound] for ubound < int_t::max.
-    Int randInt(const Int lbound, const Int ubound)
+    Int rand_int(const Int lbound, const Int ubound)
     {
         // Set the parameters of the distribution.
         int_dist.param(typename std::uniform_int_distribution<Int>::param_type(lbound, ubound));
         return int_dist(mt);
     }
 
-    Int randInt(const Int ubound = std::numeric_limits<Int>::max()) { return randInt(0, ubound); }
+    Int rand_int(const Int ubound = std::numeric_limits<Int>::max()) { return rand_int(0, ubound); }
 
     // Normal distribution.
-    Real randNorm(const Real mean = 0.0, const Real stddev = 1.0)
+    Real rand_norm(const Real mean = 0.0, const Real stddev = 1.0)
     {
         // Set the parameters of the distribution.
         norm_dist.param(typename std::normal_distribution<Real>::param_type(mean, stddev));

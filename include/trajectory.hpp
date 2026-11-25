@@ -62,13 +62,13 @@ class Trajectory: public DLBaseItem<Trajectory>
     multimap<double, Intersection> intersections;
 
     // sorted list of all intersections
-    IntersectionItr wallEnd()
+    IntersectionItr wall_end()
     {
         // returns an iterator to the intersection that stands for the far wall
         return intersections.end();
     }
 
-    IntersectionItr wallBegin()
+    IntersectionItr wall_begin()
     {
         // returns an iterator to the intersection that stands for the zero
         // wall
@@ -78,48 +78,48 @@ class Trajectory: public DLBaseItem<Trajectory>
     explicit Trajectory(SurfaceVector, vector<PointATedge>, double);
     ~Trajectory();
 
-    bool integrityCheck();
+    bool integrity_check();
 
     // returns the connected trajectory in a given direction, and creates it if
     // necessary
-    TrajectoryVector nextTrajectory(Direction);
+    TrajectoryVector next_trajectory(Direction);
 
     // checks whether the trajectory can safely be removed - and does it
-    void conditionalRemove();
+    void conditional_remove();
 
     // list of pointers to associated segments
     list<Segment*> segments;
 
     // inserts a segment into the list
-    TrjSegmentTag insertSegment(Segment*);
+    TrjSegmentTag insert_segment(Segment*);
 
     // removes a segment from the list
-    void removeSegment(TrjSegmentTag);
+    void remove_segment(TrjSegmentTag);
 
     // list of pointers to associated tips
     list<MTTip*> notificationList;
 
     // insert a tip for  notifications
-    TrjMTTipTag registerForNotifications(MTTip*);
+    TrjMTTipTag register_for_notifications(MTTip*);
 
     // removes a tip from the list
-    void unregisterForNotifications(TrjMTTipTag);
+    void unregister_for_notifications(TrjMTTipTag);
 
     // is called whenever an intersection is invalidated by trajectory removal
-    void invalidateIntersection(IntersectionItr&);
+    void invalidate_intersection(IntersectionItr&);
 
     // is called when a new intersection is created
-    void newIntersection(IntersectionItr&);
+    void new_intersection(IntersectionItr&);
 
     // returns the difference sign of pos1-pos2, or itr1-itr2 if the first,
     // cannot be determined accurately
-    int differenceSign(IntersectionItr itr1, double pos1, IntersectionItr itr2, double pos2);
+    int difference_sign(IntersectionItr itr1, double pos1, IntersectionItr itr2, double pos2);
 
     // total length of trajectory (optical) that is covered by segments
-    double coveredLength();
+    double covered_length();
 
     // total length of segments on the trajectory
-    double segmentLength();
+    double segment_length();
 
   private:
 

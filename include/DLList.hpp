@@ -58,8 +58,8 @@ class DLList
                                   boost::details::pool::null_mutex,
                                   AllocatorGranularity>
     MemPool;
-    void unlinkElement(T*);
-    T* linkElement(T*);
+    void unlink_element(T*);
+    T* link_element(T*);
 
   public:
 
@@ -87,20 +87,20 @@ class DLList
     template <class Q, class R, class S>
     T* create(Q, R, S);
     void remove(T*);
-    void removeAll();
+    void remove_all();
     void import(DLList<T, AllocatorGranularity>&, T*);
-    void importSet(DLList<T, AllocatorGranularity>&, T*, T*);
+    void import_set(DLList<T, AllocatorGranularity>&, T*, T*);
 };
 
 template <class T, int I>
 DLList<T, I>::~DLList()
 {
-    removeAll();
+    remove_all();
     return;
 }
 
 template <class T, int I>
-void DLList<T, I>::removeAll()
+void DLList<T, I>::remove_all()
 {
     while (firstElement != nullptr)
     {
@@ -109,7 +109,7 @@ void DLList<T, I>::removeAll()
 }
 
 template <class T, int I>
-inline T* DLList<T, I>::linkElement(T* new_element)
+inline T* DLList<T, I>::link_element(T* new_element)
 // Inserts a new element into the linked list.
 // Insertion takes place at the back of the list for memory-traversal speed considerations.
 {
@@ -129,7 +129,7 @@ inline T* DLList<T, I>::linkElement(T* new_element)
 }
 
 template <class T, int I>
-inline void DLList<T, I>::unlinkElement(T* element)
+inline void DLList<T, I>::unlink_element(T* element)
 // Removes an element from the linked list.
 {
     numElements--;
@@ -156,7 +156,7 @@ template <class T, int I>
 inline void DLList<T, I>::remove(T* element)
 // Removes a single element. No checking is performed on the pointer.
 {
-    unlinkElement(element);
+    unlink_element(element);
     element->~T();
     MemPool::free(element);
     return;
@@ -168,7 +168,7 @@ template <class T, int I>
 inline T* DLList<T, I>::create()
 {
     T* newElement = new (MemPool::malloc()) T();
-    return linkElement(newElement);
+    return link_element(newElement);
 }
 
 template <class T, int I>
@@ -176,7 +176,7 @@ template <class Q>
 inline T* DLList<T, I>::create(Q par1)
 {
     T* newElement = new (MemPool::malloc()) T(par1);
-    return linkElement(newElement);
+    return link_element(newElement);
 }
 
 template <class T, int I>
@@ -184,7 +184,7 @@ template <class Q, class R>
 inline T* DLList<T, I>::create(Q par1, R par2)
 {
     T* newElement = new (MemPool::malloc()) T(par1, par2);
-    return linkElement(newElement);
+    return link_element(newElement);
 }
 
 template <class T, int I>
@@ -192,20 +192,20 @@ template <class Q, class R, class S>
 inline T* DLList<T, I>::create(Q par1, R par2, S par3)
 {
     T* newElement = new (MemPool::malloc()) T(par1, par2, par3);
-    return linkElement(newElement);
+    return link_element(newElement);
 }
 
 template <class T, int I>
 // This functions transfers 'element' from 'oldList' to this list.
 inline void DLList<T, I>::import(DLList<T, I>& old_list, T* element)
 {
-    old_list.unlinkElement(element);
-    linkElement(element);
+    old_list.unlink_element(element);
+    link_element(element);
     return;
 }
 
 template <class T, int I>
-inline void DLList<T, I>::importSet(DLList<T, I>& old_list, T* first_element, T* last_element)
+inline void DLList<T, I>::import_set(DLList<T, I>& old_list, T* first_element, T* last_element)
 // This functions transfers a number of elements from 'oldList' to this list.
 // WARNING: not efficient at all!
 {
@@ -276,12 +276,12 @@ class DLContainerItem
 
     inline DLContainerItem<T>* previous() { return previousElement; }
 
-    inline T* dataPtr() { return &data; }
+    inline T* data_ptr() { return &data; }
 
     // very ugly hack, but it works [tested with G++ & icc]. For a data object with an unknown location in a known list,
     // call list->first()->containerPtr(data*); for some reason, I need to convert to void* and char*... This should
     // have been done in a better way...
-    inline DLContainerItem<T>* containerPtr(T* d_ptr)
+    inline DLContainerItem<T>* container_ptr(T* d_ptr)
     {
         return static_cast<DLContainerItem<T>*>(static_cast<void*>(
         static_cast<short*>(static_cast<void*>(d_ptr))

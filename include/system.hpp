@@ -56,7 +56,7 @@ class System
     int countSegments;
     int countTrajectories;
     int countIntersections;
-    int estimateMemoryFootprint();
+    int estimate_memory_footprint();
 
     double nextStochasticEventTime;
     StochasticEventType nextStochasticEventType;
@@ -70,10 +70,10 @@ class System
     double identity(double i) { return i; }
 
     // distance to time conversion for growing tips
-    double vPlusToTime(double);
+    double v_plus_to_time(double);
 
     // time to distance conversion for growing tips
-    double timeToVPlus(double);
+    double time_to_v_plus(double);
 
     double nextStatusEventTime;
     double nextSnapshotEventTime;
@@ -87,59 +87,59 @@ class System
     map<EventDescriptorIndex, EventDescriptor*> EventDescriptorMap;
 
     // returns a new event descriptor tag
-    EventDescriptorIndex registerEventDescriptor(EventDescriptor*);
+    EventDescriptorIndex register_event_descriptor(EventDescriptor*);
 
     // invalidates an event descriptor tag
-    void unregisterEventDescriptor(EventDescriptorIndex);
+    void unregister_event_descriptor(EventDescriptorIndex);
 
     // returns a pointer to an EventDescriptor through its tag
-    EventDescriptor* getEventDescriptor(EventDescriptorIndex);
+    EventDescriptor* get_event_descriptor(EventDescriptorIndex);
 
     // the current event tracking tag
     EventTrackingTag eventID;
 
     // returns a new event tracking tag
-    EventTrackingTag getEventTag() { return eventID++; }
+    EventTrackingTag get_event_tag() { return eventID++; }
 
     System(char*);
     ~System();
-    bool integrityCheck();
-    void flushAndReload(bool = true);
-    void advanceTime(double next_time);
+    bool integrity_check();
+    void flush_and_reload(bool = true);
+    void advance_time(double next_time);
 
     // updates all positions in the system to the system time
-    void updateAll(bool force_update = false);
-    void emergencyBreak();
+    void update_all(bool force_update = false);
+    void emergency_break();
 
     void run(double, string&, string&);
-    void nextEvent(void);
-    void handleGlobalEvent(DeterministicEvent&);
-    void determineStochasticEvent();
-    void handleNucleationEvent();
-    void handleSeveringEvent();
+    void next_event(void);
+    void handle_global_event(DeterministicEvent&);
+    void determine_stochastic_event();
+    void handle_nucleation_event();
+    void handle_severing_event();
 
 #ifdef CROSS_SEV
-    void handleSeveringAtCrossEvent();
+    void handle_severing_at_cross_event();
 #endif
 
-    void handleRescueEvent();
-    void handleCatastropheEvent();
-    void randomPositionOnMicrotubule(double& cut_length, Segment*& cut_seg);
+    void handle_rescue_event();
+    void handle_catastrophe_event();
+    void random_position_on_microtubule(double& cut_length, Segment*& cut_seg);
 
     // returns the result of a collision at a specified angle, and bundle
     // occupancies
-    CollisionType collisionResult(double, int, int);
+    CollisionType collision_result(double, int, int);
 
     // returns the probabilities for induced catastrophes and zippering, as a
     // function of the angle
-    void collisionProbabilities(double, double&, double&);
+    void collision_probabilities(double, double&, double&);
 
     // binomial table. Necessary for bundle collision type: multi-collisions
     double binomialTable[MAXBINOM][MAXBINOM];
-    void makeBinomialTable(void);
+    void make_binomial_table(void);
 
-    double multiPcross(int npar, int ncoll, double x_single, double z_single);
-    double multiPzip(int npar, int ncoll, double x_single, double z_single);
+    double multi_pcross(int npar, int ncoll, double x_single, double z_single);
+    double multi_pzip(int npar, int ncoll, double x_single, double z_single);
 
     ofstream parameterFile;
     ofstream movieFile;
@@ -148,18 +148,18 @@ class System
     ofstream orderDirectorFile;
     deque<Measurement> measurementHistory;
     bool dataSaved;
-    void initializeOutput();
-    void performMeasurement();
-    void writeMeasurementsToFile(int = 0);
-    void closeFiles();
+    void initialize_output();
+    void perform_measurement();
+    void write_measurements_to_file(int = 0);
+    void close_files();
 
 #ifdef CROSS_SEV
     // removes pointers from is and its mirror
-    void removeOccupiedIntersection(Intersection& is);
+    void remove_occupied_intersection(Intersection& is);
 
     // creates pointers for is and its mirror [occupiedIntersection contains
     // only one pointer: to the one "on top" (to be cut)]
-    void addOccupiedIntersection(IntersectionItr is);
+    void add_occupied_intersection(IntersectionItr is);
 #endif
 
   private:

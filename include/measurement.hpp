@@ -32,6 +32,6 @@ class Measurement
 };
 
 ostream& operator<<(ostream&, const Measurement);
-void writeMeasurementDescriptors(ostream&);
+void write_measurement_descriptors(ostream&);
 
 #endif // MEASUREMENT_HPP

@@ -45,28 +45,28 @@ class Geometry
     // virtual destructor implies virtual class
     virtual ~Geometry() { return; };
 
-    bool integrityCheck();
-    double opticalLength();
-    int trajectoryCount();
-    void callTranslator(SurfaceVector&, int, int);
+    bool integrity_check();
+    double optical_length();
+    int trajectory_count();
+    void call_translator(SurfaceVector&, int, int);
 
-    virtual void getOrderParameters(OrderParameters&) = 0;
-    virtual void outputSnapshot(ostream&) = 0;
-    virtual void outputOrderHeatMap(ostream&, vector<double>&, vector<Eigen::Vector3d>&) = 0;
+    virtual void get_order_parameters(OrderParameters&) = 0;
+    virtual void output_snapshot(ostream&) = 0;
+    virtual void output_order_heat_map(ostream&, vector<double>&, vector<Eigen::Vector3d>&) = 0;
 
-    SurfaceVector randomSurfaceVector();
-    TrajectoryVector createTrajectory(const SurfaceVector&);
+    SurfaceVector random_surface_vector();
+    TrajectoryVector create_trajectory(const SurfaceVector&);
 
     // creates a trajectory at a given surface vector and returns a trajectory
     // vector
-    TrajectoryVector createAndLinkTrajectory(const SurfaceVector&, Trajectory*, Direction, double, double);
+    TrajectoryVector create_and_link_trajectory(const SurfaceVector&, Trajectory*, Direction, double, double);
 
     // only called by Trajectory (friend class)
 
   private:
 
-    friend TrajectoryVector Trajectory::nextTrajectory(Direction);
-    virtual TrajectoryVector extendTrajectory(Trajectory*, Direction) = 0;
+    friend TrajectoryVector Trajectory::next_trajectory(Direction);
+    virtual TrajectoryVector extend_trajectory(Trajectory*, Direction) = 0;
 };
 
 class TriMeshGeometry: public Geometry
@@ -74,10 +74,10 @@ class TriMeshGeometry: public Geometry
   public:
 
     TriMeshGeometry(System*);
-    TrajectoryVector extendTrajectory(Trajectory*, Direction);
-    void getOrderParameters(OrderParameters&);
-    void outputSnapshot(ostream&);
-    void outputOrderHeatMap(ostream&, vector<double>&, vector<Eigen::Vector3d>&);
+    TrajectoryVector extend_trajectory(Trajectory*, Direction);
+    void get_order_parameters(OrderParameters&);
+    void output_snapshot(ostream&);
+    void output_order_heat_map(ostream&, vector<double>&, vector<Eigen::Vector3d>&);
 };
 
 #endif // GEOMETRY_HPP

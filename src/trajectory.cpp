@@ -38,7 +38,7 @@ Trajectory::~Trajectory()
     return;
 }
 
-bool Trajectory::integrityCheck()
+bool Trajectory::integrity_check()
 {
     bool valid(true);
 
@@ -81,7 +81,7 @@ bool Trajectory::integrityCheck()
         }
     }
 
-    IntersectionItr is(wallBegin());
+    IntersectionItr is(wall_begin());
 
     for (size_t isCount = 1; isCount < intersections.size(); isCount++)
     {
@@ -154,7 +154,7 @@ bool Trajectory::integrityCheck()
     return valid;
 }
 
-double Trajectory::segmentLength()
+double Trajectory::segment_length()
 {
     double sumLength(0.0);
     list<Segment*>::iterator seg(segments.begin());
@@ -168,7 +168,7 @@ double Trajectory::segmentLength()
     return sumLength;
 }
 
-double Trajectory::coveredLength()
+double Trajectory::covered_length()
 {
     list<Segment*>::iterator seg(segments.begin());
     list<double> startPoints;
@@ -226,21 +226,21 @@ double Trajectory::coveredLength()
     return cLength;
 }
 
-void Trajectory::invalidateIntersection(IntersectionItr& old_is)
+void Trajectory::invalidate_intersection(IntersectionItr& old_is)
 {
     list<MTTip*>::iterator tip(notificationList.begin());
 
     // notify all tips on the current trajectory that a previous insertion is invalidated
     while (tip != notificationList.end())
     {
-        (**tip).notifyRemove(old_is);
+        (**tip).notify_remove(old_is);
         tip++;
     }
 
     return;
 }
 
-void Trajectory::newIntersection(IntersectionItr& new_is)
+void Trajectory::new_intersection(IntersectionItr& new_is)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Trajectory::newIntersection() called.\n";
@@ -253,9 +253,9 @@ void Trajectory::newIntersection(IntersectionItr& new_is)
     // find whether the new intersection is a cross-intersection for the segment
     while (seg != segments.end())
     {
-        (**seg).mt->updateLength();
+        (**seg).mt->update_length();
 
-        if ((**seg).crossesIntersection(new_is))
+        if ((**seg).crosses_intersection(new_is))
         {
             occupancy++;
         }
@@ -270,14 +270,14 @@ void Trajectory::newIntersection(IntersectionItr& new_is)
     list<MTTip*>::iterator tip(notificationList.begin());
     while (tip != notificationList.end())
     {
-        (**tip).notifyInsert(new_is);
+        (**tip).notify_insert(new_is);
         tip++;
     }
 
     return;
 }
 
-int Trajectory::differenceSign(IntersectionItr itr1, double pos1, IntersectionItr itr2, double pos2)
+int Trajectory::difference_sign(IntersectionItr itr1, double pos1, IntersectionItr itr2, double pos2)
 {
     // returns the sign of 'pos1 - pos2'. If the two positions are equal, the iterators are used instead to determine
     // order.
@@ -297,7 +297,7 @@ int Trajectory::differenceSign(IntersectionItr itr1, double pos1, IntersectionIt
         {
             return 0;
         }
-        if (itr1 == wallEnd())
+        if (itr1 == wall_end())
         {
             return 1;
         }
@@ -305,7 +305,7 @@ int Trajectory::differenceSign(IntersectionItr itr1, double pos1, IntersectionIt
         do
         {
             itr2++;
-        } while ((itr2 != wallEnd()) && (itr1 != itr2));
+        } while ((itr2 != wall_end()) && (itr1 != itr2));
 
         if (itr1 == itr2)
         {
@@ -318,7 +318,7 @@ int Trajectory::differenceSign(IntersectionItr itr1, double pos1, IntersectionIt
     }
 }
 
-TrjSegmentTag Trajectory::insertSegment(Segment* s)
+TrjSegmentTag Trajectory::insert_segment(Segment* s)
 {
 #ifdef DBG_ASSERT
     // check whether the size of the inserted segment equals zero, for insertion of non-zero segments, take care to
@@ -334,7 +334,7 @@ TrjSegmentTag Trajectory::insertSegment(Segment* s)
     return segments.insert(segments.end(), s);
 }
 
-void Trajectory::removeSegment(TrjSegmentTag s)
+void Trajectory::remove_segment(TrjSegmentTag s)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Trajectory::removeSegment() called.\n";
@@ -344,28 +344,28 @@ void Trajectory::removeSegment(TrjSegmentTag s)
     segments.erase(s);
 
     // if the associated trajectory has no segement and no tips, then remove the whole trajectory
-    conditionalRemove();
+    conditional_remove();
 
     return;
 }
 
-TrjMTTipTag Trajectory::registerForNotifications(MTTip* p_tip)
+TrjMTTipTag Trajectory::register_for_notifications(MTTip* p_tip)
 {
     // a new tip arrived on the trajectory, add it to the notification list
     return notificationList.insert(notificationList.end(), p_tip);
 }
 
-void Trajectory::unregisterForNotifications(TrjMTTipTag tag)
+void Trajectory::unregister_for_notifications(TrjMTTipTag tag)
 {
     // a tip is leaving the trajectory, remove it from the notification list
     notificationList.erase(tag);
 
     // if the associated trajectory has no tips and no segments, then remove the whole trajectory
-    conditionalRemove();
+    conditional_remove();
     return;
 }
 
-TrajectoryVector Trajectory::nextTrajectory(Direction dir)
+TrajectoryVector Trajectory::next_trajectory(Direction dir)
 {
     if (dir == ::FORWARD)
     {
@@ -398,15 +398,15 @@ TrajectoryVector Trajectory::nextTrajectory(Direction dir)
     }
 
     // there is no next/previous trajectory to take the tip, so extend (create a new) trajectory
-    return base.region->geometry->extendTrajectory(this, dir);
+    return base.region->geometry->extend_trajectory(this, dir);
 }
 
-void Trajectory::conditionalRemove()
+void Trajectory::conditional_remove()
 {
     // if there is no segments and no tips, associted with a trajectory, then remove it rigth way
     if (segments.empty() && (notificationList.size() == 0))
     {
-        base.region->removeTrajectory(this);
+        base.region->remove_trajectory(this);
     }
 
     return;

@@ -11,7 +11,7 @@ DeterministicQueue::DeterministicQueue(System* s, double (System::*dt_func)(doub
     valueCache[0] = 0;
 }
 
-double DeterministicQueue::firstEventTime()
+double DeterministicQueue::first_event_time()
 {
     DeterministicEvent event = queue.top();
 
@@ -60,21 +60,21 @@ DeterministicEvent DeterministicQueue::pop()
     return event;
 }
 
-void DeterministicQueue::advanceTime(double t)
+void DeterministicQueue::advance_time(double t)
 {
     // get advanced in time
     currentBase += (system->*timeDistanceConversionFunction)(t - system->systemTime);
     return;
 }
 
-void DeterministicQueue::storeTime(int tag)
+void DeterministicQueue::store_time(int tag)
 {
     // store the current base time
     valueCache[tag] = currentBase;
     return;
 }
 
-void DeterministicQueue::pushGlobal(double timedist, GlobalEventType type)
+void DeterministicQueue::push_global(double timedist, GlobalEventType type)
 {
     DeterministicEvent event;
     event.infoIdx = -1;
@@ -86,12 +86,12 @@ void DeterministicQueue::pushGlobal(double timedist, GlobalEventType type)
     return;
 }
 
-EventTrackingTag DeterministicQueue::pushDeterministic(double timedist, EventDescriptorIndex idx)
+EventTrackingTag DeterministicQueue::push_deterministic(double timedist, EventDescriptorIndex idx)
 {
     DeterministicEvent event;
     event.infoIdx = idx;
     event.eventTimeDist = timedist;
-    event.tag = system->getEventTag();
+    event.tag = system->get_event_tag();
 
     // store a new deterministic event into the queue
     queue.push(event);
@@ -106,7 +106,7 @@ EventDescriptor::EventDescriptor(Microtubule* m, DeterministicQueue* q, double v
     queue(q)
 {
     // after creation, register the object as a valid event descriptor
-    index = q->system->registerEventDescriptor(this);
+    index = q->system->register_event_descriptor(this);
 
     if (abs(velocity) > ZERO_CUTOFF)
     {
@@ -134,7 +134,7 @@ EventDescriptor::EventDescriptor(Microtubule* m, DeterministicQueue* q, double v
 EventDescriptor::~EventDescriptor()
 {
     // unregister the event descriptor
-    mt->system->unregisterEventDescriptor(index);
+    mt->system->unregister_event_descriptor(index);
     return;
 }
 
@@ -161,7 +161,7 @@ void EventDescriptor::reinitialize(DeterministicQueue* q, double velocity)
     return;
 }
 
-void EventDescriptor::pushOnQueue(double dist, DeterministicEventType t)
+void EventDescriptor::push_on_queue(double dist, DeterministicEventType t)
 {
 #ifdef DBG_ASSERT
     if (dist * distanceScaleFactor < -0.0)
@@ -175,7 +175,7 @@ void EventDescriptor::pushOnQueue(double dist, DeterministicEventType t)
     type = t;
 
     // store deterministic event into the queue
-    tag = queue->pushDeterministic(queue->currentPos() + dist * distanceScaleFactor, index);
+    tag = queue->push_deterministic(queue->current_pos() + dist * distanceScaleFactor, index);
     return;
 }
 
