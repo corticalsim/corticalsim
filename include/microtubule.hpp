@@ -32,7 +32,7 @@ class Microtubule: public DLBaseItem<Microtubule>
     bool integrityCheck();
     // status functions
     double length();
-    void updateLength(bool forceUpdate = false);
+    void updateLength(bool force_update = false);
     // event functions below
     void setDisappearEvent();
     void handleEvent(const EventDescriptor*);
@@ -50,11 +50,11 @@ class Microtubule: public DLBaseItem<Microtubule>
     void backtrack(MTTip*);
     void endOfSegment(MTTip*);
     void sever(Segment*, double);
-    void severAtCross(IntersectionItr is, Segment* cutSeg);
-    void splitSegmentAtTrajPos(double cutPos, Segment* cutSeg);
+    void severAtCross(IntersectionItr is, Segment* cut_seg);
+    void splitSegmentAtTrajPos(double cut_pos, Segment* cut_seg);
 
     // translates random position at MT to corresponding position at Segment
-    void translatePositionMT2Segment(double& cutPos, Segment*& cutSeg);
+    void translatePositionMT2Segment(double& cut_pos, Segment*& cut_seg);
 
   private:
 

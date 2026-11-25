@@ -50,7 +50,7 @@ class Region
     void unregisterFromRegion(RegionMTTipTag, TipType, MTType);
 
     // updates the length to the current system time tag
-    void updateRegionLength(bool forceUpdate = false);
+    void updateRegionLength(bool force_update = false);
 
     Region(Geometry* g, double a):
         geometry(g),

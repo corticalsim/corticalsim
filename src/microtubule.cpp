@@ -16,10 +16,10 @@ double Microtubule::length()
     return temp;
 }
 
-void Microtubule::updateLength(bool forceUpdate)
+void Microtubule::updateLength(bool force_update)
 {
     // can go wrong on position cache refresh, so need a better solution
-    if ((previousUpdateTag == system->currentTimeTag) && (!forceUpdate))
+    if ((previousUpdateTag == system->currentTimeTag) && (!force_update))
     {
         return;
     }
@@ -301,15 +301,15 @@ void Microtubule::rescue()
     return;
 }
 
-void Microtubule::sever(Segment* cutSeg, double cutPos)
+void Microtubule::sever(Segment* cut_seg, double cut_pos)
 {
     // sever MT at given position
-    splitSegmentAtTrajPos(cutSeg->start + static_cast<double>(cutSeg->dir) * cutPos, cutSeg);
+    splitSegmentAtTrajPos(cut_seg->start + static_cast<double>(cut_seg->dir) * cut_pos, cut_seg);
     system->totalLengthSeveringCount++;
     return;
 }
 
-void Microtubule::severAtCross(IntersectionItr is, Segment* cutSeg)
+void Microtubule::severAtCross(IntersectionItr is, Segment* cut_seg)
 {
     // WARNING: take care to cut the segment right *after* the intersection. Not doing so can lead to problems
     // when treadmilling is disabled. The microtubule end is then located *exactly* on the intersection and can be cut
@@ -318,7 +318,7 @@ void Microtubule::severAtCross(IntersectionItr is, Segment* cutSeg)
     // this time, cutPos and cutSeg are already known.
     double splitPos(is->first);
     // shift the cut ever so slightly away from the intersection, in the direction of the plus end.
-    if (cutSeg->dir == ::FORWARD)
+    if (cut_seg->dir == ::FORWARD)
     {
         splitPos += ZERO_CUTOFF;
     }
@@ -328,23 +328,23 @@ void Microtubule::severAtCross(IntersectionItr is, Segment* cutSeg)
     }
 
     // only cut if the severing position is comfortably located within the segment interval
-    if ((cutSeg->start - splitPos) * (cutSeg->end - splitPos) < ZERO_CUTOFF)
+    if ((cut_seg->start - splitPos) * (cut_seg->end - splitPos) < ZERO_CUTOFF)
     {
-        splitSegmentAtTrajPos(splitPos, cutSeg);
+        splitSegmentAtTrajPos(splitPos, cut_seg);
         system->totalIntersectionSeveringCount++;
     }
     return;
 }
 
-void Microtubule::splitSegmentAtTrajPos(double cutPos, Segment* cutSeg)
+void Microtubule::splitSegmentAtTrajPos(double cut_pos, Segment* cut_seg)
 {
     // used in sever and severAtCross
     Microtubule* newMT(nullptr);
     TrajectoryVector tv;
 
-    tv.trajectory = cutSeg->trajectory;
-    tv.dir = cutSeg->dir;
-    tv.pos = cutPos;
+    tv.trajectory = cut_seg->trajectory;
+    tv.dir = cut_seg->dir;
+    tv.pos = cut_pos;
     if (type == MT_GROWING)
     {
         newMT = system->growing_mts.create(system, tv, false);
@@ -359,10 +359,10 @@ void Microtubule::splitSegmentAtTrajPos(double cutPos, Segment* cutSeg)
 
     // transfer segments
     newMT->segments.create(newMT, tv);
-    newMT->segments.first()->end = cutSeg->end;
-    newMT->segments.first()->endItr = cutSeg->endItr;
-    newMT->segments.first()->nucleationTime = cutSeg->nucleationTime;
-    newMT->segments.importSet(segments, cutSeg->next(), segments.last());
+    newMT->segments.first()->end = cut_seg->end;
+    newMT->segments.first()->endItr = cut_seg->endItr;
+    newMT->segments.first()->nucleationTime = cut_seg->nucleationTime;
+    newMT->segments.importSet(segments, cut_seg->next(), segments.last());
     Segment* tempSeg = newMT->segments.first()->next();
     while (tempSeg != nullptr)
     {
@@ -390,7 +390,7 @@ void Microtubule::splitSegmentAtTrajPos(double cutPos, Segment* cutSeg)
     newMT->setDisappearEvent();
 
     // now, finish up the base microtubule
-    segments.last()->end = cutPos;
+    segments.last()->end = cut_pos;
 
     // always unregister from region (just to be sure)
     plus.trajectory->base.region->unregisterFromRegion(plus.regionTag, T_PLUS, type);
@@ -428,19 +428,19 @@ void Microtubule::splitSegmentAtTrajPos(double cutPos, Segment* cutSeg)
     return;
 }
 
-void Microtubule::translatePositionMT2Segment(double& cutPos, Segment*& cutSeg)
+void Microtubule::translatePositionMT2Segment(double& cut_pos, Segment*& cut_seg)
 {
-    cutSeg = segments.first();
-    while ((cutSeg != nullptr) && (cutPos > cutSeg->length()))
+    cut_seg = segments.first();
+    while ((cut_seg != nullptr) && (cut_pos > cut_seg->length()))
     {
-        cutPos -= cutSeg->length();
-        cutSeg = cutSeg->next();
+        cut_pos -= cut_seg->length();
+        cut_seg = cut_seg->next();
     }
-    if (cutPos > cutSeg->length())
+    if (cut_pos > cut_seg->length())
     {
-        if (cutPos - cutSeg->length() < ZERO_CUTOFF)
+        if (cut_pos - cut_seg->length() < ZERO_CUTOFF)
         {
-            cutPos = cutSeg->length() - ZERO_CUTOFF;
+            cut_pos = cut_seg->length() - ZERO_CUTOFF;
         }
         else
         {
@@ -448,7 +448,7 @@ void Microtubule::translatePositionMT2Segment(double& cutPos, Segment*& cutSeg)
             exit(-1);
         }
     }
-    cutPos = cutSeg->start + static_cast<double>(cutSeg->dir) * cutPos;
+    cut_pos = cut_seg->start + static_cast<double>(cut_seg->dir) * cut_pos;
     return;
 }
 

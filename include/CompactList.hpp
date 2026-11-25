@@ -30,7 +30,7 @@ class CompactList
                                   boost::details::pool::null_mutex,
                                   AllocatorGranularity>
     MemPool;
-    T* InsertElement(T* newElement);
+    T* InsertElement(T* new_element);
     void remove(T*);
     void removeAll();
 
@@ -121,12 +121,12 @@ inline T* CompactList<T, I>::create(Q par1, R par2, S par3)
 }
 
 template <class T, int I>
-inline T* CompactList<T, I>::InsertElement(T* newElement)
+inline T* CompactList<T, I>::InsertElement(T* new_element)
 // private function!
 {
-    newElement->index = elements.size();
-    elements.push_back(newElement);
-    return newElement;
+    new_element->index = elements.size();
+    elements.push_back(new_element);
+    return new_element;
 }
 
 template <class T, int I>

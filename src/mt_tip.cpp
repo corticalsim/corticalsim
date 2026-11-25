@@ -3,12 +3,12 @@
 #include "microtubule.hpp"
 #include "region.hpp"
 
-MTTip::MTTip(Microtubule* m, TrajectoryVector tv, double v, DeterministicQueue* q, double queueV):
+MTTip::MTTip(Microtubule* m, TrajectoryVector tv, double v, DeterministicQueue* q, double queue_v):
     mt(m),
     trajectory(tv.trajectory),
     dir(tv.dir),
     velocity(v),
-    event(m, q, queueV),
+    event(m, q, queue_v),
     nextCollision(tv.trajectory->intersections.end())
 {
 // WARNING: Do not use the mt pointer in this function, as it has not been initialized
@@ -254,13 +254,13 @@ void MTTip::determineEvent()
     return;
 }
 
-void MTTip::notifyRemove(IntersectionItr& oldIs)
+void MTTip::notifyRemove(IntersectionItr& old_is)
 {
     // update the length of MT
     mt->updateLength();
 
     // scheduled next collision is at this invalid intersection point, so skip it to reach the next intersection point
-    if (oldIs == nextCollision)
+    if (old_is == nextCollision)
     {
         advanceIntersection();
         determineEvent();
@@ -270,7 +270,7 @@ void MTTip::notifyRemove(IntersectionItr& oldIs)
     IntersectionItr& ref = (type() == T_PLUS) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
 
     // link the tip start/end iterator to the new inserted iterator
-    if (ref == oldIs)
+    if (ref == old_is)
     {
         if (dir == ::FORWARD)
         {
@@ -285,22 +285,22 @@ void MTTip::notifyRemove(IntersectionItr& oldIs)
     return;
 }
 
-void MTTip::notifyInsert(IntersectionItr& newIs)
+void MTTip::notifyInsert(IntersectionItr& new_is)
 {
 
     // update the MT
     mt->updateLength();
 
-    IntersectionItr temp = newIs;
+    IntersectionItr temp = new_is;
 
     // next collission site in front
     if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == BACKWARD)))
     {
         // if the scheduled next collision is located after the new intersection point,  then replace it by the new
         // intersection
-        if ((++temp == nextCollision) && (newIs->first > position()))
+        if ((++temp == nextCollision) && (new_is->first > position()))
         {
-            nextCollision = newIs;
+            nextCollision = new_is;
             determineEvent();
         }
     }
@@ -310,14 +310,14 @@ void MTTip::notifyInsert(IntersectionItr& newIs)
     {
         // if the scheduled next collision is located after the new intersection point,  then replace it by the new
         // intersection
-        if ((--temp == nextCollision) && (newIs->first < position()))
+        if ((--temp == nextCollision) && (new_is->first < position()))
         {
-            nextCollision = newIs;
+            nextCollision = new_is;
             determineEvent();
         }
     }
 
-    temp = newIs;
+    temp = new_is;
 
     // get the tip start/end iterator
     IntersectionItr& refItr = (type() == T_PLUS) ? mt->segments.last()->endItr : mt->segments.first()->startItr;
@@ -328,17 +328,17 @@ void MTTip::notifyInsert(IntersectionItr& newIs)
     // link the tip start/end iterator to the new inserted iterator
     if (dir == ::FORWARD)
     {
-        if ((++temp == refItr) && (newIs->first > refPos))
+        if ((++temp == refItr) && (new_is->first > refPos))
         {
-            refItr = newIs;
+            refItr = new_is;
         }
     }
 
     else
     {
-        if ((--temp == refItr) && (newIs->first < refPos))
+        if ((--temp == refItr) && (new_is->first < refPos))
         {
-            refItr = newIs;
+            refItr = new_is;
         }
     }
 
@@ -397,14 +397,14 @@ Segment& MTTip::segment()
     }
 }
 
-void MTTip::switchTrajectory(Trajectory* newTr, Direction d, IntersectionItr intersect, bool advance)
+void MTTip::switchTrajectory(Trajectory* new_tr, Direction d, IntersectionItr intersect, bool advance)
 {
 
     // copy old trajectory of the tip (required to unregister the tip from old trajectory region)
     Trajectory* oldTr(trajectory);
 
     // assign new trajectory to the tip
-    trajectory = newTr;
+    trajectory = new_tr;
 
     // assign new direction to the tip
     dir = d;
@@ -423,13 +423,13 @@ void MTTip::switchTrajectory(Trajectory* newTr, Direction d, IntersectionItr int
     oldTr->base.region->unregisterFromRegion(regionTag, type(), mt->type);
 
     // find the new regiontag of the tip
-    regionTag = newTr->base.region->registerOnRegion(this, type(), mt->type);
+    regionTag = new_tr->base.region->registerOnRegion(this, type(), mt->type);
 
     // copy old notification tag of the tip (required to unregister the tip from old trajectory notification list)
     TrjMTTipTag tempTag = notificationTag;
 
     // assign new notification tag to the tip
-    notificationTag = newTr->registerForNotifications(this);
+    notificationTag = new_tr->registerForNotifications(this);
 
     // unregister notification of the tip from old trajectory
     oldTr->unregisterForNotifications(tempTag);

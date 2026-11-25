@@ -105,10 +105,10 @@ class System
     ~System();
     bool integrityCheck();
     void flushAndReload(bool = true);
-    void advanceTime(double nextTime);
+    void advanceTime(double next_time);
 
     // updates all positions in the system to the system time
-    void updateAll(bool forceUpdate = false);
+    void updateAll(bool force_update = false);
     void emergencyBreak();
 
     void run(double, string&, string&);
@@ -124,7 +124,7 @@ class System
 
     void handleRescueEvent();
     void handleCatastropheEvent();
-    void randomPositionOnMicrotubule(double& cutLength, Segment*& cutSeg);
+    void randomPositionOnMicrotubule(double& cut_length, Segment*& cut_seg);
 
     // returns the result of a collision at a specified angle, and bundle
     // occupancies
@@ -138,8 +138,8 @@ class System
     double binomialTable[MAXBINOM][MAXBINOM];
     void makeBinomialTable(void);
 
-    double multiPcross(int Npar, int Ncoll, double xSingle, double zSingle);
-    double multiPzip(int Npar, int Ncoll, double xSingle, double zSingle);
+    double multiPcross(int npar, int ncoll, double x_single, double z_single);
+    double multiPzip(int npar, int ncoll, double x_single, double z_single);
 
     ofstream parameterFile;
     ofstream movieFile;

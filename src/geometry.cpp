@@ -7,32 +7,32 @@
 #include "parameters.hpp"
 #include "linalg.hpp"
 
-void Geometry::callTranslator(SurfaceVector& sVec, int regionIndex, int regionIndexNeigh)
+void Geometry::callTranslator(SurfaceVector& s_vec, int region_index, int region_index_neigh)
 {
-    int Index1(regions[regionIndex]->sideRevMap[regionIndexNeigh]);
+    int Index1(regions[region_index]->sideRevMap[region_index_neigh]);
 
     // use affine transformation of triangle to map a point from one region to other region
-    Eigen::Vector2d V1(sVec.x, sVec.y), V2;
-    V2 = regions[regionIndex]->side[Index1].A * V1 + regions[regionIndex]->side[Index1].b;
-    sVec.x = V2(0, 0);
-    sVec.y = V2(1, 0);
+    Eigen::Vector2d V1(s_vec.x, s_vec.y), V2;
+    V2 = regions[region_index]->side[Index1].A * V1 + regions[region_index]->side[Index1].b;
+    s_vec.x = V2(0, 0);
+    s_vec.y = V2(1, 0);
 
-    sVec.angle += regions[regionIndex]->side[Index1].xyRotationAngle;
+    s_vec.angle += regions[region_index]->side[Index1].xyRotationAngle;
 
     return;
 }
 
-TrajectoryVector Geometry::createTrajectory(const SurfaceVector& sVec)
+TrajectoryVector Geometry::createTrajectory(const SurfaceVector& s_vec)
 {
     // create a new trajectory with give trajectory vector
-    return sVec.region->insertTrajectory(sVec);
+    return s_vec.region->insertTrajectory(s_vec);
 }
 
 TrajectoryVector Geometry::createAndLinkTrajectory(
-const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAngle, double pCat)
+const SurfaceVector& new_base, Trajectory* oldtr, Direction olddir, double cos_angle, double p_cat)
 {
     // first create a new trajectory vector (trajectory)
-    TrajectoryVector tVec = createTrajectory(newBase);
+    TrajectoryVector tVec = createTrajectory(new_base);
 
     // declare a dummy trajectory vector
     TrajectoryVector thisVec;
@@ -44,8 +44,8 @@ const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAng
     if (olddir == ::FORWARD)
     {
         oldtr->nextTr = tVec;
-        oldtr->nextTrCosAngle = cosAngle;
-        oldtr->nextTrpCat = pCat;
+        oldtr->nextTrCosAngle = cos_angle;
+        oldtr->nextTrpCat = p_cat;
 
         // get the direction and position of the dummy trajectory vector
         thisVec.dir = BACKWARD;
@@ -56,8 +56,8 @@ const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAng
     else
     {
         oldtr->prevTr = tVec;
-        oldtr->prevTrCosAngle = cosAngle;
-        oldtr->prevTrpCat = pCat;
+        oldtr->prevTrCosAngle = cos_angle;
+        oldtr->prevTrpCat = p_cat;
 
         // get the direction and position of the dummy trajectory vector
         thisVec.dir = ::FORWARD;
@@ -68,16 +68,16 @@ const SurfaceVector& newBase, Trajectory* oldtr, Direction olddir, double cosAng
     if (tVec.dir == ::FORWARD)
     {
         tVec.trajectory->prevTr = thisVec;
-        tVec.trajectory->prevTrCosAngle = cosAngle;
-        tVec.trajectory->prevTrpCat = pCat;
+        tVec.trajectory->prevTrCosAngle = cos_angle;
+        tVec.trajectory->prevTrpCat = p_cat;
     }
 
     // new trajectory vector has direction backward, set the dummy trajectory vector as next
     else
     {
         tVec.trajectory->nextTr = thisVec;
-        tVec.trajectory->nextTrCosAngle = cosAngle;
-        tVec.trajectory->nextTrpCat = pCat;
+        tVec.trajectory->nextTrCosAngle = cos_angle;
+        tVec.trajectory->nextTrpCat = p_cat;
     }
 
     return tVec;
@@ -295,9 +295,9 @@ void TriMeshGeometry::outputSnapshot(ostream& out)
     return;
 }
 
-void TriMeshGeometry::outputOrderHeatMap(ostream& out, vector<double>& localOrder, vector<Eigen::Vector3d>& sv)
+void TriMeshGeometry::outputOrderHeatMap(ostream& out, vector<double>& local_order, vector<Eigen::Vector3d>& sv)
 {
-    for (size_t eno = 0; eno < localOrder.size(); eno++)
+    for (size_t eno = 0; eno < local_order.size(); eno++)
     {
         Eigen::Vector3d seg3D;
 
@@ -487,7 +487,7 @@ double Cartesian::intersectionAngle(Trajectory* t1, Trajectory* t2)
     return (angle);
 }
 
-void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR, vector<Eigen::Vector3d>& orientation, double area)
+void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& op_r, vector<Eigen::Vector3d>& orientation, double area)
 {
     double sin2(0.0), cos2(0.0);
     Eigen::Vector3d sv(0.0, 0.0, 0.0);
@@ -579,19 +579,19 @@ void Cartesian::getOrderParametersRawFlat(OrderParametersRaw& opR, vector<Eigen:
         QC = e * QF * e.transpose();
 
         // accumulate all the Q(2) tensors components from different regions
-        opR.Qxx += localLength * QC(0, 0);
-        opR.Qxy += localLength * QC(0, 1);
-        opR.Qxz += localLength * QC(0, 2);
-        opR.Qyy += localLength * QC(1, 1);
-        opR.Qyz += localLength * QC(1, 2);
-        opR.Qzz += localLength * QC(2, 2);
+        op_r.Qxx += localLength * QC(0, 0);
+        op_r.Qxy += localLength * QC(0, 1);
+        op_r.Qxz += localLength * QC(0, 2);
+        op_r.Qyy += localLength * QC(1, 1);
+        op_r.Qyz += localLength * QC(1, 2);
+        op_r.Qzz += localLength * QC(2, 2);
 
         // add up length of the segments from all the regions
-        opR.localL += localLength;
+        op_r.localL += localLength;
     }
 
-    opR.localOrder = orderLocal;
-    opR.Sv = sv;
+    op_r.localOrder = orderLocal;
+    op_r.Sv = sv;
     return;
 }
 
@@ -601,9 +601,9 @@ void Cartesian::outputSnapshot(ostream& out)
     return;
 }
 
-void Cartesian::outputOrderHeatMap(ostream& out, vector<double>& localOrder, vector<Eigen::Vector3d>& sv) { return; }
+void Cartesian::outputOrderHeatMap(ostream& out, vector<double>& local_order, vector<Eigen::Vector3d>& sv) { return; }
 
-void Cartesian::outputSnapshotOffset(ostream& out, double xOffset, double yOffset)
+void Cartesian::outputSnapshotOffset(ostream& out, double x_offset, double y_offset)
 {
     Eigen::Vector3d seg3D;
 
@@ -693,11 +693,11 @@ void Cartesian::outputSnapshotOffset(ostream& out, double xOffset, double yOffse
     return;
 }
 
-void Cartesian::translateVector(SurfaceVector& sVec, const double dist)
+void Cartesian::translateVector(SurfaceVector& s_vec, const double dist)
 {
     // this can be used to move a point along a trajectory (used in making snap-shots)
-    sVec.x += cos(sVec.angle) * dist;
-    sVec.y += sin(sVec.angle) * dist;
+    s_vec.x += cos(s_vec.angle) * dist;
+    s_vec.y += sin(s_vec.angle) * dist;
     return;
 }
 
@@ -790,8 +790,8 @@ void Cartesian::makeIntersectionList(Trajectory* tr1)
     return;
 }
 
-Triangle::Triangle(double elementArea, Geometry* g):
-    Cartesian(g, elementArea)
+Triangle::Triangle(double element_area, Geometry* g):
+    Cartesian(g, element_area)
 {
     // necessary to create a full geometry, made with many triangles
     return;
@@ -824,52 +824,52 @@ SurfaceVector Triangle::randomSurfaceVector()
     return v;
 }
 
-void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
-                                        double& totalLength,
-                                        vector<PointATedge>& endPoint,
-                                        TrajectoryVector& tVec)
+void Triangle::getTrajectoryCoordinates(SurfaceVector& s_vec,
+                                        double& total_length,
+                                        vector<PointATedge>& end_point,
+                                        TrajectoryVector& t_vec)
 {
     // copy old base coordinate
-    double oldX(sVec.x);
-    double oldY(sVec.y);
+    double oldX(s_vec.x);
+    double oldY(s_vec.y);
 
-    tVec.trajectory = nullptr;
+    t_vec.trajectory = nullptr;
 
-    double acos(cos(sVec.angle));
-    double asin(sin(sVec.angle));
+    double acos(cos(s_vec.angle));
+    double asin(sin(s_vec.angle));
 
     // direction and base angle of the trajectory
     if (abs(acos) < ZERO_CUTOFF)
     {
-        if (sVec.angle < PI)
+        if (s_vec.angle < PI)
         {
-            tVec.dir = ::FORWARD;
+            t_vec.dir = ::FORWARD;
         }
         else
         {
-            tVec.dir = BACKWARD;
-            sVec.angle -= PI;
+            t_vec.dir = BACKWARD;
+            s_vec.angle -= PI;
         }
     }
 
     else if (acos < 0)
     {
-        sVec.angle += PI;
-        tVec.dir = BACKWARD;
-        if (sVec.angle > 2 * PI)
+        s_vec.angle += PI;
+        t_vec.dir = BACKWARD;
+        if (s_vec.angle > 2 * PI)
         {
-            sVec.angle -= 2 * PI;
+            s_vec.angle -= 2 * PI;
         }
     }
 
     else
     {
-        tVec.dir = ::FORWARD;
+        t_vec.dir = ::FORWARD;
     }
 
     // use the triangle perimeter to create a trajectory, this will to make sure to have exactly two intersections
-    Eigen::Vector2d v1(sVec.x + periMeter * acos, sVec.y + periMeter * asin);
-    Eigen::Vector2d v2(sVec.x - periMeter * acos, sVec.y - periMeter * asin);
+    Eigen::Vector2d v1(s_vec.x + periMeter * acos, s_vec.y + periMeter * asin);
+    Eigen::Vector2d v2(s_vec.x - periMeter * acos, s_vec.y - periMeter * asin);
 
     // intersection points of the trajectory with the triangle edges
     int encounter(0), Neno(0);
@@ -904,28 +904,28 @@ void Triangle::getTrajectoryCoordinates(SurfaceVector& sVec,
             Neno = sideMap[i];
 
             // get triangle-edge to trajectory intersection point
-            endPoint.push_back(
+            end_point.push_back(
             PointATedge(u1(0, 0) + sval * (u2(0, 0) - u1(0, 0)), u1(1, 0) + sval * (u2(1, 0) - u1(1, 0)), 0.0, Neno));
         }
     }
 
     // base coordinate (x_base < x_other) of the trajectory
-    if (endPoint[0].x > endPoint[1].x)
+    if (end_point[0].x > end_point[1].x)
     {
-        reverse(endPoint.begin(), endPoint.end());
+        reverse(end_point.begin(), end_point.end());
     }
 
-    sVec.x = endPoint[0].x;
-    sVec.y = endPoint[0].y;
+    s_vec.x = end_point[0].x;
+    s_vec.y = end_point[0].y;
 
     // nucleation position (distance between old base and nucleation point) on the trajectory
-    double dx(sVec.x - oldX), dy(sVec.y - oldY);
-    tVec.pos = sqrt(dx * dx + dy * dy);
+    double dx(s_vec.x - oldX), dy(s_vec.y - oldY);
+    t_vec.pos = sqrt(dx * dx + dy * dy);
 
     // length of the trajectory (distance between the end points of the trajectory)
-    dx = endPoint[1].x - endPoint[0].x;
-    dy = endPoint[1].y - endPoint[0].y;
-    totalLength = sqrt(dx * dx + dy * dy);
+    dx = end_point[1].x - end_point[0].x;
+    dy = end_point[1].y - end_point[0].y;
+    total_length = sqrt(dx * dx + dy * dy);
 
     // eacch trajectory should have exacty two intersection point with exactly two triangle edges
     if (encounter != 2)

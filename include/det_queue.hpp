@@ -12,7 +12,7 @@ class DeterministicQueue
   public:
 
     System* const system; // pointer to containing system
-    DeterministicQueue(System*, double (System::*dtFunc)(double), double (System::*tdFunc)(double));
+    DeterministicQueue(System*, double (System::*dt_func)(double), double (System::*td_func)(double));
 
     double currentPos()
     {
@@ -22,7 +22,7 @@ class DeterministicQueue
     void advanceTime(double); // advances the parameters to the current system time
     void storeTime(int);      // store 'currentBase' in the cache at a given tag position
 
-    double progression(int cachePos) { return currentBase - valueCache[cachePos]; }
+    double progression(int cache_pos) { return currentBase - valueCache[cache_pos]; }
 
     // returns the progress of 'currentBase' relative to a given time tag
     double firstEventTime();  // returns the system time of the first scheduled

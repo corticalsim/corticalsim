@@ -4,7 +4,7 @@
 #include "mt_tip.hpp"
 #include "parameters.hpp"
 
-void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
+void System::collisionProbabilities(double angle, double& pcat, double& pzip)
 {
     switch (p.interactionType)
     {
@@ -13,21 +13,21 @@ void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
             // angle < magic angle
             if (angle < PI * p.magicAngle / 180.0)
             {
-                Pcat = 0.0;
+                pcat = 0.0;
 
                 // zippering enabled
                 if (p.zipperingEnabled)
                 {
-                    Pzip = p.zipFraction;
+                    pzip = p.zipFraction;
                 }
                 else
                 {
-                    Pzip = 0.0;
+                    pzip = 0.0;
                 }
                 break;
             }
 
-            Pzip = 0.0;
+            pzip = 0.0;
 
             // angle > p.catStartAngle and induced catastrophes enabled
             if (p.catastrophesEnabled && (angle > p.catStartAngle / 180.0 * PI))
@@ -35,19 +35,19 @@ void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
                 // proportional catastrophe enabled
                 if (p.proportionalCatastrophes)
                 {
-                    Pcat = (angle - p.catStartAngle / 180.0 * PI) / (PI / 2. - p.catStartAngle / 180.0 * PI)
+                    pcat = (angle - p.catStartAngle / 180.0 * PI) / (PI / 2. - p.catStartAngle / 180.0 * PI)
                            * p.inducedCatastropheFraction;
                 }
 
                 // proportional catastrophe disabled
                 else
                 {
-                    Pcat = p.inducedCatastropheFraction;
+                    pcat = p.inducedCatastropheFraction;
                 }
             }
             else
             {
-                Pcat = 0.0;
+                pcat = 0.0;
             }
 
             break;
@@ -60,29 +60,29 @@ void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
                 // proportional catastrophe enabled
                 if (p.proportionalCatastrophes)
                 {
-                    Pcat = (angle - p.catStartAngle / 180.0 * PI) / (PI / 2. - p.catStartAngle / 180.0 * PI)
+                    pcat = (angle - p.catStartAngle / 180.0 * PI) / (PI / 2. - p.catStartAngle / 180.0 * PI)
                            * p.inducedCatastropheFraction;
                 }
 
                 // proportional catastrophe disabled
                 else
                 {
-                    Pcat = p.inducedCatastropheFraction;
+                    pcat = p.inducedCatastropheFraction;
                 }
             }
             else
             {
-                Pcat = 0.0;
+                pcat = 0.0;
             }
 
             // angle < magic angle and zippering enabled
             if (p.zipperingEnabled && (angle < p.magicAngle / 180.0 * PI))
             {
-                Pzip = 1.0 - Pcat;
+                pzip = 1.0 - pcat;
             }
             else
             {
-                Pzip = 0.0;
+                pzip = 0.0;
             }
             break;
 
@@ -97,44 +97,44 @@ void System::collisionProbabilities(double angle, double& Pcat, double& Pzip)
     return;
 }
 
-double System::multiPcross(int Npar, int Ncoll, double xSingle, double zSingle)
+double System::multiPcross(int npar, int ncoll, double x_single, double z_single)
 {
     double totalSum = 0;
 
     int i, j;
 
-    for (i = 0; i <= Npar; i++)
+    for (i = 0; i <= npar; i++)
     {
-        for (j = max(0, i - Ncoll); j <= max(0, i - 1); j++)
+        for (j = max(0, i - ncoll); j <= max(0, i - 1); j++)
         {
-            totalSum += (Npar + 1 - i) * binomialTable[Ncoll][i - j] * binomialTable[max(0, i - 1)][j]
-                        * pow(xSingle, 2 * j + Ncoll - i) * pow(zSingle, 2 * (i - j));
+            totalSum += (npar + 1 - i) * binomialTable[ncoll][i - j] * binomialTable[max(0, i - 1)][j]
+                        * pow(x_single, 2 * j + ncoll - i) * pow(z_single, 2 * (i - j));
         }
     }
-    return totalSum / (Npar + 1);
+    return totalSum / (npar + 1);
 }
 
-double System::multiPzip(int nPar, int nColl, double xSingle, double zSingle)
+double System::multiPzip(int n_par, int n_coll, double x_single, double z_single)
 {
     double totalSum = 0;
 
     int i, j, k;
 
-    for (i = 0; i <= nPar; i++)
+    for (i = 0; i <= n_par; i++)
     {
-        for (j = 0; j <= nColl - 1; j++)
+        for (j = 0; j <= n_coll - 1; j++)
         {
             for (k = max(0, i - j); k <= i; k++)
             {
-                totalSum += binomialTable[j][i - k] * binomialTable[i][k] * pow(xSingle, 2 * k + j - i)
-                            * pow(zSingle, 2 * (i - k) + 1);
+                totalSum += binomialTable[j][i - k] * binomialTable[i][k] * pow(x_single, 2 * k + j - i)
+                            * pow(z_single, 2 * (i - k) + 1);
             }
         }
     }
-    return totalSum / (nPar + 1);
+    return totalSum / (n_par + 1);
 }
 
-CollisionType System::collisionResult(double angle, int nParallel, int nCross) // range: 0..PI/2
+CollisionType System::collisionResult(double angle, int n_parallel, int n_cross) // range: 0..PI/2
 {
 #ifdef DBG_ASSERT
     if ((angle < 0) || (angle > PI / 2))
@@ -174,7 +174,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross) /
             break;
         case BDL_NO_ZIP:
 
-            if (nParallel > 0)
+            if (n_parallel > 0)
             {
                 if (rand < Pcat)
                 {
@@ -185,7 +185,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross) /
 
         case BDL_STICKY:
 
-            if (nParallel > 0)
+            if (n_parallel > 0)
             {
                 return CT_CROSSOVER;
             }
@@ -217,8 +217,8 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross) /
         case BDL_NCOLLISION:
 
             // add up total probabilities
-            Pcat *= nCross;
-            Pzip *= nCross;
+            Pcat *= n_cross;
+            Pzip *= n_cross;
             Psum = Pcat + Pzip;
 
             // now normalize the probabilities
@@ -249,8 +249,8 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross) /
         case BDL_MULTI_COLLISION:
 
             double Pcross = 1.0 - Pcat - Pzip;
-            double multiPx = multiPcross(min(nParallel, MAXBINOM - 1), min(nCross, MAXBINOM - 1), Pcross, Pzip);
-            double multiPz = multiPzip(min(nParallel, MAXBINOM - 1), min(nCross, MAXBINOM - 1), Pcross, Pzip);
+            double multiPx = multiPcross(min(n_parallel, MAXBINOM - 1), min(n_cross, MAXBINOM - 1), Pcross, Pzip);
+            double multiPz = multiPzip(min(n_parallel, MAXBINOM - 1), min(n_cross, MAXBINOM - 1), Pcross, Pzip);
 
             if (rand < multiPx)
             {
@@ -275,7 +275,7 @@ CollisionType System::collisionResult(double angle, int nParallel, int nCross) /
     return CT_CROSSOVER;
 }
 
-System::System(char* parFile):
+System::System(char* par_file):
     geometry(nullptr),
     p(this),
     systemTime(0),
@@ -306,7 +306,7 @@ System::System(char* parFile):
     dataSaved(false)
 {
     /// read parameters
-    p.initialize(parFile);
+    p.initialize(par_file);
 
     // initialize number of growing tips in different faces
     for (int dTag = 0; dTag <= p.faceNumber; dTag++)
@@ -365,11 +365,11 @@ System::~System()
     return;
 }
 
-void System::run(double simTime, string& cS, string& mS)
+void System::run(double sim_time, string& c_s, string& m_s)
 {
     int wallTimePollingCounter(0);
     int memoryPollingCounter(0);
-    timeQueue.pushGlobal(simTime - systemTimeOffset, STOP);
+    timeQueue.pushGlobal(sim_time - systemTimeOffset, STOP);
 
     if (p.showOutput == 1)
     {
@@ -510,7 +510,7 @@ bool System::integrityCheck()
     return valid;
 }
 
-void System::flushAndReload(bool refreshParameterEvent)
+void System::flushAndReload(bool refresh_parameter_event)
 {
     double timeOffset(systemTime);
 
@@ -572,7 +572,7 @@ void System::flushAndReload(bool refreshParameterEvent)
     nextStatusEventTime -= timeOffset;
     timeQueue.pushGlobal(nextStatusEventTime, STATUS);
 
-    if (refreshParameterEvent)
+    if (refresh_parameter_event)
     {
         nextParameterEventTime -= timeOffset;
         timeQueue.pushGlobal(nextParameterEventTime, PARAMETER_CHANGE);
@@ -778,7 +778,7 @@ double System::timeToVPlus(double time)
     return (1.0 - lambda_inf) * time - (lambda_0 - lambda_inf) * (1.0 - exp(-beta * time)) / beta;
 }
 
-void System::advanceTime(double newTime)
+void System::advanceTime(double new_time)
 {
 #ifdef DBG_SYSTEM
     cout << "DBG/SYSTEM: advancing time by " << newTime - systemTime << " seconds. New system time is " << newTime
@@ -786,9 +786,9 @@ void System::advanceTime(double newTime)
 #endif
 
     // make a jump in time step (taking advantage of using event-driven algorithm)
-    timeQueue.advanceTime(newTime);
-    vPlusQueue.advanceTime(newTime);
-    systemTime = newTime;
+    timeQueue.advanceTime(new_time);
+    vPlusQueue.advanceTime(new_time);
+    systemTime = new_time;
     totalLength += timeQueue.progression(currentTimeTag)
                    * (p.vMin * shrinking_mts.size() - p.vTM * (growing_mts.size() + shrinking_mts.size()))
                    + vPlusQueue.progression(currentTimeTag) * (p.vPlus * growing_mts.size());
@@ -805,12 +805,12 @@ void System::advanceTime(double newTime)
     return;
 }
 
-void System::updateAll(bool forceUpdate)
+void System::updateAll(bool force_update)
 {
     // always nice to be updated in lengths of all regions and microtubules (convenient for snapshots, etc.)
     for (size_t ridx = 0; ridx < geometry->regions.size(); ridx++)
     {
-        geometry->regions[ridx]->updateRegionLength(forceUpdate);
+        geometry->regions[ridx]->updateRegionLength(force_update);
     }
 
     Microtubule* mt;
@@ -818,7 +818,7 @@ void System::updateAll(bool forceUpdate)
 
     while (mt != nullptr)
     {
-        mt->updateLength(forceUpdate);
+        mt->updateLength(force_update);
 
 #ifdef DBG_ACID_TEST
         if (mt->segments.size() == 1)
@@ -837,7 +837,7 @@ void System::updateAll(bool forceUpdate)
     mt = shrinking_mts.first();
     while (mt != nullptr)
     {
-        mt->updateLength(forceUpdate);
+        mt->updateLength(force_update);
 
 #ifdef DBG_ACID_TEST
         if (mt->segments.size() == 1)
@@ -1144,7 +1144,7 @@ void System::handleSeveringEvent()
     return;
 }
 
-void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
+void System::randomPositionOnMicrotubule(double& random_pos, Segment*& random_seg)
 {
     // TODO
     // Fix the logic below and the type of this variable
@@ -1304,8 +1304,8 @@ void System::randomPositionOnMicrotubule(double& randomPos, Segment*& randomSeg)
         cutLength = (*seg)->length() - cutLength;
     }
 
-    randomSeg = *seg;
-    randomPos = cutLength;
+    random_seg = *seg;
+    random_pos = cutLength;
     return;
 }
 

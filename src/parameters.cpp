@@ -187,7 +187,7 @@ inline void loadParam(bool& recognized, ifstream& file, string& id, const char* 
 
 template <class T>
 inline void loadParamMaps(
-bool& recognized, ifstream& file, string& id, const char* tag, T& target, map<string, T>& edgCatMap)
+bool& recognized, ifstream& file, string& id, const char* tag, T& target, map<string, T>& edg_cat_map)
 {
     if (!recognized)
     {
@@ -195,7 +195,7 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, map<st
         {
             file >> target;
             string key{ tag };
-            edgCatMap[key] = target;
+            edg_cat_map[key] = target;
             recognized = true;
         }
     }
@@ -237,7 +237,7 @@ inline void loadParamRandom(bool& recognized, ifstream& file, string& id, const 
 
 template <class T>
 inline void loadParamEnumText(
-bool& recognized, ifstream& file, string& id, const char* tag, T& target, string* compareList, T compareCount)
+bool& recognized, ifstream& file, string& id, const char* tag, T& target, string* compare_list, T compare_count)
 {
     if (!recognized)
     {
@@ -246,16 +246,16 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, string
             int i = 0;
             string temp;
             file >> temp;
-            while (i < compareCount)
+            while (i < compare_count)
             {
-                if (temp == compareList[i])
+                if (temp == compare_list[i])
                 {
                     target = (T)i;
                     break;
                 }
                 i++;
             }
-            if (i == compareCount)
+            if (i == compare_count)
             {
                 cerr << "ERROR: No valid value for " << tag << ": " << temp << "\n";
                 exit(-1);
@@ -266,7 +266,7 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, string
     return;
 }
 
-bool Parameters::readFromFile(const char* pf, bool initialRun)
+bool Parameters::readFromFile(const char* pf, bool initial_run)
 {
     if ((pf == nullptr) || (*pf == 0))
     {
@@ -304,7 +304,7 @@ bool Parameters::readFromFile(const char* pf, bool initialRun)
         {
             recognized = false;
 
-            if (initialRun)
+            if (initial_run)
             {
                 loadParamRandom(recognized, parFile, id, "random_seed", seed);
             }

@@ -4,8 +4,8 @@
 #include "segment.hpp"
 #include "system.hpp"
 
-Trajectory::Trajectory(SurfaceVector baseVec, vector<PointATedge> endP, double l):
-    base(baseVec),
+Trajectory::Trajectory(SurfaceVector base_vec, vector<PointATedge> end_p, double l):
+    base(base_vec),
     length(l),
     prevTr(0, ::FORWARD, nullptr),
     nextTr(0, ::FORWARD, nullptr),
@@ -19,7 +19,7 @@ Trajectory::Trajectory(SurfaceVector baseVec, vector<PointATedge> endP, double l
     // assign end points of the trajectory
     for (int i = 0; i < 2; i++)
     {
-        endPoint.push_back(endP[i]);
+        endPoint.push_back(end_p[i]);
     }
 
     // increase total number of trajectories in the geometry
@@ -226,21 +226,21 @@ double Trajectory::coveredLength()
     return cLength;
 }
 
-void Trajectory::invalidateIntersection(IntersectionItr& oldIs)
+void Trajectory::invalidateIntersection(IntersectionItr& old_is)
 {
     list<MTTip*>::iterator tip(notificationList.begin());
 
     // notify all tips on the current trajectory that a previous insertion is invalidated
     while (tip != notificationList.end())
     {
-        (**tip).notifyRemove(oldIs);
+        (**tip).notifyRemove(old_is);
         tip++;
     }
 
     return;
 }
 
-void Trajectory::newIntersection(IntersectionItr& newIs)
+void Trajectory::newIntersection(IntersectionItr& new_is)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Trajectory::newIntersection() called.\n";
@@ -255,7 +255,7 @@ void Trajectory::newIntersection(IntersectionItr& newIs)
     {
         (**seg).mt->updateLength();
 
-        if ((**seg).crossesIntersection(newIs))
+        if ((**seg).crossesIntersection(new_is))
         {
             occupancy++;
         }
@@ -264,13 +264,13 @@ void Trajectory::newIntersection(IntersectionItr& newIs)
     }
 
     // assign complemetary occupancy for the new intersection
-    newIs->second.occupancy = occupancy;
+    new_is->second.occupancy = occupancy;
 
     // notify all tips on the current trajectory that a new insertion has happened
     list<MTTip*>::iterator tip(notificationList.begin());
     while (tip != notificationList.end())
     {
-        (**tip).notifyInsert(newIs);
+        (**tip).notifyInsert(new_is);
         tip++;
     }
 
@@ -349,10 +349,10 @@ void Trajectory::removeSegment(TrjSegmentTag s)
     return;
 }
 
-TrjMTTipTag Trajectory::registerForNotifications(MTTip* pTip)
+TrjMTTipTag Trajectory::registerForNotifications(MTTip* p_tip)
 {
     // a new tip arrived on the trajectory, add it to the notification list
-    return notificationList.insert(notificationList.end(), pTip);
+    return notificationList.insert(notificationList.end(), p_tip);
 }
 
 void Trajectory::unregisterForNotifications(TrjMTTipTag tag)

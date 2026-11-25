@@ -1,11 +1,11 @@
 #include "det_queue.hpp"
 #include "system.hpp"
 
-DeterministicQueue::DeterministicQueue(System* s, double (System::*dtFunc)(double), double (System::*tdFunc)(double)):
+DeterministicQueue::DeterministicQueue(System* s, double (System::*dt_func)(double), double (System::*td_func)(double)):
     system(s),
     currentBase(0),
-    distanceTimeConversionFunction(dtFunc),
-    timeDistanceConversionFunction(tdFunc)
+    distanceTimeConversionFunction(dt_func),
+    timeDistanceConversionFunction(td_func)
 {
     // do not use the system pointer here, as it has not been initialized
     valueCache[0] = 0;

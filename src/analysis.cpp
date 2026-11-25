@@ -215,11 +215,11 @@ void System::performMeasurement(void)
     return;
 }
 
-void System::writeMeasurementsToFile(int numberToKeep)
+void System::writeMeasurementsToFile(int number_to_keep)
 {
     int i, iMax;
 
-    iMax = measurementHistory.size() - numberToKeep;
+    iMax = measurementHistory.size() - number_to_keep;
 
     // write output on files
     for (i = 0; i < iMax; i++)

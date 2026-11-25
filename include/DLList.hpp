@@ -109,23 +109,23 @@ void DLList<T, I>::removeAll()
 }
 
 template <class T, int I>
-inline T* DLList<T, I>::linkElement(T* newElement)
+inline T* DLList<T, I>::linkElement(T* new_element)
 // Inserts a new element into the linked list.
 // Insertion takes place at the back of the list for memory-traversal speed considerations.
 {
     numElements++;
-    newElement->previousElement = lastElement;
-    newElement->nextElement = nullptr;
+    new_element->previousElement = lastElement;
+    new_element->nextElement = nullptr;
     if (lastElement != nullptr)
     {
-        lastElement->nextElement = newElement;
+        lastElement->nextElement = new_element;
     }
     else // if list was empty
     {
-        firstElement = newElement;
+        firstElement = new_element;
     }
-    lastElement = newElement;
-    return newElement;
+    lastElement = new_element;
+    return new_element;
 }
 
 template <class T, int I>
@@ -197,26 +197,26 @@ inline T* DLList<T, I>::create(Q par1, R par2, S par3)
 
 template <class T, int I>
 // This functions transfers 'element' from 'oldList' to this list.
-inline void DLList<T, I>::import(DLList<T, I>& oldList, T* element)
+inline void DLList<T, I>::import(DLList<T, I>& old_list, T* element)
 {
-    oldList.unlinkElement(element);
+    old_list.unlinkElement(element);
     linkElement(element);
     return;
 }
 
 template <class T, int I>
-inline void DLList<T, I>::importSet(DLList<T, I>& oldList, T* firstElement, T* lastElement)
+inline void DLList<T, I>::importSet(DLList<T, I>& old_list, T* first_element, T* last_element)
 // This functions transfers a number of elements from 'oldList' to this list.
 // WARNING: not efficient at all!
 {
-    T* current = firstElement;
+    T* current = first_element;
     T* temp;
     while (current != nullptr)
     {
         temp = current;
         current = current->next();
-        import(oldList, temp);
-        if (temp == lastElement)
+        import(old_list, temp);
+        if (temp == last_element)
         {
             break;
         }
@@ -281,10 +281,10 @@ class DLContainerItem
     // very ugly hack, but it works [tested with G++ & icc]. For a data object with an unknown location in a known list,
     // call list->first()->containerPtr(data*); for some reason, I need to convert to void* and char*... This should
     // have been done in a better way...
-    inline DLContainerItem<T>* containerPtr(T* dPtr)
+    inline DLContainerItem<T>* containerPtr(T* d_ptr)
     {
         return static_cast<DLContainerItem<T>*>(static_cast<void*>(
-        static_cast<short*>(static_cast<void*>(dPtr))
+        static_cast<short*>(static_cast<void*>(d_ptr))
         - (static_cast<short*>(static_cast<void*>(&data)) - static_cast<short*>(static_cast<void*>(this)))));
     }
 

@@ -2,7 +2,7 @@
 #include "geometry.hpp"
 #include "system.hpp"
 
-TrajectoryVector Region::insertTrajectory(const SurfaceVector& sVec)
+TrajectoryVector Region::insertTrajectory(const SurfaceVector& s_vec)
 {
 #ifdef DBG_GEOMETRY
     cout << "DBG/GEOMETRY: Region::insertTrajectory() called\n";
@@ -10,7 +10,7 @@ TrajectoryVector Region::insertTrajectory(const SurfaceVector& sVec)
 
     TrajectoryVector tVec;
     double tLength(0.);
-    SurfaceVector newBase(sVec);
+    SurfaceVector newBase(s_vec);
 
     vector<PointATedge> endPoint;
 
@@ -119,7 +119,7 @@ double Region::opticalLength()
     return sum;
 }
 
-RegionMTTipTag Region::registerOnRegion(MTTip* pTip, TipType tiptype, MTType mttype)
+RegionMTTipTag Region::registerOnRegion(MTTip* p_tip, TipType tiptype, MTType mttype)
 {
     // update length
     updateRegionLength();
@@ -127,7 +127,7 @@ RegionMTTipTag Region::registerOnRegion(MTTip* pTip, TipType tiptype, MTType mtt
     // minus tip
     if (tiptype == T_MINUS)
     {
-        return minusTipList.insert(minusTipList.end(), pTip);
+        return minusTipList.insert(minusTipList.end(), p_tip);
     }
 
     // plus tip
@@ -137,13 +137,13 @@ RegionMTTipTag Region::registerOnRegion(MTTip* pTip, TipType tiptype, MTType mtt
         if (mttype == MT_GROWING)
         {
             geometry->system->growingTipsReg[faceTag]++;
-            return growingPlusTipList.insert(growingPlusTipList.end(), pTip);
+            return growingPlusTipList.insert(growingPlusTipList.end(), p_tip);
         }
 
         // insert shrinking MT
         else
         {
-            return shrinkingPlusTipList.insert(shrinkingPlusTipList.end(), pTip);
+            return shrinkingPlusTipList.insert(shrinkingPlusTipList.end(), p_tip);
         }
     }
 }
@@ -178,10 +178,10 @@ void Region::unregisterFromRegion(RegionMTTipTag tag, TipType tiptype, MTType mt
     return;
 }
 
-void Region::updateRegionLength(bool forceUpdate)
+void Region::updateRegionLength(bool force_update)
 {
     // can go wrong on position cache refresh, a cleaner solution required
-    if ((previousUpdateTag == geometry->system->currentTimeTag) && (!forceUpdate))
+    if ((previousUpdateTag == geometry->system->currentTimeTag) && (!force_update))
     {
         return;
     }
