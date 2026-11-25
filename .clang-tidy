@@ -45,8 +45,7 @@ Checks: >
   -modernize-use-trailing-return-type,
   -readability-identifier-length,
 
-
-HeaderFilterRegex: '^(?!(third_party|external)/).*'
+HeaderFilterRegex: 'include/[a-zA-Z0-9_-]+\.hpp$'
+ExcludeHeaderFilterRegex: 'subprojects/.*$'
 
 FormatStyle: file
-
