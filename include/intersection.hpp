@@ -18,7 +18,7 @@ class Intersection
 #endif
 };
 
-class PointATedge
+class PointAtEdge
 {
   public:
 
@@ -28,7 +28,7 @@ class PointATedge
 
     int next_element;
 
-    PointATedge(double x1, double y1, double z1, int n1)
+    PointAtEdge(double x1, double y1, double z1, int n1)
     {
         x = x1;
         y = y1;

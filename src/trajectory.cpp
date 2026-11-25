@@ -4,11 +4,11 @@
 #include "segment.hpp"
 #include "system.hpp"
 
-Trajectory::Trajectory(SurfaceVector base_vec, vector<PointATedge> end_p, double l):
+Trajectory::Trajectory(SurfaceVector base_vec, vector<PointAtEdge> end_p, double l):
     base(base_vec),
     length(l),
-    prev_tr(0, ::FORWARD, nullptr),
-    next_tr(0, ::FORWARD, nullptr),
+    prev_tr(0, Direction::FORWARD, nullptr),
+    next_tr(0, Direction::FORWARD, nullptr),
     prev_tr_cos_angle(1.0),
     next_tr_cos_angle(1.0)
 {
@@ -44,7 +44,7 @@ bool Trajectory::integrity_check()
 
     if (prev_tr.trajectory != nullptr)
     {
-        if (prev_tr.dir == BACKWARD)
+        if (prev_tr.dir == Direction::BACKWARD)
         {
             if (prev_tr.trajectory->next_tr.trajectory != this)
             {
@@ -63,7 +63,7 @@ bool Trajectory::integrity_check()
     }
     if (next_tr.trajectory != nullptr)
     {
-        if (next_tr.dir == ::FORWARD)
+        if (next_tr.dir == Direction::FORWARD)
         {
             if (next_tr.trajectory->prev_tr.trajectory != this)
             {
@@ -98,7 +98,7 @@ bool Trajectory::integrity_check()
     while (seg_itr != segments.end())
     {
         is = (**seg_itr).start_itr;
-        if ((**seg_itr).dir == ::FORWARD)
+        if ((**seg_itr).dir == Direction::FORWARD)
         {
             while (++is != (**seg_itr).end_itr)
             {
@@ -129,7 +129,7 @@ bool Trajectory::integrity_check()
     while (seg_itr != segments.end())
     {
         is = (**seg_itr).start_itr;
-        if ((**seg_itr).dir == ::FORWARD)
+        if ((**seg_itr).dir == Direction::FORWARD)
         {
             while (++is != (**seg_itr).end_itr)
             {
@@ -367,7 +367,7 @@ void Trajectory::unregister_for_notifications(TrjMTTipTag tag)
 
 TrajectoryVector Trajectory::next_trajectory(Direction dir)
 {
-    if (dir == ::FORWARD)
+    if (dir == Direction::FORWARD)
     {
         // direction forward and a next trajectory is waiting to take the tip on board
         if (next_tr.trajectory != nullptr)
