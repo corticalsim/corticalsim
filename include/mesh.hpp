@@ -95,7 +95,7 @@ void pickup_shape(Geometry*);
 
 bool check_surface_orientation(vector<Triangle3D*>&);
 
-void image3d_to2_d(vector<Region*>&, vector<Triangle3D*>&, double[]);
+void image_3d_to_2d(vector<Region*>&, vector<Triangle3D*>&, double[]);
 
 void orient_surface(vector<Vertices*>&, vector<Triangle3D*>&, vector<Triangle3D*>&);
 
@@ -114,7 +114,7 @@ void view_graph(vector<Vertices*>&, vector<Triangle3D*>&, Eigen::Vector3d&, stri
 
 bool line_plane_intersect(Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d, Eigen::Vector3d&);
 
-double area_polygon3_d(vector<Vertices>&, Eigen::Vector3d);
+double area_polygon_3d(vector<Vertices>&, Eigen::Vector3d);
 
 double intersecting_polygon(
 vector<Vertices>&, vector<Vertices>&, vector<Region*>&, vector<ElementList>&, Eigen::Vector3d, Eigen::Vector3d, string);

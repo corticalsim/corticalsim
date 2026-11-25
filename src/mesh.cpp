@@ -695,7 +695,7 @@ void pickup_shape(Geometry* g)
     }
 
     // copy 3d-triangle properties information to 2d-triangular regions
-    image3d_to2_d(g->regions, element_3d, p_cat_list);
+    image_3d_to_2d(g->regions, element_3d, p_cat_list);
 
     // 3d-triangle properties are transfered to 2d-triangular regions, so release all the memory occupied by 3d
     // triangles
@@ -1221,7 +1221,7 @@ void connect_with_globe(vector<Vertices*>& gvertex, vector<Triangle3D*>& element
     }
 }
 
-void image3d_to2_d(vector<Region*>& regions, vector<Triangle3D*>& element_3d, double p_cat_curv_list[])
+void image_3d_to_2d(vector<Region*>& regions, vector<Triangle3D*>& element_3d, double p_cat_curv_list[])
 {
     // rotate all the 3d-triangles and put them on x-y plane (normal z-axis)
     Eigen::Vector3d z;
@@ -1582,7 +1582,7 @@ Eigen::Vector3d n, Eigen::Vector3d p, Eigen::Vector3d a, Eigen::Vector3d b, Eige
     return (intersect);
 }
 
-double area_polygon3_d(vector<Vertices>& v, Eigen::Vector3d n)
+double area_polygon_3d(vector<Vertices>& v, Eigen::Vector3d n)
 {
     size_t v_size(v.size());
     v.push_back(Vertices(v[0].x, v[0].y, v[0].z));
@@ -1767,7 +1767,7 @@ double intersecting_polygon(vector<Vertices>& polygon,
         }
 
         // polygon area
-        poly_area = area_polygon3_d(polygon, np);
+        poly_area = area_polygon_3d(polygon, np);
 
         intersected_edges.clear();
         polygon_edges.clear();
