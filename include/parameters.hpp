@@ -41,66 +41,66 @@ class Parameters
 {
   public:
 
-    System* m_system;
-    double m_v_plus;
-    double m_v_min;
-    double m_v_tm;
-    double m_k_sev;
-    double m_k_cross;
-    double m_k_cat;
-    double m_k_res;
-    double m_k_nuc;
-    double m_pp_bforming_time;
-    double m_pool_density;
-    int m_treadmilling_enabled;
-    int m_severing_enabled;
-    int m_cross_severing_enabled;
-    int m_cross_severing_top;
-    double m_cross_severing_start_angle;
-    int m_ppb;
-    int m_restricted_pool;
-    int m_edge_catastrophe_enabled;
-    int m_edge_catastrophe_smooth;
-    double m_p_cat_special_edge_max;
-    double m_p_cat_regular_edge_max;
-    int m_edg_number;
-    int m_face_number;
-    map<string, double> m_edg_cat_map;
-    map<string, double> m_face_cat_map;
-    vector<double> m_region_kcat_multiplier;
-    NucleationType m_nucleation_type;
-    int m_zippering_enabled;
-    int m_catastrophes_enabled;
-    int m_proportional_catastrophes;
-    double m_induced_catastrophe_fraction;
-    double m_zip_fraction;
-    double m_pp_bk_nuc_fraction;
-    double m_cat_start_angle;
-    double m_magic_angle;
-    InteractionType m_interaction_type;
-    BundleType m_bundle_type;
-    string m_geom_param;
-    unsigned long m_seed;
-    double m_stop_time;
-    double m_measurement_interval;
-    double m_wall_clock_limit;
-    double m_memory_limit;
-    string m_input_dir;
-    string m_output_dir;
-    string m_movie_dir;
-    int m_create_subdir;
-    double m_new_parameter_read_interval;
-    string m_new_parameter_file;
-    int m_movie_enabled;
-    int m_show_output;
-    int m_show_mesh;
-    string m_geometry;
-    double m_movie_frame_interval;
-    double m_geometry_scale_factor;
+    System* system;
+    double v_plus;
+    double v_min;
+    double v_tm;
+    double k_sev;
+    double k_cross;
+    double k_cat;
+    double k_res;
+    double k_nuc;
+    double pp_bforming_time;
+    double pool_density;
+    int treadmilling_enabled;
+    int severing_enabled;
+    int cross_severing_enabled;
+    int cross_severing_top;
+    double cross_severing_start_angle;
+    int ppb;
+    int restricted_pool;
+    int edge_catastrophe_enabled;
+    int edge_catastrophe_smooth;
+    double p_cat_special_edge_max;
+    double p_cat_regular_edge_max;
+    int edg_number;
+    int face_number;
+    map<string, double> edg_cat_map;
+    map<string, double> face_cat_map;
+    vector<double> region_kcat_multiplier;
+    NucleationType nucleation_type;
+    int zippering_enabled;
+    int catastrophes_enabled;
+    int proportional_catastrophes;
+    double induced_catastrophe_fraction;
+    double zip_fraction;
+    double pp_bk_nuc_fraction;
+    double cat_start_angle;
+    double magic_angle;
+    InteractionType interaction_type;
+    BundleType bundle_type;
+    string geom_param;
+    unsigned long seed;
+    double stop_time;
+    double measurement_interval;
+    double wall_clock_limit;
+    double memory_limit;
+    string input_dir;
+    string output_dir;
+    string movie_dir;
+    int create_subdir;
+    double new_parameter_read_interval;
+    string new_parameter_file;
+    int movie_enabled;
+    int show_output;
+    int show_mesh;
+    string geometry;
+    double movie_frame_interval;
+    double geometry_scale_factor;
 
-    double m_c0calc;
-    double m_x0calc;
-    double m_z0calc;
+    double c0calc;
+    double x0calc;
+    double z0calc;
 
   public:
 
@@ -115,46 +115,46 @@ class Parameters
 
 struct OrderParameters
 {
-    double m_r, m_c;
-    double m_rdirector[3];
-    vector<double> m_local_order;
-    vector<Eigen::Vector3d> m_sv;
+    double r, c;
+    double rdirector[3];
+    vector<double> local_order;
+    vector<Eigen::Vector3d> sv;
 };
 
 class OrderParametersRaw
 {
   public:
 
-    double m_local_l;
-    double m_local_l_opt;
-    double m_qxx;
-    double m_qxy;
-    double m_qxz;
-    double m_qyy;
-    double m_qyz;
-    double m_qzz;
-    double m_local_order;
-    Eigen::Vector3d m_sv;
+    double local_l;
+    double local_l_opt;
+    double qxx;
+    double qxy;
+    double qxz;
+    double qyy;
+    double qyz;
+    double qzz;
+    double local_order;
+    Eigen::Vector3d sv;
 
     OrderParametersRaw(void)
     {
-        m_local_l = 0.;
-        m_local_l_opt = 0.;
-        m_qxx = 0;
-        m_qxy = 0;
-        m_qxz = 0;
-        m_qyy = 0;
-        m_qyz = 0;
-        m_qzz = 0;
+        local_l = 0.;
+        local_l_opt = 0.;
+        qxx = 0;
+        qxy = 0;
+        qxz = 0;
+        qyy = 0;
+        qyz = 0;
+        qzz = 0;
 
-        m_sv << 0.0, 0.0, 0.0;
+        sv << 0.0, 0.0, 0.0;
 
         return;
     }
 
     double extract_r(double director[3], string geometry)
     {
-        Eigen::Matrix3d matrix{ { m_qxx, m_qxy, m_qxz }, { m_qxy, m_qyy, m_qyz }, { m_qxz, m_qyz, m_qzz } };
+        Eigen::Matrix3d matrix{ { qxx, qxy, qxz }, { qxy, qyy, qyz }, { qxz, qyz, qzz } };
         Eigen::Matrix3d evec_mat{ Eigen::Matrix3d::Zero() };
         Eigen::Vector3d e_val{ Eigen::Vector3d::Zero() };
         double sel_eigen_val{ 0.0 };

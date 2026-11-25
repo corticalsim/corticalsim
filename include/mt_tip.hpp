@@ -8,16 +8,16 @@ class MTTip
 {
   public:
 
-    Microtubule* m_mt;
-    Trajectory* m_trajectory;
+    Microtubule* mt;
+    Trajectory* trajectory;
 
-    Direction m_dir;
-    double m_velocity;
-    EventDescriptor m_event;
-    IntersectionItr m_next_collision;
-    TrjMTTipTag m_notification_tag;
-    RegionMTTipTag m_region_tag;
-    double m_next_event_pos;
+    Direction dir;
+    double velocity;
+    EventDescriptor event;
+    IntersectionItr next_collision;
+    TrjMTTipTag notification_tag;
+    RegionMTTipTag region_tag;
+    double next_event_pos;
     MTTip(Microtubule*, TrajectoryVector, double, DeterministicQueue*, double);
     ~MTTip();
     TipType type();

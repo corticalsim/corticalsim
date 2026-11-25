@@ -9,20 +9,20 @@ class TrajectoryVector
 {
   public:
 
-    double m_pos;
-    Direction m_dir, m_cdir;
-    Trajectory* m_trajectory;
+    double pos;
+    Direction dir, cdir;
+    Trajectory* trajectory;
 
     TrajectoryVector(double p, Direction d, Trajectory* t):
-        m_pos(p),
-        m_dir(d),
-        m_trajectory(t)
+        pos(p),
+        dir(d),
+        trajectory(t)
     {
     }
 
     TrajectoryVector() {}
 
-    TrajectoryVector flipped() { return TrajectoryVector(m_pos, m_dir == ::FORWARD ? BACKWARD : ::FORWARD, m_trajectory); }
+    TrajectoryVector flipped() { return TrajectoryVector(pos, dir == ::FORWARD ? BACKWARD : ::FORWARD, trajectory); }
 };
 
 class Trajectory: public DLBaseItem<Trajectory>
@@ -34,45 +34,45 @@ class Trajectory: public DLBaseItem<Trajectory>
 
   public:
 
-    const SurfaceVector m_base;
-    const double m_length;
+    const SurfaceVector base;
+    const double length;
 
-    vector<PointATedge> m_end_point;
-    TrajectoryVector m_this_tr;
+    vector<PointATedge> end_point;
+    TrajectoryVector this_tr;
 
     // trajectoryVector of the connecting trajectory at the zero end
-    TrajectoryVector m_prev_tr;
+    TrajectoryVector prev_tr;
 
     // trajectoryVector of the connecting trajectory at the far end
-    TrajectoryVector m_next_tr;
+    TrajectoryVector next_tr;
 
     // cosine of the 3D angle with the previous trajectory (for edge
     // catastrophes)
-    double m_prev_tr_cos_angle;
+    double prev_tr_cos_angle;
 
     // cosine of the 3D angle with the next trajectory (for edge catastrophes)
-    double m_next_tr_cos_angle;
+    double next_tr_cos_angle;
 
     // regular catastrophe value at the trajectory zero end
-    double m_prev_trp_cat;
+    double prev_trp_cat;
 
     // regular catastrophe value at the trajectory far end
-    double m_next_trp_cat;
+    double next_trp_cat;
 
-    multimap<double, Intersection> m_intersections;
+    multimap<double, Intersection> intersections;
 
     // sorted list of all intersections
     IntersectionItr wall_end()
     {
         // returns an iterator to the intersection that stands for the far wall
-        return m_intersections.end();
+        return intersections.end();
     }
 
     IntersectionItr wall_begin()
     {
         // returns an iterator to the intersection that stands for the zero
         // wall
-        return m_intersections.begin();
+        return intersections.begin();
     }
 
     explicit Trajectory(SurfaceVector, vector<PointATedge>, double);
@@ -88,7 +88,7 @@ class Trajectory: public DLBaseItem<Trajectory>
     void conditional_remove();
 
     // list of pointers to associated segments
-    list<Segment*> m_segments;
+    list<Segment*> segments;
 
     // inserts a segment into the list
     TrjSegmentTag insert_segment(Segment*);
@@ -97,7 +97,7 @@ class Trajectory: public DLBaseItem<Trajectory>
     void remove_segment(TrjSegmentTag);
 
     // list of pointers to associated tips
-    list<MTTip*> m_notification_list;
+    list<MTTip*> notification_list;
 
     // insert a tip for  notifications
     TrjMTTipTag register_for_notifications(MTTip*);

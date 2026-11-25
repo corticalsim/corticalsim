@@ -11,21 +11,21 @@ class Microtubule: public DLBaseItem<Microtubule>
 {
   public:
 
-    System* const m_system;
-    MTTip m_plus;
-    MTTip m_minus;
+    System* const system;
+    MTTip plus;
+    MTTip minus;
 
     // event descriptor for events that are not directly associated to a single
     // tip (only disappearance)
-    EventDescriptor m_disappear_event;
+    EventDescriptor disappear_event;
     // type of microtubule (growing, shrinking)
-    MTType m_type;
-    double m_nucleation_time;
+    MTType type;
+    double nucleation_time;
 
     // time tag at which the positions and lengths were last updated
-    int m_previous_update_tag;
+    int previous_update_tag;
 
-    DLList<Segment> m_segments;
+    DLList<Segment> segments;
 
     Microtubule(System*, TrajectoryVector, bool = true);
     ~Microtubule();

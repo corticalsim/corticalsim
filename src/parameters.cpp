@@ -10,61 +10,61 @@ string nucleation_type_text[] = { "isotropic", "biased", "ellipse" };
 string bundle_type_text[] = { "simple", "sticky", "noZip", "multiCollision", "Ncollision" };
 
 Parameters::Parameters(System* s):
-    m_system(s),
-    m_v_plus(0.08),
-    m_v_min(-0.16),
-    m_v_tm(0.01),
-    m_k_sev(0.001),
-    m_k_cross(0.001),
-    m_k_cat(0.005),
-    m_k_res(0.007),
-    m_k_nuc(0.001),
-    m_pp_bforming_time(VERY_LARGE),
-    m_pool_density(5.0),
-    m_treadmilling_enabled(1),
-    m_severing_enabled(0),
-    m_cross_severing_enabled(0),
-    m_cross_severing_top(1),
-    m_cross_severing_start_angle(0),
-    m_ppb(0),
-    m_restricted_pool(0),
-    m_edge_catastrophe_enabled(0),
-    m_edge_catastrophe_smooth(0),
-    m_p_cat_special_edge_max(0.0),
-    m_p_cat_regular_edge_max(0.0),
-    m_edg_number(0),
-    m_face_number(0),
-    m_nucleation_type(NUC_ISOTROPIC),
-    m_zippering_enabled(1),
-    m_catastrophes_enabled(1),
-    m_proportional_catastrophes(0),
-    m_induced_catastrophe_fraction(0.5),
-    m_zip_fraction(1.0),
-    m_pp_bk_nuc_fraction(0.0),
-    m_cat_start_angle(0),
-    m_magic_angle(40),
-    m_interaction_type(INT_ZIP_FIRST),
-    m_bundle_type(BDL_SIMPLE),
-    m_geom_param("0"),
-    m_seed(time(nullptr)),
-    m_stop_time(36000),
-    m_measurement_interval(600),
-    m_wall_clock_limit(1000),
-    m_memory_limit(10000000),
-    m_input_dir("."),
-    m_output_dir("."),
-    m_create_subdir(1),
-    m_new_parameter_read_interval(VERY_LARGE),
-    m_new_parameter_file(""),
-    m_movie_enabled(0),
-    m_show_output(0),
-    m_show_mesh(0),
-    m_geometry("2D-plane_1_0_0"),
-    m_movie_frame_interval(-1),
-    m_geometry_scale_factor(15.0),
-    m_c0calc(0),
-    m_x0calc(0),
-    m_z0calc(0)
+    system(s),
+    v_plus(0.08),
+    v_min(-0.16),
+    v_tm(0.01),
+    k_sev(0.001),
+    k_cross(0.001),
+    k_cat(0.005),
+    k_res(0.007),
+    k_nuc(0.001),
+    pp_bforming_time(VERY_LARGE),
+    pool_density(5.0),
+    treadmilling_enabled(1),
+    severing_enabled(0),
+    cross_severing_enabled(0),
+    cross_severing_top(1),
+    cross_severing_start_angle(0),
+    ppb(0),
+    restricted_pool(0),
+    edge_catastrophe_enabled(0),
+    edge_catastrophe_smooth(0),
+    p_cat_special_edge_max(0.0),
+    p_cat_regular_edge_max(0.0),
+    edg_number(0),
+    face_number(0),
+    nucleation_type(NUC_ISOTROPIC),
+    zippering_enabled(1),
+    catastrophes_enabled(1),
+    proportional_catastrophes(0),
+    induced_catastrophe_fraction(0.5),
+    zip_fraction(1.0),
+    pp_bk_nuc_fraction(0.0),
+    cat_start_angle(0),
+    magic_angle(40),
+    interaction_type(INT_ZIP_FIRST),
+    bundle_type(BDL_SIMPLE),
+    geom_param("0"),
+    seed(time(nullptr)),
+    stop_time(36000),
+    measurement_interval(600),
+    wall_clock_limit(1000),
+    memory_limit(10000000),
+    input_dir("."),
+    output_dir("."),
+    create_subdir(1),
+    new_parameter_read_interval(VERY_LARGE),
+    new_parameter_file(""),
+    movie_enabled(0),
+    show_output(0),
+    show_mesh(0),
+    geometry("2D-plane_1_0_0"),
+    movie_frame_interval(-1),
+    geometry_scale_factor(15.0),
+    c0calc(0),
+    x0calc(0),
+    z0calc(0)
 {
     return;
 }
@@ -98,75 +98,75 @@ bool Parameters::reinitialize(const char* pf)
 
 bool Parameters::write_to_file()
 {
-    ofstream& of = m_system->m_parameter_file;
+    ofstream& of = system->parameter_file;
     of << "# CorticalSim parameters\r\n";
     of << "########## Input-Output path ########################\r\n";
-    of << "inputDir\t" << m_input_dir << "\r\n";
-    of << "outputDir\t" << m_output_dir << "\r\n";
-    of << "newParameterReadInterval\t" << m_new_parameter_read_interval << "\r\n";
-    of << "createSubdir\t" << m_create_subdir << "\r\n";
-    of << "newParameterFile\t" << m_new_parameter_file << "\r\n";
+    of << "inputDir\t" << input_dir << "\r\n";
+    of << "outputDir\t" << output_dir << "\r\n";
+    of << "newParameterReadInterval\t" << new_parameter_read_interval << "\r\n";
+    of << "createSubdir\t" << create_subdir << "\r\n";
+    of << "newParameterFile\t" << new_parameter_file << "\r\n";
     of << "########## Dynamic parameters ##########\r\n";
-    of << "kSev\t" << m_k_sev << "\r\n";
-    of << "kCross\t" << m_k_cross << "\r\n";
-    of << "vPlus\t" << m_v_plus << "\r\n";
-    of << "vMin\t" << m_v_min << "\r\n";
-    of << "vTM\t" << m_v_tm << "\r\n";
-    of << "kCat\t" << m_k_cat << "\r\n";
-    of << "kRes\t" << m_k_res << "\r\n";
-    of << "kNuc\t" << m_k_nuc << "\r\n";
-    of << "magic_angle\t" << m_magic_angle << "\r\n";
-    of << "poolDensity\t" << m_pool_density << "\r\n";
-    of << "nucleationType\t" << m_nucleation_type << "\r\n";
+    of << "kSev\t" << k_sev << "\r\n";
+    of << "kCross\t" << k_cross << "\r\n";
+    of << "vPlus\t" << v_plus << "\r\n";
+    of << "vMin\t" << v_min << "\r\n";
+    of << "vTM\t" << v_tm << "\r\n";
+    of << "kCat\t" << k_cat << "\r\n";
+    of << "kRes\t" << k_res << "\r\n";
+    of << "kNuc\t" << k_nuc << "\r\n";
+    of << "magic_angle\t" << magic_angle << "\r\n";
+    of << "poolDensity\t" << pool_density << "\r\n";
+    of << "nucleationType\t" << nucleation_type << "\r\n";
     of << "########## Zip-IndCat-Severing events ######\r\n";
-    of << "treadmilling\t" << m_treadmilling_enabled << "\r\n";
-    of << "ind_cat\t" << m_catastrophes_enabled << "\r\n";
-    of << "cat_start_angle\t" << m_cat_start_angle << "\r\n";
-    of << "induced_cat_fraction\t" << m_induced_catastrophe_fraction << "\r\n";
-    of << "zippering\t" << m_zippering_enabled << "\r\n";
-    of << "zipFraction\t" << m_zip_fraction << "\r\n";
-    of << "severing\t" << m_severing_enabled << "\r\n";
-    of << "crossSevering\t" << m_cross_severing_enabled << "\r\n";
-    of << "crossSeveringTop\t" << m_cross_severing_top << "\r\n";
-    of << "crossSeveringStartAngle\t" << m_cross_severing_start_angle << "\r\n";
+    of << "treadmilling\t" << treadmilling_enabled << "\r\n";
+    of << "ind_cat\t" << catastrophes_enabled << "\r\n";
+    of << "cat_start_angle\t" << cat_start_angle << "\r\n";
+    of << "induced_cat_fraction\t" << induced_catastrophe_fraction << "\r\n";
+    of << "zippering\t" << zippering_enabled << "\r\n";
+    of << "zipFraction\t" << zip_fraction << "\r\n";
+    of << "severing\t" << severing_enabled << "\r\n";
+    of << "crossSevering\t" << cross_severing_enabled << "\r\n";
+    of << "crossSeveringTop\t" << cross_severing_top << "\r\n";
+    of << "crossSeveringStartAngle\t" << cross_severing_start_angle << "\r\n";
     of << "########## Edge catastrophe specification ####\r\n";
     map<string, double>::iterator it;
     of << "########################\r\n";
-    of << "edgNumber\t" << m_edg_number << "\r\n";
-    for (it = m_edg_cat_map.begin(); it != m_edg_cat_map.end(); it++)
+    of << "edgNumber\t" << edg_number << "\r\n";
+    for (it = edg_cat_map.begin(); it != edg_cat_map.end(); it++)
     {
         of << it->first << "\t" << it->second << "\r\n";
     }
     of << "########################\r\n";
-    of << "faceNumber\t" << m_face_number << "\r\n";
-    for (it = m_face_cat_map.begin(); it != m_face_cat_map.end(); it++)
+    of << "faceNumber\t" << face_number << "\r\n";
+    for (it = face_cat_map.begin(); it != face_cat_map.end(); it++)
     {
         of << it->first << "\t" << it->second << "\r\n";
     }
     of << "########################\r\n";
-    of << "edgeCatastropheSmooth\t" << m_edge_catastrophe_smooth << "\r\n";
-    of << "edgeCatastropheEnabled\t" << m_edge_catastrophe_enabled << "\r\n";
-    of << "PPBkNucFraction\t" << m_pp_bk_nuc_fraction << "\r\n";
-    of << "proportionalCatastrophes\t" << m_proportional_catastrophes << "\r\n";
+    of << "edgeCatastropheSmooth\t" << edge_catastrophe_smooth << "\r\n";
+    of << "edgeCatastropheEnabled\t" << edge_catastrophe_enabled << "\r\n";
+    of << "PPBkNucFraction\t" << pp_bk_nuc_fraction << "\r\n";
+    of << "proportionalCatastrophes\t" << proportional_catastrophes << "\r\n";
     of << "########## specific conditions ###########\r\n";
-    of << "restrictedPool\t" << m_restricted_pool << "\r\n";
-    of << "interactionType\t" << m_interaction_type << "\r\n";
-    of << "bundleType\t" << m_bundle_type << "\r\n";
+    of << "restrictedPool\t" << restricted_pool << "\r\n";
+    of << "interactionType\t" << interaction_type << "\r\n";
+    of << "bundleType\t" << bundle_type << "\r\n";
     of << "########## Random seed and run time #####\r\n";
-    of << "memoryLimit\t" << m_memory_limit << "\r\n";
-    of << "wallClockLimit\t" << m_wall_clock_limit << "\r\n";
-    of << "stopTime\t" << m_stop_time << "\r\n";
-    of << "random_seed\t" << m_seed << "\r\n";
+    of << "memoryLimit\t" << memory_limit << "\r\n";
+    of << "wallClockLimit\t" << wall_clock_limit << "\r\n";
+    of << "stopTime\t" << stop_time << "\r\n";
+    of << "random_seed\t" << seed << "\r\n";
     of << "########## Movie select ############\r\n";
-    of << "movieEnabled\t" << m_movie_enabled << "\r\n";
-    of << "movieFrameInterval\t" << m_movie_frame_interval << "\r\n";
-    of << "measurementInterval\t" << m_measurement_interval << "\r\n";
+    of << "movieEnabled\t" << movie_enabled << "\r\n";
+    of << "movieFrameInterval\t" << movie_frame_interval << "\r\n";
+    of << "measurementInterval\t" << measurement_interval << "\r\n";
     of << "########## Display output ##########\r\n";
-    of << "showMesh\t" << m_show_mesh << "\r\n";
-    of << "showOutput\t" << m_show_output << "\r\n";
+    of << "showMesh\t" << show_mesh << "\r\n";
+    of << "showOutput\t" << show_output << "\r\n";
     of << "########## Geometry ################\r\n";
-    of << "geometryScaleFactor\t" << m_geometry_scale_factor << "\r\n";
-    of << "geometry\t" << m_geometry << "\r\n";
+    of << "geometryScaleFactor\t" << geometry_scale_factor << "\r\n";
+    of << "geometry\t" << geometry << "\r\n";
 
     return true;
 }
@@ -281,7 +281,7 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
         return false;
     }
 
-    if (m_show_output == 1)
+    if (show_output == 1)
     {
         cout << "Reading parameter file [" << pf << "]\n";
     }
@@ -306,73 +306,73 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
 
             if (initial_run)
             {
-                load_param_random(recognized, par_file, id, "random_seed", m_seed);
+                load_param_random(recognized, par_file, id, "random_seed", seed);
             }
 
-            load_param(recognized, par_file, id, "outputDir", m_output_dir);
-            load_param(recognized, par_file, id, "inputDir", m_input_dir);
-            load_param(recognized, par_file, id, "createSubdir", m_create_subdir);
-            load_param(recognized, par_file, id, "newParameterReadInterval", m_new_parameter_read_interval);
-            load_param(recognized, par_file, id, "newParameterFile", m_new_parameter_file);
-            load_param(recognized, par_file, id, "zippering", m_zippering_enabled);
-            load_param(recognized, par_file, id, "ind_cat", m_catastrophes_enabled);
-            load_param(recognized, par_file, id, "proportionalCatastrophes", m_proportional_catastrophes);
-            load_param(recognized, par_file, id, "induced_cat_fraction", m_induced_catastrophe_fraction);
-            load_param(recognized, par_file, id, "cat_start_angle", m_cat_start_angle);
-            load_param(recognized, par_file, id, "zipFraction", m_zip_fraction);
-            load_param(recognized, par_file, id, "magic_angle", m_magic_angle);
-            load_param(recognized, par_file, id, "vPlus", m_v_plus);
-            load_param(recognized, par_file, id, "vMin", m_v_min);
-            load_param(recognized, par_file, id, "vTM", m_v_tm);
-            load_param(recognized, par_file, id, "kCat", m_k_cat);
-            load_param(recognized, par_file, id, "kRes", m_k_res);
-            load_param(recognized, par_file, id, "kSev", m_k_sev);
-            load_param(recognized, par_file, id, "kCross", m_k_cross);
-            load_param(recognized, par_file, id, "poolDensity", m_pool_density);
-            load_param(recognized, par_file, id, "treadmilling", m_treadmilling_enabled);
-            load_param(recognized, par_file, id, "severing", m_severing_enabled);
-            load_param(recognized, par_file, id, "crossSevering", m_cross_severing_enabled);
-            load_param(recognized, par_file, id, "crossSeveringTop", m_cross_severing_top);
-            load_param(recognized, par_file, id, "crossSeveringStartAngle", m_cross_severing_start_angle);
-            load_param(recognized, par_file, id, "restrictedPool", m_restricted_pool);
-            load_param(recognized, par_file, id, "edgeCatastropheEnabled", m_edge_catastrophe_enabled);
-            load_param(recognized, par_file, id, "edgeCatastropheSmooth", m_edge_catastrophe_smooth);
-            load_param(recognized, par_file, id, "pCatSpecialEdgeMax", m_p_cat_special_edge_max);
-            load_param(recognized, par_file, id, "pCatRegularEdgeMax", m_p_cat_regular_edge_max);
-            load_param(recognized, par_file, id, "PPB", m_ppb);
-            load_param(recognized, par_file, id, "PPBformingTime", m_pp_bforming_time);
-            load_param(recognized, par_file, id, "kNuc", m_k_nuc);
-            load_param(recognized, par_file, id, "stopTime", m_stop_time);
-            load_param(recognized, par_file, id, "measurementInterval", m_measurement_interval);
-            load_param(recognized, par_file, id, "wallClockLimit", m_wall_clock_limit);
-            load_param(recognized, par_file, id, "memoryLimit", m_memory_limit);
-            load_param(recognized, par_file, id, "movieEnabled", m_movie_enabled);
-            load_param(recognized, par_file, id, "movieFrameInterval", m_movie_frame_interval);
-            load_param(recognized, par_file, id, "geometryScaleFactor", m_geometry_scale_factor);
+            load_param(recognized, par_file, id, "outputDir", output_dir);
+            load_param(recognized, par_file, id, "inputDir", input_dir);
+            load_param(recognized, par_file, id, "createSubdir", create_subdir);
+            load_param(recognized, par_file, id, "newParameterReadInterval", new_parameter_read_interval);
+            load_param(recognized, par_file, id, "newParameterFile", new_parameter_file);
+            load_param(recognized, par_file, id, "zippering", zippering_enabled);
+            load_param(recognized, par_file, id, "ind_cat", catastrophes_enabled);
+            load_param(recognized, par_file, id, "proportionalCatastrophes", proportional_catastrophes);
+            load_param(recognized, par_file, id, "induced_cat_fraction", induced_catastrophe_fraction);
+            load_param(recognized, par_file, id, "cat_start_angle", cat_start_angle);
+            load_param(recognized, par_file, id, "zipFraction", zip_fraction);
+            load_param(recognized, par_file, id, "magic_angle", magic_angle);
+            load_param(recognized, par_file, id, "vPlus", v_plus);
+            load_param(recognized, par_file, id, "vMin", v_min);
+            load_param(recognized, par_file, id, "vTM", v_tm);
+            load_param(recognized, par_file, id, "kCat", k_cat);
+            load_param(recognized, par_file, id, "kRes", k_res);
+            load_param(recognized, par_file, id, "kSev", k_sev);
+            load_param(recognized, par_file, id, "kCross", k_cross);
+            load_param(recognized, par_file, id, "poolDensity", pool_density);
+            load_param(recognized, par_file, id, "treadmilling", treadmilling_enabled);
+            load_param(recognized, par_file, id, "severing", severing_enabled);
+            load_param(recognized, par_file, id, "crossSevering", cross_severing_enabled);
+            load_param(recognized, par_file, id, "crossSeveringTop", cross_severing_top);
+            load_param(recognized, par_file, id, "crossSeveringStartAngle", cross_severing_start_angle);
+            load_param(recognized, par_file, id, "restrictedPool", restricted_pool);
+            load_param(recognized, par_file, id, "edgeCatastropheEnabled", edge_catastrophe_enabled);
+            load_param(recognized, par_file, id, "edgeCatastropheSmooth", edge_catastrophe_smooth);
+            load_param(recognized, par_file, id, "pCatSpecialEdgeMax", p_cat_special_edge_max);
+            load_param(recognized, par_file, id, "pCatRegularEdgeMax", p_cat_regular_edge_max);
+            load_param(recognized, par_file, id, "PPB", ppb);
+            load_param(recognized, par_file, id, "PPBformingTime", pp_bforming_time);
+            load_param(recognized, par_file, id, "kNuc", k_nuc);
+            load_param(recognized, par_file, id, "stopTime", stop_time);
+            load_param(recognized, par_file, id, "measurementInterval", measurement_interval);
+            load_param(recognized, par_file, id, "wallClockLimit", wall_clock_limit);
+            load_param(recognized, par_file, id, "memoryLimit", memory_limit);
+            load_param(recognized, par_file, id, "movieEnabled", movie_enabled);
+            load_param(recognized, par_file, id, "movieFrameInterval", movie_frame_interval);
+            load_param(recognized, par_file, id, "geometryScaleFactor", geometry_scale_factor);
             load_param_enum_text<NucleationType>(
-            recognized, par_file, id, "nucleationType", m_nucleation_type, nucleation_type_text, NUC_COUNT_LAST);
+            recognized, par_file, id, "nucleationType", nucleation_type, nucleation_type_text, NUC_COUNT_LAST);
             load_param_enum_text<InteractionType>(
-            recognized, par_file, id, "interactionType", m_interaction_type, interaction_type_text, INT_COUNT_LAST);
+            recognized, par_file, id, "interactionType", interaction_type, interaction_type_text, INT_COUNT_LAST);
             load_param_enum_text<BundleType>(
-            recognized, par_file, id, "bundleType", m_bundle_type, bundle_type_text, BDL_COUNT_LAST);
-            load_param(recognized, par_file, id, "showOutput", m_show_output);
-            load_param(recognized, par_file, id, "showMesh", m_show_mesh);
-            load_param(recognized, par_file, id, "geometry", m_geometry);
-            load_param(recognized, par_file, id, "edgNumber", m_edg_number);
+            recognized, par_file, id, "bundleType", bundle_type, bundle_type_text, BDL_COUNT_LAST);
+            load_param(recognized, par_file, id, "showOutput", show_output);
+            load_param(recognized, par_file, id, "showMesh", show_mesh);
+            load_param(recognized, par_file, id, "geometry", geometry);
+            load_param(recognized, par_file, id, "edgNumber", edg_number);
 
-            for (int edg = 1; edg <= m_edg_number; edg++)
+            for (int edg = 1; edg <= edg_number; edg++)
             {
                 double edg_cat_val;
                 string edg_cat_type{"edgCat_" + std::to_string(edg)};
-                load_param_maps(recognized, par_file, id, edg_cat_type.c_str(), edg_cat_val, m_edg_cat_map);
+                load_param_maps(recognized, par_file, id, edg_cat_type.c_str(), edg_cat_val, edg_cat_map);
             }
 
-            load_param(recognized, par_file, id, "faceNumber", m_face_number);
-            for (int face = 1; face <= m_face_number; face++)
+            load_param(recognized, par_file, id, "faceNumber", face_number);
+            for (int face = 1; face <= face_number; face++)
             {
                 double face_cat_val;
                 string face_cat_type{"faceCat_" + std::to_string(face)};
-                load_param_maps(recognized, par_file, id, face_cat_type.c_str(), face_cat_val, m_face_cat_map);
+                load_param_maps(recognized, par_file, id, face_cat_type.c_str(), face_cat_val, face_cat_map);
             }
             if (!recognized)
             {
@@ -382,7 +382,7 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
         }
     }
 
-    if (m_show_output == 1)
+    if (show_output == 1)
     {
         cout << "Finished loading parameters.\n";
     }
@@ -393,12 +393,12 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
 void Parameters::verify_parameters()
 {
     // adjust the parameter values in accordance with the swith (on/off) values
-    m_v_tm *= m_treadmilling_enabled;
-    m_k_sev *= m_severing_enabled;
-    m_k_cross *= m_cross_severing_enabled;
+    v_tm *= treadmilling_enabled;
+    k_sev *= severing_enabled;
+    k_cross *= cross_severing_enabled;
 
     // treadmilling speed is not allowed to exceed the plus-end velocity
-    if (m_v_tm >= m_v_plus)
+    if (v_tm >= v_plus)
     {
         cerr
         << "ERROR: treadmilling velocity larger than growth velocity. Microtubule growth is not possible. Exiting.\n";
@@ -406,7 +406,7 @@ void Parameters::verify_parameters()
     }
 
     // minus-end velocity is not allowed to exceed the plus-end velocity
-    if (m_v_min >= m_v_plus)
+    if (v_min >= v_plus)
     {
         cerr << "ERROR: Shrinking microtubules overtake growing microtubules. This will lead to queueing problems. "
                 "Exiting.\n";
@@ -414,35 +414,35 @@ void Parameters::verify_parameters()
     }
 
     // only minus-end velocity is allowed to be negative
-    if ((m_v_plus <= 0) || (m_v_tm < 0) || (m_k_cat < 0) || (m_k_res < 0) || (m_k_nuc < 0) || (m_k_sev < 0) || (m_k_cross < 0)
-        || (m_pool_density < 0))
+    if ((v_plus <= 0) || (v_tm < 0) || (k_cat < 0) || (k_res < 0) || (k_nuc < 0) || (k_sev < 0) || (k_cross < 0)
+        || (pool_density < 0))
     {
         cerr << "Only vMin is allowed to be negative. Exiting to avoid nonsensical results.\n";
         exit(-1);
     }
 
     // if there is a finite tubulin pool, check the validity of poolDensity
-    if (m_restricted_pool != 0)
+    if (restricted_pool != 0)
     {
-        if ((m_pool_density <= 0) || (m_pool_density > VERY_LARGE))
+        if ((pool_density <= 0) || (pool_density > VERY_LARGE))
         {
-            cerr << "ERROR [finite tubulin pool]: maximum density is out of range (0 : VERY_LARGE) :" << m_pool_density
+            cerr << "ERROR [finite tubulin pool]: maximum density is out of range (0 : VERY_LARGE) :" << pool_density
                  << "\n";
             exit(-1);
         }
     }
 
     // it is not possible to create movie without valid movie-interval
-    if (m_movie_enabled)
+    if (movie_enabled)
     {
-        if (m_movie_frame_interval < ZERO_CUTOFF)
+        if (movie_frame_interval < ZERO_CUTOFF)
         {
             cerr << "ERROR: movie recording cannot be enabled without specifying 'movieFrameInterval'\n";
             exit(-1);
         }
     }
 
-    switch (m_nucleation_type)
+    switch (nucleation_type)
     {
             // isotropic nucleation need no conditional check
         case NUC_ISOTROPIC:
@@ -454,7 +454,7 @@ void Parameters::verify_parameters()
             break;
     }
 
-    switch (m_interaction_type)
+    switch (interaction_type)
     {
         // catastrophe first, need no further conditional check
         case INT_CAT_FIRST:
@@ -464,15 +464,15 @@ void Parameters::verify_parameters()
         case INT_ZIP_FIRST:
 
             // zippering fraction must be in the range: (0.0 - 1.0)
-            if (m_zippering_enabled)
+            if (zippering_enabled)
             {
-                if (m_zip_fraction < 0.)
+                if (zip_fraction < 0.)
                 {
-                    m_zip_fraction = 0.;
+                    zip_fraction = 0.;
                 }
-                if (m_zip_fraction > 1.)
+                if (zip_fraction > 1.)
                 {
-                    m_zip_fraction = 1.;
+                    zip_fraction = 1.;
                 }
             }
             break;
@@ -487,98 +487,98 @@ void Parameters::verify_parameters()
 bool Parameters::calc_theory_parameters(void)
 {
     // convert the angle values from degrees to radians
-    double ma_rad = m_magic_angle * PI / 180.0;
-    double cs_rad = m_cat_start_angle * PI / 180.0;
+    double ma_rad = magic_angle * PI / 180.0;
+    double cs_rad = cat_start_angle * PI / 180.0;
 
-    switch (m_interaction_type)
+    switch (interaction_type)
     {
         // zippering first is requested
         case INT_ZIP_FIRST:
 
             // fzippering is enabled
-            if (m_zippering_enabled)
+            if (zippering_enabled)
             {
-                m_z0calc = (4. / PI) * (1. - cos(ma_rad)) * m_zip_fraction;
+                z0calc = (4. / PI) * (1. - cos(ma_rad)) * zip_fraction;
             }
 
             // zippering is disabled
             else
             {
-                m_z0calc = 0;
+                z0calc = 0;
             }
 
             // catastrophe is enabled
-            if (m_catastrophes_enabled)
+            if (catastrophes_enabled)
             {
                 // proportional catastrophe is enabled
-                if (m_proportional_catastrophes)
+                if (proportional_catastrophes)
                 {
                     // magic angle > catastrophe start angle
-                    if (m_magic_angle > m_cat_start_angle)
+                    if (magic_angle > cat_start_angle)
                     {
-                        m_c0calc = (4.0 / PI) * 2.0 * m_induced_catastrophe_fraction
+                        c0calc = (4.0 / PI) * 2.0 * induced_catastrophe_fraction
                                  * (1. - sin(ma_rad) + (ma_rad - cs_rad) * cos(ma_rad)) / (PI - 2. * cs_rad);
                     }
 
                     // magic angle <= catastrophe start angle
                     else
                     {
-                        m_c0calc
-                        = (4.0 / PI) * 2.0 * m_induced_catastrophe_fraction * (1.0 - sin(cs_rad)) / (PI - 2.0 * cs_rad);
+                        c0calc
+                        = (4.0 / PI) * 2.0 * induced_catastrophe_fraction * (1.0 - sin(cs_rad)) / (PI - 2.0 * cs_rad);
                     }
                 }
 
                 // proportional catastrophe is disabled
                 else
                 {
-                    m_c0calc = (4.0 / PI) * m_induced_catastrophe_fraction * cos(max(ma_rad, cs_rad));
+                    c0calc = (4.0 / PI) * induced_catastrophe_fraction * cos(max(ma_rad, cs_rad));
                 }
             }
 
             // catastrophe is disabled
             else
             {
-                m_c0calc = 0;
+                c0calc = 0;
             }
 
             // calculate x0, using the values of c0 and/or z0
-            m_x0calc = (4.0 / PI) - m_z0calc - m_c0calc;
+            x0calc = (4.0 / PI) - z0calc - c0calc;
             break;
 
         // catastrophe first is requested
         case INT_CAT_FIRST:
 
             // catastrophe is enabled
-            if (m_catastrophes_enabled)
+            if (catastrophes_enabled)
             {
                 // proportional catastrophe is enabled
-                if (m_proportional_catastrophes)
+                if (proportional_catastrophes)
                 {
                     double temp = max(0., cs_rad);
-                    m_c0calc = (4.0 / PI) * 2.0 * m_induced_catastrophe_fraction
+                    c0calc = (4.0 / PI) * 2.0 * induced_catastrophe_fraction
                              * (1.0 - sin(temp) + (temp - cs_rad) * cos(temp)) / (PI - 2.0 * cs_rad);
                 }
 
                 // proportional catastrophe is disabled
                 else
                 {
-                    m_c0calc = (4.0 / PI) * m_induced_catastrophe_fraction * cos(max(cs_rad, 0.));
+                    c0calc = (4.0 / PI) * induced_catastrophe_fraction * cos(max(cs_rad, 0.));
                 }
             }
 
             // zippering is enabled
-            if (m_zippering_enabled)
+            if (zippering_enabled)
             {
-                m_z0calc = (4.0 / PI) * (1.0 - cos(ma_rad));
+                z0calc = (4.0 / PI) * (1.0 - cos(ma_rad));
 
                 // catastrophe is enabled and  (magic angle > catastrophe start angle)
-                if (m_catastrophes_enabled && (cs_rad < ma_rad))
+                if (catastrophes_enabled && (cs_rad < ma_rad))
                 {
                     // proportional catastrophe is enabled
-                    if (m_proportional_catastrophes)
+                    if (proportional_catastrophes)
                     {
                         double left_boundary = max(0., cs_rad);
-                        m_z0calc -= (4.0 / PI) * 2.0 * m_induced_catastrophe_fraction
+                        z0calc -= (4.0 / PI) * 2.0 * induced_catastrophe_fraction
                                   * ((left_boundary - cs_rad) * cos(left_boundary) - (ma_rad - cs_rad) * cos(ma_rad)
                                      - sin(left_boundary) + sin(ma_rad))
                                   / (PI - 2.0 * cs_rad);
@@ -587,7 +587,7 @@ bool Parameters::calc_theory_parameters(void)
                     // proportional catastrophe is disabled
                     else
                     {
-                        m_z0calc -= (4.0 / PI) * m_induced_catastrophe_fraction * (cos(cs_rad) - cos(ma_rad));
+                        z0calc -= (4.0 / PI) * induced_catastrophe_fraction * (cos(cs_rad) - cos(ma_rad));
                     }
                 }
             }
@@ -595,24 +595,24 @@ bool Parameters::calc_theory_parameters(void)
             // zippering is disabled
             else
             {
-                m_z0calc = 0;
+                z0calc = 0;
             }
 
             // calculate x0, using the values of c0 and/or z0
-            m_x0calc = (4.0 / PI) - m_z0calc - m_c0calc;
+            x0calc = (4.0 / PI) - z0calc - c0calc;
             break;
 
         default:
-            cerr << "no function to calculate z0, c0, x0 etc. (interactionType = " << m_interaction_type << ")\n";
+            cerr << "no function to calculate z0, c0, x0 etc. (interactionType = " << interaction_type << ")\n";
             return false;
     }
 
     // theoretial value of G
-    double l0 = pow((2.0 * (-m_v_min + m_v_tm) * (m_v_plus - m_v_tm) * (m_v_plus - m_v_tm)) / (m_k_nuc * m_v_plus * (-m_v_min + m_v_plus)), 1. / 3.);
-    double lavg_inv = m_k_res / (-m_v_min + m_v_tm) - m_k_cat / (m_v_plus - m_v_tm);
+    double l0 = pow((2.0 * (-v_min + v_tm) * (v_plus - v_tm) * (v_plus - v_tm)) / (k_nuc * v_plus * (-v_min + v_plus)), 1. / 3.);
+    double lavg_inv = k_res / (-v_min + v_tm) - k_cat / (v_plus - v_tm);
     double g_0 = l0 * lavg_inv;
 
-    if (m_show_output == 1)
+    if (show_output == 1)
     {
         cout << "===============================================" << endl;
         cout << " Calculated theory parameters" << endl;

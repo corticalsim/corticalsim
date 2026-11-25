@@ -5,7 +5,7 @@
 double Microtubule::length()
 {
     double temp = 0.0;
-    Segment* seg = m_segments.first();
+    Segment* seg = segments.first();
 
     // calculate total length of a MT
     while (seg != nullptr)
@@ -19,7 +19,7 @@ double Microtubule::length()
 void Microtubule::update_length(bool force_update)
 {
     // can go wrong on position cache refresh, so need a better solution
-    if ((m_previous_update_tag == m_system->m_current_time_tag) && (!force_update))
+    if ((previous_update_tag == system->current_time_tag) && (!force_update))
     {
         return;
     }
@@ -40,12 +40,12 @@ void Microtubule::update_length(bool force_update)
 #endif
 
     // move the position of the active (first and last) segment end
-    m_segments.last()->m_end
-    += m_plus.m_event.m_queue->progression(m_previous_update_tag) * static_cast<double>(m_plus.m_dir) * m_plus.m_velocity;
-    m_segments.first()->m_start
-    += m_minus.m_event.m_queue->progression(m_previous_update_tag) * static_cast<double>(m_minus.m_dir) * m_minus.m_velocity;
+    segments.last()->end
+    += plus.event.queue->progression(previous_update_tag) * static_cast<double>(plus.dir) * plus.velocity;
+    segments.first()->start
+    += minus.event.queue->progression(previous_update_tag) * static_cast<double>(minus.dir) * minus.velocity;
 
-    m_previous_update_tag = m_system->m_current_time_tag;
+    previous_update_tag = system->current_time_tag;
 
 #ifdef DBG_ACID_TEST
     if (segments.size() == 1)
@@ -66,15 +66,15 @@ void Microtubule::update_length(bool force_update)
 }
 
 Microtubule::Microtubule(System* s, TrajectoryVector tv, bool initialize):
-    m_system(s),
-    m_plus(this, tv, s->m_p.m_v_plus, &(s->m_v_plus_queue), s->m_p.m_v_plus),
+    system(s),
+    plus(this, tv, s->p.v_plus, &(s->v_plus_queue), s->p.v_plus),
 
     // reverse direction
-    m_minus(this, tv.flipped(), -s->m_p.m_v_tm, &(s->m_time_queue), -s->m_p.m_v_tm),
-    m_disappear_event(this, &(s->m_time_queue), -s->m_p.m_v_min + s->m_p.m_v_tm),
-    m_type(MT_GROWING),
-    m_nucleation_time(s->m_system_time + s->m_system_time_offset),
-    m_previous_update_tag(s->m_current_time_tag)
+    minus(this, tv.flipped(), -s->p.v_tm, &(s->time_queue), -s->p.v_tm),
+    disappear_event(this, &(s->time_queue), -s->p.v_min + s->p.v_tm),
+    type(MT_GROWING),
+    nucleation_time(s->system_time + s->system_time_offset),
+    previous_update_tag(s->current_time_tag)
 {
 #ifdef DBG_MTS
     cout << "DBG/MTS: Microtubule created.\n";
@@ -83,13 +83,13 @@ Microtubule::Microtubule(System* s, TrajectoryVector tv, bool initialize):
     if (initialize)
     {
         // create a single segment MT
-        m_segments.create(this, tv);
+        segments.create(this, tv);
 
         // intialize the plus tip of MT
-        m_plus.initialize();
+        plus.initialize();
 
         // initialize the minus tip of MT
-        m_minus.initialize();
+        minus.initialize();
 
         // microtubule is disappearing (segment length finishing)
         set_disappear_event();
@@ -112,8 +112,8 @@ Microtubule::~Microtubule()
 #endif
 
     // un-linking the MT from the trajectory(ies)
-    m_plus.unlink_from_trajectory();
-    m_minus.unlink_from_trajectory();
+    plus.unlink_from_trajectory();
+    minus.unlink_from_trajectory();
 
     return;
 }
@@ -121,15 +121,15 @@ Microtubule::~Microtubule()
 void Microtubule::set_disappear_event()
 {
     // push to disappear event: (plus.velocity - minus.velocity < 0)
-    if ((m_segments.size() == 1) && (m_type == MT_SHRINKING))
+    if ((segments.size() == 1) && (type == MT_SHRINKING))
     {
-        m_disappear_event.push_on_queue(m_segments.first()->length(), EV_DISAPPEAR);
+        disappear_event.push_on_queue(segments.first()->length(), EV_DISAPPEAR);
     }
 
     // flush disappear event queue
     else
     {
-        m_disappear_event.clear();
+        disappear_event.clear();
     }
     return;
 }
@@ -147,7 +147,7 @@ void Microtubule::handle_event(const EventDescriptor* ei)
     }
 #endif
 
-    switch (ei->m_type)
+    switch (ei->type)
     {
         // wall collision event encountered
         case EV_WALL:
@@ -161,25 +161,25 @@ void Microtubule::handle_event(const EventDescriptor* ei)
 
         // back track event encountered
         case EV_BACKTRACK:
-            if (ei == &(m_plus.m_event))
+            if (ei == &(plus.event))
             {
-                backtrack(&m_plus);
+                backtrack(&plus);
             }
             else
             {
-                backtrack(&m_minus);
+                backtrack(&minus);
             }
             break;
 
             // end of segment event encountered
         case EV_END_OF_SEGMENT:
-            if (ei == &(m_plus.m_event))
+            if (ei == &(plus.event))
             {
-                end_of_segment(&m_plus);
+                end_of_segment(&plus);
             }
             else
             {
-                end_of_segment(&m_minus);
+                end_of_segment(&minus);
             }
             break;
 
@@ -221,31 +221,31 @@ void Microtubule::catastrophe()
     update_length();
 
     // growing MT will become shrinking MT, hence unregister the tip from growing-plus-tip list of this region
-    m_plus.m_trajectory->m_base.m_region->unregister_from_region(m_plus.m_region_tag, T_PLUS, MT_GROWING);
+    plus.trajectory->base.region->unregister_from_region(plus.region_tag, T_PLUS, MT_GROWING);
 
     // now, this is shrinking MT
-    m_type = MT_SHRINKING;
+    type = MT_SHRINKING;
 
     // growing MT will become shrinking MT, hence register the tip on shrinking-plus-tip list of this region
-    m_plus.m_region_tag = m_plus.m_trajectory->m_base.m_region->register_on_region(&m_plus, T_PLUS, MT_SHRINKING);
+    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, T_PLUS, MT_SHRINKING);
 
     // replace plus velocity by minus velocity
-    m_plus.m_velocity = m_system->m_p.m_v_min;
+    plus.velocity = system->p.v_min;
 
     //
-    m_plus.m_event.reinitialize(&(m_system->m_time_queue), m_system->m_p.m_v_min);
+    plus.event.reinitialize(&(system->time_queue), system->p.v_min);
 
     // import the growing MT as shrinking MT
-    m_system->m_shrinking_mts.import(m_system->m_growing_mts, this);
+    system->shrinking_mts.import(system->growing_mts, this);
 
-    if (m_system->m_p.m_v_min < 0)
+    if (system->p.v_min < 0)
     {
         // velocity has changed sign, select a new event
-        m_plus.advance_intersection();
+        plus.advance_intersection();
     }
 
     // schedule next event, (if this is triggered by a collision, and vMin > 0, increase occupancy)
-    m_plus.determine_event();
+    plus.determine_event();
 
     // check possibility of a disappear event
     set_disappear_event();
@@ -270,30 +270,30 @@ void Microtubule::rescue()
     update_length();
 
     // shrinking MT will become growing  MT, hence unregister the tip from shrinking-plus-tip list of this region
-    m_plus.m_trajectory->m_base.m_region->unregister_from_region(m_plus.m_region_tag, T_PLUS, MT_SHRINKING);
+    plus.trajectory->base.region->unregister_from_region(plus.region_tag, T_PLUS, MT_SHRINKING);
 
     // now, this is growing MT
-    m_type = MT_GROWING;
+    type = MT_GROWING;
 
     // shrinking MT will become growing MT, hence register the tip on growing-plus-tip list of this region
-    m_plus.m_region_tag = m_plus.m_trajectory->m_base.m_region->register_on_region(&m_plus, T_PLUS, MT_GROWING);
+    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, T_PLUS, MT_GROWING);
 
     // replace minue velocity by plus velocity
-    m_plus.m_velocity = m_system->m_p.m_v_plus;
+    plus.velocity = system->p.v_plus;
 
-    m_plus.m_event.reinitialize(&(m_system->m_v_plus_queue), m_system->m_p.m_v_plus);
+    plus.event.reinitialize(&(system->v_plus_queue), system->p.v_plus);
 
     // import the shrinking MT as growing MT
-    m_system->m_growing_mts.import(m_system->m_shrinking_mts, this);
+    system->growing_mts.import(system->shrinking_mts, this);
 
-    if (m_system->m_p.m_v_min < 0)
+    if (system->p.v_min < 0)
     {
         // velocity has changed sign, need to select a new event
-        m_plus.advance_intersection();
+        plus.advance_intersection();
     }
 
     // schedule next event
-    m_plus.determine_event();
+    plus.determine_event();
 
     // check possibility of a disappear event
     set_disappear_event();
@@ -304,8 +304,8 @@ void Microtubule::rescue()
 void Microtubule::sever(Segment* cut_seg, double cut_pos)
 {
     // sever MT at given position
-    split_segment_at_traj_pos(cut_seg->m_start + static_cast<double>(cut_seg->m_dir) * cut_pos, cut_seg);
-    m_system->m_total_length_severing_count++;
+    split_segment_at_traj_pos(cut_seg->start + static_cast<double>(cut_seg->dir) * cut_pos, cut_seg);
+    system->total_length_severing_count++;
     return;
 }
 
@@ -318,7 +318,7 @@ void Microtubule::sever_at_cross(IntersectionItr is, Segment* cut_seg)
     // this time, cutPos and cutSeg are already known.
     double split_pos(is->first);
     // shift the cut ever so slightly away from the intersection, in the direction of the plus end.
-    if (cut_seg->m_dir == ::FORWARD)
+    if (cut_seg->dir == ::FORWARD)
     {
         split_pos += ZERO_CUTOFF;
     }
@@ -328,10 +328,10 @@ void Microtubule::sever_at_cross(IntersectionItr is, Segment* cut_seg)
     }
 
     // only cut if the severing position is comfortably located within the segment interval
-    if ((cut_seg->m_start - split_pos) * (cut_seg->m_end - split_pos) < ZERO_CUTOFF)
+    if ((cut_seg->start - split_pos) * (cut_seg->end - split_pos) < ZERO_CUTOFF)
     {
         split_segment_at_traj_pos(split_pos, cut_seg);
-        m_system->m_total_intersection_severing_count++;
+        system->total_intersection_severing_count++;
     }
     return;
 }
@@ -342,86 +342,86 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
     Microtubule* new_mt(nullptr);
     TrajectoryVector tv;
 
-    tv.m_trajectory = cut_seg->m_trajectory;
-    tv.m_dir = cut_seg->m_dir;
-    tv.m_pos = cut_pos;
-    if (m_type == MT_GROWING)
+    tv.trajectory = cut_seg->trajectory;
+    tv.dir = cut_seg->dir;
+    tv.pos = cut_pos;
+    if (type == MT_GROWING)
     {
-        new_mt = m_system->m_growing_mts.create(m_system, tv, false);
+        new_mt = system->growing_mts.create(system, tv, false);
     }
     else
     {
-        new_mt = m_system->m_shrinking_mts.create(m_system, tv, false);
+        new_mt = system->shrinking_mts.create(system, tv, false);
     }
 
-    new_mt->m_nucleation_time = m_nucleation_time;
-    new_mt->m_type = m_type;
+    new_mt->nucleation_time = nucleation_time;
+    new_mt->type = type;
 
     // transfer segments
-    new_mt->m_segments.create(new_mt, tv);
-    new_mt->m_segments.first()->m_end = cut_seg->m_end;
-    new_mt->m_segments.first()->m_end_itr = cut_seg->m_end_itr;
-    new_mt->m_segments.first()->m_nucleation_time = cut_seg->m_nucleation_time;
-    new_mt->m_segments.import_set(m_segments, cut_seg->next(), m_segments.last());
-    Segment* temp_seg = new_mt->m_segments.first()->next();
+    new_mt->segments.create(new_mt, tv);
+    new_mt->segments.first()->end = cut_seg->end;
+    new_mt->segments.first()->end_itr = cut_seg->end_itr;
+    new_mt->segments.first()->nucleation_time = cut_seg->nucleation_time;
+    new_mt->segments.import_set(segments, cut_seg->next(), segments.last());
+    Segment* temp_seg = new_mt->segments.first()->next();
     while (temp_seg != nullptr)
     {
-        temp_seg->m_mt = new_mt;
+        temp_seg->mt = new_mt;
         temp_seg = temp_seg->next();
     }
 
     // now update the plus tip trajectory/position
-    new_mt->m_plus.m_trajectory = m_plus.m_trajectory;
-    new_mt->m_plus.m_velocity = m_plus.m_velocity;
-    new_mt->m_plus.m_event.reinitialize(m_plus.m_event.m_queue, m_plus.m_velocity);
-    new_mt->m_plus.m_dir = m_plus.m_dir;
-    new_mt->m_plus.m_next_collision = m_plus.m_next_collision;
-    new_mt->m_plus.m_notification_tag = new_mt->m_plus.m_trajectory->register_for_notifications(&(new_mt->m_plus));
-    new_mt->m_plus.m_region_tag = new_mt->m_plus.m_trajectory->m_base.m_region->register_on_region(&(new_mt->m_plus), T_PLUS, m_type);
+    new_mt->plus.trajectory = plus.trajectory;
+    new_mt->plus.velocity = plus.velocity;
+    new_mt->plus.event.reinitialize(plus.event.queue, plus.velocity);
+    new_mt->plus.dir = plus.dir;
+    new_mt->plus.next_collision = plus.next_collision;
+    new_mt->plus.notification_tag = new_mt->plus.trajectory->register_for_notifications(&(new_mt->plus));
+    new_mt->plus.region_tag = new_mt->plus.trajectory->base.region->register_on_region(&(new_mt->plus), T_PLUS, type);
 
     // next, update the minus end of the new MT
-    new_mt->m_segments.first()->m_start = tv.m_pos;
-    new_mt->m_minus.m_notification_tag = new_mt->m_minus.m_trajectory->register_for_notifications(&(new_mt->m_minus));
-    new_mt->m_minus.m_region_tag = new_mt->m_minus.m_trajectory->m_base.m_region->register_on_region(&(new_mt->m_minus), T_MINUS, m_type);
-    new_mt->m_minus.locate_intersection();
+    new_mt->segments.first()->start = tv.pos;
+    new_mt->minus.notification_tag = new_mt->minus.trajectory->register_for_notifications(&(new_mt->minus));
+    new_mt->minus.region_tag = new_mt->minus.trajectory->base.region->register_on_region(&(new_mt->minus), T_MINUS, type);
+    new_mt->minus.locate_intersection();
 
-    new_mt->m_plus.determine_event();
-    new_mt->m_minus.determine_event();
+    new_mt->plus.determine_event();
+    new_mt->minus.determine_event();
     new_mt->set_disappear_event();
 
     // now, finish up the base microtubule
-    m_segments.last()->m_end = cut_pos;
+    segments.last()->end = cut_pos;
 
     // always unregister from region (just to be sure)
-    m_plus.m_trajectory->m_base.m_region->unregister_from_region(m_plus.m_region_tag, T_PLUS, m_type);
-    if (m_type == MT_GROWING)
+    plus.trajectory->base.region->unregister_from_region(plus.region_tag, T_PLUS, type);
+    if (type == MT_GROWING)
     {
-        m_type = MT_SHRINKING;
-        m_plus.m_velocity = m_system->m_p.m_v_min;
-        m_plus.m_event.reinitialize(&(m_system->m_time_queue), m_system->m_p.m_v_min);
-        m_system->m_shrinking_mts.import(m_system->m_growing_mts, this);
+        type = MT_SHRINKING;
+        plus.velocity = system->p.v_min;
+        plus.event.reinitialize(&(system->time_queue), system->p.v_min);
+        system->shrinking_mts.import(system->growing_mts, this);
     }
 
-    if (m_plus.m_trajectory != tv.m_trajectory)
+    if (plus.trajectory != tv.trajectory)
     {
-        m_plus.m_trajectory->unregister_for_notifications(m_plus.m_notification_tag);
-        m_plus.m_trajectory = tv.m_trajectory;
-        m_plus.m_notification_tag = m_plus.m_trajectory->register_for_notifications(&(m_plus));
+        plus.trajectory->unregister_for_notifications(plus.notification_tag);
+        plus.trajectory = tv.trajectory;
+        plus.notification_tag = plus.trajectory->register_for_notifications(&(plus));
     }
     //...and register on region again
-    m_plus.m_region_tag = m_plus.m_trajectory->m_base.m_region->register_on_region(&m_plus, T_PLUS, MT_SHRINKING);
-    m_plus.m_dir = tv.m_dir;
-    m_plus.m_next_collision = new_mt->m_minus.m_next_collision;
-    if (m_system->m_p.m_v_min * new_mt->m_minus.m_velocity >= 0)
+    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, T_PLUS, MT_SHRINKING);
+    plus.dir = tv.dir;
+    plus.next_collision = new_mt->minus.next_collision;
+    if (system->p.v_min * new_mt->minus.velocity >= 0)
     {
         // both tips move in opposite directions [this should generally be the case]
-        m_plus.advance_intersection();
+        plus.advance_intersection();
     }
 
-    m_plus.determine_event();
-    if (m_segments.size() == 1)
+    plus.determine_event();
+    if (segments.size() == 1)
     {
-        m_minus.determine_event();
+        minus.determine_event();
     }
     set_disappear_event();
 
@@ -430,7 +430,7 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
 
 void Microtubule::translate_position_m_t2_segment(double& cut_pos, Segment*& cut_seg)
 {
-    cut_seg = m_segments.first();
+    cut_seg = segments.first();
     while ((cut_seg != nullptr) && (cut_pos > cut_seg->length()))
     {
         cut_pos -= cut_seg->length();
@@ -448,7 +448,7 @@ void Microtubule::translate_position_m_t2_segment(double& cut_pos, Segment*& cut
             exit(-1);
         }
     }
-    cut_pos = cut_seg->m_start + static_cast<double>(cut_seg->m_dir) * cut_pos;
+    cut_pos = cut_seg->start + static_cast<double>(cut_seg->dir) * cut_pos;
     return;
 }
 
@@ -459,13 +459,13 @@ void Microtubule::wall()
     TrajectoryVector tv;
 
     // set position of the plus end equal to the event position, to mitigate the effect of cumulating addition errors
-    m_segments.last()->m_end = m_plus.m_next_event_pos;
-    tv = m_plus.m_trajectory->next_trajectory(m_plus.m_dir);
+    segments.last()->end = plus.next_event_pos;
+    tv = plus.trajectory->next_trajectory(plus.dir);
 
     // next trajectory on 'forbidden zone', leads catastrophe
-    if (tv.m_trajectory->m_base.m_region->m_face_tag == -1)
+    if (tv.trajectory->base.region->face_tag == -1)
     {
-        tv.m_trajectory->conditional_remove();
+        tv.trajectory->conditional_remove();
         catastrophe();
 
         // no wall crossing
@@ -473,9 +473,9 @@ void Microtubule::wall()
     }
 
     // edge catastrophe enabled
-    if (m_system->m_p.m_edge_catastrophe_enabled)
+    if (system->p.edge_catastrophe_enabled)
     {
-        double cos_angle = (m_plus.m_dir == ::FORWARD) ? m_plus.m_trajectory->m_next_tr_cos_angle : m_plus.m_trajectory->m_prev_tr_cos_angle;
+        double cos_angle = (plus.dir == ::FORWARD) ? plus.trajectory->next_tr_cos_angle : plus.trajectory->prev_tr_cos_angle;
 
         // MT is moving non-parallel to the edege
         if ((1.0 - cos_angle) > ZERO_CUTOFF)
@@ -483,18 +483,18 @@ void Microtubule::wall()
             double p_cat(0.0);
 
             // for sharp edged cube
-            if (m_system->m_p.m_geometry == "cubeReal")
+            if (system->p.geometry == "cubeReal")
             {
-                if (abs(m_plus.m_trajectory->m_base.m_region->m_face_tag - tv.m_trajectory->m_base.m_region->m_face_tag) > 0)
+                if (abs(plus.trajectory->base.region->face_tag - tv.trajectory->base.region->face_tag) > 0)
                 {
-                    if (abs(m_plus.m_trajectory->m_base.m_region->m_face_tag - tv.m_trajectory->m_base.m_region->m_face_tag) > 1)
+                    if (abs(plus.trajectory->base.region->face_tag - tv.trajectory->base.region->face_tag) > 1)
                     {
-                        p_cat = m_system->m_p.m_p_cat_special_edge_max;
+                        p_cat = system->p.p_cat_special_edge_max;
                     }
 
                     else
                     {
-                        p_cat = m_system->m_p.m_p_cat_regular_edge_max;
+                        p_cat = system->p.p_cat_regular_edge_max;
                     }
                 }
             }
@@ -502,19 +502,19 @@ void Microtubule::wall()
             // other
             else
             {
-                p_cat = (m_plus.m_dir == ::FORWARD) ? m_plus.m_trajectory->m_next_trp_cat : m_plus.m_trajectory->m_prev_trp_cat;
+                p_cat = (plus.dir == ::FORWARD) ? plus.trajectory->next_trp_cat : plus.trajectory->prev_trp_cat;
             }
 
             // when smooth catastrophe is enabled
-            if (m_system->m_p.m_edge_catastrophe_smooth)
+            if (system->p.edge_catastrophe_smooth)
             {
                 p_cat *= (1.0 - cos_angle);
             }
 
             // apply catastrophe
-            if (m_system->m_random_gen.rand() <= p_cat)
+            if (system->random_gen.rand() <= p_cat)
             {
-                tv.m_trajectory->conditional_remove();
+                tv.trajectory->conditional_remove();
                 catastrophe();
 
                 // no wall crossing
@@ -524,7 +524,7 @@ void Microtubule::wall()
     }
 
     // update boundarty crossing count
-    m_system->m_boundary_crossing_count++;
+    system->boundary_crossing_count++;
 
 #ifdef DBG_ASSERT
     if (segments.last()->endItr != plus.nextCollision)
@@ -534,20 +534,20 @@ void Microtubule::wall()
 #endif
 
     // wall crossing
-    m_segments.last()->m_end_itr = m_plus.m_next_collision;
+    segments.last()->end_itr = plus.next_collision;
 
     // create a new segment
-    m_segments.create(this, tv);
-    m_segments.last()->m_start_itr = tv.m_dir == ::FORWARD ? tv.m_trajectory->wall_begin() : tv.m_trajectory->wall_end();
+    segments.create(this, tv);
+    segments.last()->start_itr = tv.dir == ::FORWARD ? tv.trajectory->wall_begin() : tv.trajectory->wall_end();
 
     // switch trajectory
-    m_plus.switch_trajectory(
-    tv.m_trajectory, tv.m_dir, tv.m_dir == ::FORWARD ? tv.m_trajectory->wall_begin() : tv.m_trajectory->wall_end());
+    plus.switch_trajectory(
+    tv.trajectory, tv.dir, tv.dir == ::FORWARD ? tv.trajectory->wall_begin() : tv.trajectory->wall_end());
 
-    if (m_segments.size() == 2)
+    if (segments.size() == 2)
     {
         // MT with two segment of zero (=0) length, consider possibilty of a disappear event
-        m_minus.determine_event();
+        minus.determine_event();
         set_disappear_event();
     }
 
@@ -557,12 +557,12 @@ void Microtubule::wall()
 void Microtubule::collision()
 {
     // set position of the plus end equal to the event position, to mitigate the effect of cumulating addition errors
-    m_segments.last()->m_end = m_plus.m_next_event_pos;
+    segments.last()->end = plus.next_event_pos;
     CollisionType type;
     Direction dir;
 
     // no MT(s) passing throught the next collision point, resulting a simple crossover
-    if (m_plus.m_next_collision->second.m_mirror->second.m_occupancy == 0)
+    if (plus.next_collision->second.mirror->second.occupancy == 0)
     {
         type = CT_CROSSOVER;
     }
@@ -571,40 +571,40 @@ void Microtubule::collision()
     else
     {
         double diff_angle
-        = m_plus.m_trajectory->m_base.m_region->intersection_angle(m_plus.m_trajectory, m_plus.m_next_collision->second.m_other_trajectory);
+        = plus.trajectory->base.region->intersection_angle(plus.trajectory, plus.next_collision->second.other_trajectory);
 
         if (diff_angle > 0.5 * PI)
         {
-            dir = (m_plus.m_dir == ::FORWARD) ? BACKWARD : ::FORWARD;
+            dir = (plus.dir == ::FORWARD) ? BACKWARD : ::FORWARD;
             diff_angle = PI - diff_angle;
         }
         else
         {
-            dir = m_plus.m_dir;
+            dir = plus.dir;
         }
 
         // find out type of collision event to be occured
-        type = m_system->collision_result(
-        diff_angle, m_plus.m_next_collision->second.m_occupancy, m_plus.m_next_collision->second.m_mirror->second.m_occupancy);
+        type = system->collision_result(
+        diff_angle, plus.next_collision->second.occupancy, plus.next_collision->second.mirror->second.occupancy);
     }
 
     switch (type)
     {
             // zippering
         case CT_ZIPPER:
-            m_system->m_total_zipper_count++;
+            system->total_zipper_count++;
             zipper(dir);
             break;
 
             // crossover
         case CT_CROSSOVER:
-            m_system->m_total_crossover_count++;
+            system->total_crossover_count++;
             crossover();
             break;
 
             // induced catastrophe
         case CT_INDUCED_CATASTROPHE:
-            m_system->m_total_induced_catastrophe_count++;
+            system->total_induced_catastrophe_count++;
             catastrophe();
             break;
 
@@ -630,24 +630,24 @@ void Microtubule::zipper(Direction dir)
 #endif
 
     // get a trajectory vetor on the new trajectory to be associted after zippering
-    TrajectoryVector tv(m_plus.m_next_collision->second.m_mirror->first, dir, m_plus.m_next_collision->second.m_other_trajectory);
+    TrajectoryVector tv(plus.next_collision->second.mirror->first, dir, plus.next_collision->second.other_trajectory);
 
     // link the end of the last segment (containing the plus tip) to the next plus end collision
-    m_segments.last()->m_end_itr = m_plus.m_next_collision;
+    segments.last()->end_itr = plus.next_collision;
 
     // create a new zero (=0) length segment on new position and direction (of course on new trajectory)
-    m_segments.create(this, tv);
+    segments.create(this, tv);
 
     // link the bottom of the last segment (containing the new minus tip) to the next plus end collision mirror
-    m_segments.last()->m_start_itr = m_plus.m_next_collision->second.m_mirror;
+    segments.last()->start_itr = plus.next_collision->second.mirror;
 
     // now do the switching of trajectory from incoming to outgoing
-    m_plus.switch_trajectory(m_plus.m_next_collision->second.m_other_trajectory, dir, m_plus.m_next_collision->second.m_mirror);
+    plus.switch_trajectory(plus.next_collision->second.other_trajectory, dir, plus.next_collision->second.mirror);
 
-    if (m_segments.size() == 2)
+    if (segments.size() == 2)
     {
         // number of segment is two (=2), HERE it means two zero length segment, prepare to schedule a disappear event
-        m_minus.determine_event();
+        minus.determine_event();
         set_disappear_event();
     }
 
@@ -669,19 +669,19 @@ void Microtubule::end_of_segment(MTTip* tip)
     Segment* kill_seg(nullptr);
 
     // select plus tip associated segment
-    if (tip == &m_plus)
+    if (tip == &plus)
     {
-        kill_seg = m_segments.last();
-        new_seg = m_segments.last()->previous();
-        new_dir = new_seg->m_dir;
+        kill_seg = segments.last();
+        new_seg = segments.last()->previous();
+        new_dir = new_seg->dir;
     }
 
     // select minus tip associated segment
     else
     {
-        kill_seg = m_segments.first();
-        new_seg = m_segments.first()->next();
-        if (new_seg->m_dir == ::FORWARD)
+        kill_seg = segments.first();
+        new_seg = segments.first()->next();
+        if (new_seg->dir == ::FORWARD)
         {
             new_dir = BACKWARD;
         }
@@ -700,36 +700,36 @@ void Microtubule::end_of_segment(MTTip* tip)
 #endif
 
     // kill the selected segment
-    m_segments.remove(kill_seg);
+    segments.remove(kill_seg);
 
     // tip switching to a new trajectory (in a different region) after encountering wall-begin/wall-end
-    if ((tip->m_next_collision == tip->m_trajectory->wall_begin()) || (tip->m_next_collision == tip->m_trajectory->wall_end()))
+    if ((tip->next_collision == tip->trajectory->wall_begin()) || (tip->next_collision == tip->trajectory->wall_end()))
     {
-        tip->switch_trajectory(new_seg->m_trajectory,
+        tip->switch_trajectory(new_seg->trajectory,
                               new_dir,
-                              new_dir == ::FORWARD ? new_seg->m_trajectory->wall_end() : new_seg->m_trajectory->wall_begin());
-        m_system->m_boundary_crossing_count--;
+                              new_dir == ::FORWARD ? new_seg->trajectory->wall_end() : new_seg->trajectory->wall_begin());
+        system->boundary_crossing_count--;
     }
 
     // tip switching to a new trajectory (in the same region)
     else
     {
-        tip->switch_trajectory(tip->m_next_collision->second.m_other_trajectory, new_dir, tip->m_next_collision->second.m_mirror);
+        tip->switch_trajectory(tip->next_collision->second.other_trajectory, new_dir, tip->next_collision->second.mirror);
     }
 
     // MT length zero (=0) encountered
-    if (m_segments.size() == 1)
+    if (segments.size() == 1)
     {
         // current tip is a plus tip, so determine the minus tip associated event
-        if (tip == &(m_plus))
+        if (tip == &(plus))
         {
-            m_minus.determine_event();
+            minus.determine_event();
         }
 
         // current tip is a minus tip, so determine the plus tip associated event
         else
         {
-            m_plus.determine_event();
+            plus.determine_event();
         }
 
         // schedule a disappear event
@@ -743,22 +743,22 @@ void Microtubule::backtrack(MTTip* tip)
 {
     // asociated with depolymerizing plus/minus end
 
-    if (tip == &(m_plus))
+    if (tip == &(plus))
     {
-        m_segments.last()->m_end = m_plus.m_next_event_pos;
+        segments.last()->end = plus.next_event_pos;
     }
     else
     {
-        m_segments.first()->m_start = m_minus.m_next_event_pos;
+        segments.first()->start = minus.next_event_pos;
     }
 
     // MT is back tracked from this site, resulting a decrease in occupancy
-    tip->m_next_collision->second.m_occupancy--;
+    tip->next_collision->second.occupancy--;
 
 #ifdef CROSS_SEV
-    if ((tip->m_next_collision->second.m_occupancy == 0) && (tip->m_next_collision->second.m_mirror->second.m_occupancy > 0))
+    if ((tip->next_collision->second.occupancy == 0) && (tip->next_collision->second.mirror->second.occupancy > 0))
     {
-        m_system->remove_occupied_intersection(tip->m_next_collision->second);
+        system->remove_occupied_intersection(tip->next_collision->second);
     }
 #endif
 
@@ -813,16 +813,16 @@ void Microtubule::crossover()
 #endif
 
 #ifdef CROSS_SEV
-    if ((m_plus.m_next_collision->second.m_occupancy == 0) && m_plus.m_next_collision->second.m_mirror->second.m_occupancy > 0)
+    if ((plus.next_collision->second.occupancy == 0) && plus.next_collision->second.mirror->second.occupancy > 0)
     {
-        m_system->add_occupied_intersection(m_plus.m_next_collision);
+        system->add_occupied_intersection(plus.next_collision);
     }
 #endif
 
     // skip any (active) event in the current intersection point, instead move the tip to the next intersection point
-    m_plus.m_next_collision->second.m_occupancy++;
-    m_plus.advance_intersection();
-    m_plus.determine_event();
+    plus.next_collision->second.occupancy++;
+    plus.advance_intersection();
+    plus.determine_event();
 
     return;
 }
@@ -830,13 +830,13 @@ void Microtubule::crossover()
 void Microtubule::harakiri()
 {
     // MT disappear event encountered, remove the MT
-    if (m_type == MT_GROWING)
+    if (type == MT_GROWING)
     {
-        m_system->m_growing_mts.remove(this);
+        system->growing_mts.remove(this);
     }
     else
     {
-        m_system->m_shrinking_mts.remove(this);
+        system->shrinking_mts.remove(this);
     }
 
     return;
@@ -852,23 +852,23 @@ bool Microtubule::integrity_check()
     size_t count(0);
 
     // check connections between end-of segment iterators and match with positions (should be exact)
-    if (m_segments.size() == 0)
+    if (segments.size() == 0)
     {
         // MT should contain at least one segment
         valid = false;
         cerr << "Microtubule contains no segments.\n";
     }
 
-    else if (m_segments.size() != 1)
+    else if (segments.size() != 1)
     {
-        if (m_segments.size() == 0)
+        if (segments.size() == 0)
         {
             // MT should contain at least one segment
             cerr << "microtubule without segments!\n";
             exit(-1);
         }
 
-        seg = m_segments.first();
+        seg = segments.first();
         if (seg == nullptr)
         {
             // pointer to segment list can not be null
@@ -877,81 +877,81 @@ bool Microtubule::integrity_check()
         }
 
         // segment (some where) at the middle of a trajectory
-        if ((seg->m_end_itr != seg->m_trajectory->wall_end()) && (seg->m_end_itr != seg->m_trajectory->wall_begin()))
+        if ((seg->end_itr != seg->trajectory->wall_end()) && (seg->end_itr != seg->trajectory->wall_begin()))
         {
-            if (seg->m_end_itr->second.m_mirror != seg->next()->m_start_itr)
+            if (seg->end_itr->second.mirror != seg->next()->start_itr)
             {
                 // next-start-iterator should match with the end-second-mirror-iterator
                 valid = false;
                 cerr << "reciprocity violated\n";
             }
 
-            if (abs(seg->m_end - seg->m_end_itr->first) > ZERO_CUTOFF)
+            if (abs(seg->end - seg->end_itr->first) > ZERO_CUTOFF)
             {
                 // segment end location does not coincide with the first intersection site
                 valid = false;
                 cerr << "Location of segment end does not coincide with intersection position\n";
             }
 
-            max_deviation = max(max_deviation, abs(seg->m_end - seg->m_end_itr->first));
+            max_deviation = max(max_deviation, abs(seg->end - seg->end_itr->first));
 
-            if (abs(seg->next()->m_start - seg->next()->m_start_itr->first) > ZERO_CUTOFF)
+            if (abs(seg->next()->start - seg->next()->start_itr->first) > ZERO_CUTOFF)
             {
                 // (next) segment end location does not coincide with the first intersection site
                 valid = false;
                 cerr << "Location of segment end does not coincide with intersection position\n";
             }
-            max_deviation = max(max_deviation, abs(seg->next()->m_start - seg->next()->m_start_itr->first));
+            max_deviation = max(max_deviation, abs(seg->next()->start - seg->next()->start_itr->first));
         }
 
         // segment at the end of a trajectory
         else
         {
             // positions should match with wall end location
-            if (seg->m_end_itr == seg->m_trajectory->wall_end())
+            if (seg->end_itr == seg->trajectory->wall_end())
             {
-                if (abs(seg->m_end - seg->m_trajectory->m_length) > ZERO_CUTOFF)
+                if (abs(seg->end - seg->trajectory->length) > ZERO_CUTOFF)
                 {
                     // segment end location does not coincide with the first intersection site
                     valid = false;
                     cerr << "Segment end location does not coincide with end of trajectory\n";
                 }
-                max_deviation = max(max_deviation, abs(seg->m_end - seg->m_trajectory->m_length));
+                max_deviation = max(max_deviation, abs(seg->end - seg->trajectory->length));
             }
 
             // positions should match with wall begin location
             else
             {
-                if (abs(seg->m_end - 0) > ZERO_CUTOFF)
+                if (abs(seg->end - 0) > ZERO_CUTOFF)
                 {
                     // segment end location does not coincide with the first intersection site
                     valid = false;
                     cerr << "Segment end location does not coincide with end of trajectory\n";
                 }
-                max_deviation = max(max_deviation, abs(seg->m_end - 0));
+                max_deviation = max(max_deviation, abs(seg->end - 0));
             }
 
-            if (seg->next()->m_start_itr == seg->next()->m_trajectory->wall_end())
+            if (seg->next()->start_itr == seg->next()->trajectory->wall_end())
             {
-                if (abs(seg->next()->m_start - seg->next()->m_trajectory->m_length) > ZERO_CUTOFF)
+                if (abs(seg->next()->start - seg->next()->trajectory->length) > ZERO_CUTOFF)
                 {
                     valid = false;
                     cerr << "Segment start location does not coincide with end of trajectory\n";
-                    cerr << "start: " << seg->next()->m_start << ", length: " << seg->next()->m_trajectory->m_length
-                         << ", diff=" << abs(seg->next()->m_start - seg->next()->m_trajectory->m_length) << "\n";
+                    cerr << "start: " << seg->next()->start << ", length: " << seg->next()->trajectory->length
+                         << ", diff=" << abs(seg->next()->start - seg->next()->trajectory->length) << "\n";
                 }
-                max_deviation = max(max_deviation, abs(seg->next()->m_start - seg->next()->m_trajectory->m_length));
+                max_deviation = max(max_deviation, abs(seg->next()->start - seg->next()->trajectory->length));
             }
             else
             {
-                if (abs(seg->next()->m_start - 0) > ZERO_CUTOFF)
+                if (abs(seg->next()->start - 0) > ZERO_CUTOFF)
                 {
                     valid = false;
                     cerr << "Segment start location does not coincide with start of trajectory\n";
-                    cerr << "start: " << seg->next()->m_start << ", length: " << seg->next()->m_trajectory->m_length
-                         << ", diff=" << abs(seg->next()->m_start) << "\n";
+                    cerr << "start: " << seg->next()->start << ", length: " << seg->next()->trajectory->length
+                         << ", diff=" << abs(seg->next()->start) << "\n";
                 }
-                max_deviation = max(max_deviation, abs(seg->next()->m_start - 0));
+                max_deviation = max(max_deviation, abs(seg->next()->start - 0));
             }
         }
         seg = seg->next();
@@ -963,12 +963,12 @@ bool Microtubule::integrity_check()
     }
 
     // check begin and end points
-    if (static_cast<double>(m_plus.m_dir) * m_plus.m_velocity > 0)
+    if (static_cast<double>(plus.dir) * plus.velocity > 0)
     {
-        if (m_plus.m_next_collision == m_plus.m_trajectory->wall_end())
+        if (plus.next_collision == plus.trajectory->wall_end())
         {
             // segment end location does not coincide with the first intersection site
-            if (m_segments.last()->m_end - m_plus.m_trajectory->m_length > ZERO_CUTOFF)
+            if (segments.last()->end - plus.trajectory->length > ZERO_CUTOFF)
             {
                 valid = false;
             }
@@ -977,7 +977,7 @@ bool Microtubule::integrity_check()
         else
         {
             // segment end location does not coincide with the first intersection site
-            if (m_segments.last()->m_end - m_plus.m_next_collision->first > ZERO_CUTOFF)
+            if (segments.last()->end - plus.next_collision->first > ZERO_CUTOFF)
             {
                 valid = false;
             }
@@ -986,10 +986,10 @@ bool Microtubule::integrity_check()
 
     else
     {
-        if (m_plus.m_next_collision == m_plus.m_trajectory->wall_begin())
+        if (plus.next_collision == plus.trajectory->wall_begin())
         {
             // segment end location does not coincide with the first intersection site
-            if (m_segments.last()->m_end < -ZERO_CUTOFF)
+            if (segments.last()->end < -ZERO_CUTOFF)
             {
                 valid = false;
             }
@@ -997,7 +997,7 @@ bool Microtubule::integrity_check()
         else
         {
             // segment end location does not coincide with the first intersection site
-            if (m_segments.last()->m_end - m_plus.m_next_collision->first < -ZERO_CUTOFF)
+            if (segments.last()->end - plus.next_collision->first < -ZERO_CUTOFF)
             {
                 valid = false;
             }
@@ -1011,35 +1011,35 @@ bool Microtubule::integrity_check()
 
     // minus end velocity can be zero in the absence of treadmilling, that case skip this check to avoid numerical
     // directionality problems
-    if (static_cast<double>(m_minus.m_dir) * m_minus.m_velocity > ZERO_CUTOFF)
+    if (static_cast<double>(minus.dir) * minus.velocity > ZERO_CUTOFF)
     {
-        if (m_minus.m_next_collision == m_minus.m_trajectory->wall_end())
+        if (minus.next_collision == minus.trajectory->wall_end())
         {
-            if (m_segments.first()->m_start - m_minus.m_trajectory->m_length > ZERO_CUTOFF)
+            if (segments.first()->start - minus.trajectory->length > ZERO_CUTOFF)
             {
                 valid = false;
             }
         }
         else
         {
-            if (m_segments.first()->m_start - m_minus.m_next_collision->first > ZERO_CUTOFF)
+            if (segments.first()->start - minus.next_collision->first > ZERO_CUTOFF)
             {
                 valid = false;
             }
         }
     }
-    else if (static_cast<double>(m_minus.m_dir) * m_minus.m_velocity < -ZERO_CUTOFF)
+    else if (static_cast<double>(minus.dir) * minus.velocity < -ZERO_CUTOFF)
     {
-        if (m_minus.m_next_collision == m_minus.m_trajectory->wall_begin())
+        if (minus.next_collision == minus.trajectory->wall_begin())
         {
-            if (m_segments.first()->m_start < -ZERO_CUTOFF)
+            if (segments.first()->start < -ZERO_CUTOFF)
             {
                 valid = false;
             }
         }
         else
         {
-            if (m_segments.first()->m_start - m_minus.m_next_collision->first < -ZERO_CUTOFF)
+            if (segments.first()->start - minus.next_collision->first < -ZERO_CUTOFF)
             {
                 valid = false;
             }
@@ -1052,59 +1052,59 @@ bool Microtubule::integrity_check()
     }
 
     // check validity of intersections by running them to the end of the trajectory
-    seg = m_segments.first();
+    seg = segments.first();
     while (seg != nullptr)
     {
-        is = seg->m_start_itr;
+        is = seg->start_itr;
         count = 0;
-        while ((is != seg->m_trajectory->wall_end()) && (count != seg->m_trajectory->m_intersections.size()))
+        while ((is != seg->trajectory->wall_end()) && (count != seg->trajectory->intersections.size()))
         {
             is++;
             count++;
         }
-        if (is != seg->m_trajectory->wall_end())
+        if (is != seg->trajectory->wall_end())
         {
             valid = false;
             cerr << "Error: segment start iterator does not belong to correct trajectory\n";
-            cerr << "Number of segments in MT: " << m_segments.size() << "\n";
+            cerr << "Number of segments in MT: " << segments.size() << "\n";
             ;
         }
-        is = seg->m_end_itr;
+        is = seg->end_itr;
         count = 0;
-        while ((is != seg->m_trajectory->wall_end()) && (count != seg->m_trajectory->m_intersections.size()))
+        while ((is != seg->trajectory->wall_end()) && (count != seg->trajectory->intersections.size()))
         {
             is++;
             count++;
         }
-        if (is != seg->m_trajectory->wall_end())
+        if (is != seg->trajectory->wall_end())
         {
             valid = false;
             cerr << "Error: segment end iterator does not belong to correct trajectory\n";
-            cerr << "Number of segments in MT: " << m_segments.size() << "\n";
+            cerr << "Number of segments in MT: " << segments.size() << "\n";
             ;
         }
         seg = seg->next();
     }
 
     // check the tip's tipmap pointer (round-trip)
-    if (m_system->get_event_descriptor(m_plus.m_event.m_index) != &m_plus.m_event)
+    if (system->get_event_descriptor(plus.event.index) != &plus.event)
     {
         valid = false;
     }
-    if (m_system->get_event_descriptor(m_minus.m_event.m_index) != &m_minus.m_event)
+    if (system->get_event_descriptor(minus.event.index) != &minus.event)
     {
         valid = false;
     }
-    if (m_system->get_event_descriptor(m_disappear_event.m_index) != &m_disappear_event)
+    if (system->get_event_descriptor(disappear_event.index) != &disappear_event)
     {
         valid = false;
     }
 
     // round-trip check of the segment-trajectory pairs
-    seg = m_segments.first();
+    seg = segments.first();
     while (seg != nullptr)
     {
-        if (*(seg->m_trajectory_tag) != seg)
+        if (*(seg->trajectory_tag) != seg)
         {
             valid = false;
         }
@@ -1113,43 +1113,43 @@ bool Microtubule::integrity_check()
     }
 
     // round-trip check of tip-trajectory pairs
-    if (*(m_plus.m_notification_tag) != &m_plus)
+    if (*(plus.notification_tag) != &plus)
     {
         valid = false;
     }
-    if (*(m_minus.m_notification_tag) != &m_minus)
+    if (*(minus.notification_tag) != &minus)
     {
         valid = false;
     }
 
     // check orientation of segments / start-end, and tips
-    if (m_segments.first()->m_dir == m_minus.m_dir)
+    if (segments.first()->dir == minus.dir)
     {
         valid = false;
     }
-    if (m_segments.last()->m_dir != m_plus.m_dir)
+    if (segments.last()->dir != plus.dir)
     {
         valid = false;
     }
 
-    seg = m_segments.first();
+    seg = segments.first();
     while (seg != nullptr)
     {
-        if (seg->m_dir == ::FORWARD)
+        if (seg->dir == ::FORWARD)
         {
-            if (seg->m_end - seg->m_start < -ZERO_CUTOFF)
+            if (seg->end - seg->start < -ZERO_CUTOFF)
             {
-                cerr << "false directionality in positions. diff=" << seg->m_end - seg->m_start << "\n";
+                cerr << "false directionality in positions. diff=" << seg->end - seg->start << "\n";
                 valid = false;
             }
-            is = seg->m_start_itr;
+            is = seg->start_itr;
             count = 0;
-            while ((is != seg->m_end_itr) && (count != seg->m_trajectory->m_intersections.size()))
+            while ((is != seg->end_itr) && (count != seg->trajectory->intersections.size()))
             {
                 is++;
                 count++;
             }
-            if (is != seg->m_end_itr)
+            if (is != seg->end_itr)
             {
                 cerr << "false directionality in intersection iterators\n";
                 valid = false;
@@ -1157,19 +1157,19 @@ bool Microtubule::integrity_check()
         }
         else
         {
-            if (seg->m_end - seg->m_start > ZERO_CUTOFF)
+            if (seg->end - seg->start > ZERO_CUTOFF)
             {
-                cerr << "false directionality in positions. diff=" << seg->m_end - seg->m_start << "\n";
+                cerr << "false directionality in positions. diff=" << seg->end - seg->start << "\n";
                 valid = false;
             }
-            is = seg->m_start_itr;
+            is = seg->start_itr;
             count = 0;
-            while ((is != seg->m_end_itr) && (count != seg->m_trajectory->m_intersections.size()))
+            while ((is != seg->end_itr) && (count != seg->trajectory->intersections.size()))
             {
                 is--;
                 count++;
             }
-            if (is != seg->m_end_itr)
+            if (is != seg->end_itr)
             {
                 cerr << "false directionality in intersection iterators\n";
                 valid = false;

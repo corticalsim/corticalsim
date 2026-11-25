@@ -10,11 +10,11 @@ class Intersection
 {
   public:
 
-    int m_occupancy;
-    Trajectory* m_other_trajectory;
-    IntersectionItr m_mirror;
+    int occupancy;
+    Trajectory* other_trajectory;
+    IntersectionItr mirror;
 #ifdef CROSS_SEV
-    OccupiedIntersection* m_occupied_list_ptr;
+    OccupiedIntersection* occupied_list_ptr;
 #endif
 };
 
@@ -22,18 +22,18 @@ class PointATedge
 {
   public:
 
-    double m_x;
-    double m_y;
-    double m_z;
+    double x;
+    double y;
+    double z;
 
-    int m_next_element;
+    int next_element;
 
     PointATedge(double x1, double y1, double z1, int n1)
     {
-        m_x = x1;
-        m_y = y1;
-        m_z = z1;
-        m_next_element = n1;
+        x = x1;
+        y = y1;
+        z = z1;
+        next_element = n1;
     }
 };
 
@@ -43,8 +43,8 @@ class OccupiedIntersection: public CompactListItem<OccupiedIntersection>
   public:
 
     OccupiedIntersection(IntersectionItr is):
-        m_intersection_to_cut(is) {};
-    IntersectionItr m_intersection_to_cut;
+        intersection_to_cut(is) {};
+    IntersectionItr intersection_to_cut;
 };
 #endif
 

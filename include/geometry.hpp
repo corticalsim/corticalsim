@@ -15,30 +15,30 @@ class Geometry
   public:
 
     // const GeometryType type;
-    double m_area;
-    double m_areain_mesh;
-    System* const m_system;
+    double area;
+    double areain_mesh;
+    System* const system;
 
-    std::vector<ElementList> m_ppb_edge_list;
-    std::vector<Vertices> m_global_vertex;
+    std::vector<ElementList> ppb_edge_list;
+    std::vector<Vertices> global_vertex;
 
-    double m_area_ppb;
-    std::vector<Vertices> m_ppb;
+    double area_ppb;
+    std::vector<Vertices> ppb;
 
-    double m_patch_area[3];
-    std::vector<int> m_regions_index[3];
+    double patch_area[3];
+    std::vector<int> regions_index[3];
 
-    int m_element_max;
-    Eigen::Vector3d m_object_cm, m_object_pa, m_nucleous_position;
-    std::vector<Region*> m_regions;
+    int element_max;
+    Eigen::Vector3d object_cm, object_pa, nucleous_position;
+    std::vector<Region*> regions;
 
     Geometry(System* s, double a):
-        m_area(a),
-        m_system(s)
+        area(a),
+        system(s)
     {
         for (int i = 0; i < 3; i++)
         {
-            m_patch_area[i] = 0.0;
+            patch_area[i] = 0.0;
         }
     };
 

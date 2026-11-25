@@ -16,56 +16,56 @@ class System
 {
   public:
 
-    Geometry* m_geometry;
-    DLList<Microtubule, MICROTUBULE_GRANULARITY> m_growing_mts;
-    DLList<Microtubule, MICROTUBULE_GRANULARITY> m_shrinking_mts;
+    Geometry* geometry;
+    DLList<Microtubule, MICROTUBULE_GRANULARITY> growing_mts;
+    DLList<Microtubule, MICROTUBULE_GRANULARITY> shrinking_mts;
 
 #ifdef CROSS_SEV
-    CompactList<OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY> m_occupied_intersection_list;
+    CompactList<OccupiedIntersection, OCCUPIED_INTERSECTION_GRANULARITY> occupied_intersection_list;
 #endif
 
-    vector<int> m_growing_tips_reg;
+    vector<int> growing_tips_reg;
 
-    Parameters m_p;
+    Parameters p;
 
     // random generator
-    RandHub<> m_random_gen;
+    RandHub<> random_gen;
 
     // current system time with respect to offset
-    double m_system_time;
+    double system_time;
 
     // current system time offset
-    double m_system_time_offset;
+    double system_time_offset;
 
-    int m_current_time_tag;
-    double m_total_length;
-    int m_mem_usage;
-    bool m_stop_signal;
+    int current_time_tag;
+    double total_length;
+    int mem_usage;
+    bool stop_signal;
 
-    time_t m_wall_clock_start_time;
-    int m_total_s_event_count;
-    int m_total_valid_d_event_count;
-    int m_total_invalid_d_event_count;
-    int m_total_length_severing_count;
-    int m_total_intersection_severing_count;
-    int m_boundary_crossing_count;
-    int m_total_zipper_count;
-    int m_total_crossover_count;
-    int m_total_induced_catastrophe_count;
+    time_t wall_clock_start_time;
+    int total_s_event_count;
+    int total_valid_d_event_count;
+    int total_invalid_d_event_count;
+    int total_length_severing_count;
+    int total_intersection_severing_count;
+    int boundary_crossing_count;
+    int total_zipper_count;
+    int total_crossover_count;
+    int total_induced_catastrophe_count;
 
-    int m_count_segments;
-    int m_count_trajectories;
-    int m_count_intersections;
+    int count_segments;
+    int count_trajectories;
+    int count_intersections;
     int estimate_memory_footprint();
 
-    double m_next_stochastic_event_time;
-    StochasticEventType m_next_stochastic_event_type;
+    double next_stochastic_event_time;
+    StochasticEventType next_stochastic_event_type;
 
     // queue object for time-defined events
-    DeterministicQueue m_time_queue;
+    DeterministicQueue time_queue;
 
     // queue object for vPlus-defined events (regulated by tubulin pool size)
-    DeterministicQueue m_v_plus_queue;
+    DeterministicQueue v_plus_queue;
 
     double identity(double i) { return i; }
 
@@ -75,16 +75,16 @@ class System
     // time to distance conversion for growing tips
     double time_to_v_plus(double);
 
-    double m_next_status_event_time;
-    double m_next_snapshot_event_time;
-    double m_next_parameter_event_time;
-    double m_next_ppb_event_time;
+    double next_status_event_time;
+    double next_snapshot_event_time;
+    double next_parameter_event_time;
+    double next_ppb_event_time;
 
     // current tag for event descriptor
-    EventDescriptorIndex m_event_descriptor_id;
+    EventDescriptorIndex event_descriptor_id;
 
     // structure that maps EventDescriptorIDs onto EventDescriptor objects
-    map<EventDescriptorIndex, EventDescriptor*> m_event_descriptor_map;
+    map<EventDescriptorIndex, EventDescriptor*> event_descriptor_map;
 
     // returns a new event descriptor tag
     EventDescriptorIndex register_event_descriptor(EventDescriptor*);
@@ -96,10 +96,10 @@ class System
     EventDescriptor* get_event_descriptor(EventDescriptorIndex);
 
     // the current event tracking tag
-    EventTrackingTag m_event_id;
+    EventTrackingTag event_id;
 
     // returns a new event tracking tag
-    EventTrackingTag get_event_tag() { return m_event_id++; }
+    EventTrackingTag get_event_tag() { return event_id++; }
 
     System(char*);
     ~System();
@@ -135,19 +135,19 @@ class System
     void collision_probabilities(double, double&, double&);
 
     // binomial table. Necessary for bundle collision type: multi-collisions
-    double m_binomial_table[MAXBINOM][MAXBINOM];
+    double binomial_table[MAXBINOM][MAXBINOM];
     void make_binomial_table(void);
 
     double multi_pcross(int npar, int ncoll, double x_single, double z_single);
     double multi_pzip(int npar, int ncoll, double x_single, double z_single);
 
-    ofstream m_parameter_file;
-    ofstream m_movie_file;
-    ofstream m_heat_map_file;
-    ofstream m_measurement_file;
-    ofstream m_order_director_file;
-    deque<Measurement> m_measurement_history;
-    bool m_data_saved;
+    ofstream parameter_file;
+    ofstream movie_file;
+    ofstream heat_map_file;
+    ofstream measurement_file;
+    ofstream order_director_file;
+    deque<Measurement> measurement_history;
+    bool data_saved;
     void initialize_output();
     void perform_measurement();
     void write_measurements_to_file(int = 0);

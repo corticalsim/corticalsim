@@ -54,8 +54,6 @@ CheckOptions:
     value: true
   - key: readability-identifier-naming.AggressiveDependentMemberLookup
     value: true
-  - key: readability-identifier-naming.MemberPrefix
-    value: "m_"
   - key: readability-identifier-naming.MacroDefinitionCase
     value: UPPER_CASE
   - key: readability-identifier-naming.GlobalConstantCase

@@ -16,7 +16,7 @@ class CompactList
 {
   private:
 
-    vector<T*> m_elements;
+    vector<T*> elements;
 
     // Memory management: choose to place items (T) together in blocks of
     // AllocatorGranularity. IMPORTANT NOTE: Not tread-safe!
@@ -37,20 +37,20 @@ class CompactList
   public:
 
     CompactList():
-        m_elements()
+        elements()
     {
-        m_elements.reserve(AllocatorGranularity);
+        elements.reserve(AllocatorGranularity);
     };
 
     ~CompactList();
 
-    T* element_address(int idx) { return m_elements[idx]; };
+    T* element_address(int idx) { return elements[idx]; };
 
     void remove_element(int idx);
 
-    int size() { return m_elements.size(); };
+    int size() { return elements.size(); };
 
-    T& operator[](int idx) { return *(m_elements[idx]); };
+    T& operator[](int idx) { return *(elements[idx]); };
 
     T* create();
     template <class Q>
@@ -72,11 +72,11 @@ template <class T, int I>
 void CompactList<T, I>::remove_all()
 // private function (called by ~)
 {
-    for (int j = m_elements.size() - 1; j >= 0; j--)
+    for (int j = elements.size() - 1; j >= 0; j--)
     {
-        remove(m_elements[j]);
+        remove(elements[j]);
     }
-    m_elements.pop_back();
+    elements.pop_back();
 }
 
 template <class T, int I>
@@ -124,8 +124,8 @@ template <class T, int I>
 inline T* CompactList<T, I>::insert_element(T* new_element)
 // private function!
 {
-    new_element->m_index = m_elements.size();
-    m_elements.push_back(new_element);
+    new_element->index = elements.size();
+    elements.push_back(new_element);
     return new_element;
 }
 
@@ -133,17 +133,17 @@ template <class T, int I>
 inline void CompactList<T, I>::remove_element(int idx)
 // check (only the outer!!) can eliminate?
 {
-    int size = m_elements.size();
+    int size = elements.size();
     if (idx < size)
     {
-        remove(m_elements[idx]);
+        remove(elements[idx]);
         // if idx was not the last element, move last element to the gap
         if (idx != size - 1)
         {
-            m_elements[idx] = m_elements.back();
-            m_elements[idx]->m_index = idx;
+            elements[idx] = elements.back();
+            elements[idx]->index = idx;
         }
-        m_elements.pop_back();
+        elements.pop_back();
     }
     else
     {
@@ -160,8 +160,8 @@ class CompactListItem
   public:
 
     CompactListItem():
-        m_index(0) {};
-    int m_index;
+        index(0) {};
+    int index;
 
   protected:
 

@@ -37,14 +37,14 @@ class DLList
 {
   private:
 
-    int m_num_elements;
+    int num_elements;
     // This class keeps a pointer to both the first and the last element.
     // This is not strictly necessary (first is enough), but this has the advantage
     // that elements can be inserted in the back and iterated over from the front of
     // the set. In the absence of deletions, this leads to a traversal of the elements
     // in the order of creation - and hopefully in the order of memory allocation.
-    T* m_first_element;
-    T* m_last_element;
+    T* first_element;
+    T* last_element;
 
     // definitions for the Boost memory pool
     // Currently, it uses a *non*-thread safe allocation mechanism (for speed) and a user-defined granularity
@@ -64,16 +64,16 @@ class DLList
   public:
 
     DLList():
-        m_num_elements(0),
-        m_first_element(nullptr),
-        m_last_element(nullptr) {};
+        num_elements(0),
+        first_element(nullptr),
+        last_element(nullptr) {};
     ~DLList();
 
-    inline int size() { return m_num_elements; }
+    inline int size() { return num_elements; }
 
-    inline T* first() { return m_first_element; }
+    inline T* first() { return first_element; }
 
-    inline T* last() { return m_last_element; }
+    inline T* last() { return last_element; }
 
     inline T* next(T* el) { return el->nextElement; }
 
@@ -102,9 +102,9 @@ DLList<T, I>::~DLList()
 template <class T, int I>
 void DLList<T, I>::remove_all()
 {
-    while (m_first_element != nullptr)
+    while (first_element != nullptr)
     {
-        remove(m_first_element);
+        remove(first_element);
     }
 }
 
@@ -113,18 +113,18 @@ inline T* DLList<T, I>::link_element(T* new_element)
 // Inserts a new element into the linked list.
 // Insertion takes place at the back of the list for memory-traversal speed considerations.
 {
-    m_num_elements++;
-    new_element->m_previous_element = m_last_element;
-    new_element->m_next_element = nullptr;
-    if (m_last_element != nullptr)
+    num_elements++;
+    new_element->previous_element = last_element;
+    new_element->next_element = nullptr;
+    if (last_element != nullptr)
     {
-        m_last_element->m_next_element = new_element;
+        last_element->next_element = new_element;
     }
     else // if list was empty
     {
-        m_first_element = new_element;
+        first_element = new_element;
     }
-    m_last_element = new_element;
+    last_element = new_element;
     return new_element;
 }
 
@@ -132,22 +132,22 @@ template <class T, int I>
 inline void DLList<T, I>::unlink_element(T* element)
 // Removes an element from the linked list.
 {
-    m_num_elements--;
-    if (element == m_first_element)
+    num_elements--;
+    if (element == first_element)
     {
-        m_first_element = element->m_next_element;
+        first_element = element->next_element;
     }
-    if (element == m_last_element)
+    if (element == last_element)
     {
-        m_last_element = element->m_previous_element;
+        last_element = element->previous_element;
     }
-    if (element->m_next_element != nullptr)
+    if (element->next_element != nullptr)
     {
-        element->m_next_element->m_previous_element = element->m_previous_element;
+        element->next_element->previous_element = element->previous_element;
     }
-    if (element->m_previous_element != nullptr)
+    if (element->previous_element != nullptr)
     {
-        element->m_previous_element->m_next_element = element->m_next_element;
+        element->previous_element->next_element = element->next_element;
     }
     return;
 }
@@ -235,8 +235,8 @@ class DLBaseItem
 
   private:
 
-    T* m_next_element;
-    T* m_previous_element;
+    T* next_element;
+    T* previous_element;
 
   protected:
 
@@ -245,9 +245,9 @@ class DLBaseItem
 
   public:
 
-    inline T* next() { return m_next_element; }
+    inline T* next() { return next_element; }
 
-    inline T* previous() { return m_previous_element; }
+    inline T* previous() { return previous_element; }
 };
 
 template <class T>
@@ -260,8 +260,8 @@ class DLContainerItem
 
   private:
 
-    DLContainerItem<T>* m_next_element;
-    DLContainerItem<T>* m_previous_element;
+    DLContainerItem<T>* next_element;
+    DLContainerItem<T>* previous_element;
 
   protected:
 
@@ -270,13 +270,13 @@ class DLContainerItem
 
   public:
 
-    T m_data;
+    T data;
 
-    inline DLContainerItem<T>* next() { return m_next_element; }
+    inline DLContainerItem<T>* next() { return next_element; }
 
-    inline DLContainerItem<T>* previous() { return m_previous_element; }
+    inline DLContainerItem<T>* previous() { return previous_element; }
 
-    inline T* data_ptr() { return &m_data; }
+    inline T* data_ptr() { return &data; }
 
     // very ugly hack, but it works [tested with G++ & icc]. For a data object with an unknown location in a known list,
     // call list->first()->containerPtr(data*); for some reason, I need to convert to void* and char*... This should
@@ -285,26 +285,26 @@ class DLContainerItem
     {
         return static_cast<DLContainerItem<T>*>(static_cast<void*>(
         static_cast<short*>(static_cast<void*>(d_ptr))
-        - (static_cast<short*>(static_cast<void*>(&m_data)) - static_cast<short*>(static_cast<void*>(this)))));
+        - (static_cast<short*>(static_cast<void*>(&data)) - static_cast<short*>(static_cast<void*>(this)))));
     }
 
     DLContainerItem() {}
 
     template <class Q>
     inline DLContainerItem(Q par1):
-        m_data(par1)
+        data(par1)
     {
     }
 
     template <class Q, class R>
     inline DLContainerItem(Q par1, R par2):
-        m_data(par1, par2)
+        data(par1, par2)
     {
     }
 
     template <class Q, class R, class S>
     inline DLContainerItem(Q par1, R par2, S par3):
-        m_data(par1, par2, par3)
+        data(par1, par2, par3)
     {
     }
 };

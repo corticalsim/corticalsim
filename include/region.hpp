@@ -17,35 +17,35 @@ class Region
   public:
 
     // pointer to geometry
-    Geometry* const m_geometry;
+    Geometry* const geometry;
 
     // const RegionType type;
-    double m_area;
-    double m_total_length;
+    double area;
+    double total_length;
     // time tag at which the length was last updated
-    int m_previous_update_tag;
-    int m_region_id;
-    double m_z_offset;
-    double m_rot_angle;
-    double m_peri_meter;
-    Eigen::Vector2d m_mid_point;
-    vector<Edge> m_side;
-    map<int, int> m_side_map;
-    map<int, int> m_side_rev_map;
-    Eigen::Quaternion<double> m_q;
-    vector<Eigen::Vector2d> m_vertices;
-    vector<Eigen::Vector3d> m_orientation;
-    int m_face_tag;
-    int m_poly_intersect_mark;
-    vector<int> m_intersect_edg;
+    int previous_update_tag;
+    int region_id;
+    double z_offset;
+    double rot_angle;
+    double peri_meter;
+    Eigen::Vector2d mid_point;
+    vector<Edge> side;
+    map<int, int> side_map;
+    map<int, int> side_rev_map;
+    Eigen::Quaternion<double> q;
+    vector<Eigen::Vector2d> vertices;
+    vector<Eigen::Vector3d> orientation;
+    int face_tag;
+    int poly_intersect_mark;
+    vector<int> intersect_edg;
 
     // list of trajectories on the region
-    DLList<Trajectory, TRAJECTORY_GRANULARITY> m_trajectories;
+    DLList<Trajectory, TRAJECTORY_GRANULARITY> trajectories;
 
     // tip management functions
-    list<MTTip*> m_growing_plus_tip_list;
-    list<MTTip*> m_shrinking_plus_tip_list;
-    list<MTTip*> m_minus_tip_list;
+    list<MTTip*> growing_plus_tip_list;
+    list<MTTip*> shrinking_plus_tip_list;
+    list<MTTip*> minus_tip_list;
     RegionMTTipTag register_on_region(MTTip*, TipType, MTType);
     void unregister_from_region(RegionMTTipTag, TipType, MTType);
 
@@ -53,20 +53,20 @@ class Region
     void update_region_length(bool force_update = false);
 
     Region(Geometry* g, double a):
-        m_geometry(g),
-        m_area(a),
-        m_total_length(0),
-        m_previous_update_tag(0),
-        m_region_id(0),
-        m_z_offset(0.0),
-        m_rot_angle(0.0),
-        m_peri_meter(0.0)
+        geometry(g),
+        area(a),
+        total_length(0),
+        previous_update_tag(0),
+        region_id(0),
+        z_offset(0.0),
+        rot_angle(0.0),
+        peri_meter(0.0)
     {
-        m_mid_point << 0.0, 0.0;
+        mid_point << 0.0, 0.0;
         for (int i = 0; i < 3; i++)
         {
-            m_vertices.push_back(Eigen::Vector2d(0, 0));
-            m_side.push_back(Edge());
+            vertices.push_back(Eigen::Vector2d(0, 0));
+            side.push_back(Edge());
         }
     }
 
