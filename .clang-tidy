@@ -50,8 +50,6 @@ ExcludeHeaderFilterRegex: 'subprojects/.*$'
 FormatStyle: file
 
 CheckOptions:
-  - key: readability-identifier-naming.AllowTrailingUnderscore
-    value: true
   - key: readability-identifier-naming.AggressiveDependentMemberLookup
     value: true
   - key: readability-identifier-naming.MacroDefinitionCase
