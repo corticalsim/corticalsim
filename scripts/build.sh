@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Functions
+# =========
+
+function run_or_bail() {
+    local MESSAGE="$1"
+    local COMMAND="$2"
+    
+    echo ">>> ${MESSAGE}..."
+    $COMMAND
+    if [ $? != 0 ]; then
+        echo "!!! ${MESSAGE}: failed."
+        exit $?
+    fi
+    echo ">>> ${MESSAGE}: done!"
+} 
+
 # Variables
 # =========
 
@@ -15,9 +31,6 @@ ROOT_DIR=$(dirname "$SCRIPT_DIR")
 # Possible values: "plain", "debug", "debugoptimized", "release"
 BUILD_TYPE="release"
 
-# Switch to clean the build.
-CLEAN_BUILD=false
-
 # Aguments passed to `meson setup`.
 SETUP_ARGS=""
 
@@ -29,61 +42,62 @@ BUILD_DIR="$ROOT_DIR/build"
 
 # CLI arguments
 # =============
-ARG=( "${@}" )
-for i in ${ARG[@]}; do
+ARGS=( "${@}" )
+for i in ${ARGS[@]}; do
     case "$i" in
 
-        "--reconfigure")
+        "-r" | "--reconfigure")
             SETUP_ARGS="$SETUP_ARGS --reconfigure --wipe --clearcache"
             ;;
 
-        "--builddir")
-            shift 1
+        "-d" | "--builddir")
+            shift
             BUILD_DIR="$1"
             ;;
 
-        "--buildtype")
-            shift 1
+        "-t" | "--buildtype")
+            shift
             BUILD_TYPE="$1"
             ;;
 
-        "--clean")
+        "-c" | "--clean")
             CLEAN_BUILD=true
             ;;
+            
+        "-j" | "--jobs")
+            shift
+            BUILD_JOBS="$1"
+            ;;
     esac
-    shift 1
+    shift
 done
 
 # Set the build type
-echo ">>> Build type: '$BUILD_TYPE'"
-SETUP_ARGS="$SETUP_ARGS --buildtype=$BUILD_TYPE"
+echo ">>> Build type: '${BUILD_TYPE}'"
+SETUP_ARGS="${SETUP_ARGS} --buildtype=${BUILD_TYPE}"
 
 # Create the build directory
-BUILD_DIR="$(readlink -m $BUILD_DIR)/$BUILD_TYPE"
+BUILD_DIR="$(readlink -m ${BUILD_DIR})/${BUILD_TYPE}"
 mkdir -p $BUILD_DIR
-echo ">>> Build directory: '$BUILD_DIR'"
+echo ">>> Build directory: '${BUILD_DIR}'"
+
+if [ -n "${BUILD_JOBS}" ]; then
+    COMPILE_ARGS="${COMPILE_ARGS} -j ${BUILD_JOBS}"
+fi
 
 # Setup
 # =====
-echo ">>> Running setup..."
-SETUP_CMD=$(echo "meson setup $BUILD_DIR $ROOT_DIR $SETUP_ARGS" | xargs)
-echo ">>> Setup command: '$SETUP_CMD'"
-$SETUP_CMD
-echo ">>> Running setup: done!"
+SETUP_CMD=$(echo "meson setup ${BUILD_DIR} ${ROOT_DIR} ${SETUP_ARGS}" | xargs)
+run_or_bail "Running setup" "${SETUP_CMD}" 
 
 # Compilation
 # ===========
-echo ">>> Compiling CorticalSim..."
 
 # Clean the build directory if requested
-if [ $CLEAN_BUILD==true ]; then
-    echo ">>> Cleaning the build directory..."
-    CLEAN_CMD="meson compile -C $BUILD_DIR --clean"
-    $CLEAN_CMD
-    echo ">>> Cleaning the build directory: done!"
+if [ -n "${CLEAN_BUILD}" ]; then
+    CLEAN_CMD="meson compile -C ${BUILD_DIR} --clean"
+    run_or_bail "Cleaning the build directory" "${CLEAN_CMD}"
 fi
 
-COMPILATION_CMD=$(echo "meson compile -C $BUILD_DIR $COMPILE_ARGS" | xargs)
-echo ">>> Compilation command: '$COMPILATION_CMD'"
-$COMPILATION_CMD
-echo ">>> Compiling CorticalSim: done!"
+COMPILATION_CMD=$(echo "meson compile -C ${BUILD_DIR} ${COMPILE_ARGS}" | xargs)
+run_or_bail "Compiling CorticalSim" "${COMPILATION_CMD}"
