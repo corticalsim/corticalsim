@@ -64,3 +64,7 @@ CheckOptions:
     value: UPPER_CASE
   - key: readability-identifier-naming.ScopedEnumConstantCase
     value: UPPER_CASE
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: UPPER_CASE
+  - key: readability-identifier-naming.EnumCase
+    value: CamelCase
