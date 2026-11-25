@@ -76,7 +76,7 @@ void Region::remove_trajectory(Trajectory* tr)
     // important to inform the linked (previous/next) trajectories about this removal
     if (tr->prev_tr.trajectory != nullptr)
     {
-        if (tr->prev_tr.dir == BACKWARD)
+        if (tr->prev_tr.dir == Direction::BACKWARD)
         {
             tr->prev_tr.trajectory->next_tr.trajectory = nullptr;
         }
@@ -90,7 +90,7 @@ void Region::remove_trajectory(Trajectory* tr)
 
     if (tr->next_tr.trajectory != nullptr)
     {
-        if (tr->next_tr.dir == ::FORWARD)
+        if (tr->next_tr.dir == Direction::FORWARD)
         {
             tr->next_tr.trajectory->prev_tr.trajectory = nullptr;
         }
@@ -125,7 +125,7 @@ RegionMTTipTag Region::register_on_region(MTTip* p_tip, TipType tiptype, MTType 
     update_region_length();
 
     // minus tip
-    if (tiptype == T_MINUS)
+    if (tiptype == TipType::MINUS)
     {
         return minus_tip_list.insert(minus_tip_list.end(), p_tip);
     }
@@ -134,7 +134,7 @@ RegionMTTipTag Region::register_on_region(MTTip* p_tip, TipType tiptype, MTType 
     else
     {
         // insert growing MT
-        if (mttype == MT_GROWING)
+        if (mttype == MTType::GROWING)
         {
             geometry->system->growing_tips_reg[face_tag]++;
             return growing_plus_tip_list.insert(growing_plus_tip_list.end(), p_tip);
@@ -154,7 +154,7 @@ void Region::unregister_from_region(RegionMTTipTag tag, TipType tiptype, MTType 
     update_region_length();
 
     // minus tip
-    if (tiptype == T_MINUS)
+    if (tiptype == TipType::MINUS)
     {
         minus_tip_list.erase(tag);
     }
@@ -163,7 +163,7 @@ void Region::unregister_from_region(RegionMTTipTag tag, TipType tiptype, MTType 
     else
     {
         // erase growing MT
-        if (mttype == MT_GROWING)
+        if (mttype == MTType::GROWING)
         {
             geometry->system->growing_tips_reg[face_tag]--;
             growing_plus_tip_list.erase(tag);

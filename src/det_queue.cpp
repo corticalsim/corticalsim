@@ -101,7 +101,7 @@ EventTrackingTag DeterministicQueue::push_deterministic(double timedist, EventDe
 EventDescriptor::EventDescriptor(Microtubule* m, DeterministicQueue* q, double velocity):
     index(0),
     mt(m),
-    type(EV_NONE),
+    type(DeterministicEventType::NONE),
     tag(-1),
     queue(q)
 {
@@ -183,6 +183,6 @@ void EventDescriptor::clear()
 {
     // clear event descriptor
     tag = -1;
-    type = EV_NONE;
+    type = DeterministicEventType::NONE;
     return;
 }

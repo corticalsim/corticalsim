@@ -72,7 +72,7 @@ Microtubule::Microtubule(System* s, TrajectoryVector tv, bool initialize):
     // reverse direction
     minus(this, tv.flipped(), -s->p.v_tm, &(s->time_queue), -s->p.v_tm),
     disappear_event(this, &(s->time_queue), -s->p.v_min + s->p.v_tm),
-    type(MT_GROWING),
+    type(MTType::GROWING),
     nucleation_time(s->system_time + s->system_time_offset),
     previous_update_tag(s->current_time_tag)
 {
@@ -121,9 +121,9 @@ Microtubule::~Microtubule()
 void Microtubule::set_disappear_event()
 {
     // push to disappear event: (plus.velocity - minus.velocity < 0)
-    if ((segments.size() == 1) && (type == MT_SHRINKING))
+    if ((segments.size() == 1) && (type == MTType::SHRINKING))
     {
-        disappear_event.push_on_queue(segments.first()->length(), EV_DISAPPEAR);
+        disappear_event.push_on_queue(segments.first()->length(), DeterministicEventType::DISAPPEAR);
     }
 
     // flush disappear event queue
@@ -150,17 +150,17 @@ void Microtubule::handle_event(const EventDescriptor* ei)
     switch (ei->type)
     {
         // wall collision event encountered
-        case EV_WALL:
+        case DeterministicEventType::WALL:
             wall();
             break;
 
             // MT-MT collision event encountered
-        case EV_COLLISION:
+        case DeterministicEventType::COLLISION:
             collision();
             break;
 
         // back track event encountered
-        case EV_BACKTRACK:
+        case DeterministicEventType::BACKTRACK:
             if (ei == &(plus.event))
             {
                 backtrack(&plus);
@@ -172,7 +172,7 @@ void Microtubule::handle_event(const EventDescriptor* ei)
             break;
 
             // end of segment event encountered
-        case EV_END_OF_SEGMENT:
+        case DeterministicEventType::END_OF_SEGMENT:
             if (ei == &(plus.event))
             {
                 end_of_segment(&plus);
@@ -184,11 +184,11 @@ void Microtubule::handle_event(const EventDescriptor* ei)
             break;
 
         // disappear event encountered
-        case EV_DISAPPEAR:
+        case DeterministicEventType::DISAPPEAR:
             harakiri();
             break;
 
-        case EV_NONE:
+        case DeterministicEventType::NONE:
             break;
     };
 
@@ -221,13 +221,13 @@ void Microtubule::catastrophe()
     update_length();
 
     // growing MT will become shrinking MT, hence unregister the tip from growing-plus-tip list of this region
-    plus.trajectory->base.region->unregister_from_region(plus.region_tag, T_PLUS, MT_GROWING);
+    plus.trajectory->base.region->unregister_from_region(plus.region_tag, TipType::PLUS, MTType::GROWING);
 
     // now, this is shrinking MT
-    type = MT_SHRINKING;
+    type = MTType::SHRINKING;
 
     // growing MT will become shrinking MT, hence register the tip on shrinking-plus-tip list of this region
-    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, T_PLUS, MT_SHRINKING);
+    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, TipType::PLUS, MTType::SHRINKING);
 
     // replace plus velocity by minus velocity
     plus.velocity = system->p.v_min;
@@ -270,13 +270,13 @@ void Microtubule::rescue()
     update_length();
 
     // shrinking MT will become growing  MT, hence unregister the tip from shrinking-plus-tip list of this region
-    plus.trajectory->base.region->unregister_from_region(plus.region_tag, T_PLUS, MT_SHRINKING);
+    plus.trajectory->base.region->unregister_from_region(plus.region_tag, TipType::PLUS, MTType::SHRINKING);
 
     // now, this is growing MT
-    type = MT_GROWING;
+    type = MTType::GROWING;
 
     // shrinking MT will become growing MT, hence register the tip on growing-plus-tip list of this region
-    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, T_PLUS, MT_GROWING);
+    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, TipType::PLUS, MTType::GROWING);
 
     // replace minue velocity by plus velocity
     plus.velocity = system->p.v_plus;
@@ -318,7 +318,7 @@ void Microtubule::sever_at_cross(IntersectionItr is, Segment* cut_seg)
     // this time, cutPos and cutSeg are already known.
     double split_pos(is->first);
     // shift the cut ever so slightly away from the intersection, in the direction of the plus end.
-    if (cut_seg->dir == ::FORWARD)
+    if (cut_seg->dir == Direction::FORWARD)
     {
         split_pos += ZERO_CUTOFF;
     }
@@ -345,7 +345,7 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
     tv.trajectory = cut_seg->trajectory;
     tv.dir = cut_seg->dir;
     tv.pos = cut_pos;
-    if (type == MT_GROWING)
+    if (type == MTType::GROWING)
     {
         new_mt = system->growing_mts.create(system, tv, false);
     }
@@ -377,12 +377,12 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
     new_mt->plus.dir = plus.dir;
     new_mt->plus.next_collision = plus.next_collision;
     new_mt->plus.notification_tag = new_mt->plus.trajectory->register_for_notifications(&(new_mt->plus));
-    new_mt->plus.region_tag = new_mt->plus.trajectory->base.region->register_on_region(&(new_mt->plus), T_PLUS, type);
+    new_mt->plus.region_tag = new_mt->plus.trajectory->base.region->register_on_region(&(new_mt->plus), TipType::PLUS, type);
 
     // next, update the minus end of the new MT
     new_mt->segments.first()->start = tv.pos;
     new_mt->minus.notification_tag = new_mt->minus.trajectory->register_for_notifications(&(new_mt->minus));
-    new_mt->minus.region_tag = new_mt->minus.trajectory->base.region->register_on_region(&(new_mt->minus), T_MINUS, type);
+    new_mt->minus.region_tag = new_mt->minus.trajectory->base.region->register_on_region(&(new_mt->minus), TipType::MINUS, type);
     new_mt->minus.locate_intersection();
 
     new_mt->plus.determine_event();
@@ -393,10 +393,10 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
     segments.last()->end = cut_pos;
 
     // always unregister from region (just to be sure)
-    plus.trajectory->base.region->unregister_from_region(plus.region_tag, T_PLUS, type);
-    if (type == MT_GROWING)
+    plus.trajectory->base.region->unregister_from_region(plus.region_tag, TipType::PLUS, type);
+    if (type == MTType::GROWING)
     {
-        type = MT_SHRINKING;
+        type = MTType::SHRINKING;
         plus.velocity = system->p.v_min;
         plus.event.reinitialize(&(system->time_queue), system->p.v_min);
         system->shrinking_mts.import(system->growing_mts, this);
@@ -409,7 +409,7 @@ void Microtubule::split_segment_at_traj_pos(double cut_pos, Segment* cut_seg)
         plus.notification_tag = plus.trajectory->register_for_notifications(&(plus));
     }
     //...and register on region again
-    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, T_PLUS, MT_SHRINKING);
+    plus.region_tag = plus.trajectory->base.region->register_on_region(&plus, TipType::PLUS, MTType::SHRINKING);
     plus.dir = tv.dir;
     plus.next_collision = new_mt->minus.next_collision;
     if (system->p.v_min * new_mt->minus.velocity >= 0)
@@ -475,7 +475,7 @@ void Microtubule::wall()
     // edge catastrophe enabled
     if (system->p.edge_catastrophe_enabled)
     {
-        double cos_angle = (plus.dir == ::FORWARD) ? plus.trajectory->next_tr_cos_angle : plus.trajectory->prev_tr_cos_angle;
+        double cos_angle = (plus.dir == Direction::FORWARD) ? plus.trajectory->next_tr_cos_angle : plus.trajectory->prev_tr_cos_angle;
 
         // MT is moving non-parallel to the edege
         if ((1.0 - cos_angle) > ZERO_CUTOFF)
@@ -502,7 +502,7 @@ void Microtubule::wall()
             // other
             else
             {
-                p_cat = (plus.dir == ::FORWARD) ? plus.trajectory->next_trp_cat : plus.trajectory->prev_trp_cat;
+                p_cat = (plus.dir == Direction::FORWARD) ? plus.trajectory->next_trp_cat : plus.trajectory->prev_trp_cat;
             }
 
             // when smooth catastrophe is enabled
@@ -538,11 +538,11 @@ void Microtubule::wall()
 
     // create a new segment
     segments.create(this, tv);
-    segments.last()->start_itr = tv.dir == ::FORWARD ? tv.trajectory->wall_begin() : tv.trajectory->wall_end();
+    segments.last()->start_itr = tv.dir == Direction::FORWARD ? tv.trajectory->wall_begin() : tv.trajectory->wall_end();
 
     // switch trajectory
     plus.switch_trajectory(
-    tv.trajectory, tv.dir, tv.dir == ::FORWARD ? tv.trajectory->wall_begin() : tv.trajectory->wall_end());
+    tv.trajectory, tv.dir, tv.dir == Direction::FORWARD ? tv.trajectory->wall_begin() : tv.trajectory->wall_end());
 
     if (segments.size() == 2)
     {
@@ -564,7 +564,7 @@ void Microtubule::collision()
     // no MT(s) passing throught the next collision point, resulting a simple crossover
     if (plus.next_collision->second.mirror->second.occupancy == 0)
     {
-        type = CT_CROSSOVER;
+        type = CollisionType::CROSSOVER;
     }
 
     // MT(s) passing through the next collision point
@@ -575,7 +575,7 @@ void Microtubule::collision()
 
         if (diff_angle > 0.5 * PI)
         {
-            dir = (plus.dir == ::FORWARD) ? BACKWARD : ::FORWARD;
+            dir = (plus.dir == Direction::FORWARD) ? Direction::BACKWARD : Direction::FORWARD;
             diff_angle = PI - diff_angle;
         }
         else
@@ -591,19 +591,19 @@ void Microtubule::collision()
     switch (type)
     {
             // zippering
-        case CT_ZIPPER:
+        case CollisionType::ZIPPER:
             system->total_zipper_count++;
             zipper(dir);
             break;
 
             // crossover
-        case CT_CROSSOVER:
+        case CollisionType::CROSSOVER:
             system->total_crossover_count++;
             crossover();
             break;
 
             // induced catastrophe
-        case CT_INDUCED_CATASTROPHE:
+        case CollisionType::INDUCED_CATASTROPHE:
             system->total_induced_catastrophe_count++;
             catastrophe();
             break;
@@ -681,13 +681,13 @@ void Microtubule::end_of_segment(MTTip* tip)
     {
         kill_seg = segments.first();
         new_seg = segments.first()->next();
-        if (new_seg->dir == ::FORWARD)
+        if (new_seg->dir == Direction::FORWARD)
         {
-            new_dir = BACKWARD;
+            new_dir = Direction::BACKWARD;
         }
         else
         {
-            new_dir = ::FORWARD;
+            new_dir = Direction::FORWARD;
         }
     }
 
@@ -707,7 +707,7 @@ void Microtubule::end_of_segment(MTTip* tip)
     {
         tip->switch_trajectory(new_seg->trajectory,
                               new_dir,
-                              new_dir == ::FORWARD ? new_seg->trajectory->wall_end() : new_seg->trajectory->wall_begin());
+                              new_dir == Direction::FORWARD ? new_seg->trajectory->wall_end() : new_seg->trajectory->wall_begin());
         system->boundary_crossing_count--;
     }
 
@@ -830,7 +830,7 @@ void Microtubule::crossover()
 void Microtubule::harakiri()
 {
     // MT disappear event encountered, remove the MT
-    if (type == MT_GROWING)
+    if (type == MTType::GROWING)
     {
         system->growing_mts.remove(this);
     }
@@ -1135,7 +1135,7 @@ bool Microtubule::integrity_check()
     seg = segments.first();
     while (seg != nullptr)
     {
-        if (seg->dir == ::FORWARD)
+        if (seg->dir == Direction::FORWARD)
         {
             if (seg->end - seg->start < -ZERO_CUTOFF)
             {

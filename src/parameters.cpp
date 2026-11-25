@@ -34,7 +34,7 @@ Parameters::Parameters(System* s):
     p_cat_regular_edge_max(0.0),
     edg_number(0),
     face_number(0),
-    nucleation_type(NUC_ISOTROPIC),
+    nucleation_type(NucleationType::ISOTROPIC),
     zippering_enabled(1),
     catastrophes_enabled(1),
     proportional_catastrophes(0),
@@ -43,8 +43,8 @@ Parameters::Parameters(System* s):
     pp_bk_nuc_fraction(0.0),
     cat_start_angle(0),
     magic_angle(40),
-    interaction_type(INT_ZIP_FIRST),
-    bundle_type(BDL_SIMPLE),
+    interaction_type(InteractionType::ZIP_FIRST),
+    bundle_type(BundleType::SIMPLE),
     geom_param("0"),
     seed(time(nullptr)),
     stop_time(36000),
@@ -117,7 +117,7 @@ bool Parameters::write_to_file()
     of << "kNuc\t" << k_nuc << "\r\n";
     of << "magic_angle\t" << magic_angle << "\r\n";
     of << "poolDensity\t" << pool_density << "\r\n";
-    of << "nucleationType\t" << nucleation_type << "\r\n";
+    of << "nucleationType\t" << static_cast<int>(nucleation_type) << "\r\n";
     of << "########## Zip-IndCat-Severing events ######\r\n";
     of << "treadmilling\t" << treadmilling_enabled << "\r\n";
     of << "ind_cat\t" << catastrophes_enabled << "\r\n";
@@ -150,8 +150,8 @@ bool Parameters::write_to_file()
     of << "proportionalCatastrophes\t" << proportional_catastrophes << "\r\n";
     of << "########## specific conditions ###########\r\n";
     of << "restrictedPool\t" << restricted_pool << "\r\n";
-    of << "interactionType\t" << interaction_type << "\r\n";
-    of << "bundleType\t" << bundle_type << "\r\n";
+    of << "interactionType\t" << static_cast<int>(interaction_type) << "\r\n";
+    of << "bundleType\t" << static_cast<int>(bundle_type) << "\r\n";
     of << "########## Random seed and run time #####\r\n";
     of << "memoryLimit\t" << memory_limit << "\r\n";
     of << "wallClockLimit\t" << wall_clock_limit << "\r\n";
@@ -246,7 +246,8 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, string
             int i = 0;
             string temp;
             file >> temp;
-            while (i < compare_count)
+            // TODO: Fragile - refactor as a priority.
+            while (i < static_cast<int>(compare_count))
             {
                 if (temp == compare_list[i])
                 {
@@ -255,7 +256,8 @@ bool& recognized, ifstream& file, string& id, const char* tag, T& target, string
                 }
                 i++;
             }
-            if (i == compare_count)
+            // TODO: Fragile - refactor as a priority.
+            if (i == static_cast<int>(compare_count))
             {
                 cerr << "ERROR: No valid value for " << tag << ": " << temp << "\n";
                 exit(-1);
@@ -350,11 +352,11 @@ bool Parameters::read_from_file(const char* pf, bool initial_run)
             load_param(recognized, par_file, id, "movieFrameInterval", movie_frame_interval);
             load_param(recognized, par_file, id, "geometryScaleFactor", geometry_scale_factor);
             load_param_enum_text<NucleationType>(
-            recognized, par_file, id, "nucleationType", nucleation_type, nucleation_type_text, NUC_COUNT_LAST);
+            recognized, par_file, id, "nucleationType", nucleation_type, nucleation_type_text, NucleationType::COUNT_LAST);
             load_param_enum_text<InteractionType>(
-            recognized, par_file, id, "interactionType", interaction_type, interaction_type_text, INT_COUNT_LAST);
+            recognized, par_file, id, "interactionType", interaction_type, interaction_type_text, InteractionType::COUNT_LAST);
             load_param_enum_text<BundleType>(
-            recognized, par_file, id, "bundleType", bundle_type, bundle_type_text, BDL_COUNT_LAST);
+            recognized, par_file, id, "bundleType", bundle_type, bundle_type_text, BundleType::COUNT_LAST);
             load_param(recognized, par_file, id, "showOutput", show_output);
             load_param(recognized, par_file, id, "showMesh", show_mesh);
             load_param(recognized, par_file, id, "geometry", geometry);
@@ -451,7 +453,7 @@ void Parameters::verify_parameters()
     switch (nucleation_type)
     {
             // isotropic nucleation need no conditional check
-        case NUC_ISOTROPIC:
+        case NucleationType::ISOTROPIC:
             break;
 
         default:
@@ -463,11 +465,11 @@ void Parameters::verify_parameters()
     switch (interaction_type)
     {
         // catastrophe first, need no further conditional check
-        case INT_CAT_FIRST:
+        case InteractionType::CAT_FIRST:
             break;
 
         // zip first needs further check
-        case INT_ZIP_FIRST:
+        case InteractionType::ZIP_FIRST:
 
             // zippering fraction must be in the range: (0.0 - 1.0)
             if (zippering_enabled)
@@ -483,7 +485,7 @@ void Parameters::verify_parameters()
             }
             break;
 
-        case INT_COUNT_LAST:
+        case InteractionType::COUNT_LAST:
             break;
     }
 
@@ -499,7 +501,7 @@ bool Parameters::calc_theory_parameters(void)
     switch (interaction_type)
     {
         // zippering first is requested
-        case INT_ZIP_FIRST:
+        case InteractionType::ZIP_FIRST:
 
             // fzippering is enabled
             if (zippering_enabled)
@@ -552,7 +554,7 @@ bool Parameters::calc_theory_parameters(void)
             break;
 
         // catastrophe first is requested
-        case INT_CAT_FIRST:
+        case InteractionType::CAT_FIRST:
 
             // catastrophe is enabled
             if (catastrophes_enabled)
@@ -609,7 +611,7 @@ bool Parameters::calc_theory_parameters(void)
             break;
 
         default:
-            cerr << "no function to calculate z0, c0, x0 etc. (interactionType = " << interaction_type << ")\n";
+            cerr << "no function to calculate z0, c0, x0 etc. (interactionType = " << static_cast<int>(interaction_type) << ")\n";
             return false;
     }
 
@@ -624,7 +626,6 @@ bool Parameters::calc_theory_parameters(void)
         cout << " Calculated theory parameters" << endl;
         cout << "===============================================" << endl;
         cout << "l0 = " << l0 << endl;
-        ;
         cout << "lavg = " << -1. / lavg_inv << endl;
         cout << "G_0 = -l0/lavg = " << g_0 << endl;
         cout << "===============================================" << endl;

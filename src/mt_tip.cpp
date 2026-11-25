@@ -68,19 +68,19 @@ void MTTip::locate_intersection()
     IntersectionItr temp = next_collision;
 
     // if necessary, step down to the intersection on the other side of the tip [minus end can have velocity zero (=0)]
-    if (((static_cast<double>(dir) * velocity) < 0) || ((velocity == 0) && (dir == ::FORWARD)))
+    if (((static_cast<double>(dir) * velocity) < 0) || ((velocity == 0) && (dir == Direction::FORWARD)))
     {
         next_collision--;
     }
 
     // if direction of the tip is backward then only step down the segment interator
-    if (dir == BACKWARD)
+    if (dir == Direction::BACKWARD)
     {
         temp--;
     }
 
     // plus tip (must be on the end of top segment)
-    if (type() == T_PLUS)
+    if (type() == TipType::PLUS)
     {
         mt->segments.last()->end_itr = temp;
     }
@@ -97,7 +97,7 @@ void MTTip::locate_intersection()
 void MTTip::advance_intersection()
 {
     // next collission site in front
-    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == BACKWARD)))
+    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == Direction::BACKWARD)))
     {
 #ifdef DBG_ASSERT
         if (nextCollision == trajectory->wallEnd())
@@ -129,7 +129,7 @@ void MTTip::advance_intersection()
     // for minus end velocity (if direction of the tip is backward then step down the segment interator else step up)
     if (velocity <= 0)
     {
-        if (dir == BACKWARD)
+        if (dir == Direction::BACKWARD)
         {
             temp--;
         }
@@ -140,7 +140,7 @@ void MTTip::advance_intersection()
     }
 
     // plus tip (must be on the end of top segment)
-    if (type() == T_PLUS)
+    if (type() == TipType::PLUS)
     {
         mt->segments.last()->end_itr = temp;
     }
@@ -168,21 +168,21 @@ void MTTip::determine_event()
         // next collision on wall begenning (at the bottom of the trajectory)
         if (next_collision == trajectory->wall_begin())
         {
-            event_type = EV_WALL;
+            event_type = DeterministicEventType::WALL;
             event_pos = 0;
         }
 
         // next collision on wall end (at the top of the trajectory)
         else if (next_collision == trajectory->wall_end())
         {
-            event_type = EV_WALL;
+            event_type = DeterministicEventType::WALL;
             event_pos = trajectory->length;
         }
 
         // next collision, some where at the middle of trajectory
         else
         {
-            event_type = EV_COLLISION;
+            event_type = DeterministicEventType::COLLISION;
             event_pos = next_collision->first;
         }
     }
@@ -194,7 +194,7 @@ void MTTip::determine_event()
         if (next_collision == trajectory->wall_begin())
         {
             // the segment will be removed
-            event_type = EV_END_OF_SEGMENT;
+            event_type = DeterministicEventType::END_OF_SEGMENT;
             event_pos = 0;
         }
 
@@ -202,7 +202,7 @@ void MTTip::determine_event()
         else if (next_collision == trajectory->wall_end())
         {
             // the segment will be removed
-            event_type = EV_END_OF_SEGMENT;
+            event_type = DeterministicEventType::END_OF_SEGMENT;
             event_pos = trajectory->length;
         }
 
@@ -211,7 +211,7 @@ void MTTip::determine_event()
                  && (next_collision == mt->segments.last()->start_itr))
         {
             // the segment will be removed
-            event_type = EV_END_OF_SEGMENT;
+            event_type = DeterministicEventType::END_OF_SEGMENT;
             event_pos = mt->segments.last()->start_itr->first;
         }
 
@@ -220,14 +220,14 @@ void MTTip::determine_event()
                  && (next_collision == mt->segments.first()->end_itr))
         {
             // the segment will be removed
-            event_type = EV_END_OF_SEGMENT;
+            event_type = DeterministicEventType::END_OF_SEGMENT;
             event_pos = mt->segments.first()->end_itr->first;
         }
 
         // next collision is some where at the middle of trajectory and a back-track event will occur
         else
         {
-            event_type = EV_BACKTRACK;
+            event_type = DeterministicEventType::BACKTRACK;
             event_pos = next_collision->first;
         }
     }
@@ -267,12 +267,12 @@ void MTTip::notify_remove(IntersectionItr& old_is)
     }
 
     // get the tip start/end iterator
-    IntersectionItr& ref = (type() == T_PLUS) ? mt->segments.last()->end_itr : mt->segments.first()->start_itr;
+    IntersectionItr& ref = (type() == TipType::PLUS) ? mt->segments.last()->end_itr : mt->segments.first()->start_itr;
 
     // link the tip start/end iterator to the new inserted iterator
     if (ref == old_is)
     {
-        if (dir == ::FORWARD)
+        if (dir == Direction::FORWARD)
         {
             ref++;
         }
@@ -294,7 +294,7 @@ void MTTip::notify_insert(IntersectionItr& new_is)
     IntersectionItr temp = new_is;
 
     // next collission site in front
-    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == BACKWARD)))
+    if ((static_cast<double>(dir) * velocity > 0) || ((velocity == 0) && (dir == Direction::BACKWARD)))
     {
         // if the scheduled next collision is located after the new intersection point,  then replace it by the new
         // intersection
@@ -320,13 +320,13 @@ void MTTip::notify_insert(IntersectionItr& new_is)
     temp = new_is;
 
     // get the tip start/end iterator
-    IntersectionItr& ref_itr = (type() == T_PLUS) ? mt->segments.last()->end_itr : mt->segments.first()->start_itr;
+    IntersectionItr& ref_itr = (type() == TipType::PLUS) ? mt->segments.last()->end_itr : mt->segments.first()->start_itr;
 
     // get the tip start/end position
-    double& ref_pos = (type() == T_PLUS) ? mt->segments.last()->end : mt->segments.first()->start;
+    double& ref_pos = (type() == TipType::PLUS) ? mt->segments.last()->end : mt->segments.first()->start;
 
     // link the tip start/end iterator to the new inserted iterator
-    if (dir == ::FORWARD)
+    if (dir == Direction::FORWARD)
     {
         if ((++temp == ref_itr) && (new_is->first > ref_pos))
         {
@@ -350,11 +350,11 @@ TipType MTTip::type()
     // get tip type of MT
     if (this == &(mt->plus))
     {
-        return T_PLUS;
+        return TipType::PLUS;
     }
     else
     {
-        return T_MINUS;
+        return TipType::MINUS;
     }
 }
 
