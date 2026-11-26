@@ -86,7 +86,7 @@ instead of the
 ```
 ninja -C build/debug sphinx-build
 ```
-However, be aware that this will rerun all the metrics generators, like `clang-tidy` and and `coverage`, which can take significantly longer.
+However, be aware that this will rerun all the metrics generators, like `clang-tidy` and `coverage`, which can take significantly longer.
 ```
 
 ## Code Style
@@ -239,3 +239,20 @@ A possible test case would be named as follows:
 ```cpp
 TEST(ParametersTest, load_from_file_returns_empty_optional_when_file_does_not_exist)
 ```
+
+## Test Coverage
+
+Requires [`gcovr`](https://gcovr.com/en/stable/installation.html) to be installed. If `gcovr` is not installed then the
+coverage target will not be created.
+
+To get generate the local coverage metrics run the test suite first:
+```bash
+ninja test -C build/debug/
+```
+Then run the `coverage` target:
+```bash
+ninja -C build/debug/ coverage
+```
+This will generate the coverage and print the location of the logs to the consol. Open the index.html at the printed
+location. Which will be probably at `corticalsim/build/debug/meson-logs/coveragereport/index.html`.
+

@@ -2,7 +2,10 @@ project(
     'corticalsim',
     'cpp',
     meson_version: '>=1.3.0',
-    default_options: ['cpp_std=c++20'],
+    default_options: [
+        'cpp_std=c++20',
+        'b_coverage=true', # enable coverage targets if gcovr is available
+    ],
 )
 
 # check if a feature flag is defined
