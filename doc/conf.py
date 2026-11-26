@@ -9,7 +9,7 @@ import os
 
 project = 'CorticalSim'
 copyright = '2017-%Y'
-author = 'Eva Deinum, Bandan Chakrabortty, Simon Tindemans, Jaro Camphuijsen, Alexander Hadjiivanov'
+author = 'Eva Deinum, Bandan Chakrabortty, Simon Tindemans, Jaro Camphuijsen, Alexander Hadjiivanov, George Dadunashvili'
 release = ''
 
 # -- General configuration ---------------------------------------------------
