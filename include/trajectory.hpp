@@ -22,7 +22,10 @@ class TrajectoryVector
 
     TrajectoryVector() {}
 
-    TrajectoryVector flipped() { return TrajectoryVector(pos, dir == ::FORWARD ? BACKWARD : ::FORWARD, trajectory); }
+    TrajectoryVector flipped()
+    {
+        return TrajectoryVector(pos, dir == Direction::FORWARD ? Direction::BACKWARD : Direction::FORWARD, trajectory);
+    }
 };
 
 class Trajectory: public DLBaseItem<Trajectory>

@@ -81,89 +81,89 @@ typedef list<MTTip*>::iterator TrjMTTipTag;
 typedef list<MTTip*>::iterator RegionMTTipTag;
 
 // new data type definition
-typedef enum
+enum class Direction : int
 {
     FORWARD = 1,
     BACKWARD = -1
-} Direction;
+};
 
 extern string direction_type_text[];
 
-typedef enum
+enum class DeterministicEventType : int
 {
-    EV_NONE,
-    EV_WALL = 1,
-    EV_COLLISION,
-    EV_BACKTRACK,
-    EV_END_OF_SEGMENT,
-    EV_DISAPPEAR
-} DeterministicEventType;
+    NONE = 0,
+    WALL = 1,
+    COLLISION = 2,
+    BACKTRACK = 3,
+    END_OF_SEGMENT = 4,
+    DISAPPEAR = 5
+};
 
-typedef enum
+enum class GlobalEventType : int
 {
     MEASURE = 1,
-    SNAPSHOT,
-    STOP,
-    STATUS,
-    PARAMETER_CHANGE,
-    SIGNAL_PPB
-} GlobalEventType;
+    SNAPSHOT = 2,
+    STOP = 3,
+    STATUS = 4,
+    PARAMETER_CHANGE = 5,
+    SIGNAL_PPB = 6
+};
 
-typedef enum
+enum class StochasticEventType : int
 {
     CATASTROPHE = 1,
-    RESCUE,
-    KATANIN,
-    SEVERING_AT_CROSS,
-    NUCLEATION
-} StochasticEventType;
+    RESCUE = 2,
+    KATANIN = 3,
+    SEVERING_AT_CROSS = 4,
+    NUCLEATION = 5
+};
 
-typedef enum
+enum class CollisionType : int
 {
-    CT_ZIPPER = 1,
-    CT_CROSSOVER,
-    CT_INDUCED_CATASTROPHE
-} CollisionType;
+    ZIPPER = 1,
+    CROSSOVER = 2,
+    INDUCED_CATASTROPHE = 3
+};
 
-typedef enum
+enum class NucleationType : int
 {
-    NUC_ISOTROPIC,
-    NUC_COUNT_LAST
-} NucleationType;
+    ISOTROPIC = 0,
+    COUNT_LAST = 1
+};
 
 extern string nucleation_type_text[];
 
-typedef enum
+enum class InteractionType : int
 {
-    INT_ZIP_FIRST,
-    INT_CAT_FIRST,
-    INT_COUNT_LAST
-} InteractionType;
+    ZIP_FIRST = 0,
+    CAT_FIRST = 1,
+    COUNT_LAST = 2
+};
 
 extern string interaction_type_text[];
 
-typedef enum
+enum class BundleType : int
 {
-    BDL_SIMPLE,
-    BDL_STICKY,
-    BDL_NO_ZIP,
-    BDL_MULTI_COLLISION,
-    BDL_NCOLLISION,
-    BDL_COUNT_LAST
-} BundleType;
+    SIMPLE = 0,
+    STICKY = 1,
+    NO_ZIP = 2,
+    MULTI_COLLISION = 3,
+    NCOLLISION = 4,
+    COUNT_LAST = 5
+};
 
 extern string bundle_type_text[];
 
-typedef enum
+enum class TipType : int
 {
-    T_MINUS,
-    T_PLUS
-} TipType;
+    MINUS = 0,
+    PLUS = 1
+};
 
-typedef enum
+enum class MTType : int
 {
-    MT_GROWING,
-    MT_SHRINKING
-} MTType;
+    GROWING = 0,
+    SHRINKING = 1
+};
 
 #endif // TYPES_HPP

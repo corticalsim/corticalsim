@@ -8,7 +8,7 @@ void System::collision_probabilities(double angle, double& pcat, double& pzip)
 {
     switch (p.interaction_type)
     {
-        case INT_ZIP_FIRST:
+        case InteractionType::ZIP_FIRST:
 
             // angle < magic angle
             if (angle < PI * p.magic_angle / 180.0)
@@ -52,7 +52,7 @@ void System::collision_probabilities(double angle, double& pcat, double& pzip)
 
             break;
 
-        case INT_CAT_FIRST:
+        case InteractionType::CAT_FIRST:
 
             // angle > p.catStartAngle and induced catastrophes enabled
             if (p.catastrophes_enabled && (angle > p.cat_start_angle / 180.0 * PI))
@@ -170,51 +170,51 @@ CollisionType System::collision_result(double angle, int n_parallel, int n_cross
         // This needs to be fixed properly.
         // Adding this case or `default` at the end causes an error becasue
         // of the initialisation of multiPx & multiPz in the last case.
-        case BDL_COUNT_LAST:
+        case BundleType::COUNT_LAST:
             break;
-        case BDL_NO_ZIP:
+        case BundleType::NO_ZIP:
 
             if (n_parallel > 0)
             {
                 if (rand < pcat)
                 {
-                    return CT_INDUCED_CATASTROPHE;
+                    return CollisionType::INDUCED_CATASTROPHE;
                 }
             }
             // break omitted on purpose!
 
-        case BDL_STICKY:
+        case BundleType::STICKY:
 
             if (n_parallel > 0)
             {
-                return CT_CROSSOVER;
+                return CollisionType::CROSSOVER;
             }
             // break omitted on purpose!
 
-        case BDL_SIMPLE:
+        case BundleType::SIMPLE:
 
             // induced catastrophe selected
             if (rand < pcat)
             {
-                return CT_INDUCED_CATASTROPHE;
+                return CollisionType::INDUCED_CATASTROPHE;
             }
 
             // zippering selected
             else if (rand < pcat + pzip)
             {
-                return CT_ZIPPER;
+                return CollisionType::ZIPPER;
             }
 
             // cross over slected
             else
             {
-                return CT_CROSSOVER;
+                return CollisionType::CROSSOVER;
             }
 
             // though never reached
             // break;
 
-        case BDL_NCOLLISION:
+        case BundleType::NCOLLISION:
 
             // add up total probabilities
             pcat *= n_cross;
@@ -230,23 +230,23 @@ CollisionType System::collision_result(double angle, int n_parallel, int n_cross
 
             if (rand < pcat)
             {
-                return CT_INDUCED_CATASTROPHE;
+                return CollisionType::INDUCED_CATASTROPHE;
             }
 
             else if (rand < pcat + pzip)
             {
-                return CT_ZIPPER;
+                return CollisionType::ZIPPER;
             }
 
             else
             {
-                return CT_CROSSOVER;
+                return CollisionType::CROSSOVER;
             }
 
             // though never reached
             // break;
 
-        case BDL_MULTI_COLLISION:
+        case BundleType::MULTI_COLLISION:
 
             double pcross = 1.0 - pcat - pzip;
             double multi_px = multi_pcross(min(n_parallel, MAXBINOM - 1), min(n_cross, MAXBINOM - 1), pcross, pzip);
@@ -254,17 +254,17 @@ CollisionType System::collision_result(double angle, int n_parallel, int n_cross
 
             if (rand < multi_px)
             {
-                return CT_CROSSOVER;
+                return CollisionType::CROSSOVER;
             }
 
             else if (rand < multi_px + multi_pz)
             {
-                return CT_ZIPPER;
+                return CollisionType::ZIPPER;
             }
 
             else
             {
-                return CT_INDUCED_CATASTROPHE;
+                return CollisionType::INDUCED_CATASTROPHE;
             }
 
             // though never reached
@@ -272,7 +272,7 @@ CollisionType System::collision_result(double angle, int n_parallel, int n_cross
     }
 
     // should never occur
-    return CT_CROSSOVER;
+    return CollisionType::CROSSOVER;
 }
 
 System::System(char* par_file):
@@ -329,27 +329,27 @@ System::System(char* par_file):
 
     /// start creating MT events
     determine_stochastic_event();
-    time_queue.push_global(p.measurement_interval, STATUS);
+    time_queue.push_global(p.measurement_interval, GlobalEventType::STATUS);
     next_status_event_time = p.measurement_interval;
 
     /// if snapShot events are requested
     if (p.movie_enabled)
     {
-        time_queue.push_global(p.movie_frame_interval, SNAPSHOT);
+        time_queue.push_global(p.movie_frame_interval, GlobalEventType::SNAPSHOT);
         next_snapshot_event_time = p.movie_frame_interval;
     }
 
     /// if parameter file is updated on run
     if (p.ppb)
     {
-        time_queue.push_global(p.pp_bforming_time, SIGNAL_PPB);
+        time_queue.push_global(p.pp_bforming_time, GlobalEventType::SIGNAL_PPB);
         next_ppb_event_time = p.pp_bforming_time;
     }
 
     /// if parameter file is updated on run
     if (p.new_parameter_read_interval > ZERO_CUTOFF)
     {
-        time_queue.push_global(p.new_parameter_read_interval, PARAMETER_CHANGE);
+        time_queue.push_global(p.new_parameter_read_interval, GlobalEventType::PARAMETER_CHANGE);
         next_parameter_event_time = p.new_parameter_read_interval;
     }
 
@@ -369,7 +369,7 @@ void System::run(double sim_time, string& c_s, string& m_s)
 {
     int wall_time_polling_counter(0);
     int memory_polling_counter(0);
-    time_queue.push_global(sim_time - system_time_offset, STOP);
+    time_queue.push_global(sim_time - system_time_offset, GlobalEventType::STOP);
 
     if (p.show_output == 1)
     {
@@ -386,7 +386,7 @@ void System::run(double sim_time, string& c_s, string& m_s)
             {
                 // time's up; send a stop signal
                 cerr << "Wall clock limit (" << p.wall_clock_limit << " seconds) reached. Stopping.\n";
-                time_queue.push_global(system_time, STOP);
+                time_queue.push_global(system_time, GlobalEventType::STOP);
 
                 // write final snapshot when running out of time.
                 if (p.movie_enabled)
@@ -406,7 +406,7 @@ void System::run(double sim_time, string& c_s, string& m_s)
             if (estimate_memory_footprint() > 1024 * 1024 * p.memory_limit)
             {
                 cerr << "Memory limit (approx. " << p.memory_limit << " MB) reached. Stopping.\n";
-                time_queue.push_global(system_time, STOP);
+                time_queue.push_global(system_time, GlobalEventType::STOP);
 
                 // emergency exit the program
                 emergency_break();
@@ -568,26 +568,26 @@ void System::flush_and_reload(bool refresh_parameter_event)
     // now, reload all events (this is a PROBLEM for global events that have not been saved. They need to be re-inserted
     // manually)
     determine_stochastic_event();
-    time_queue.push_global(p.stop_time - system_time_offset, STOP);
+    time_queue.push_global(p.stop_time - system_time_offset, GlobalEventType::STOP);
     next_status_event_time -= time_offset;
-    time_queue.push_global(next_status_event_time, STATUS);
+    time_queue.push_global(next_status_event_time, GlobalEventType::STATUS);
 
     if (refresh_parameter_event)
     {
         next_parameter_event_time -= time_offset;
-        time_queue.push_global(next_parameter_event_time, PARAMETER_CHANGE);
+        time_queue.push_global(next_parameter_event_time, GlobalEventType::PARAMETER_CHANGE);
     }
 
     if (p.movie_enabled)
     {
         next_snapshot_event_time -= time_offset;
-        time_queue.push_global(next_snapshot_event_time, SNAPSHOT);
+        time_queue.push_global(next_snapshot_event_time, GlobalEventType::SNAPSHOT);
     }
 
     if (p.ppb)
     {
         next_ppb_event_time -= time_offset;
-        time_queue.push_global(next_ppb_event_time, SIGNAL_PPB);
+        time_queue.push_global(next_ppb_event_time, GlobalEventType::SIGNAL_PPB);
     }
 
     Microtubule* mt(nullptr);
@@ -885,21 +885,21 @@ void System::next_event()
         // execute next stochastic event
         switch (next_stochastic_event_type)
         {
-            case CATASTROPHE:
+            case StochasticEventType::CATASTROPHE:
                 handle_catastrophe_event();
                 break;
-            case RESCUE:
+            case StochasticEventType::RESCUE:
                 handle_rescue_event();
                 break;
-            case KATANIN:
+            case StochasticEventType::KATANIN:
                 handle_severing_event();
                 break;
 #ifdef CROSS_SEV
-            case SEVERING_AT_CROSS:
+            case StochasticEventType::SEVERING_AT_CROSS:
                 handle_severing_at_cross_event();
                 break;
 #endif
-            case NUCLEATION:
+            case StochasticEventType::NUCLEATION:
                 handle_nucleation_event();
                 break;
         }
@@ -1443,7 +1443,7 @@ void System::handle_nucleation_event()
     switch (p.nucleation_type)
     {
             // select isotropic nucleation
-        case NUC_ISOTROPIC:
+        case NucleationType::ISOTROPIC:
             override_angle = sv.angle;
             break;
         default:
@@ -1558,20 +1558,20 @@ void System::determine_stochastic_event()
 
     if (type_selector < p.k_nuc * geometry->area * inv_total_rate)
     {
-        next_stochastic_event_type = NUCLEATION;
+        next_stochastic_event_type = StochasticEventType::NUCLEATION;
     }
 
     // select catastrophe event
     else if (type_selector < (p.k_nuc * geometry->area + type_select_reg_source) * inv_total_rate)
     {
-        next_stochastic_event_type = CATASTROPHE;
+        next_stochastic_event_type = StochasticEventType::CATASTROPHE;
     }
 
     // select rescue event
     else if (type_selector
              < (p.k_nuc * geometry->area + type_select_reg_source + p.k_res * shrinking_mts.size()) * inv_total_rate)
     {
-        next_stochastic_event_type = RESCUE;
+        next_stochastic_event_type = StochasticEventType::RESCUE;
     }
 
 // select severing event
@@ -1580,14 +1580,14 @@ void System::determine_stochastic_event()
                               + p.k_cross * occupied_intersection_list.size())
                              * inv_total_rate)
     {
-        next_stochastic_event_type = SEVERING_AT_CROSS;
+        next_stochastic_event_type = StochasticEventType::SEVERING_AT_CROSS;
     }
 #endif
 
     // select katanin induced event
     else
     {
-        next_stochastic_event_type = KATANIN;
+        next_stochastic_event_type = StochasticEventType::KATANIN;
     }
 
 #ifdef DBG_EVENT
@@ -1606,9 +1606,9 @@ void System::handle_global_event(DeterministicEvent& event)
     switch (event.global_type)
     {
 
-        case MEASURE:
+        case GlobalEventType::MEASURE:
             break;
-        case STATUS:
+        case GlobalEventType::STATUS:
             if (!integrity_check())
             {
                 cerr << "Integrity check failed. Exiting.\n";
@@ -1617,10 +1617,10 @@ void System::handle_global_event(DeterministicEvent& event)
 
             perform_measurement();
             next_status_event_time = system_time + p.measurement_interval;
-            time_queue.push_global(next_status_event_time, STATUS);
+            time_queue.push_global(next_status_event_time, GlobalEventType::STATUS);
             break;
 
-        case SNAPSHOT:
+        case GlobalEventType::SNAPSHOT:
             // declaring variable within case: so the local blocking
             {
                 OrderParameters order;
@@ -1640,11 +1640,11 @@ void System::handle_global_event(DeterministicEvent& event)
                 geometry->output_order_heat_map(heat_map_file, order.local_order, order.sv);
 
                 next_snapshot_event_time = system_time + p.movie_frame_interval;
-                time_queue.push_global(next_snapshot_event_time, SNAPSHOT);
+                time_queue.push_global(next_snapshot_event_time, GlobalEventType::SNAPSHOT);
             }
             break;
 
-        case STOP:
+        case GlobalEventType::STOP:
         {
             OrderParameters order;
             geometry->get_order_parameters(order);
@@ -1668,7 +1668,7 @@ void System::handle_global_event(DeterministicEvent& event)
         }
         break;
 
-        case PARAMETER_CHANGE:
+        case GlobalEventType::PARAMETER_CHANGE:
         {
             cout << "Changing parameters. Reading from file [" << p.new_parameter_file << "]\n";
             flush_and_reload(false);
@@ -1688,7 +1688,7 @@ void System::handle_global_event(DeterministicEvent& event)
                 {
                     if (next_snapshot_event_time < ZERO_CUTOFF)
                     {
-                        time_queue.push_global(p.movie_frame_interval, SNAPSHOT);
+                        time_queue.push_global(p.movie_frame_interval, GlobalEventType::SNAPSHOT);
                         next_snapshot_event_time = p.movie_frame_interval;
                     }
                 }
@@ -1699,7 +1699,7 @@ void System::handle_global_event(DeterministicEvent& event)
 
                 if (p.new_parameter_read_interval > ZERO_CUTOFF)
                 {
-                    time_queue.push_global(p.new_parameter_read_interval, PARAMETER_CHANGE);
+                    time_queue.push_global(p.new_parameter_read_interval, GlobalEventType::PARAMETER_CHANGE);
                     next_parameter_event_time = p.new_parameter_read_interval;
                 }
             }
@@ -1710,12 +1710,12 @@ void System::handle_global_event(DeterministicEvent& event)
                 exit(-1);
             }
 
-            time_queue.push_global(p.new_parameter_read_interval, PARAMETER_CHANGE);
+            time_queue.push_global(p.new_parameter_read_interval, GlobalEventType::PARAMETER_CHANGE);
             next_parameter_event_time = p.new_parameter_read_interval;
             break;
         }
 
-        case SIGNAL_PPB:
+        case GlobalEventType::SIGNAL_PPB:
             cout << " Starting formation of PPB ...\n";
             p.write_to_file();
             p.pp_bk_nuc_fraction = 0.8;
@@ -1764,7 +1764,7 @@ void System::handle_global_event(DeterministicEvent& event)
                     geometry->regions_index[2].push_back(eno);
                 }
             }
-            time_queue.push_global(VERY_LARGE, SIGNAL_PPB);
+            time_queue.push_global(VERY_LARGE, GlobalEventType::SIGNAL_PPB);
             next_ppb_event_time = VERY_LARGE;
 
             break;
@@ -1781,7 +1781,7 @@ EventDescriptorIndex System::register_event_descriptor(EventDescriptor* ei)
 
     if (event_descriptor_id == numeric_limits<EventDescriptorIndex>::max() - 10)
     {
-        time_queue.push_global(system_time, STOP);
+        time_queue.push_global(system_time, GlobalEventType::STOP);
     }
 
     return index;
