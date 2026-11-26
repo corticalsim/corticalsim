@@ -81,7 +81,7 @@ typedef list<MTTip*>::iterator TrjMTTipTag;
 typedef list<MTTip*>::iterator RegionMTTipTag;
 
 // new data type definition
-enum class Direction
+enum class Direction : int
 {
     FORWARD = 1,
     BACKWARD = -1
