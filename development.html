@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Development &mdash; CorticalSim  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Technical documentation" href="technical.html" />
+    <link rel="prev" title="Quick Start" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            CorticalSim
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html#corticalsim">CorticalSim</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#corticalsim-development-documentation">corticalsim development documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Development</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#core-dependencies">Core dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#building-the-documentation-locally">Building the documentation locally</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#doxygen">Doxygen</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sphinx">Sphinx</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#static-code-analysis">Static code analysis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installing-clang-tidy">Installing <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#running-clang-tidy">Running <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unit-tests">Unit-Tests</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-write-unit-tests">How to write unit tests</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical.html">Technical documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dashboard.html">corticalsim dashboard</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CorticalSim</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Development</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/development.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="development">
+<h1>Development<a class="headerlink" href="#development" title="Link to this heading"></a></h1>
+<section id="corticalsim-development-documentation">
+<h2>corticalsim development documentation<a class="headerlink" href="#corticalsim-development-documentation" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>[!NOTE]
+Testing and contributing is very welcome, especially if you can contribute new algorithms and features.</p>
+</div></blockquote>
+<blockquote>
+<div><p>[!WARNING]
+For the development setup we strongly recommend a Linux system. While we try to use cross-platform tools, some things
+might not work as expected.</p>
+</div></blockquote>
+</section>
+<section id="id1">
+<h2>Development<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="core-dependencies">
+<h3>Core dependencies<a class="headerlink" href="#core-dependencies" title="Link to this heading"></a></h3>
+<p>In order to be able to build the main dependencies of the project you will require:</p>
+<ul class="simple">
+<li><p>c++ compiler (preferably GCC or clang)</p></li>
+<li><p>python (this is a dependency of meson)</p></li>
+<li><p>meson (build system)</p></li>
+<li><p>ninja (this is the build system backend, other backends work with meson as well, but we do not test them)</p></li>
+<li><p>CMake (<code class="docutils literal notranslate"><span class="pre">corticalsim</span></code> still depends on third party libraries like <code class="docutils literal notranslate"><span class="pre">boost</span></code> and <code class="docutils literal notranslate"><span class="pre">Eigen</span></code>. Meson may need <code class="docutils literal notranslate"><span class="pre">CMake</span></code> to search if they are already installed on the system. Dependencies that can not be found will then be installed by meson).</p></li>
+</ul>
+</section>
+<section id="building-the-documentation-locally">
+<h3>Building the documentation locally<a class="headerlink" href="#building-the-documentation-locally" title="Link to this heading"></a></h3>
+<p>Documentation is generated with <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="reference external" href="https://www.doxygen.nl/">Doxygen</a> (for automatically generating the technical documentation), with <a class="reference external" href="https://breathe.readthedocs.io/">Breathe</a> providing a bridge between the Sphinx and Doxygen documentation systems. To build the documentation locally, follow these steps:</p>
+<p>You will need to install both Doxygen and Sphinx to build the documentation locally.</p>
+<section id="doxygen">
+<h4>Doxygen<a class="headerlink" href="#doxygen" title="Link to this heading"></a></h4>
+<p>For most Linux distributions, doxygen is available as part of the official package repository</p>
+<p>Ubuntu:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>doxygen
+</pre></div>
+</div>
+<p>Fedora:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>doxygen
+</pre></div>
+</div>
+<p>macOS:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>doxygen
+</pre></div>
+</div>
+<p>Or download the disk image from <a class="reference external" href="https://www.doxygen.nl/download.html">the official website</a>.</p>
+<p>Windows:
+To obtain the installation binaries for windows follow <a class="reference external" href="https://www.doxygen.nl/download.html">the official documentation</a>.</p>
+<p>Building from source:
+To build from source follow <a class="reference external" href="https://www.doxygen.nl/manual/install.html">the official documentation</a>.</p>
+</section>
+<section id="sphinx">
+<h4>Sphinx<a class="headerlink" href="#sphinx" title="Link to this heading"></a></h4>
+<p>Then, install Sphinx and the other Python dependencies from the root of the repository:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">venv</span> <span class="o">.</span><span class="n">venv</span>
+<span class="n">source</span> <span class="o">.</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">doc</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>In the active virtual environment (i.e. once <code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.venv/bin/activate</span></code> has been run) you will have access to
+additional meson targets. Which build the documentation.
+In order to simply build the documentation run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">meson</span> <span class="n">setup</span> <span class="n">build</span><span class="o">/</span><span class="n">debug</span> <span class="o">.</span> <span class="o">--</span><span class="n">buildtype</span> <span class="n">debug</span>
+<span class="n">ninja</span> <span class="o">-</span><span class="n">C</span> <span class="n">build</span><span class="o">/</span><span class="n">debug</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">build</span>
+</pre></div>
+</div>
+<p>This will generate a <code class="docutils literal notranslate"><span class="pre">doc_build</span></code> directorey in the build directory which will contain the generated static website of
+the documentation. Launching the <code class="docutils literal notranslate"><span class="pre">index.html</span></code> will display the documentation.
+To obtain the exact path to this <code class="docutils literal notranslate"><span class="pre">index.html</span></code> file, run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ninja</span> <span class="o">-</span><span class="n">C</span> <span class="n">build</span><span class="o">/</span><span class="n">debug</span> <span class="n">get</span><span class="o">-</span><span class="n">sphinx</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">path</span>
+</pre></div>
+</div>
+<p>The documentation contains a dashboard, which tracks  the quality metrics of the project.
+The dashboard is automatically generated and displayed in the online version of the documentation.
+If you want to generate the dashboard locally as well then you have to run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ninja</span> <span class="o">-</span><span class="n">C</span> <span class="n">build</span><span class="o">/</span><span class="n">debug</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">dashboard</span>
+</pre></div>
+</div>
+<p>instead of the</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ninja</span> <span class="o">-</span><span class="n">C</span> <span class="n">build</span><span class="o">/</span><span class="n">debug</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">build</span>
+</pre></div>
+</div>
+<p>However, be aware that this will rerun all the metrics generators, like <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code> and and <code class="docutils literal notranslate"><span class="pre">coverage</span></code>, which can take significantly longer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+## Code Style
+
+Our code is automatically formatted using `clang-format`. We plan to enforce the formatting in the CI. This means that
+merging will be blocked if the code is not fully formatted. Either set up your editor to automatically format code
+while editing or when saving or run clang format manually before submitting a PR. The formatting guidelines are defined in the `.clang-format` file.
+
+First install clang-format which is easiest to do with pip (on any platform):
+
+</pre></div>
+</div>
+<p>pip install clang-format</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; [!WARNING]
+&gt; This method only works if you can use ninja as the meson backend. This works by default on Linux. And was not tested
+&gt; on other platforms.
+
+For the manual formatting run:
+
+```shell
+ninja -C build/release clang-format
+</pre></div>
+</div>
+</section>
+</section>
+<section id="static-code-analysis">
+<h3>Static code analysis<a class="headerlink" href="#static-code-analysis" title="Link to this heading"></a></h3>
+<p>To improve code quality, we are introducing <code class="docutils literal notranslate"><span class="pre">clan-tidy</span></code> for static code analysis.
+No <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code> checks are enforced at the moment, but the project root already contains a <code class="docutils literal notranslate"><span class="pre">.clang-tidy</span></code> file, which
+will probably generate new warnings in your IDE or editor. It is good practice to not generate new clang tidy
+warnings during development, but to fix them before committing.</p>
+<section id="installing-clang-tidy">
+<h4>Installing <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code><a class="headerlink" href="#installing-clang-tidy" title="Link to this heading"></a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code> is part of <a class="reference external" href="https://clang.llvm.org/extra/">clang-tools-extra</a>. So depending on the operating system it
+will be installed either as part of the llvm or clang-tools-extra package.</p>
+<p>On fedora use the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>clang-tools-extra
+sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>llvm
+</pre></div>
+</div>
+<p>On any Linux or MacOS system you can also use <a class="reference external" href="https://brew.sh/">homebrew</a> to install llvm:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>llvm
+</pre></div>
+</div>
+<p>This will also instll <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code> automatically.</p>
+</section>
+<section id="running-clang-tidy">
+<h4>Running <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code><a class="headerlink" href="#running-clang-tidy" title="Link to this heading"></a></h4>
+<p>Run <code class="docutils literal notranslate"><span class="pre">clang-tidy</span></code> on the project you first need to build the project, using the meson build system.</p>
+<p>So the standard workflow is to first build the system</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>meson<span class="w"> </span>setup<span class="w"> </span>build/release<span class="w"> </span>.<span class="w"> </span>--buildtype<span class="w"> </span>release<span class="w"> </span>--reconfigure
+</pre></div>
+</div>
+<p>and then to run the <code class="docutils literal notranslate"><span class="pre">tidy</span></code> target</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ninja<span class="w"> </span>-C<span class="w"> </span>build/release<span class="w"> </span>tidy
+</pre></div>
+</div>
+<p>This will run clang-tidy on all source files located in the <code class="docutils literal notranslate"><span class="pre">src/</span></code> folder and output all the warnings to the
+terminal as well as to the <code class="docutils literal notranslate"><span class="pre">clang-tidy.log</span></code> file, which will be created in the project root.
+In the CI workflow, we add a configuration step to promote analyzer warnings to errors, by setting</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>meson<span class="w"> </span>configure<span class="w"> </span>build/release<span class="w">  </span>-Dwarnings-as-errors<span class="o">=</span><span class="s1">&#39;clang-analyzer-*&#39;</span>
+</pre></div>
+</div>
+<p>This step is happening before the <code class="docutils literal notranslate"><span class="pre">tidy</span></code> target is run.</p>
+</section>
+</section>
+<section id="testing">
+<h3>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h3>
+</section>
+<section id="unit-tests">
+<h3>Unit-Tests<a class="headerlink" href="#unit-tests" title="Link to this heading"></a></h3>
+<p>We use <a class="reference external" href="https://google.github.io/googletest/">gtest</a> for unit testing. The dependency is automatically installed by
+the meson build system.</p>
+<p>To run all test targets you can run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>meson<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-C<span class="w"> </span>&lt;path/to/build&gt;<span class="w"> </span>--print-errorlogs
+</pre></div>
+</div>
+<p>after setting up the build folder.</p>
+<p>To run only a specific test target, use the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>meson<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-C<span class="w"> </span>&lt;path/to/build&gt;<span class="w"> </span>--print-errorlogs<span class="w"> </span>&lt;target_name&gt;
+</pre></div>
+</div>
+<section id="how-to-write-unit-tests">
+<h4>How to write unit tests<a class="headerlink" href="#how-to-write-unit-tests" title="Link to this heading"></a></h4>
+<p>We use the Given/When/Then pattern for unit tests. This means that each unit test case has three sections (clauses).
+Each clause starts with a comment containing the clause name and description, followed by the code that accomplishes
+the described behavior.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">DLListTest</span><span class="p">,</span><span class="w"> </span><span class="n">DLListSizeReportsCorrectSize</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// Given a newly created DLList</span>
+<span class="w">    </span><span class="n">DLList</span><span class="o">&lt;</span><span class="n">DummyTestType</span><span class="o">&gt;</span><span class="w"> </span><span class="n">dl_list</span><span class="p">{};</span>
+
+<span class="w">    </span><span class="c1">// When we create several new elements</span>
+<span class="w">    </span><span class="k">constexpr</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">num_new_elements</span><span class="p">{</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">num_new_elements</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">ignore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dl_list</span><span class="p">.</span><span class="n">create</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Then the list size corresponds to the number of new elements</span>
+<span class="w">    </span><span class="n">EXPECT_EQ</span><span class="p">(</span><span class="n">dl_list</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">num_new_elements</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Given clause</strong></p>
+<p>Establish the initial known state of the system. To keep the clause simple only address the initial state relevant to the test.</p>
+<p><strong>When clause</strong></p>
+<p>Describe the action, which you want to test.</p>
+<p><strong>Then clause</strong></p>
+<p>Describe the expected outcome of the tested action.</p>
+<p><strong>Naming the test</strong></p>
+<p>In gTest each test case starts with a <code class="docutils literal notranslate"><span class="pre">TEST</span></code> macro which takes two arguments, <code class="docutils literal notranslate"><span class="pre">test_suite_name</span></code> and <code class="docutils literal notranslate"><span class="pre">test_name</span></code>, both of which have to be valid c++ identifiers. <code class="docutils literal notranslate"><span class="pre">test_suite_name</span></code> should be shared between tests that test the same interface, and each <code class="docutils literal notranslate"><span class="pre">test_name</span></code> must be unique.
+Since these names will later appear in test logs it is useful to make them descriptive.
+The suggested convention for the <code class="docutils literal notranslate"><span class="pre">test_suite_name</span></code> is to use the related class or function name followed by the word “test”.
+The <code class="docutils literal notranslate"><span class="pre">test_name</span></code> should contain a full sentence which states the tested behavior and expected outcome.</p>
+<p>Example:</p>
+<p>Say we have Parameters class which contains all simulation parameters, and this class has a <code class="docutils literal notranslate"><span class="pre">load_from_file</span></code> method
+with the following signature:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">optional</span><span class="o">&lt;</span><span class="n">Parameters</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Parameters</span><span class="o">::</span><span class="n">load_from_file</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string_view</span><span class="w"> </span><span class="n">path</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We will want to test what happens if we provide a file path that does not exist.
+If we can not load the parameters from the file then we want to return an empty optional.
+A possible test case would be named as follows:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">TEST</span><span class="p">(</span><span class="n">ParametersTest</span><span class="p">,</span><span class="w"> </span><span class="n">load_from_file_returns_empty_optional_when_file_does_not_exist</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="technical.html" class="btn btn-neutral float-right" title="Technical documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017-2026.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
