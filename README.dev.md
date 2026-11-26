@@ -221,9 +221,10 @@ Describe the expected outcome of the tested action.
 **Naming the test**
 
 In gTest each test case starts with a `TEST` macro which takes two arguments, `test_suite_name` and `test_name`, both of which have to be valid c++ identifiers. `test_suite_name` should be shared between tests that test the same interface, and each `test_name` must be unique.
-Since this names will later appear in test logs it is useful to make them descriptive.
-The suggested convention in the code is to use the class or function name followed by the word test. The `test_name`
-should contain a full sentence which states the tested behavior and expected outcome.
+Since these names will later appear in test logs it is useful to make them descriptive.
+The suggested convention for the `test_suite_name` is to use the related class or function name followed by the word "test".
+The `test_name` should contain a full sentence which states the tested behavior and expected outcome.
+
 Example:
 
 Say we have Parameters class which contains all simulation parameters, and this class has a `load_from_file` method
