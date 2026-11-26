@@ -63,7 +63,11 @@ Testing/
 
 # Documentation build files
 doc/_build
+
+# mesons native environment files https://mesonbuild.com/Native-environments.html
+# these files allow users to set some user specific configuration parameters locally.
 meson-native.toml
+meson-native.ini
 
 # Python virtual environment for docs building
 .venv
