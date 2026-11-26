@@ -17,25 +17,25 @@ class Microtubule: public DLBaseItem<Microtubule>
 
     // event descriptor for events that are not directly associated to a single
     // tip (only disappearance)
-    EventDescriptor disappearEvent;
+    EventDescriptor disappear_event;
     // type of microtubule (growing, shrinking)
     MTType type;
-    double nucleationTime;
+    double nucleation_time;
 
     // time tag at which the positions and lengths were last updated
-    int previousUpdateTag;
+    int previous_update_tag;
 
     DLList<Segment> segments;
 
     Microtubule(System*, TrajectoryVector, bool = true);
     ~Microtubule();
-    bool integrityCheck();
+    bool integrity_check();
     // status functions
     double length();
-    void updateLength(bool forceUpdate = false);
+    void update_length(bool force_update = false);
     // event functions below
-    void setDisappearEvent();
-    void handleEvent(const EventDescriptor*);
+    void set_disappear_event();
+    void handle_event(const EventDescriptor*);
     void catastrophe();
     void rescue();
 
@@ -48,13 +48,13 @@ class Microtubule: public DLBaseItem<Microtubule>
 
     // called when a microtubule retreats across an intersection
     void backtrack(MTTip*);
-    void endOfSegment(MTTip*);
+    void end_of_segment(MTTip*);
     void sever(Segment*, double);
-    void severAtCross(IntersectionItr is, Segment* cutSeg);
-    void splitSegmentAtTrajPos(double cutPos, Segment* cutSeg);
+    void sever_at_cross(IntersectionItr is, Segment* cut_seg);
+    void split_segment_at_traj_pos(double cut_pos, Segment* cut_seg);
 
     // translates random position at MT to corresponding position at Segment
-    void translatePositionMT2Segment(double& cutPos, Segment*& cutSeg);
+    void translate_position_m_t2_segment(double& cut_pos, Segment*& cut_seg);
 
   private:
 

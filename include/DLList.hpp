@@ -1,5 +1,5 @@
-#ifndef DLLIST_H_
-#define DLLIST_H_
+#ifndef DLLIST_H
+#define DLLIST_H
 
 #include <boost/pool/singleton_pool.hpp>
 #include <new>
@@ -37,14 +37,14 @@ class DLList
 {
   private:
 
-    int numElements;
+    int num_elements;
     // This class keeps a pointer to both the first and the last element.
     // This is not strictly necessary (first is enough), but this has the advantage
     // that elements can be inserted in the back and iterated over from the front of
     // the set. In the absence of deletions, this leads to a traversal of the elements
     // in the order of creation - and hopefully in the order of memory allocation.
-    T* firstElement;
-    T* lastElement;
+    T* first_element;
+    T* last_element;
 
     // definitions for the Boost memory pool
     // Currently, it uses a *non*-thread safe allocation mechanism (for speed) and a user-defined granularity
@@ -58,22 +58,22 @@ class DLList
                                   boost::details::pool::null_mutex,
                                   AllocatorGranularity>
     MemPool;
-    void unlinkElement(T*);
-    T* linkElement(T*);
+    void unlink_element(T*);
+    T* link_element(T*);
 
   public:
 
     DLList():
-        numElements(0),
-        firstElement(NULL),
-        lastElement(NULL) {};
+        num_elements(0),
+        first_element(nullptr),
+        last_element(nullptr) {};
     ~DLList();
 
-    inline int size() { return numElements; }
+    inline int size() { return num_elements; }
 
-    inline T* first() { return firstElement; }
+    inline T* first() { return first_element; }
 
-    inline T* last() { return lastElement; }
+    inline T* last() { return last_element; }
 
     inline T* next(T* el) { return el->nextElement; }
 
@@ -87,76 +87,76 @@ class DLList
     template <class Q, class R, class S>
     T* create(Q, R, S);
     void remove(T*);
-    void removeAll();
+    void remove_all();
     void import(DLList<T, AllocatorGranularity>&, T*);
-    void importSet(DLList<T, AllocatorGranularity>&, T*, T*);
+    void import_set(DLList<T, AllocatorGranularity>&, T*, T*);
 };
 
-template <class T, int i>
-DLList<T, i>::~DLList()
+template <class T, int I>
+DLList<T, I>::~DLList()
 {
-    removeAll();
+    remove_all();
     return;
 }
 
-template <class T, int i>
-void DLList<T, i>::removeAll()
+template <class T, int I>
+void DLList<T, I>::remove_all()
 {
-    while (firstElement != NULL)
+    while (first_element != nullptr)
     {
-        remove(firstElement);
+        remove(first_element);
     }
 }
 
-template <class T, int i>
-inline T* DLList<T, i>::linkElement(T* newElement)
+template <class T, int I>
+inline T* DLList<T, I>::link_element(T* new_element)
 // Inserts a new element into the linked list.
 // Insertion takes place at the back of the list for memory-traversal speed considerations.
 {
-    numElements++;
-    newElement->previousElement = lastElement;
-    newElement->nextElement = NULL;
-    if (lastElement != NULL)
+    num_elements++;
+    new_element->previous_element = last_element;
+    new_element->next_element = nullptr;
+    if (last_element != nullptr)
     {
-        lastElement->nextElement = newElement;
+        last_element->next_element = new_element;
     }
     else // if list was empty
     {
-        firstElement = newElement;
+        first_element = new_element;
     }
-    lastElement = newElement;
-    return newElement;
+    last_element = new_element;
+    return new_element;
 }
 
-template <class T, int i>
-inline void DLList<T, i>::unlinkElement(T* element)
+template <class T, int I>
+inline void DLList<T, I>::unlink_element(T* element)
 // Removes an element from the linked list.
 {
-    numElements--;
-    if (element == firstElement)
+    num_elements--;
+    if (element == first_element)
     {
-        firstElement = element->nextElement;
+        first_element = element->next_element;
     }
-    if (element == lastElement)
+    if (element == last_element)
     {
-        lastElement = element->previousElement;
+        last_element = element->previous_element;
     }
-    if (element->nextElement != NULL)
+    if (element->next_element != nullptr)
     {
-        element->nextElement->previousElement = element->previousElement;
+        element->next_element->previous_element = element->previous_element;
     }
-    if (element->previousElement != NULL)
+    if (element->previous_element != nullptr)
     {
-        element->previousElement->nextElement = element->nextElement;
+        element->previous_element->next_element = element->next_element;
     }
     return;
 }
 
-template <class T, int i>
-inline void DLList<T, i>::remove(T* element)
+template <class T, int I>
+inline void DLList<T, I>::remove(T* element)
 // Removes a single element. No checking is performed on the pointer.
 {
-    unlinkElement(element);
+    unlink_element(element);
     element->~T();
     MemPool::free(element);
     return;
@@ -164,59 +164,59 @@ inline void DLList<T, i>::remove(T* element)
 
 /// The following functions create a new element from the heap and insert it into the linked list.
 // These differ only in the number of arguments that is passed to the constructor.
-template <class T, int i>
-inline T* DLList<T, i>::create()
+template <class T, int I>
+inline T* DLList<T, I>::create()
 {
-    T* newElement = new (MemPool::malloc()) T();
-    return linkElement(newElement);
+    T* new_element = new (MemPool::malloc()) T();
+    return link_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q>
-inline T* DLList<T, i>::create(Q par1)
+inline T* DLList<T, I>::create(Q par1)
 {
-    T* newElement = new (MemPool::malloc()) T(par1);
-    return linkElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1);
+    return link_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q, class R>
-inline T* DLList<T, i>::create(Q par1, R par2)
+inline T* DLList<T, I>::create(Q par1, R par2)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2);
-    return linkElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2);
+    return link_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q, class R, class S>
-inline T* DLList<T, i>::create(Q par1, R par2, S par3)
+inline T* DLList<T, I>::create(Q par1, R par2, S par3)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2, par3);
-    return linkElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2, par3);
+    return link_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 // This functions transfers 'element' from 'oldList' to this list.
-inline void DLList<T, i>::import(DLList<T, i>& oldList, T* element)
+inline void DLList<T, I>::import(DLList<T, I>& old_list, T* element)
 {
-    oldList.unlinkElement(element);
-    linkElement(element);
+    old_list.unlink_element(element);
+    link_element(element);
     return;
 }
 
-template <class T, int i>
-inline void DLList<T, i>::importSet(DLList<T, i>& oldList, T* firstElement, T* lastElement)
+template <class T, int I>
+inline void DLList<T, I>::import_set(DLList<T, I>& old_list, T* first_element, T* last_element)
 // This functions transfers a number of elements from 'oldList' to this list.
 // WARNING: not efficient at all!
 {
-    T* current = firstElement;
+    T* current = first_element;
     T* temp;
-    while (current != NULL)
+    while (current != nullptr)
     {
         temp = current;
         current = current->next();
-        import(oldList, temp);
-        if (temp == lastElement)
+        import(old_list, temp);
+        if (temp == last_element)
         {
             break;
         }
@@ -230,13 +230,13 @@ class DLBaseItem
 {
   public:
 
-    template <class X, int i>
+    template <class X, int I>
     friend class DLList;
 
   private:
 
-    T* nextElement;
-    T* previousElement;
+    T* next_element;
+    T* previous_element;
 
   protected:
 
@@ -245,9 +245,9 @@ class DLBaseItem
 
   public:
 
-    inline T* next() { return nextElement; }
+    inline T* next() { return next_element; }
 
-    inline T* previous() { return previousElement; }
+    inline T* previous() { return previous_element; }
 };
 
 template <class T>
@@ -260,8 +260,8 @@ class DLContainerItem
 
   private:
 
-    DLContainerItem<T>* nextElement;
-    DLContainerItem<T>* previousElement;
+    DLContainerItem<T>* next_element;
+    DLContainerItem<T>* previous_element;
 
   protected:
 
@@ -272,19 +272,19 @@ class DLContainerItem
 
     T data;
 
-    inline DLContainerItem<T>* next() { return nextElement; }
+    inline DLContainerItem<T>* next() { return next_element; }
 
-    inline DLContainerItem<T>* previous() { return previousElement; }
+    inline DLContainerItem<T>* previous() { return previous_element; }
 
-    inline T* dataPtr() { return &data; }
+    inline T* data_ptr() { return &data; }
 
     // very ugly hack, but it works [tested with G++ & icc]. For a data object with an unknown location in a known list,
     // call list->first()->containerPtr(data*); for some reason, I need to convert to void* and char*... This should
     // have been done in a better way...
-    inline DLContainerItem<T>* containerPtr(T* dPtr)
+    inline DLContainerItem<T>* container_ptr(T* d_ptr)
     {
         return static_cast<DLContainerItem<T>*>(static_cast<void*>(
-        static_cast<short*>(static_cast<void*>(dPtr))
+        static_cast<short*>(static_cast<void*>(d_ptr))
         - (static_cast<short*>(static_cast<void*>(&data)) - static_cast<short*>(static_cast<void*>(this)))));
     }
 
@@ -309,4 +309,4 @@ class DLContainerItem
     }
 };
 
-#endif // DLLIST_H_
+#endif // DLLIST_H

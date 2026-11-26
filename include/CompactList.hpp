@@ -1,5 +1,5 @@
-#ifndef COMPACTLIST_H_
-#define COMPACTLIST_H_
+#ifndef COMPACTLIST_H
+#define COMPACTLIST_H
 #include <boost/pool/singleton_pool.hpp>
 #include <new>
 #include <iostream>
@@ -30,9 +30,9 @@ class CompactList
                                   boost::details::pool::null_mutex,
                                   AllocatorGranularity>
     MemPool;
-    T* InsertElement(T* newElement);
+    T* insert_element(T* new_element);
     void remove(T*);
-    void removeAll();
+    void remove_all();
 
   public:
 
@@ -44,9 +44,9 @@ class CompactList
 
     ~CompactList();
 
-    T* ElementAddress(int idx) { return elements[idx]; };
+    T* element_address(int idx) { return elements[idx]; };
 
-    void RemoveElement(int idx);
+    void remove_element(int idx);
 
     int size() { return elements.size(); };
 
@@ -61,15 +61,15 @@ class CompactList
     T* create(Q, R, S);
 };
 
-template <class T, int i>
-CompactList<T, i>::~CompactList()
+template <class T, int I>
+CompactList<T, I>::~CompactList()
 {
-    removeAll();
+    remove_all();
     return;
 }
 
-template <class T, int i>
-void CompactList<T, i>::removeAll()
+template <class T, int I>
+void CompactList<T, I>::remove_all()
 // private function (called by ~)
 {
     for (int j = elements.size() - 1; j >= 0; j--)
@@ -79,8 +79,8 @@ void CompactList<T, i>::removeAll()
     elements.pop_back();
 }
 
-template <class T, int i>
-inline void CompactList<T, i>::remove(T* element)
+template <class T, int I>
+inline void CompactList<T, I>::remove(T* element)
 // private function (called by removeAll (~) and RemoveElement)
 // Removes a single element. No checking is performed on the pointer.
 {
@@ -89,48 +89,48 @@ inline void CompactList<T, i>::remove(T* element)
     return;
 }
 
-template <class T, int i>
-inline T* CompactList<T, i>::create()
+template <class T, int I>
+inline T* CompactList<T, I>::create()
 {
-    T* newElement = new (MemPool::malloc()) T();
-    return InsertElement(newElement);
+    T* new_element = new (MemPool::malloc()) T();
+    return insert_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q>
-inline T* CompactList<T, i>::create(Q par1)
+inline T* CompactList<T, I>::create(Q par1)
 {
-    T* newElement = new (MemPool::malloc()) T(par1);
-    return InsertElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1);
+    return insert_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q, class R>
-inline T* CompactList<T, i>::create(Q par1, R par2)
+inline T* CompactList<T, I>::create(Q par1, R par2)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2);
-    return InsertElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2);
+    return insert_element(new_element);
 }
 
-template <class T, int i>
+template <class T, int I>
 template <class Q, class R, class S>
-inline T* CompactList<T, i>::create(Q par1, R par2, S par3)
+inline T* CompactList<T, I>::create(Q par1, R par2, S par3)
 {
-    T* newElement = new (MemPool::malloc()) T(par1, par2, par3);
-    return InsertElement(newElement);
+    T* new_element = new (MemPool::malloc()) T(par1, par2, par3);
+    return insert_element(new_element);
 }
 
-template <class T, int i>
-inline T* CompactList<T, i>::InsertElement(T* newElement)
+template <class T, int I>
+inline T* CompactList<T, I>::insert_element(T* new_element)
 // private function!
 {
-    newElement->index = elements.size();
-    elements.push_back(newElement);
-    return newElement;
+    new_element->index = elements.size();
+    elements.push_back(new_element);
+    return new_element;
 }
 
-template <class T, int i>
-inline void CompactList<T, i>::RemoveElement(int idx)
+template <class T, int I>
+inline void CompactList<T, I>::remove_element(int idx)
 // check (only the outer!!) can eliminate?
 {
     int size = elements.size();
@@ -166,9 +166,9 @@ class CompactListItem
   protected:
 
     virtual ~CompactListItem() {};
-    template <class Q, int i>
+    template <class Q, int I>
     friend class CompactList;
 };
 
 #endif
-// COMPACTLIST_H_
+// COMPACTLIST_H

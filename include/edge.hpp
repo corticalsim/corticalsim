@@ -8,37 +8,37 @@ class Edge
 {
   public:
 
-    int excludePoint;
+    int exclude_point;
 
-    double pCat;
-    double edgAngNorm;
-    double xyRotationAngle;
-    double edgAngle;
-    double edgBendAngle;
+    double p_cat;
+    double edg_ang_norm;
+    double xy_rotation_angle;
+    double edg_angle;
+    double edg_bend_angle;
 
-    Eigen::Vector2d midPoint;
+    Eigen::Vector2d mid_point;
     Eigen::Vector2d b;
-    Eigen::Matrix2d A;
+    Eigen::Matrix2d a;
     vector<int> dir;
-    Eigen::Vector2d dir2D;
+    Eigen::Vector2d dir_2d;
     vector<int> orientation;
 
-    map<int, int> orientationMap;
-    map<int, int> excludePointMap;
+    map<int, int> orientation_map;
+    map<int, int> exclude_point_map;
 
     Edge()
     {
-        excludePoint = 0;
+        exclude_point = 0;
 
-        pCat = 0.0;
-        edgAngNorm = 0.0;
-        xyRotationAngle = 0.0;
-        edgAngle = 0.0;
-        edgBendAngle = 0.0;
+        p_cat = 0.0;
+        edg_ang_norm = 0.0;
+        xy_rotation_angle = 0.0;
+        edg_angle = 0.0;
+        edg_bend_angle = 0.0;
 
-        midPoint << 0.0, 0.0;
+        mid_point << 0.0, 0.0;
 
-        A << 0.0, 0.0, 0.0, 0.0;
+        a << 0.0, 0.0, 0.0, 0.0;
 
         b << 0.0, 0.0;
 

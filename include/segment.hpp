@@ -10,15 +10,15 @@ class Segment: public DLBaseItem<Segment>
 
     Microtubule* mt;
     Trajectory* const trajectory;
-    TrjSegmentTag trajectoryTag;
-    double nucleationTime;
+    TrjSegmentTag trajectory_tag;
+    double nucleation_time;
 
     // -+ direction with respect to trajectory orientation
     Direction dir;
     double start;
     double end;
-    IntersectionItr startItr;
-    IntersectionItr endItr;
+    IntersectionItr start_itr;
+    IntersectionItr end_itr;
 
     // constructs a segment as part of a microtubule at a specified vector
     // location
@@ -28,9 +28,9 @@ class Segment: public DLBaseItem<Segment>
 
     double length() { return abs(end - start); }
 
-    bool isLastInMT();
-    bool isFirstInMT();
-    bool crossesIntersection(IntersectionItr& is);
+    bool is_last_in_mt();
+    bool is_first_in_mt();
+    bool crosses_intersection(IntersectionItr& is);
 };
 
 #endif // SEGMENT_HPP

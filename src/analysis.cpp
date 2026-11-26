@@ -12,79 +12,79 @@ ostream& operator<<(ostream& o, const Measurement m)
     o.precision(4);
 
     // write output data in file
-    return o << m.time << "\t" << m.numberOfMTs << "\t" << m.averageLength << "\t" << m.lengthDensity << "\t"
-             << m.opticalDensity << "\t" << m.order.R << "\t" << m.order.Rdirector[0] << "\t" << m.order.Rdirector[1]
-             << "\t" << m.order.Rdirector[2] << "\r\n";
+    return o << m.time << "\t" << m.number_of_m_ts << "\t" << m.average_length << "\t" << m.length_density << "\t"
+             << m.optical_density << "\t" << m.order.r << "\t" << m.order.rdirector[0] << "\t" << m.order.rdirector[1]
+             << "\t" << m.order.rdirector[2] << "\r\n";
 }
 
-void writeMeasurementDescriptors(ostream& o)
+void write_measurement_descriptors(ostream& o)
 {
     // write header of the output file
     o << "time\t\t" << " #MT\t" << " <l>\t" << " rho\t" << "rho_opt\t" << " R\t" << "R_x\t" << "R_y\t" << "R_z\r\n";
     return;
 }
 
-void System::initializeOutput(void)
+void System::initialize_output(void)
 {
 
     // if create sub-directory in enabled
-    if (p.createSubdir)
+    if (p.create_subdir)
     {
         string identifier;
-        time_t timeRaw;
-        struct tm* timeStruct;
-        char timeName[100];
+        time_t time_raw;
+        struct tm* time_struct;
+        char time_name[100];
 
-        time(&timeRaw);
-        timeStruct = localtime(&timeRaw);
-        strftime(timeName, 100, "%c", timeStruct);
+        time(&time_raw);
+        time_struct = localtime(&time_raw);
+        strftime(time_name, 100, "%c", time_struct);
 
         // create subdirectory with a time Tag, to isolate each data folder
-        p.outputDir += "/" + p.geometry + "/outputData" + string(timeName);
-        int i = std::filesystem::create_directories(p.outputDir.c_str());
+        p.output_dir += "/" + p.geometry + "/outputData" + string(time_name);
+        int i = std::filesystem::create_directories(p.output_dir.c_str());
 
         // if the sub-directory path is invalid
         if (i)
         {
-            cerr << "ERROR: creating output directory " << p.outputDir << " ; " << strerror(i) << "\n";
+            cerr << "ERROR: creating output directory " << p.output_dir << " ; " << strerror(i) << "\n";
             exit(-1);
         }
     }
 
     // open output parameter file
-    string FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/parameters.txt"));
-    parameterFile.open(FileName.c_str());
-    if (!parameterFile)
+    string file_name = string(p.output_dir + "/" + p.geometry + "/outputData" + string("/parameters.txt"));
+    parameter_file.open(file_name.c_str());
+    if (!parameter_file)
     {
         cout << "ERROR: cannot open file for output (parameters)\n";
         exit(-1);
     }
 
     // open output measurements file
-    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/measurements.txt"));
-    measurementFile.open(FileName.c_str());
-    if (!measurementFile.is_open())
+    file_name = string(p.output_dir + "/" + p.geometry + "/outputData" + string("/measurements.txt"));
+    measurement_file.open(file_name.c_str());
+    if (!measurement_file.is_open())
     {
         cout << "ERROR: cannot open file for output (measurements)\n";
         exit(-1);
     }
 
     // write in measurement file
-    writeMeasurementDescriptors(measurementFile);
+    write_measurement_descriptors(measurement_file);
 
     // open output Draw_MT_segments file
-    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/Draw_MT_segments.txt"));
-    movieFile.open(FileName.c_str());
-    if (!movieFile.is_open())
+    file_name = string(p.output_dir + "/" + p.geometry + "/outputData" + string("/Draw_MT_segments.txt"));
+    movie_file.open(file_name.c_str());
+    if (!movie_file.is_open())
     {
         cout << "ERROR: cannot open file for output (Draw_MT_segments.txt)\n";
         exit(-1);
     }
 
     // open output heatMapOrder file
-    FileName = string(p.outputDir + "/" + p.geometry + "/outputData" + string("/heatMapOrder.txt"));
-    heatMapFile.open(FileName.c_str());
-    if (!heatMapFile.is_open())
+    file_name = string(p.output_dir + "/" + p.geometry + "/outputData" + string("/heatMapOrder.txt"));
+    heat_map_file.open(file_name.c_str());
+    if (!heat_map_file.is_open())
     {
         cout << "ERROR: cannot open file for output (heatMapOrder.txt)\n";
         exit(-1);
@@ -93,98 +93,98 @@ void System::initializeOutput(void)
     return;
 }
 
-void System::closeFiles()
+void System::close_files()
 {
     /// close the output files before the program terminates
-    parameterFile.close();
-    movieFile.close();
-    measurementFile.close();
+    parameter_file.close();
+    movie_file.close();
+    measurement_file.close();
 
     return;
 }
 
-void System::performMeasurement(void)
+void System::perform_measurement(void)
 {
     Measurement m;
 
     // measurementHistory reach at MAX_HISTORY_SIZE, archive only upto last MIN_HISTORY_SIZE arrays, and write down the
     // rest on output file (immediately !)
-    if (measurementHistory.size() == MAX_HISTORY_SIZE)
+    if (measurement_history.size() == MAX_HISTORY_SIZE)
     {
-        writeMeasurementsToFile(MIN_HISTORY_SIZE - 1);
+        write_measurements_to_file(MIN_HISTORY_SIZE - 1);
     }
 
-    m.time = systemTime + systemTimeOffset;
+    m.time = system_time + system_time_offset;
 
     // length densities (per area)
-    m.lengthDensity = totalLength / geometry->area;
-    m.opticalDensity = geometry->opticalLength() / geometry->area;
+    m.length_density = total_length / geometry->area;
+    m.optical_density = geometry->optical_length() / geometry->area;
 
     // total number of microtubules
-    m.numberOfMTs = growing_mts.size() + shrinking_mts.size();
-    m.growingNumber = growing_mts.size();
-    m.shrinkingNumber = shrinking_mts.size();
+    m.number_of_m_ts = growing_mts.size() + shrinking_mts.size();
+    m.growing_number = growing_mts.size();
+    m.shrinking_number = shrinking_mts.size();
 
-    int segmentCount = 0;
+    int segment_count = 0;
     Microtubule* mt;
 
     mt = growing_mts.first();
-    while (mt != NULL)
+    while (mt != nullptr)
     {
-        segmentCount += mt->segments.size();
+        segment_count += mt->segments.size();
         mt = mt->next();
     }
     mt = shrinking_mts.first();
-    while (mt != NULL)
+    while (mt != nullptr)
     {
-        segmentCount += mt->segments.size();
+        segment_count += mt->segments.size();
         mt = mt->next();
     }
 
     // total number of segments
-    m.segments = segmentCount - boundaryCrossingCount;
+    m.segments = segment_count - boundary_crossing_count;
 
     // total number of trajectories (both active and inactive)
-    m.trajectories = geometry->trajectoryCount();
+    m.trajectories = geometry->trajectory_count();
 
     // average length of microtubules
-    if (m.numberOfMTs)
+    if (m.number_of_m_ts)
     {
-        m.averageLength = totalLength / m.numberOfMTs;
-        m.segmentsPerMT = static_cast<double>(m.segments) / m.numberOfMTs;
+        m.average_length = total_length / m.number_of_m_ts;
+        m.segments_per_mt = static_cast<double>(m.segments) / m.number_of_m_ts;
     }
     else
     {
-        m.averageLength = 0.;
-        m.segmentsPerMT = 1.;
+        m.average_length = 0.;
+        m.segments_per_mt = 1.;
     }
 
     // order parameter
-    geometry->getOrderParameters(m.order);
+    geometry->get_order_parameters(m.order);
 
     // total number zippering
-    m.zipperCount = totalZipperCount;
+    m.zipper_count = total_zipper_count;
 
     // total number of cross-overs
-    m.crossoverCount = totalCrossoverCount;
+    m.crossover_count = total_crossover_count;
 
     // total number of induced catastrophes
-    m.inducedCatastropheCount = totalInducedCatastropheCount;
+    m.induced_catastrophe_count = total_induced_catastrophe_count;
 
     // total number of valid events
-    m.validDEventCount = totalValidDEventCount;
+    m.valid_d_event_count = total_valid_d_event_count;
 
     // total number of invalid events
-    m.invalidDEventCount = totalInvalidDEventCount;
+    m.invalid_d_event_count = total_invalid_d_event_count;
 
     // total number of severing event
-    m.sEventCount = totalSEventCount;
-    m.lengthSeveringCount = totalLengthSeveringCount;
-    m.intersectionSeveringCount = totalIntersectionSeveringCount;
+    m.s_event_count = total_s_event_count;
+    m.length_severing_count = total_length_severing_count;
+    m.intersection_severing_count = total_intersection_severing_count;
 
 // total number of occupied intersections
 #ifdef CROSS_SEV
-    m.occupiedIntersectionCount = OccupiedIntersectionList.size();
+    m.occupied_intersection_count = occupied_intersection_list.size();
 #else
     m.occupiedIntersectionCount = 0;
 #endif
@@ -196,36 +196,36 @@ void System::performMeasurement(void)
     // (p.kNuc*(-p.vMin+realVplus)*realVplus), 1./3.);
 
     // archive (store) measurement
-    measurementHistory.push_back(m);
+    measurement_history.push_back(m);
 
     // show output
-    if (p.showOutput == 1)
+    if (p.show_output == 1)
     {
         cout << "[t=" << setprecision(9) << m.time << setprecision(6) << "\t\t" << m.trajectories << " trajectories \t"
              << m.segments << " segments]\n"
-             << "density [real]: " << m.lengthDensity << "\t\t [optical]: " << m.opticalDensity << "\n"
-             << "length/MT     : " << m.averageLength << "\tMT#: " << m.numberOfMTs
-             << "\tsegments/MT: " << m.segmentsPerMT << "\n"
-             << "R  [real]     : " << m.order.R << "[" << m.order.Rdirector[0] << ", " << m.order.Rdirector[1] << ", "
-             << m.order.Rdirector[2] << "]" << "\n"
-             << "C  [real]     : " << m.order.C << "\n\n";
+             << "density [real]: " << m.length_density << "\t\t [optical]: " << m.optical_density << "\n"
+             << "length/MT     : " << m.average_length << "\tMT#: " << m.number_of_m_ts
+             << "\tsegments/MT: " << m.segments_per_mt << "\n"
+             << "R  [real]     : " << m.order.r << "[" << m.order.rdirector[0] << ", " << m.order.rdirector[1] << ", "
+             << m.order.rdirector[2] << "]" << "\n"
+             << "C  [real]     : " << m.order.c << "\n\n";
         //<< "G_eff_adjust  : " << m.G_effAdjust[0] << " [on regular surfaces]\n\n";
     }
 
     return;
 }
 
-void System::writeMeasurementsToFile(int numberToKeep)
+void System::write_measurements_to_file(int number_to_keep)
 {
-    int i, iMax;
+    int i, i_max;
 
-    iMax = measurementHistory.size() - numberToKeep;
+    i_max = measurement_history.size() - number_to_keep;
 
     // write output on files
-    for (i = 0; i < iMax; i++)
+    for (i = 0; i < i_max; i++)
     {
-        measurementFile << measurementHistory[0];
-        measurementHistory.pop_front();
+        measurement_file << measurement_history[0];
+        measurement_history.pop_front();
     }
 
     return;

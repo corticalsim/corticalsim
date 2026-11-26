@@ -42,161 +42,161 @@ class Parameters
   public:
 
     System* system;
-    double vPlus;
-    double vMin;
-    double vTM;
-    double kSev;
-    double kCross;
-    double kCat;
-    double kRes;
-    double kNuc;
-    double PPBformingTime;
-    double poolDensity;
-    int treadmillingEnabled;
-    int severingEnabled;
-    int crossSeveringEnabled;
-    int crossSeveringTop;
-    double crossSeveringStartAngle;
-    int PPB;
-    int restrictedPool;
-    int edgeCatastropheEnabled;
-    int edgeCatastropheSmooth;
-    double pCatSpecialEdgeMax;
-    double pCatRegularEdgeMax;
-    int edgNumber;
-    int faceNumber;
-    map<string, double> edgCatMap;
-    map<string, double> faceCatMap;
-    vector<double> RegionKcatMultiplier;
-    NucleationType nucleationType;
-    int zipperingEnabled;
-    int catastrophesEnabled;
-    int proportionalCatastrophes;
-    double inducedCatastropheFraction;
-    double zipFraction;
-    double PPBkNucFraction;
-    double catStartAngle;
-    double magicAngle;
-    InteractionType interactionType;
-    BundleType bundleType;
-    string geomParam;
+    double v_plus;
+    double v_min;
+    double v_tm;
+    double k_sev;
+    double k_cross;
+    double k_cat;
+    double k_res;
+    double k_nuc;
+    double pp_bforming_time;
+    double pool_density;
+    int treadmilling_enabled;
+    int severing_enabled;
+    int cross_severing_enabled;
+    int cross_severing_top;
+    double cross_severing_start_angle;
+    int ppb;
+    int restricted_pool;
+    int edge_catastrophe_enabled;
+    int edge_catastrophe_smooth;
+    double p_cat_special_edge_max;
+    double p_cat_regular_edge_max;
+    int edg_number;
+    int face_number;
+    map<string, double> edg_cat_map;
+    map<string, double> face_cat_map;
+    vector<double> region_kcat_multiplier;
+    NucleationType nucleation_type;
+    int zippering_enabled;
+    int catastrophes_enabled;
+    int proportional_catastrophes;
+    double induced_catastrophe_fraction;
+    double zip_fraction;
+    double pp_bk_nuc_fraction;
+    double cat_start_angle;
+    double magic_angle;
+    InteractionType interaction_type;
+    BundleType bundle_type;
+    string geom_param;
     unsigned long seed;
-    double stopTime;
-    double measurementInterval;
-    double wallClockLimit;
-    double memoryLimit;
-    string inputDir;
-    string outputDir;
-    string movieDir;
-    int createSubdir;
-    double newParameterReadInterval;
-    string newParameterFile;
-    int movieEnabled;
-    int showOutput;
-    int showMesh;
+    double stop_time;
+    double measurement_interval;
+    double wall_clock_limit;
+    double memory_limit;
+    string input_dir;
+    string output_dir;
+    string movie_dir;
+    int create_subdir;
+    double new_parameter_read_interval;
+    string new_parameter_file;
+    int movie_enabled;
+    int show_output;
+    int show_mesh;
     string geometry;
-    double movieFrameInterval;
-    double geometryScaleFactor;
+    double movie_frame_interval;
+    double geometry_scale_factor;
 
-    double c0calc;
-    double x0calc;
-    double z0calc;
+    double c0_calc;
+    double x0_calc;
+    double z0_calc;
 
   public:
 
     Parameters(System*);
     void initialize(const char*);
     bool reinitialize(const char*);
-    bool readFromFile(const char*, bool);
-    bool writeToFile();
-    void verifyParameters();
-    bool calcTheoryParameters();
+    bool read_from_file(const char*, bool);
+    bool write_to_file();
+    void verify_parameters();
+    bool calc_theory_parameters();
 };
 
 struct OrderParameters
 {
-    double R, C;
-    double Rdirector[3];
-    vector<double> localOrder;
-    vector<Eigen::Vector3d> Sv;
+    double r, c;
+    double rdirector[3];
+    vector<double> local_order;
+    vector<Eigen::Vector3d> sv;
 };
 
 class OrderParametersRaw
 {
   public:
 
-    double localL;
-    double localLOpt;
-    double Qxx;
-    double Qxy;
-    double Qxz;
-    double Qyy;
-    double Qyz;
-    double Qzz;
-    double localOrder;
-    Eigen::Vector3d Sv;
+    double local_l;
+    double local_l_opt;
+    double qxx;
+    double qxy;
+    double qxz;
+    double qyy;
+    double qyz;
+    double qzz;
+    double local_order;
+    Eigen::Vector3d sv;
 
     OrderParametersRaw(void)
     {
-        localL = 0.;
-        localLOpt = 0.;
-        Qxx = 0;
-        Qxy = 0;
-        Qxz = 0;
-        Qyy = 0;
-        Qyz = 0;
-        Qzz = 0;
+        local_l = 0.;
+        local_l_opt = 0.;
+        qxx = 0;
+        qxy = 0;
+        qxz = 0;
+        qyy = 0;
+        qyz = 0;
+        qzz = 0;
 
-        Sv << 0.0, 0.0, 0.0;
+        sv << 0.0, 0.0, 0.0;
 
         return;
     }
 
-    double extractR(double director[3], string geometry)
+    double extract_r(double director[3], string geometry)
     {
-        Eigen::Matrix3d matrix{ { Qxx, Qxy, Qxz }, { Qxy, Qyy, Qyz }, { Qxz, Qyz, Qzz } };
-        Eigen::Matrix3d evecMat{ Eigen::Matrix3d::Zero() };
-        Eigen::Vector3d eVal{ Eigen::Vector3d::Zero() };
-        double selEigenVal{ 0.0 };
+        Eigen::Matrix3d matrix{ { qxx, qxy, qxz }, { qxy, qyy, qyz }, { qxz, qyz, qzz } };
+        Eigen::Matrix3d evec_mat{ Eigen::Matrix3d::Zero() };
+        Eigen::Vector3d e_val{ Eigen::Vector3d::Zero() };
+        double sel_eigen_val{ 0.0 };
 
-        eigen_decomposition(matrix, evecMat, eVal);
+        eigen_decomposition(matrix, evec_mat, e_val);
 
         if (geometry == "2D-plane_1_0_0")
         {
-            int maxPos(0);
-            if (eVal[1] > eVal[0])
+            int max_pos(0);
+            if (e_val[1] > e_val[0])
             {
-                maxPos = 1;
+                max_pos = 1;
             }
-            if (eVal[2] > eVal[maxPos])
+            if (e_val[2] > e_val[max_pos])
             {
-                maxPos = 2;
+                max_pos = 2;
             }
-            selEigenVal = fabs(eVal[maxPos]);
+            sel_eigen_val = fabs(e_val[max_pos]);
             for (size_t i = 0; i < 3; ++i)
             {
-                director[i] = evecMat(i, maxPos);
+                director[i] = evec_mat(i, max_pos);
             }
         }
         else
         {
-            int minPos(0);
-            if (eVal[1] < eVal[0])
+            int min_pos(0);
+            if (e_val[1] < e_val[0])
             {
-                minPos = 1;
+                min_pos = 1;
             }
-            if (eVal[2] < eVal[minPos])
+            if (e_val[2] < e_val[min_pos])
             {
-                minPos = 2;
+                min_pos = 2;
             }
-            selEigenVal = fabs(eVal[minPos]);
+            sel_eigen_val = fabs(e_val[min_pos]);
             for (size_t i = 0; i < 3; ++i)
             {
-                director[i] = evecMat(i, minPos);
+                director[i] = evec_mat(i, min_pos);
             }
         }
 
-        return (selEigenVal);
+        return (sel_eigen_val);
     }
 };
 
