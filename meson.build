@@ -7,8 +7,7 @@ project(
 
 # check if a feature flag is defined
 feature_flag_conditioned_dependencies = []
-cpp_args = get_option('cpp_args')
-if not cpp_args.contains('-DFEATURE_FLAG_BOOSTLESS')
+if not get_option('boostless').enabled()
     feature_flag_conditioned_dependencies = [
         # Boost pool and its sub-dependencies.
         dependency('boost-throw_exception'),
@@ -19,6 +18,8 @@ if not cpp_args.contains('-DFEATURE_FLAG_BOOSTLESS')
         dependency('boost-pool'),
     ]
 else
+    message('Compiling without boost')
+    add_global_arguments('-DFEATURE_FLAG_BOOSTLESS', language: 'cpp')
 endif
 
 # Sources
