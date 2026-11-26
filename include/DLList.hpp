@@ -52,12 +52,11 @@ class DLList
     {
     };
 
-    typedef boost::singleton_pool<PoolTag,
-                                  sizeof(T),
-                                  boost::default_user_allocator_new_delete,
-                                  boost::details::pool::null_mutex,
-                                  AllocatorGranularity>
-    MemPool;
+    using MemPool = boost::singleton_pool<PoolTag,
+                                          sizeof(T),
+                                          boost::default_user_allocator_new_delete,
+                                          boost::details::pool::null_mutex,
+                                          AllocatorGranularity>;
     void unlink_element(T*);
     T* link_element(T*);
 
