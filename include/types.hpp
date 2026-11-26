@@ -73,12 +73,12 @@ class Intersection;
 class OccupiedIntersection;
 #endif
 
-typedef multimap<double, Intersection>::iterator IntersectionItr;
-typedef int EventDescriptorIndex;
-typedef int EventTrackingTag;
-typedef list<Segment*>::iterator TrjSegmentTag;
-typedef list<MTTip*>::iterator TrjMTTipTag;
-typedef list<MTTip*>::iterator RegionMTTipTag;
+using IntersectionItr = multimap<double, Intersection>::iterator;
+using EventDescriptorIndex = int;
+using EventTrackingTag = int;
+using TrjSegmentTag = list<Segment*>::iterator;
+using TrjMTTipTag = list<MTTip*>::iterator;
+using RegionMTTipTag = list<MTTip*>::iterator;
 
 // new data type definition
 enum class Direction : int
