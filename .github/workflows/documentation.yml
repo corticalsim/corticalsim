@@ -18,6 +18,11 @@ jobs:
         uses: ArcticLampyrid/action-wait-for-workflow@v1
         with:
           workflow: clang-tidy.yml
+      - name: Wait for coverage to finish
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ArcticLampyrid/action-wait-for-workflow@v1
+        with:
+          workflow: coverage.yml
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
       - name: Install dependencies
@@ -28,15 +33,17 @@ jobs:
       - name: Configure meson build
         run: |
           meson setup build/debug . --buildtype debug
+      - name: Sphinx build
+        run: |
+          ninja -C build/debug sphinx-build
       - name: Download the latest clang-tidy findings artifact
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           run_id=$(gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts?name=clang-tidy-log" --jq '[.artifacts[] | select(.expired == false)] | .[0].workflow_run.id')
-          gh run download "$run_id" --dir build/debug --name clang-tidy-log
-      - name: Sphinx build
-        run: |
-          ninja -C build/debug sphinx-build
+          gh run download "$run_id" --dir build/debug/doc_build --name clang-tidy-log
+          run_id=$(gh api "repos/${GITHUB_REPOSITORY}/actions/artifacts?name=coveragereport" --jq '[.artifacts[] | select(.expired == false)] | .[0].workflow_run.id')
+          gh run download "$run_id" --dir build/debug/doc_build/coveragereport --name coveragereport
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.event_name != 'pull_request' }}
