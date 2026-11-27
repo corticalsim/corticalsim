@@ -5,7 +5,7 @@
 CorticalSim is a simulator for cortical microtubule dynamics (CMT) on experimentally extracted microscopic images of cells.
 
 If you use CorticalSim please cite it as follows:
-> Chakrabortty, B., Deinum, E., Hadjiivanov, A., Camphuijsen, J., & Tindemans, S. CorticalSim [Computer software]
+> Chakrabortty, B., Deinum, E., Hadjiivanov, A., Camphuijsen, J., Dadunashvili, G., & Tindemans, S. CorticalSim [Computer software]
 
 For more information about CorticalSim and its use in various applications see the following publications:
 - for general use [http://dx.doi.org/10.3389/fphy.2014.00019](http://dx.doi.org/10.3389/fphy.2014.00019)
