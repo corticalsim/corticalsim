@@ -1,7 +1,5 @@
 # corticalsim dashboard
 
-## clang-tidy findings
+<a href="clang-tidy.log">`clang-tidy` log</a>
 
-[log](./clang-tidy.log)
-
-
+<a href="coveragereport/index.html">Code coverage report</a>

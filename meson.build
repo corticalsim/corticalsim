@@ -2,13 +2,15 @@ project(
     'corticalsim',
     'cpp',
     meson_version: '>=1.3.0',
-    default_options: ['cpp_std=c++20'],
+    default_options: [
+        'cpp_std=c++20',
+        'b_coverage=true', # enable coverage targets if gcovr is available
+    ],
 )
 
 # check if a feature flag is defined
 feature_flag_conditioned_dependencies = []
-cpp_args = get_option('cpp_args')
-if not cpp_args.contains('-DFEATURE_FLAG_BOOSTLESS')
+if not get_option('boostless').enabled()
     feature_flag_conditioned_dependencies = [
         # Boost pool and its sub-dependencies.
         dependency('boost-throw_exception'),
@@ -19,6 +21,8 @@ if not cpp_args.contains('-DFEATURE_FLAG_BOOSTLESS')
         dependency('boost-pool'),
     ]
 else
+    message('Compiling without boost')
+    add_global_arguments('-DFEATURE_FLAG_BOOSTLESS', language: 'cpp')
 endif
 
 # Sources
@@ -28,7 +32,6 @@ incdir = include_directories('include')
 
 # Directories containing source files
 subdir('src')
-subdir('tests')
 
 # Dependencies
 # ============
@@ -87,22 +90,7 @@ meson.add_postconf_script(
 
 # Google Test
 
-gtest = dependency('gtest_main')
-
-if gtest.found()
-    test_executable = executable(
-        'all_tests',
-        test_sources,
-        include_directories: incdir,
-        link_with: corticalsim_lib,
-        dependencies: [
-            gtest,
-            corticalsim_deps,
-        ],
-    )
-
-    test('all_tests', test_executable)
-endif
+subdir('tests')
 
 
 # Clang-format

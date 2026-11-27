@@ -1,0 +1,47 @@
+name: coverage
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: coveragereport
+      errors: ${{ steps.findings.outputs.errors }}
+      warnings: ${{ steps.findings.outputs.warnings }}
+      conclusion: ${{ steps.set-conclusion.outputs.conclusion }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          llvm-version: 22
+      - name: Set up Meson Ninja, GCC and CMake
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y meson ninja-build gcc cmake gcovr
+
+      - name: Run tests
+        run: |
+          meson setup build/release . --buildtype release --reconfigure
+          ninja test -C build/release/
+          ninja -C build/release/ coverage
+
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: coveragereport
+          path: build/release/meson-logs/coveragereport
+          retention-days: 90
+          if-no-files-found: error
+
+

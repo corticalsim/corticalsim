@@ -11,3 +11,9 @@ option(
     value: '',
     description: 'Comma-separated list of clang-tidy checks to treat as errors (e.g. "*", or "clang-analyzer-*,"); empty disables the flag',
 )
+
+option('boostless',
+    type: 'feature',
+    value: 'enabled',
+    description: 'Enable compilation without boost dependencies. Keep the option of compiling with boost, for testing purpouses only.',
+    )
