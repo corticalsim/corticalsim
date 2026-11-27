@@ -38,16 +38,16 @@ jobs:
 
       - name: Run clang-tidy target
         run: |
-          meson setup build/release . --buildtype release --reconfigure
-          meson compile -C build/release tidy
-          echo $(date) >> clang-tidy.log
-          echo "git-sha: ${{ github.sha }}" >> clang-tidy.log
+          meson setup build/debug . --buildtype debug --reconfigure
+          meson compile -C build/debug tidy
+          echo $(date) >> build/debug/clang-tidy.log
+          echo "git-sha: ${{ github.sha }}" >> build/debug/clang-tidy.log
 
       - name: Upload clang-tidy artifacts
         uses: actions/upload-artifact@v7
         with:
           name: clang-tidy-log
-          path: clang-tidy.log
+          path: build/debug/clang-tidy.log
           retention-days: 90
           if-no-files-found: error
 
